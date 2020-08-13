@@ -75,11 +75,5 @@ test:
 #
 # You can use this database configuration with:
 #
-#   production:
-#     url: <%= ENV['DATABASE_URL'] %>
-#
 production:
-  <<: *default
-  database: southwark_bsp_production
-  username: southwark_bsp
-  password: <%= ENV['SOUTHWARK_BSP_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
