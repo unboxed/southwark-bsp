@@ -1,3 +1,12 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root to: "homes#show", via: :get
+
+  resources :survey_replies, only: [:new]
+
+  get "start_survey", to: "surveys/start_surveys#new", as: :start_survey
+
+  resources :surveys do
+    resources :building_tenures, controller: "surveys/building_tenures"
+    resources :building_statuses, controller: "surveys/building_statuses"
+  end
 end

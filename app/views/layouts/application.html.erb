@@ -8,7 +8,20 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body class="govuk-template__body">
-    <%= yield %>
+    <%= render "application/header" %>
+    <div class="govuk-width-container">
+      <div class="govuk-breadcrumbs ">
+        <ol class="govuk-breadcrumbs__list">
+          <li class="govuk-breadcrumbs__list-item">
+            <a class="govuk-breadcrumbs__link" href="/">Home</a>
+          </li>
+          <li class="govuk-breadcrumbs__list-item" aria-current="page">Start</li>
+        </ol>
+      </div>
+      <main class="govuk-main-wrapper " id="main-content" role="main">
+        <%= yield %>
+      </main>
+    </div>
     <%= javascript_pack_tag 'govuk', 'data-turbolinks-track': 'reload' %>
   </body>
 </html>

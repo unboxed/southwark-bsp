@@ -1,0 +1,48 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Building Safety Platform</h1>
+
+    <p class="govuk-body">To use this spike branch:</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+      <li>
+        Run this marvelous incatation in your Rails console:
+        <pre>
+        FactoryBot.create(:survey, building: FactoryBot.create(:building, manager: FactoryBot.create(:building_manager)))
+        </pre>
+      </li>
+      <li>Install foreman: <pre>gem install foreman</pre></li>
+      <li>Start the app with <pre>foreman start -f Procfile.dev</pre></li>
+      <li>Visit <pre>localhost:5000/start_survey?for=<i>id of building generated above</i></pre></li>
+    </ul>
+
+  <div class="govuk-grid-column-one-third">
+
+    <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
+
+    <aside class="app-related-items" role="complementary">
+      <h2 class="govuk-heading-m" id="subsection-title">
+        Subsection
+      </h2>
+      <nav role="navigation" aria-labelledby="subsection-title">
+        <ul class="govuk-list govuk-!-font-size-16">
+          <li>
+            <a class="govuk-link" href="#">
+              Related link
+            </a>
+          </li>
+          <li>
+            <a class="govuk-link" href="#">
+              Related link
+            </a>
+          </li>
+          <li>
+            <a href="#" class="govuk-link govuk-!-font-weight-bold">
+              More <span class="govuk-visually-hidden">in Subsection</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+  </div>
+</div>
