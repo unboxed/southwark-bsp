@@ -8,6 +8,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body class="govuk-template__body">
+    <%= render "application/header" %>
     <% if notice %>
       <p class="alert alert-success"><%= notice %></p>
     <% end %>
