@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_19_103240) do
+ActiveRecord::Schema.define(version: 2020_08_19_162359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -21,6 +21,20 @@ ActiveRecord::Schema.define(version: 2020_08_19_103240) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_building_managers_on_email"
+  end
+
+  create_table "buildings", force: :cascade do |t|
+    t.string "address", null: false
+    t.bigint "UPRN"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "manager_id"
+    t.index ["manager_id"], name: "index_buildings_on_manager_id"
+  end
+
+  create_table "surveys", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -36,4 +50,5 @@ ActiveRecord::Schema.define(version: 2020_08_19_103240) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "buildings", "building_managers", column: "manager_id"
 end
