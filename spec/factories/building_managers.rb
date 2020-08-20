@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :building_manager do
-    email { "example@example.com" }
+    sequence(:email) { |i| "beans#{i}@example.com" }
   end
 end

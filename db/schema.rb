@@ -10,11 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_20_134216) do
+ActiveRecord::Schema.define(version: 2020_08_20_141001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  create_table "building_heights", force: :cascade do |t|
+    t.bigint "survey_id", null: false
+    t.boolean "higher_than_18_meters"
+    t.integer "height_in_meters"
+    t.integer "height_in_storeys"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_id"], name: "index_building_heights_on_survey_id"
+  end
 
   create_table "building_managers", force: :cascade do |t|
     t.citext "email", null: false
@@ -78,6 +88,7 @@ ActiveRecord::Schema.define(version: 2020_08_20_134216) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "building_heights", "surveys"
   add_foreign_key "building_ownerships", "surveys"
   add_foreign_key "building_statuses", "surveys"
   add_foreign_key "building_tenures", "surveys"

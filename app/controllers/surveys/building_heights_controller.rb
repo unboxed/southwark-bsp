@@ -1,0 +1,38 @@
+module Surveys
+  class BuildingHeightsController < ApplicationController
+    def new
+      @survey = survey
+      @building_height = BuildingHeight.new(survey: @survey)
+    end
+
+    def create
+      building_height = BuildingHeight.new building_height_params
+
+      if building_height.save
+        redirect_to next_survey_section(current_section: building_height, survey: survey)
+      end
+    end
+
+    def meters_and_storeys
+      @survey = survey
+      @building_height = BuildingHeight.find_by(survey_id: survey)
+    end
+
+    def update
+      building_height = BuildingHeight.find_by(survey_id: survey)
+
+      if building_height.update(building_height_params)
+        redirect_to root_url
+      end
+    end
+
+    private
+      def survey
+        Survey.find params[:survey_id]
+      end
+
+      def building_height_params
+        params.require(:building_height).permit(:higher_than_18_meters, :height_in_meters, :height_in_storeys).merge(survey: survey)
+      end
+  end
+end
