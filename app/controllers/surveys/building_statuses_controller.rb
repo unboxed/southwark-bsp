@@ -22,9 +22,5 @@ module Surveys
       def create_building_status_params
         params.require(:building_status).permit(:status).merge(survey: survey)
       end
-
-      def next_survey_section(current_section:, survey:)
-        SurveySequenceRouter.for(survey).next_section_for(current_section)
-      end
   end
 end

@@ -21,6 +21,8 @@ class SurveySequenceRouter
       new_survey_building_ownership_path(survey)
     when "BuildingOwnership"
       new_survey_building_height_path(survey)
+    when "BuildingHeight"
+      survey_meters_and_storeys_path(survey)
     end
   end
 end

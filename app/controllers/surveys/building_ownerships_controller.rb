@@ -21,9 +21,5 @@ module Surveys
     def create_ownership_information_params
       params.require(:building_ownership).permit(:ownership_status).merge(survey: survey)
     end
-
-    def next_survey_section(current_section:, survey:)
-      SurveySequenceRouter.for(survey).next_section_for(current_section)
-    end
   end
 end

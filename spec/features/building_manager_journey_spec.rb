@@ -31,6 +31,13 @@ RSpec.describe "Building manager functionality" do
       expect(page).to have_text("Please confirm ownership status")
 
       choose "Owner freeholder", visible: false
+      click_button "Continue"
+
+      expect(page).to have_text("Is this building 18m or higher?")
+      choose "Yes", visible: false
+      click_button "Continue"
+
+      expect(page).to have_text("If known, what is the height of this building?")
     end
   end
 end
