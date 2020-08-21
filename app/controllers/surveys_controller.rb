@@ -5,6 +5,7 @@ class SurveysController < ApplicationController
   # GET /surveys.json
   def index
     @building = Building.last
+    @survey = Survey.create building: @building
   end
 
   # GET /surveys/1
@@ -14,8 +15,8 @@ class SurveysController < ApplicationController
 
   # GET /surveys/new
   def new
-    @survey = Survey.new
-    @building = Building.find(params[:building_id])
+    @building = Building.includes(:manager).find(params[:building_id])
+    @survey = Survey.new building: @building
   end
 
   # POST /surveys

@@ -6,4 +6,5 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-building = Building.create(address: "134 Test Row, London", UPRN: 20012524507)
+building_manager = BuildingManager.create(email: "taco@taco.com")
+building = Building.create(address: "134 Test Row, London", UPRN: 20012524507, manager: building_manager)
