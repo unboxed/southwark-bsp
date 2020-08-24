@@ -4,25 +4,31 @@ module Surveys
 
     def new
       @survey = survey
+      @section = section(@survey)
       @building_tenure = BuildingTenure.new(survey: survey)
     end
 
     def create
       @building_tenure = survey.sections.build content: BuildingTenure.new(building_tenure_params)
-
       if @building_tenure.save
         redirect_to next_survey_section(current_section: @building_tenure, survey: survey)
       end
     end
 
     def edit
+      session[:previous_url] = request.referer
       @survey = survey
+      @section = section(@survey)
       @building_tenure = building_tenure
     end
 
     def update
       if building_tenure.update building_tenure_params
-        redirect_to survey_summary_path(survey)
+        if session[:previous_url] == new_survey_building_ownership_url(survey)
+          redirect_to new_survey_building_ownership_url(survey)
+        else
+          redirect_to survey_summary_path(survey)
+        end
       end
     end
 
@@ -30,6 +36,10 @@ module Surveys
 
       def survey
         Survey.find params[:survey_id]
+      end
+
+      def section(survey)
+        survey.sections.find_by(content_type: "BuildingStatus")
       end
 
       def building_tenure
