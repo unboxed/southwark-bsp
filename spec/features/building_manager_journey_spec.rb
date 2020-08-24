@@ -14,7 +14,7 @@ RSpec.describe "Building manager functionality" do
 
   context "filling in a survey" do
     it "creates a new survey" do
-      expect(page).to have_text("Tall buildings survey")
+      expect(page).to have_text("Building safety survey")
 
       click_on "Start now"
       expect(page).to have_text("Please confirm the status of this building")

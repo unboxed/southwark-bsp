@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get "new_survey", to: "surveys/start_surveys#new", as: :start_new_survey
 
+  resources :frequently_asked_questions, only: %i(index)
+
   resources :surveys do
     resources :building_statuses, controller: "surveys/building_statuses"
     resources :building_tenures, controller: "surveys/building_tenures"
