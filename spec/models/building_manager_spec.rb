@@ -1,5 +1,5 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe BuildingManager, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe BuildingManager, "associations" do
+  it { is_expected.to have_many :buildings }
 end

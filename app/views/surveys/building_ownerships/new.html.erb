@@ -8,7 +8,7 @@
           </h1>
         </legend>
         <div class="govuk-radios">
-          <%= form_builder.collection_radio_buttons :ownership_status, @ownership_information.class.statuses, :first, :first do |radio_button| %>
+          <%= form_builder.collection_radio_buttons :ownership_status, @ownership_information.class.ownership_statuses, :first, :first do |radio_button| %>
             <div class="govuk-radios__item">
               <%= radio_button.radio_button(class: "govuk-radios__input", data: { action: "change->building-status#toggle" }) %>
               <%= radio_button.label(class: "govuk-label govuk-radios__label") { radio_button.text.humanize } %>
