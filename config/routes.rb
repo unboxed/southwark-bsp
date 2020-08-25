@@ -14,6 +14,12 @@ Rails.application.routes.draw do
     resources :building_heights, controller: "surveys/building_heights"
     resources :building_external_wall_structures, controller: "surveys/building_external_wall_structures"
     get "meters_and_storeys", to: "surveys/building_heights#meters_and_storeys"
+    resources :building_walls, controller: "surveys/building_walls" do
+      patch "/materials", to:  "surveys/materials#update"
+      get "materials/details", to:  "surveys/materials#material_partial"
+      patch "materials/details", to:  "surveys/materials#update"
+      resources :materials, controller: "surveys/materials"
+    end
     resource :summary, controller: "surveys/summaries", only: [:show]
     resource :end_survey, controller: "surveys/end_surveys", only: [:create]
   end

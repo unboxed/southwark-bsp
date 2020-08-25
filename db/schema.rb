@@ -72,6 +72,14 @@ ActiveRecord::Schema.define(version: 2020_08_27_102932) do
     t.index ["survey_id"], name: "index_building_tenures_on_survey_id"
   end
 
+  create_table "building_walls", force: :cascade do |t|
+    t.bigint "survey_id", null: false
+    t.integer "material_quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_id"], name: "index_building_walls_on_survey_id"
+  end
+
   create_table "buildings", force: :cascade do |t|
     t.string "address", null: false
     t.bigint "UPRN"
@@ -79,6 +87,18 @@ ActiveRecord::Schema.define(version: 2020_08_27_102932) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "manager_id"
     t.index ["manager_id"], name: "index_buildings_on_manager_id"
+  end
+
+  create_table "materials", force: :cascade do |t|
+    t.bigint "building_wall_id", null: false
+    t.string "name"
+    t.text "details"
+    t.integer "percentage"
+    t.string "insulation_material"
+    t.text "insulation_details"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["building_wall_id"], name: "index_materials_on_building_wall_id"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -115,7 +135,9 @@ ActiveRecord::Schema.define(version: 2020_08_27_102932) do
   add_foreign_key "building_ownerships", "surveys"
   add_foreign_key "building_statuses", "surveys"
   add_foreign_key "building_tenures", "surveys"
+  add_foreign_key "building_walls", "surveys"
   add_foreign_key "buildings", "building_managers", column: "manager_id"
+  add_foreign_key "materials", "building_walls"
   add_foreign_key "sections", "surveys"
   add_foreign_key "surveys", "buildings"
 end
