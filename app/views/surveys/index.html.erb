@@ -1,19 +1,14 @@
-  <span class="govuk-caption-xl">Start page</span>
-  <h1 class="govuk-heading-xl">Tall buildings survey</h1>
-  <p class="govuk-body-l">
-    You have been invited to complete the following survey for tall buildings
-  </p>
-  <div class="govuk-inset-text">
-    The scope of this collection is all residential buildings 18 metres or higher (as defined in Approved Document B) including: 
-    social residential buildings, private residential buildings, student accommodation buildings and hotels. 
-    Measurements should be taken from the ground to the floor of the top level using Approved Document B Volume 2 Diagram C6.</div>
-  <p class="govuk-body-l">
-    It should take around 10 mins to complete this survey
-  </p>
-  <%= link_to new_survey_building_status_path(@survey), role: "button", draggable: false, class: "govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8 govuk-button--start", data: { module: "govuk-button" } do %>
-    Start now
-    <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-      <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
-    </svg>
-  <% end %>
+<span class="govuk-caption-xl">Start page</span>
+<h1 class="govuk-heading-xl">Building safety survey</h1>
+<p class="govuk-body-l">Identification of External Wall Materials on High-Rise Residential Buildings.</p>
+<p class="govuk-body-l">As an owner of a building in Southwark, that is over 18m tall, you are requested to complete a survey to identify external wall materials.</p>
+<p class="govuk-body-l">In particular we are interested in the combination of external wall materials and insulation and the external wall structures on these buildings.</p>
+<p class="govuk-body-l">It should take around 10 mins to complete this survey</p>
+<p class="govuk-body-l">See the <%= link_to "frequently asked questions", frequently_asked_questions_path %> section for further information</p>
 
+<%= link_to new_survey_building_status_path(@survey), role: "button", draggable: false, class: "govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8 govuk-button--start", data: { module: "govuk-button" } do %>
+  Start now
+  <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+  </svg>
+<% end %>
