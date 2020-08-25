@@ -33,7 +33,7 @@ module Surveys
         if session[:previous_url] == survey_summary_url(survey)
           redirect_to survey_summary_path(survey)
         else
-          redirect_to next_survey_section(current_section: building_height.section, survey: survey)
+          redirect_to new_survey_building_wall_path(survey)
         end
       end
     end

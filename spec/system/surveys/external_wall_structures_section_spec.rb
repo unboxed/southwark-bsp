@@ -8,7 +8,6 @@ RSpec.describe "External wall structures section" do
     visit new_survey_building_external_wall_structure_path(survey)
 
     expect(page).to have_content "Are there any sizeable external wall structures?"
-    expect(page).to have_link "Back", href: edit_survey_building_height_path(survey, previous_section.content)
 
     check "Balconies", visible: false
     check "Solar shading", visible: false

@@ -84,12 +84,16 @@ RSpec.describe "Building manager views survey reply summary" do
       click_on "Back"
 
       expect(page).to have_text("Is this building 18m or higher?")
-      expect(page).to have_text("If known, what is the height of this building?")
+      choose "Yes", visible: false
 
-      choose "No", visible: false
+      within "fieldset", text: "If known, what is the height of this building?" do
+        fill_in "In meters", with: 20
+        fill_in "In storeys", with: 10
+      end
+
       click_on "Continue"
 
-      expect(page).to have_text("Check your answers")
+      expect(page).to have_text("External facing materials")
     end
   end
 end

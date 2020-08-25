@@ -25,8 +25,10 @@ class SurveySequenceRouter
       if current_section.incomplete?
         survey_meters_and_storeys_path(survey)
       else
-        new_survey_building_external_wall_structure_path(survey)
+        new_survey_building_wall_material_path(survey)
       end
+    when "Materials"
+      new_survey_building_external_wall_structure_path(survey)
     end
   end
 end
