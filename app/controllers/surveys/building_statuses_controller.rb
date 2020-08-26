@@ -4,14 +4,25 @@ module Surveys
 
     def new
       @survey = survey
-      @building_information = BuildingStatus.new(survey: @survey)
+      @building_status = BuildingStatus.new(survey: @survey)
     end
 
     def create
-      building_status = survey.sections.build content: BuildingStatus.new(create_building_status_params)
+      building_status = survey.sections.build content: BuildingStatus.new(building_status_params)
 
       if building_status.save
         redirect_to next_survey_section(current_section: building_status, survey: survey)
+      end
+    end
+
+    def edit
+      @survey = survey
+      @building_status = building_status
+    end
+
+    def update
+      if building_status.update building_status_params
+        redirect_to survey_summary_path(survey)
       end
     end
 
@@ -21,8 +32,12 @@ module Surveys
         Survey.find params[:survey_id]
       end
 
-      def create_building_status_params
+      def building_status_params
         params.require(:building_status).permit(:status).merge(survey: survey)
+      end
+
+      def building_status
+        BuildingStatus.find params[:id]
       end
   end
 end

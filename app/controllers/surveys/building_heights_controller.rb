@@ -20,6 +20,11 @@ module Surveys
       @building_height = BuildingHeight.find_by(survey_id: survey)
     end
 
+    def edit
+      @survey = survey
+      @building_height = building_height
+    end
+
     def update
       building_height = BuildingHeight.find_by(survey_id: survey)
 
@@ -32,6 +37,10 @@ module Surveys
 
       def survey
         Survey.find params[:survey_id]
+      end
+
+      def building_height
+        BuildingHeight.find params[:id]
       end
 
       def building_height_params
