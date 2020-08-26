@@ -12,7 +12,7 @@ class SurveySequenceRouter
   end
 
   def next_section_for(current_section)
-    return end_survey_path(survey) if current_section.should_terminate_survey?
+    return survey_summary_path(survey) if current_section.should_terminate_survey?
 
     case current_section.class.name
     when "BuildingStatus"

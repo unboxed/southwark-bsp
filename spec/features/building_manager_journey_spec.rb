@@ -38,6 +38,11 @@ RSpec.describe "Building manager functionality" do
       click_button "Continue"
 
       expect(page).to have_text("If known, what is the height of this building?")
+      fill_in "In meters", with: 20
+      fill_in "In storeys", with: 9
+      click_button "Continue"
+
+      expect(page).to have_content "Check your answers"
     end
   end
 end
