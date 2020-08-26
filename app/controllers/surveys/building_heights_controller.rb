@@ -4,6 +4,7 @@ module Surveys
 
     def new
       @survey = survey
+      @section = section(@survey)
       @building_height = BuildingHeight.new(survey: @survey)
     end
 
@@ -22,6 +23,7 @@ module Surveys
 
     def edit
       @survey = survey
+      @section = section(@survey)
       @building_height = building_height
     end
 
@@ -37,6 +39,10 @@ module Surveys
 
       def survey
         Survey.find params[:survey_id]
+      end
+
+      def section(survey)
+        survey.sections.find_by(content_type: "BuildingOwnership")
       end
 
       def building_height

@@ -16,13 +16,18 @@ module Surveys
     end
 
     def edit
+      session[:previous_url] = request.referer
       @survey = survey
       @building_status = building_status
     end
 
     def update
       if building_status.update building_status_params
-        redirect_to survey_summary_path(survey)
+        if session[:previous_url] == new_survey_building_tenure_url(survey)
+          redirect_to new_survey_building_tenure_path(survey)
+        else
+          redirect_to survey_summary_path(survey)
+        end
       end
     end
 
