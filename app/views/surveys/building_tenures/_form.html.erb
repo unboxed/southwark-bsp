@@ -1,22 +1,22 @@
 <div data-controller="building-status">
-  <%= form_with model: [@survey, @building_height] do |f| %>
+<%= form_with model: [@survey, @building_tenure] do |form_builder| %>
   <div class="govuk-form-group">
     <fieldset class="govuk-fieldset">
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
         <h1 class="govuk-fieldset__heading">
-          Is this building 18m or higher?
+          Please indicate the primary tenure for this building
         </h1>
       </legend>
       <div class="govuk-radios">
-        <%= f.collection_radio_buttons :higher_than_18_meters, [[true, 'Yes'] ,[false, 'No']], :first, :last do |radio_button| %>
+        <%= form_builder.collection_radio_buttons :tenure_type, @building_tenure.class.tenure_types, :first, :first do |radio_button| %>
           <div class="govuk-radios__item">
-            <%= radio_button.radio_button(class: "govuk-radios__input", data: { action: "change->building-height#toggle" }) %>
+            <%= radio_button.radio_button(class: "govuk-radios__input") %>
             <%= radio_button.label(class: "govuk-label govuk-radios__label") { radio_button.text.humanize } %>
           </div>
         <% end %>
       </div>
     </fieldset>
   </div>
-  <%= f.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
+  <%= form_builder.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
 <% end %>
 </div>

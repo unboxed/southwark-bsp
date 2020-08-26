@@ -6,6 +6,11 @@
         <div class="govuk-summary-list__row" data-information-displayed="<%= survey_section.name.parameterize %>">
           <dt class="govuk-summary-list__key"><%= survey_section.name %></dt>
           <dd class="govuk-summary-list__value"><%= survey_section.reply %></dd>
+          <dd class="govuk-summary-list__actions">
+            <%= link_to [:edit, @survey, survey_section.content], class: "govuk-link" do %>
+              Change<span class="govuk-visually-hidden"> <%= survey_section.name %></span>
+            <% end %>
+          </dd>
         </div>
       <% end %>
     </dl>
