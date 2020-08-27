@@ -1,0 +1,20 @@
+<div class="govuk-summary-list__row" data-information-displayed="<%= building_external_wall_structure.name.parameterize %>">
+  <dt class="govuk-summary-list__key"><%= building_external_wall_structure.name %></dt>
+  <dd class="govuk-summary-list__value"><%= building_external_wall_structure.reply %></dd>
+  <dd class="govuk-summary-list__actions">
+  <%= link_to [:edit, building_external_wall_structure.survey, building_external_wall_structure.content], class: "govuk-link" do %>
+    Change<span class="govuk-visually-hidden"> <%= building_external_wall_structure.name %></span>
+  <% end %>
+  </dd>
+</div>
+<% if building_external_wall_structure.content.has_other_structure? %>
+  <div class="govuk-summary-list__row" data-information-displayed="building-external-wall-structure-other-structures">
+    <dt class="govuk-summary-list__key">Other external structures</dt>
+    <dd class="govuk-summary-list__value"><%= building_external_wall_structure.content.other_structure_details %></dd>
+    <dd class="govuk-summary-list__actions">
+    <%= link_to [:edit, building_external_wall_structure.survey, building_external_wall_structure.content], class: "govuk-link" do %>
+      Change<span class="govuk-visually-hidden"> <%= building_external_wall_structure.name %></span>
+    <% end %>
+    </dd>
+  </div>
+<% end %>

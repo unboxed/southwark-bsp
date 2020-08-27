@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :building_tenures, controller: "surveys/building_tenures"
     resources :building_ownerships, controller: "surveys/building_ownerships"
     resources :building_heights, controller: "surveys/building_heights"
+    resources :building_external_wall_structures, controller: "surveys/building_external_wall_structures"
     get "meters_and_storeys", to: "surveys/building_heights#meters_and_storeys"
     resource :summary, controller: "surveys/summaries", only: [:show]
     resource :end_survey, controller: "surveys/end_surveys", only: [:create]

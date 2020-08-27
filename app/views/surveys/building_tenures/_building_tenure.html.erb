@@ -1,0 +1,9 @@
+<div class="govuk-summary-list__row" data-information-displayed="<%= building_tenure.name.parameterize %>">
+  <dt class="govuk-summary-list__key"><%= building_tenure.name %></dt>
+  <dd class="govuk-summary-list__value"><%= building_tenure.reply %></dd>
+  <dd class="govuk-summary-list__actions">
+  <%= link_to [:edit, building_tenure.survey, building_tenure.content], class: "govuk-link" do %>
+    Change<span class="govuk-visually-hidden"> <%= building_tenure.name %></span>
+  <% end %>
+  </dd>
+</div>

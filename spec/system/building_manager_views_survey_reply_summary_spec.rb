@@ -11,6 +11,8 @@ RSpec.describe "Building manager views survey reply summary" do
     create :section, content: building_tenure, survey: survey
     building_height = create :building_height, higher_than_18_meters: true, height_in_storeys: 4, height_in_meters: 20, survey: survey
     create :section, content: building_height, survey: survey
+    external_wall_structure = create :building_external_wall_structure, has_green_walls: true, survey: survey
+    create :section, content: external_wall_structure, survey: survey
 
     visit survey_summary_path(survey)
 
@@ -19,6 +21,7 @@ RSpec.describe "Building manager views survey reply summary" do
     expect_building_ownership_to_be_displayed_as "Developer"
     expect_building_tenure_to_be_displayed_as "Private residential"
     expect_building_height_to_be_displayed_as "Taller than 18 meters - 4 storey(s), 20 meters"
+    expect_building_external_wall_structure_to_be_displayed_as "Green walls"
 
     within(building_ownership_row) { click_on "Change" }
     choose "Owner freeholder", visible: false
@@ -38,6 +41,13 @@ RSpec.describe "Building manager views survey reply summary" do
     click_on "Continue"
 
     expect_building_height_to_be_displayed_as "Taller than 18 meters - 3 storey(s), 10 meters"
+
+    within(building_external_wall_structure_row) { click_on "Change" }
+    check "Solar shading"
+    uncheck "Green walls"
+    click_on "Continue"
+
+    expect_building_external_wall_structure_to_be_displayed_as "Solar shading"
   end
 
   def expect_building_status_to_be_displayed_as(status)
@@ -56,6 +66,10 @@ RSpec.describe "Building manager views survey reply summary" do
     expect(building_height_row).to have_text status
   end
 
+  def expect_building_external_wall_structure_to_be_displayed_as(status)
+    expect(building_external_wall_structure_row).to have_text status
+  end
+
   def building_status_row
     find('div[data-information-displayed="building-status"]')
   end
@@ -70,5 +84,9 @@ RSpec.describe "Building manager views survey reply summary" do
 
   def building_height_row
     find('div[data-information-displayed="building-height"]')
+  end
+
+  def building_external_wall_structure_row
+    find('div[data-information-displayed="external-walls-structures"]')
   end
 end

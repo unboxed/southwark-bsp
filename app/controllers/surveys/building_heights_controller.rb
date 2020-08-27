@@ -22,16 +22,19 @@ module Surveys
     end
 
     def edit
+      session[:previous_url] = request.referer
       @survey = survey
       @section = section(@survey)
       @building_height = building_height
     end
 
     def update
-      building_height = BuildingHeight.find_by(survey_id: survey)
-
       if building_height.update(building_height_params)
-        redirect_to survey_summary_path(building_height.survey)
+        if session[:previous_url] == survey_summary_url(survey)
+          redirect_to survey_summary_path(survey)
+        else
+          redirect_to next_survey_section(current_section: building_height.section, survey: survey)
+        end
       end
     end
 
