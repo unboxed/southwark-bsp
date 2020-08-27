@@ -23,7 +23,7 @@ module Surveys
 
     def update
       if building_status.update building_status_params
-        if session[:previous_url] == new_survey_building_tenure_url(survey)
+        if session[:previous_url] == new_survey_building_tenure_url(survey) && !building_status.should_terminate_survey?
           redirect_to new_survey_building_tenure_path(survey)
         else
           redirect_to survey_summary_path(survey)

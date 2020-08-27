@@ -24,10 +24,10 @@ RSpec.describe "Building manager views survey reply summary" do
 
        expect(page).to have_text("Please confirm the status of this building")
 
-       choose "Existing", visible: true
+       choose "Demolished", visible: false
        click_on "Continue"
 
-       expect(page).to have_text("Please indicate the primary tenure for this building")
+       expect(page).to have_text("Check your answers")
      end
 
     it "allows managers to modify building tenure" do
@@ -67,6 +67,29 @@ RSpec.describe "Building manager views survey reply summary" do
       click_on "Continue"
 
       expect(page).to have_text("Is this building 18m or higher?")
+    end
+
+    it "allows managers to modify building height" do
+      choose "Existing", visible: false
+      click_on "Continue"
+      choose "Social residential", visible: false
+      click_on "Continue"
+      choose "Owner freeholder", visible: false
+      click_on "Continue"
+      choose "Yes", visible: false
+      click_on "Continue"
+
+      expect(page).to have_link "Back"
+
+      click_on "Back"
+
+      expect(page).to have_text("Is this building 18m or higher?")
+      expect(page).to have_text("If known, what is the height of this building?")
+
+      choose "No", visible: false
+      click_on "Continue"
+
+      expect(page).to have_text("Check your answers")
     end
   end
 end
