@@ -1,3 +1,4 @@
+<%= render 'application/back_link', chosen_path: edit_survey_building_height_path(@survey.id, @building_height.id) %>
 <div data-controller="building-status">
   <%= form_with model: [@survey, @building_height] do |f| %>
     <div class="govuk-form-group">
