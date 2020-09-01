@@ -42,6 +42,10 @@ RSpec.describe "Building manager functionality" do
       fill_in "In storeys", with: 9
       click_button "Continue"
 
+      expect(page).to have_content "Are there any sizeable external wall structures?"
+      check "Has no external structures"
+      click_button "Continue"
+
       expect(page).to have_content "Check your answers"
     end
   end

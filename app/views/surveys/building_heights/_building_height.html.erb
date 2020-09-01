@@ -1,0 +1,9 @@
+<div class="govuk-summary-list__row" data-information-displayed="<%= building_height.name.parameterize %>">
+  <dt class="govuk-summary-list__key"><%= building_height.name %></dt>
+  <dd class="govuk-summary-list__value"><%= building_height.reply %></dd>
+  <dd class="govuk-summary-list__actions">
+  <%= link_to [:edit, building_height.survey, building_height.content], class: "govuk-link" do %>
+    Change<span class="govuk-visually-hidden"> <%= building_height.name %></span>
+  <% end %>
+  </dd>
+</div>

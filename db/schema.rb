@@ -10,11 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_25_115134) do
+ActiveRecord::Schema.define(version: 2020_08_27_102932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  create_table "building_external_wall_structures", force: :cascade do |t|
+    t.bigint "survey_id", null: false
+    t.boolean "has_balconies", default: false, null: false
+    t.boolean "has_solar_shading", default: false, null: false
+    t.boolean "has_green_walls", default: false, null: false
+    t.boolean "has_no_external_structures", default: false, null: false
+    t.boolean "has_other_structure", default: false, null: false
+    t.string "other_structure_details"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_id"], name: "index_building_external_wall_structures_on_survey_id"
+  end
 
   create_table "building_heights", force: :cascade do |t|
     t.bigint "survey_id", null: false
@@ -97,6 +110,7 @@ ActiveRecord::Schema.define(version: 2020_08_25_115134) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "building_external_wall_structures", "surveys"
   add_foreign_key "building_heights", "surveys"
   add_foreign_key "building_ownerships", "surveys"
   add_foreign_key "building_statuses", "surveys"

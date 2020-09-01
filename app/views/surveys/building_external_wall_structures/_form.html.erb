@@ -1,0 +1,47 @@
+<div data-controller="detail" data-detail-toggle-class="govuk-visually-hidden">
+  <%= form_with model: [@survey, @building_external_wall_structure] do |form_builder| %>
+    <div class="govuk-form-group">
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">
+            Are there any sizeable external wall structures?
+          </h1>
+        </legend>
+        <div class="govuk-hint">
+          Please provide details below regarding any external wall attachments on
+          this building and the material(s) these are made from.
+        </div>
+        <div class="govuk-checkboxes">
+          <div class="govuk-checkboxes__item">
+            <%= form_builder.check_box :has_balconies, {class: "govuk-checkboxes__input"}, "true", "false" %>
+            <%= form_builder.label :has_balconies, "Balconies", class: "govuk-label govuk-checkboxes__label" %>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <%= form_builder.check_box :has_solar_shading, {class: "govuk-checkboxes__input"}, "true", "false" %>
+            <%= form_builder.label :has_solar_shading, "Solar shading", class: "govuk-label govuk-checkboxes__label" %>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <%= form_builder.check_box :has_green_walls, {class: "govuk-checkboxes__input"}, "true", "false" %>
+            <%= form_builder.label :has_green_walls, "Green walls", class: "govuk-label govuk-checkboxes__label" %>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <%= form_builder.check_box :has_no_external_structures, {class: "govuk-checkboxes__input"}, "true", "false" %>
+            <%= form_builder.label :has_no_external_structures, "Has no external structures", class: "govuk-label govuk-checkboxes__label" %>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <%= form_builder.check_box :has_other_structure, {class: "govuk-checkboxes__input", data: { action: "detail#toggle"} }, "true", "false" %>
+            <%= form_builder.label :has_other_structure, "Other", class: "govuk-label govuk-checkboxes__label" %>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div class="govuk-form-group <%= form_builder.object.has_other_structure? ? nil : "govuk-visually-hidden" %>" data-target="detail.input">
+      <%= form_builder.label :other_structure_details, "Please list other external structures", class: "govuk-label" %>
+      <div class="govuk-hint">
+        List any other external structures, separated by commas.
+      </div>
+      <%= form_builder.text_field :other_structure_details, class: "govuk-input govuk-input--width-20" %>
+    </div>
+    <%= form_builder.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
+  <% end %>
+</div>
