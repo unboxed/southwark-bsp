@@ -19,7 +19,9 @@ module Surveys
     end
 
     def edit
+      session[:previous_url] = request.referer
       @survey = survey
+      @section = section(@survey)
       @building_external_wall_structure = building_external_wall_structure
     end
 

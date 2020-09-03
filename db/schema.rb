@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_27_102932) do
+ActiveRecord::Schema.define(version: 2020_09_01_163743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -89,6 +89,35 @@ ActiveRecord::Schema.define(version: 2020_08_27_102932) do
     t.index ["manager_id"], name: "index_buildings_on_manager_id"
   end
 
+  create_table "material_detail_lists", force: :cascade do |t|
+    t.bigint "building_external_wall_structure_id", null: false
+    t.string "external_structure_name", default: "", null: false
+    t.boolean "has_timber_or_wood_primary_material", default: false, null: false
+    t.boolean "has_timber_or_wood_floor_material", default: false, null: false
+    t.boolean "has_timber_or_wood_railing_material", default: false, null: false
+    t.boolean "has_glass_primary_material", default: false, null: false
+    t.boolean "has_glass_floor_material", default: false, null: false
+    t.boolean "has_glass_railing_material", default: false, null: false
+    t.boolean "has_metal_primary_material", default: false, null: false
+    t.boolean "has_metal_floor_material", default: false, null: false
+    t.boolean "has_metal_railing_material", default: false, null: false
+    t.boolean "has_concrete_primary_material", default: false, null: false
+    t.boolean "has_concrete_floor_material", default: false, null: false
+    t.boolean "has_concrete_railing_material", default: false, null: false
+    t.boolean "has_unknown_primary_material", default: false, null: false
+    t.boolean "has_unknown_floor_material", default: false, null: false
+    t.boolean "has_unknown_railing_material", default: false, null: false
+    t.boolean "has_other_primary_material", default: false, null: false
+    t.boolean "has_other_floor_material", default: false, null: false
+    t.boolean "has_other_railing_material", default: false, null: false
+    t.string "other_primary_material_details"
+    t.string "other_floor_material_details"
+    t.string "other_railing_material_details"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["building_external_wall_structure_id"], name: "index_detail_list_on_wall_structure_id"
+  end
+
   create_table "materials", force: :cascade do |t|
     t.bigint "building_wall_id", null: false
     t.string "name"
@@ -137,6 +166,7 @@ ActiveRecord::Schema.define(version: 2020_08_27_102932) do
   add_foreign_key "building_tenures", "surveys"
   add_foreign_key "building_walls", "surveys"
   add_foreign_key "buildings", "building_managers", column: "manager_id"
+  add_foreign_key "material_detail_lists", "building_external_wall_structures"
   add_foreign_key "materials", "building_walls"
   add_foreign_key "sections", "surveys"
   add_foreign_key "surveys", "buildings"
