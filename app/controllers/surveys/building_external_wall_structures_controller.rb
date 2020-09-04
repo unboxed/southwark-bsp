@@ -9,12 +9,15 @@ module Surveys
     end
 
     def create
-      @building_external_wall_structure = survey.sections.build(
-        content: BuildingExternalWallStructure.new(external_structure_params)
-      )
-
+      @building_external_wall_structure = BuildingExternalWallStructure.new(external_structure_params)
       if @building_external_wall_structure.save
-        redirect_to next_survey_section(current_section: @building_external_wall_structure, survey: survey)
+        survey.sections.create content: @building_external_wall_structure
+        redirect_to next_survey_section(current_section: @building_external_wall_structure.section, survey: survey)
+      else
+        respond_to do |format|
+          @survey = survey
+          format.html { render :new }
+        end
       end
     end
 
@@ -26,8 +29,14 @@ module Surveys
     end
 
     def update
-      if building_external_wall_structure.update external_structure_params
-        redirect_to next_survey_section(current_section: building_external_wall_structure.section, survey: survey)
+      @building_external_wall_structure = building_external_wall_structure
+      if @building_external_wall_structure.update external_structure_params
+        redirect_to next_survey_section(current_section: @building_external_wall_structure.section, survey: survey)
+      else
+        respond_to do |format|
+          @survey = survey
+          format.html { render :edit }
+        end
       end
     end
 
