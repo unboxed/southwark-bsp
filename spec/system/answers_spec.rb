@@ -98,17 +98,32 @@ RSpec.describe "Building manager views survey reply summary" do
   end
 
   context "errors" do
-    it "displays an error if building_status not selected" do
-      building_manager = create :building_manager
-      building = create(:building, manager: building_manager)
+    let!(:building_manager) do
+      create :building_manager
+    end
+    let!(:building) do
+      create :building, manager: building_manager
+    end
 
+    before do
       visit root_path
       click_on "Start now"
+    end
 
+    it "displays an error if building_status not selected" do
       click_on "Continue"
 
       expect(page).to have_text "There was a problem with your survey"
       expect(page).to have_text "Status can't be blank. Please select one value from the list"
+    end
+
+    it "displays an error if building_tenure not selected" do
+      choose "Existing", visible: false
+      click_on "Continue"
+      click_on "Continue"
+
+      expect(page).to have_text "There was a problem with your survey"
+      expect(page).to have_text "Tenure type can't be blank. Please select one value from the list"
     end
   end
 end
