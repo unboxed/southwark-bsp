@@ -1,7 +1,25 @@
 <%= render 'application/back_link', chosen_path: edit_survey_building_status_path(@survey.id, @section.content_id) %>
 <div data-controller="building-status">
-<%= form_with model: [@survey, @building_tenure] do |form_builder| %>
-  <div class="govuk-form-group">
+<%= form_with model: [@survey, @building_tenure], local: true do |form_builder| %>
+  <% if @building_tenure.errors.any? %>
+      <div class="govuk-error-summary">
+        <h2 class="govuk-error-summary__title">
+          There was a problem with your survey
+        </h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list">
+            <% @building_tenure.errors.full_messages.each do |msg| %>
+              <li>
+                <span class="govuk-error-message">
+                  <%= msg %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+  <div class="govuk-form-group <%= " govuk-form-group--error" if @building_tenure.errors.any? %>">
     <fieldset class="govuk-fieldset">
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
         <h1 class="govuk-fieldset__heading">

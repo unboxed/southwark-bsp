@@ -34,3 +34,12 @@ RSpec.describe BuildingTenure, "#should_terminate_survey?" do
     expect(terminates_survey).to eq false
   end
 end
+
+RSpec.describe BuildingTenure, "validation" do
+  it "throws an error if tenure type is not present" do
+    building_tenure = BuildingTenure.new tenure_type: ""
+
+    expect(building_tenure).not_to be_valid
+    expect(building_tenure.errors.added?(:tenure_type, "can't be blank. Please select one value from the list")).to be_truthy
+  end
+end

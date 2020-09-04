@@ -9,9 +9,17 @@ module Surveys
     end
 
     def create
-      @building_tenure = survey.sections.build content: BuildingTenure.new(building_tenure_params)
-      if @building_tenure.save
-        redirect_to next_survey_section(current_section: @building_tenure, survey: survey)
+      building_tenure = BuildingTenure.new(building_tenure_params)
+      if building_tenure.save
+        survey.sections.create content: building_tenure
+        redirect_to next_survey_section(current_section: building_tenure.section, survey: survey)
+      else
+        respond_to do |format|
+          @building_tenure = building_tenure
+          @survey = survey
+          @section = section(@survey)
+          format.html { render :new  }
+        end
       end
     end
 
