@@ -96,4 +96,19 @@ RSpec.describe "Building manager views survey reply summary" do
       expect(page).to have_text("External facing materials")
     end
   end
+
+  context "errors" do
+    it "displays an error if building_status not selected" do
+      building_manager = create :building_manager
+      building = create(:building, manager: building_manager)
+
+      visit root_path
+      click_on "Start now"
+
+      click_on "Continue"
+
+      expect(page).to have_text "There was a problem with your survey"
+      expect(page).to have_text "Status can't be blank. Please select one value from the list"
+    end
+  end
 end

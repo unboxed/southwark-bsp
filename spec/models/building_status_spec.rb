@@ -42,3 +42,12 @@ RSpec.describe BuildingStatus, "#should_terminate_survey?" do
     expect(terminates_survey).to eq false
   end
 end
+
+RSpec.describe BuildingStatus, "validation" do
+  it "throws an error if status is not present" do
+    building_status = BuildingStatus.new status: ""
+
+    expect(building_status).not_to be_valid
+    expect(building_status.errors.added?(:status, "can't be blank. Please select one value from the list")).to be_truthy
+  end
+end

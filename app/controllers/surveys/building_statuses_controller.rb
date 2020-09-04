@@ -8,10 +8,17 @@ module Surveys
     end
 
     def create
-      building_status = survey.sections.build content: BuildingStatus.new(building_status_params)
-
+      building_status = BuildingStatus.new(building_status_params)
       if building_status.save
-        redirect_to next_survey_section(current_section: building_status, survey: survey)
+        survey.sections.create content: building_status
+        redirect_to next_survey_section(current_section: building_status.section, survey: survey)
+      else
+        respond_to do |format|
+          @building_status = building_status
+          @survey = survey
+          format.html { render :new  }
+          format.json { render json: @building_status.errors, status: :unprocessable_entity }
+        end
       end
     end
 
