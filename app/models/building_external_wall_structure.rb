@@ -4,6 +4,8 @@ class BuildingExternalWallStructure < ApplicationRecord
   has_one :balcony_material_detail_list, -> { where(external_structure_name: "balcony") }, class_name: "MaterialDetailList"
   has_one :solar_shading_material_detail_list, -> { where(external_structure_name: "solar_shading") }, class_name: "MaterialDetailList"
 
+  validate :has_external_structures_associated
+
   def name
     "External walls structures"
   end
@@ -49,5 +51,11 @@ class BuildingExternalWallStructure < ApplicationRecord
 
     def has_balcony_material_detail_list?
       balcony_material_detail_list.present?
+    end
+
+    def has_external_structures_associated
+      unless [has_balconies?, has_solar_shading?, has_green_walls?, has_no_external_structures?, has_other_structure?].any?
+        errors.add(:external_structures, "Please select at least one option")
+      end
     end
 end

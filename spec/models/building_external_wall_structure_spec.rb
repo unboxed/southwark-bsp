@@ -228,3 +228,13 @@ RSpec.describe BuildingExternalWallStructure, "#next_required_detail" do
     end
   end
 end
+
+RSpec.describe BuildingExternalWallStructure, "validation" do
+  it "displays an error if no options for external walls are selected" do
+    survey = create :survey
+    building_wall_structure = BuildingExternalWallStructure.new(survey: survey)
+
+    expect(building_wall_structure).to be_invalid
+    expect(building_wall_structure.errors[:external_structures]).to include("Please select at least one option")
+  end
+end
