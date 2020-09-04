@@ -7,14 +7,41 @@
   <% end %>
   </dd>
 </div>
+<% if building_external_wall_structure.content.has_balconies? %>
+  <div class="govuk-summary-list__row" data-information-displayed="external-structure-balcony">
+    <dt class="govuk-summary-list__key">Balcony structure</dt>
+    <dd class="govuk-summary-list__value">
+      <% building_external_wall_structure.content.balcony_material_detail_list.reply.each do |material_placement, material_types| %>
+        <div>
+          <%= material_placement %>: <br /><%= material_types %>
+        </div>
+      <% end %>
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <%= link_to edit_survey_building_external_wall_structure_material_detail_list_path(building_external_wall_structure.survey, building_external_wall_structure.content, building_external_wall_structure.content.balcony_material_detail_list), class: "govuk-link" do %>
+        Change<span class="govuk-visually-hidden"> Balcony structure materials</span>
+      <% end %>
+    </dd>
+  </div>
+<% end %>
+<% if building_external_wall_structure.content.has_solar_shading? %>
+  <div class="govuk-summary-list__row" data-information-displayed="external-structure-solar-shading">
+    <dt class="govuk-summary-list__key">Solar shading structure</dt>
+    <dd class="govuk-summary-list__value">
+      <%= building_external_wall_structure.content.solar_shading_material_detail_list.reply %>
+    </dd>
+    <dd class="govuk-summary-list__actions">
+      <%= link_to edit_survey_building_external_wall_structure_material_detail_list_path(building_external_wall_structure.survey, building_external_wall_structure.content, building_external_wall_structure.content.solar_shading_material_detail_list), class: "govuk-link" do %>
+        Change<span class="govuk-visually-hidden"> Solar shading structure materials</span>
+      <% end %>
+    </dd>
+  </div>
+<% end %>
 <% if building_external_wall_structure.content.has_other_structure? %>
   <div class="govuk-summary-list__row" data-information-displayed="building-external-wall-structure-other-structures">
     <dt class="govuk-summary-list__key">Other external structures</dt>
     <dd class="govuk-summary-list__value"><%= building_external_wall_structure.content.other_structure_details %></dd>
     <dd class="govuk-summary-list__actions">
-    <%= link_to [:edit, building_external_wall_structure.survey, building_external_wall_structure.content], class: "govuk-link" do %>
-      Change<span class="govuk-visually-hidden"> <%= building_external_wall_structure.name %></span>
-    <% end %>
     </dd>
   </div>
 <% end %>

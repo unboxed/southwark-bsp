@@ -15,6 +15,33 @@ RSpec.describe "External wall structures section" do
     fill_in "Please list other external structures", with: "Parrots. Lots of them."
     click_on "Continue"
 
+    expect(page).to have_content "Balcony materials"
+
+    within(balcony_primary_material_section) do
+      check "Timber or wood"
+      check "Metal"
+    end
+
+    within(balcony_floor_material_section) do
+      check "Concrete"
+    end
+
+    within(balcony_railing_material_section) do
+      check "Metal"
+      check "Do not know"
+      check "Other"
+    end
+
+    click_on "Continue"
+
+    expect(page).to have_content "Solar shading material"
+
+    check "Metal"
+    check "Do not know"
+    check "Other"
+
+    click_on "Continue"
+
     expect(page).to have_content "Check your answers"
     expect_building_external_wall_structure_to_be_displayed_as "Balconies, Solar shading"
   end
@@ -25,5 +52,17 @@ RSpec.describe "External wall structures section" do
 
   def building_external_wall_structure_row
     find('div[data-information-displayed="external-walls-structures"]')
+  end
+
+  def balcony_primary_material_section
+    find('div[data-materials="balcony-primary"]')
+  end
+
+  def balcony_floor_material_section
+    find('div[data-materials="balcony-floors"]')
+  end
+
+  def balcony_railing_material_section
+    find('div[data-materials="balcony-railings"]')
   end
 end

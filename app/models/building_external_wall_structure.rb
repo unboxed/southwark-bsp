@@ -1,6 +1,8 @@
 class BuildingExternalWallStructure < ApplicationRecord
   belongs_to :survey
   has_one :section, as: :content
+  has_one :balcony_material_detail_list, -> { where(external_structure_name: "balcony") }, class_name: "MaterialDetailList"
+  has_one :solar_shading_material_detail_list, -> { where(external_structure_name: "solar_shading") }, class_name: "MaterialDetailList"
 
   def name
     "External walls structures"
@@ -18,6 +20,34 @@ class BuildingExternalWallStructure < ApplicationRecord
   end
 
   def should_terminate_survey?
-    true
+    true if complete?
   end
+
+  def incomplete?
+    !complete?
+  end
+
+  def complete?
+    next_required_detail.nil?
+  end
+
+  def next_required_detail
+    if has_balconies? && !has_balcony_material_detail_list?
+      :balcony
+    elsif has_solar_shading? && !has_solar_shading_material_detail?
+      :solar_shading
+    else
+      nil
+    end
+  end
+
+  private
+
+    def has_solar_shading_material_detail?
+      solar_shading_material_detail_list.present?
+    end
+
+    def has_balcony_material_detail_list?
+      balcony_material_detail_list.present?
+    end
 end

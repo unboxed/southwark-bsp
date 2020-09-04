@@ -1,0 +1,290 @@
+<%= render 'application/back_link', chosen_path: edit_survey_building_external_wall_structure_path(@survey.id, @section.content_id) %>
+<div>
+  <%= form_with model: [@survey, @external_wall_structure, @material_detail_list] do |form_builder| %>
+    <%= hidden_field_tag :required_detail, :balcony %>
+    <div class="govuk-form-group">
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">
+            Balcony materials
+          </h1>
+        </legend>
+        <div class="govuk-form-group">
+        <div class="govuk-checkboxes" data-materials="balcony-primary" data-controller="detail" data-detail-toggle-class="govuk-visually-hidden">
+            <div class="govuk-hint">
+              What material is the primary structure of the balcony made from?
+            </div>
+            <div class="govuk-checkboxes__item">
+              <%= form_builder.check_box(
+                :has_timber_or_wood_primary_material,
+                {class: "govuk-checkboxes__input"},
+                "true",
+                "false"
+              ) %>
+            <%= form_builder.label(
+            :has_timber_or_wood_primary_material,
+            "Timber or wood",
+            class: "govuk-label govuk-checkboxes__label"
+          ) %>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <%= form_builder.check_box(
+                :has_glass_primary_material,
+                {class: "govuk-checkboxes__input"},
+                "true",
+                "false"
+              ) %>
+            <%= form_builder.label(
+            :has_glass_primary_material,
+            "Glass",
+            class: "govuk-label govuk-checkboxes__label"
+          ) %>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <%= form_builder.check_box(
+                :has_metal_primary_material,
+                {class: "govuk-checkboxes__input"},
+                "true",
+                "false"
+              ) %>
+            <%= form_builder.label(
+            :has_metal_primary_material,
+            "Metal",
+            class: "govuk-label govuk-checkboxes__label"
+          ) %>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <%= form_builder.check_box(
+                :has_concrete_primary_material,
+                {class: "govuk-checkboxes__input"},
+                "true",
+                "false"
+              ) %>
+            <%= form_builder.label(
+            :has_concrete_primary_material,
+            "Concrete",
+            class: "govuk-label govuk-checkboxes__label"
+          ) %>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <%= form_builder.check_box(
+                :has_unknown_primary_material,
+                {class: "govuk-checkboxes__input"},
+                "true",
+                "false"
+              ) %>
+            <%= form_builder.label(
+            :has_unknown_primary_material,
+            "Do not know",
+            class: "govuk-label govuk-checkboxes__label"
+          ) %>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <%= form_builder.check_box(
+                :has_other_primary_material,
+                {class: "govuk-checkboxes__input", data: { action: "detail#toggle" }},
+                "true",
+                "false"
+              ) %>
+            <%= form_builder.label(
+            :has_other_primary_material,
+            "Other",
+            class: "govuk-label govuk-checkboxes__label"
+          ) %>
+            </div>
+            <div class="govuk-form-group <%= form_builder.object.has_other_primary_material? ? nil : "govuk-visually-hidden" %>" data-target="detail.input">
+              <%= form_builder.label :other_primary_material_details, "Please list other promary materials for the balconies", class: "govuk-label" %>
+              <div class="govuk-hint">
+                List any other primary materials for the balconies, separated by commas.
+              </div>
+              <%= form_builder.text_field :other_primary_material_details, class: "govuk-input govuk-input--width-20" %>
+            </div>
+          </div>
+        </div>
+        <div class="govuk-form-group">
+        <div class="govuk-checkboxes" data-materials="balcony-floors" data-controller="detail" data-detail-toggle-class="govuk-visually-hidden">
+            <div class="govuk-hint">
+              What materials are the balcony floors made from?
+            </div>
+            <div class="govuk-checkboxes__item">
+              <%= form_builder.check_box(
+                :has_timber_or_wood_floor_material,
+                {class: "govuk-checkboxes__input"},
+                "true",
+                "false"
+              ) %>
+            <%= form_builder.label(
+              :has_timber_or_wood_floor_material,
+              "Timber or wood",
+              class: "govuk-label govuk-checkboxes__label"
+            ) %>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <%= form_builder.check_box(
+                :has_glass_floor_material,
+                {class: "govuk-checkboxes__input"},
+                "true",
+                "false"
+              ) %>
+            <%= form_builder.label(
+              :has_glass_floor_material,
+              "Glass",
+              class: "govuk-label govuk-checkboxes__label"
+            ) %>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <%= form_builder.check_box(
+                :has_metal_floor_material,
+                {class: "govuk-checkboxes__input"},
+                "true",
+                "false"
+              ) %>
+            <%= form_builder.label(
+              :has_metal_floor_material,
+              "Metal",
+              class: "govuk-label govuk-checkboxes__label"
+            ) %>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <%= form_builder.check_box(
+                :has_concrete_floor_material,
+                {class: "govuk-checkboxes__input"},
+                "true",
+                "false"
+              ) %>
+            <%= form_builder.label(
+              :has_concrete_floor_material,
+              "Concrete",
+              class: "govuk-label govuk-checkboxes__label"
+            ) %>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <%= form_builder.check_box(
+                :has_unknown_floor_material,
+                {class: "govuk-checkboxes__input"},
+                "true",
+                "false"
+              ) %>
+            <%= form_builder.label(
+              :has_unknown_floor_material,
+              "Do not know",
+              class: "govuk-label govuk-checkboxes__label"
+            ) %>
+            </div>
+            <div class="govuk-checkboxes__item">
+              <%= form_builder.check_box(
+                :has_other_floor_material,
+                {class: "govuk-checkboxes__input", data: { action: "detail#toggle" }},
+                "true",
+                "false"
+              ) %>
+            <%= form_builder.label(
+              :has_other_floor_material,
+              "Other",
+              class: "govuk-label govuk-checkboxes__label"
+            ) %>
+            </div>
+            <div class="govuk-form-group <%= form_builder.object.has_other_floor_material? ? nil : "govuk-visually-hidden" %>" data-target="detail.input">
+              <%= form_builder.label :other_floor_material_details, "Please list other floor materials for the balconies", class: "govuk-label" %>
+              <div class="govuk-hint">
+                List any other floor materials for the balconies, separated by commas.
+              </div>
+              <%= form_builder.text_field :other_floor_material_details, class: "govuk-input govuk-input--width-20" %>
+            </div>
+          </div>
+        </div>
+        <div class="govuk-checkboxes" data-materials="balcony-railings" data-controller="detail" data-detail-toggle-class="govuk-visually-hidden">
+          <div class="govuk-hint">
+            What materials are the balcony railings/balustrades made from?
+          </div>
+          <div class="govuk-checkboxes__item">
+            <%= form_builder.check_box(
+              :has_timber_or_wood_railing_material,
+              {class: "govuk-checkboxes__input"},
+              "true",
+              "false"
+            ) %>
+          <%= form_builder.label(
+            :has_timber_or_wood_railing_material,
+            "Timber or wood",
+            class: "govuk-label govuk-checkboxes__label"
+          ) %>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <%= form_builder.check_box(
+              :has_glass_railing_material,
+              {class: "govuk-checkboxes__input"},
+              "true",
+              "false"
+            ) %>
+          <%= form_builder.label(
+            :has_glass_railing_material,
+            "Glass",
+            class: "govuk-label govuk-checkboxes__label"
+          ) %>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <%= form_builder.check_box(
+              :has_metal_railing_material,
+              {class: "govuk-checkboxes__input"},
+              "true",
+              "false"
+            ) %>
+          <%= form_builder.label(
+            :has_metal_railing_material,
+            "Metal",
+            class: "govuk-label govuk-checkboxes__label"
+          ) %>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <%= form_builder.check_box(
+              :has_concrete_railing_material,
+              {class: "govuk-checkboxes__input"},
+              "true",
+              "false"
+            ) %>
+          <%= form_builder.label(
+            :has_concrete_railing_material,
+            "Concrete",
+            class: "govuk-label govuk-checkboxes__label"
+          ) %>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <%= form_builder.check_box(
+              :has_unknown_railing_material,
+              {class: "govuk-checkboxes__input"},
+              "true",
+              "false"
+            ) %>
+          <%= form_builder.label(
+            :has_unknown_railing_material,
+            "Do not know",
+            class: "govuk-label govuk-checkboxes__label"
+          ) %>
+          </div>
+          <div class="govuk-checkboxes__item">
+            <%= form_builder.check_box(
+              :has_other_railing_material,
+              {class: "govuk-checkboxes__input", data: { action: "detail#toggle" }},
+              "true",
+              "false"
+            ) %>
+          <%= form_builder.label(
+            :has_other_railing_material,
+            "Other",
+            class: "govuk-label govuk-checkboxes__label"
+          ) %>
+          </div>
+          <div class="govuk-form-group <%= form_builder.object.has_other_railing_material? ? nil : "govuk-visually-hidden" %>" data-target="detail.input">
+            <%= form_builder.label :other_railing_material_details, "Please list other railing/balustrade material for the balconies", class: "govuk-label" %>
+            <div class="govuk-hint">
+              List any other railing/balustrade materials for the balconies, separated by commas.
+            </div>
+            <%= form_builder.text_field :other_railing_material_details, class: "govuk-input govuk-input--width-20" %>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <%= form_builder.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
+  <% end %>
+</div>

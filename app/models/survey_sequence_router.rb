@@ -29,6 +29,16 @@ class SurveySequenceRouter
       end
     when "Materials"
       new_survey_building_external_wall_structure_path(survey)
+    when "BuildingExternalWallStructure"
+      if current_section.incomplete?
+        new_survey_building_external_wall_structure_material_detail_list_path(
+          survey,
+          current_section,
+          required_detail: current_section.next_required_detail
+        )
+      else
+        survey_summary_path(survey)
+      end
     end
   end
 end

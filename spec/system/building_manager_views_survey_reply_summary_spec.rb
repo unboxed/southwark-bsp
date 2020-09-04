@@ -11,8 +11,24 @@ RSpec.describe "Building manager views survey reply summary" do
     create :section, content: building_tenure, survey: survey
     building_height = create :building_height, higher_than_18_meters: true, height_in_storeys: 4, height_in_meters: 20, survey: survey
     create :section, content: building_height, survey: survey
-    external_wall_structure = create :building_external_wall_structure, has_green_walls: true, survey: survey
+    external_wall_structure = create :building_external_wall_structure, has_balconies: true, has_solar_shading: true, has_green_walls: true, survey: survey
     create :section, content: external_wall_structure, survey: survey
+    create(
+      :material_detail_list,
+      building_external_wall_structure: external_wall_structure,
+      external_structure_name: "balcony",
+      has_timber_or_wood_primary_material: true,
+      has_glass_primary_material: true,
+      has_concrete_floor_material: true,
+      has_metal_railing_material: true
+    )
+    create(
+      :material_detail_list,
+      building_external_wall_structure: external_wall_structure,
+      external_structure_name: "solar_shading",
+      has_glass_primary_material: true,
+      has_metal_primary_material: true
+    )
 
     visit survey_summary_path(survey)
 
@@ -43,11 +59,24 @@ RSpec.describe "Building manager views survey reply summary" do
     expect_building_height_to_be_displayed_as "Taller than 18 meters - 3 storey(s), 10 meters"
 
     within(building_external_wall_structure_row) { click_on "Change" }
-    check "Solar shading"
-    uncheck "Green walls"
+    uncheck "Green walls", visible: false
     click_on "Continue"
 
     expect_building_external_wall_structure_to_be_displayed_as "Solar shading"
+    expect_balcony_structure_to_be_displayed_as "Primary materials: Timber or wood, Glass Floor materials: Concrete Railings/balustrades: Metal"
+    expect_solar_shading_structure_to_be_displayed_as "Glass, Metal"
+
+    within(balcony_structure_row) { click_on "Change" }
+    within(balcony_primary_materials_row) { uncheck "Glass" }
+    click_on "Continue"
+
+    expect_balcony_structure_to_be_displayed_as "Primary materials: Timber or wood Floor materials: Concrete Railings/balustrades: Metal"
+
+    within(solar_shading_structure_row) { click_on "Change" }
+    within(solar_shading_floor_materials_row) { check "Concrete" }
+    click_on "Continue"
+
+    expect_solar_shading_structure_to_be_displayed_as "Glass, Metal, Concrete"
   end
 
   def expect_building_status_to_be_displayed_as(status)
@@ -70,6 +99,14 @@ RSpec.describe "Building manager views survey reply summary" do
     expect(building_external_wall_structure_row).to have_text status
   end
 
+  def expect_balcony_structure_to_be_displayed_as(status)
+    expect(balcony_structure_row).to have_text status
+  end
+
+  def expect_solar_shading_structure_to_be_displayed_as(status)
+    expect(solar_shading_structure_row).to have_text status
+  end
+
   def building_status_row
     find('div[data-information-displayed="building-status"]')
   end
@@ -88,5 +125,25 @@ RSpec.describe "Building manager views survey reply summary" do
 
   def building_external_wall_structure_row
     find('div[data-information-displayed="external-walls-structures"]')
+  end
+
+  def solar_shading_material_row
+    find('div[data-materials="solar-shading-primary"]')
+  end
+
+  def balcony_structure_row
+    find('div[data-information-displayed="external-structure-balcony"]')
+  end
+
+  def solar_shading_structure_row
+    find('div[data-information-displayed="external-structure-solar-shading"]')
+  end
+
+  def balcony_primary_materials_row
+    find('div[data-materials="balcony-primary"]')
+  end
+
+  def solar_shading_floor_materials_row
+    find('div[data-materials="solar-shading-primary"]')
   end
 end

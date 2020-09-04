@@ -12,7 +12,9 @@ Rails.application.routes.draw do
     resources :building_tenures, controller: "surveys/building_tenures"
     resources :building_ownerships, controller: "surveys/building_ownerships"
     resources :building_heights, controller: "surveys/building_heights"
-    resources :building_external_wall_structures, controller: "surveys/building_external_wall_structures"
+    resources :building_external_wall_structures, controller: "surveys/building_external_wall_structures" do
+      resources :material_detail_lists, controller: "surveys/external_walls_material_details"
+    end
     get "meters_and_storeys", to: "surveys/building_heights#meters_and_storeys"
     resources :building_walls, controller: "surveys/building_walls" do
       patch "/materials", to:  "surveys/materials#update"
