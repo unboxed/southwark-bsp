@@ -4,7 +4,7 @@ module Surveys
 
     def new
       @survey = survey
-      @section = section(@survey)
+      @section = section(@survey, "BuildingExternalWallStructure")
       @external_wall_structure = external_wall_structure
       @material_detail_list = MaterialDetailList.new(
         external_structure_name: required_detail,
@@ -15,21 +15,23 @@ module Surveys
     def create
       material_detail_list = MaterialDetailList.new detail_list_params
       if material_detail_list.save
-        redirect_to next_survey_section(current_section: external_wall_structure.section, survey: survey)
+        next_section = nil
+        redirect_to next_survey_section(current_section: external_wall_structure.section, survey: survey, next_section: next_section)
       end
     end
 
     def edit
       session[:previous_url] = request.referer
       @survey = survey
-      @section = section(@survey)
+      @section = section(@survey, "BuildingExternalWallStructure")
       @external_wall_structure = external_wall_structure
       @material_detail_list = material_detail_list
     end
 
     def update
       if material_detail_list.update detail_list_params
-        redirect_to next_survey_section(current_section: external_wall_structure.section, survey: survey)
+        next_section = nil
+        redirect_to next_survey_section(current_section: external_wall_structure.section, survey: survey, next_section: next_section)
       end
     end
 
@@ -49,10 +51,6 @@ module Surveys
 
       def material_detail_list
         MaterialDetailList.find params[:id]
-      end
-
-      def section(survey)
-        survey.sections.find_by(content_type: "BuildingExternalWallStructure")
       end
 
       def detail_list_params

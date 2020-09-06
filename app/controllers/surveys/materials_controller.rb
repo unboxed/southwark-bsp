@@ -4,7 +4,7 @@ module Surveys
 
     def new
       @survey = survey
-      @section = section(@survey)
+      @section = section(@survey, "BuildingWall")
       @building_wall_materials = building_wall
     end
 
@@ -41,10 +41,6 @@ module Surveys
 
       def building_wall
         BuildingWall.find params[:building_wall_id]
-      end
-
-      def section(survey)
-        survey.sections.find_by(content_type: "BuildingWall")
       end
 
       def all_materials

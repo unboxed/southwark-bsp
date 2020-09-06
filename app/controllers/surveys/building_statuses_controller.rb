@@ -10,8 +10,9 @@ module Surveys
     def create
       building_status = BuildingStatus.new(building_status_params)
       if building_status.save
+        next_section = section(survey, "BuildingTenure")
         survey.sections.create content: building_status
-        redirect_to next_survey_section(current_section: building_status.section, survey: survey)
+        redirect_to next_survey_section(current_section: building_status.section, survey: survey, next_section: next_section)
       else
         respond_to do |format|
           @building_status = building_status
@@ -30,10 +31,11 @@ module Surveys
 
     def update
       if building_status.update building_status_params
-        if session[:previous_url] == new_survey_building_tenure_url(survey) && !building_status.should_terminate_survey?
-          redirect_to new_survey_building_tenure_path(survey)
-        else
+        if session[:previous_url] == survey_summary_url(survey)
           redirect_to survey_summary_path(survey)
+        else
+          next_section = section(survey, "BuildingTenure")
+          redirect_to next_survey_section(current_section: building_status.section, survey: survey, next_section: next_section)
         end
       end
     end

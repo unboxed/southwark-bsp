@@ -9,6 +9,8 @@ RSpec.describe "Building manager views survey reply summary" do
     create :section, content: building_ownership, survey: survey
     building_tenure = create :building_tenure, tenure_type: "private_residential", survey: survey
     create :section, content: building_tenure, survey: survey
+    building_wall = create :building_wall, survey: survey
+    create :section, content: building_wall, survey: survey
     building_height = create :building_height, higher_than_18_meters: true, height_in_storeys: 4, height_in_meters: 20, survey: survey
     create :section, content: building_height, survey: survey
     building_wall = create :building_wall, survey: survey
