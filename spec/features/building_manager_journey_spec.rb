@@ -42,6 +42,12 @@ RSpec.describe "Building manager functionality" do
       fill_in "In storeys", with: 9
       click_button "Continue"
 
+      expect(page).to have_text("External features of the building")
+      expect(page).to have_text("Each building may have one or more external facing materials.")
+      expect(page).to have_text("We are looking to collect information on all of the external facing materials (e.g. cladding, render) and insulation combinations on the building.")
+
+      click_button "Continue"
+
       expect(page).to have_content "External facing materials"
       check "Glass", visible: false
       check "Brick slips", visible: false

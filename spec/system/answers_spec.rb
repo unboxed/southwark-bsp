@@ -93,7 +93,7 @@ RSpec.describe "Building manager views survey reply summary" do
 
       click_on "Continue"
 
-      expect(page).to have_text("External facing materials")
+      expect(page).to have_text("External features of the building")
     end
   end
 
