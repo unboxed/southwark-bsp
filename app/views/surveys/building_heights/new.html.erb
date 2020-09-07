@@ -1,23 +1,47 @@
 <%= render 'application/back_link', chosen_path: edit_survey_building_ownership_path(@survey.id, @section.content_id) %>
 <div data-controller="building-status">
   <%= form_with model: [@survey, @building_height] do |f| %>
-  <div class="govuk-form-group">
-    <fieldset class="govuk-fieldset">
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-        <h1 class="govuk-fieldset__heading">
-          Is this building 18m or higher?
-        </h1>
-      </legend>
-      <div class="govuk-radios">
-        <%= f.collection_radio_buttons :higher_than_18_meters, [[true, 'Yes'] ,[false, 'No']], :first, :last do |radio_button| %>
-          <div class="govuk-radios__item">
-            <%= radio_button.radio_button(class: "govuk-radios__input", data: { action: "change->building-height#toggle" }) %>
-            <%= radio_button.label(class: "govuk-label govuk-radios__label") { radio_button.text.humanize } %>
-          </div>
-        <% end %>
+    <div class="govuk-form-group">
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">
+            Is this building 18m or higher?
+          </h1>
+        </legend>
+        <div class="govuk-radios">
+          <%= f.collection_radio_buttons :higher_than_18_meters, [[true, 'Yes'] ,[false, 'No']], :first, :last do |radio_button| %>
+            <div class="govuk-radios__item">
+              <%= radio_button.radio_button(class: "govuk-radios__input", data: { action: "change->building-height#toggle" }) %>
+              <%= radio_button.label(class: "govuk-label govuk-radios__label") { radio_button.text.humanize } %>
+            </div>
+          <% end %>
+        </div>
+      </fieldset>
+    </div>
+    <div class="govuk-form-group">
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="event-name">
+              If known, what is the height of this building?
+            </label>
+          </h1>
+          <%= f.label :height_in_meters, "In meters", class: "govuk-label" %>
+          <%= f.text_field :height_in_meters, class: "govuk-input govuk-input--width-10 govuk-!-margin-bottom-3" %>
+          <%= f.label :height_in_storeys, "In storeys", class: "govuk-label" %>
+          <%= f.text_field :height_in_storeys, class: "govuk-input govuk-input--width-10" %>
+        </fieldset>
       </div>
-    </fieldset>
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Why this data matters
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          Due to the Grenfell Tower fire, collecting data about building heights and stories will help us understand the risk involved if combustible building materials have been used.
+        </div>
+      </details>
+      <%= f.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
+    <% end %>
   </div>
-  <%= f.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
-<% end %>
-</div>

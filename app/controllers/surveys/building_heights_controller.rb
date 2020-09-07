@@ -16,11 +16,6 @@ module Surveys
       end
     end
 
-    def meters_and_storeys
-      @survey = survey
-      @building_height = BuildingHeight.find_by(survey_id: survey)
-    end
-
     def edit
       session[:previous_url] = request.referer
       @survey = survey
