@@ -1,2 +1,0 @@
-class FrequentlyAskedQuestionsController < ApplicationController
-end
