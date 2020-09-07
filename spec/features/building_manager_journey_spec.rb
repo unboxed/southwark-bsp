@@ -17,11 +17,16 @@ RSpec.describe "Building manager functionality" do
       expect(page).to have_text("Building safety survey")
 
       click_on "Start now"
-      expect(page).to have_text("Please confirm the status of this building")
+      expect(page).to have_text("Get started")
     end
 
     it "allows a building manager to fill in the complete building information" do
       click_link "Start now"
+
+      fill_in with: building.uprn
+      click_button "Continue"
+      expect(page).to have_text("Please confirm the status of this building")
+
       choose "Existing", visible: false
       click_button "Continue"
       expect(page).to have_text("Please indicate the building use")

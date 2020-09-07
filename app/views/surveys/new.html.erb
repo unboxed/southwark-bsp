@@ -1,0 +1,19 @@
+<%= render 'application/back_link', chosen_path: root_path %>
+<%= form_with model: @survey, local: true do |form| %>
+<h1 class="govuk-heading-xl">Get started</h1>
+  <% if @survey.errors.any? %>
+    <div class="govuk-error-summary">
+      <h2 class="govuk-error-summary__title">There was a problem with code input</h2>
+      <div class="govuk-error-summary__body">
+        <ul>
+            <li>Please enter the correct code</li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+  <div class="govuk-form-group <%= " govuk-form-group--error" if @survey.errors.any? %>">
+    <p class="govuk-body-l">To complete the survey you need to find the correct building. Please enter the code included in the notification of this survey:</p>
+    <%= form.text_field :uprn, class: "govuk-input govuk-input--width-20" %>
+  </div>
+  <%= form.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
+<% end %>

@@ -7,5 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 building_manager = BuildingManager.find_or_create_by(email: "example@example.com")
-building = Building.find_or_create_by(address: "134 Test Row, London", UPRN: 20012524507, manager: building_manager)
+building = Building.find_or_create_by(address: "134 Test Row, London", uprn: "20012524507", manager: building_manager)
 survey = Survey.find_or_create_by(building_id: building.id)

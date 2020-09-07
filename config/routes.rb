@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root to: "surveys#index"
 
   get "new_survey", to: "surveys/start_surveys#new", as: :start_new_survey
+  get "get_started", to: "surveys#new", as: :get_started
 
   resources :surveys do
     resources :building_statuses, controller: "surveys/building_statuses"
