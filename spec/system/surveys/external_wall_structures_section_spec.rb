@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "External wall structures section" do
   it "building manager indicates building's external attachments" do
     survey = create :survey
-    previous_section = create :section, content: create(:building_height, survey: survey), survey: survey
+    previous_section = create :section, content: create(:building_wall, survey: survey), survey: survey
 
     visit new_survey_building_external_wall_structure_path(survey)
 
