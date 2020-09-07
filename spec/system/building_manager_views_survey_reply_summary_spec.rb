@@ -13,6 +13,8 @@ RSpec.describe "Building manager views survey reply summary" do
     create :section, content: building_height, survey: survey
     building_wall = create :building_wall, survey: survey
     create :section, content: building_wall, survey: survey
+    material_one = create :material, name: "Brick", percentage: "80", insulation_material: "None", building_wall: building_wall
+    material_two = create :material, name: "Other",  percentage: "20", details: "Sheep", insulation_material: "Glass", building_wall: building_wall
     external_wall_structure = create :building_external_wall_structure, has_balconies: true, has_solar_shading: true, has_green_walls: true, survey: survey
     create :section, content: external_wall_structure, survey: survey
     create(
@@ -40,6 +42,7 @@ RSpec.describe "Building manager views survey reply summary" do
     expect_building_tenure_to_be_displayed_as "Private residential"
     expect_building_height_to_be_displayed_as "Taller than 18 meters - 4 storey(s), 20 meters"
     expect_building_external_wall_structure_to_be_displayed_as "Green walls"
+    expect(page).to have_content "Brick - 80%, insulation: None Other Sheep 20%, insulation: Glass"
 
     within(building_ownership_row) { click_on "Change" }
     choose "Owner freeholder", visible: false

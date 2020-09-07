@@ -10,8 +10,8 @@ class BuildingWall < ApplicationRecord
 
   def reply
     self.materials.map do |m|
-      "#{m.name}, #{m.percentage}%, insulation: #{m.insulation_material}"
-    end.join(", ")
+      "#{m.name} #{m.details ? m.details : '-'} #{m.percentage}%, insulation: #{m.insulation_material}"
+    end.join("\n")
   end
 
   def should_terminate_survey?
