@@ -24,7 +24,7 @@ RSpec.describe "Building manager functionality" do
       click_link "Start now"
       choose "Existing", visible: false
       click_button "Continue"
-      expect(page).to have_text("Please indicate the primary tenure for this building")
+      expect(page).to have_text("Please indicate the building use")
 
       choose "Social residential", visible: false
       click_button "Continue"
