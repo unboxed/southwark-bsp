@@ -40,7 +40,7 @@ RSpec.describe "Building manager views survey reply summary" do
 
       click_on "Back"
 
-      expect(page).to have_text("Please indicate the primary tenure for this building")
+      expect(page).to have_text("Please indicate the building use")
 
       choose "Private residential", visible: false
 
