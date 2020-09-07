@@ -11,6 +11,10 @@ class SurveySequenceRouter
     @survey = survey
   end
 
+  def building_wall
+    survey.sections.find_by(content_type: "BuildingWall").content_id
+  end
+
   def next_section_for(current_section)
     return survey_summary_path(survey) if current_section.should_terminate_survey?
 
@@ -24,7 +28,7 @@ class SurveySequenceRouter
     when "BuildingHeight"
       survey_building_walls_path(survey)
     when "BuildingWall"
-      new_survey_building_wall_material_path(survey)
+      new_survey_building_wall_material_path(survey, building_wall_id: building_wall)
     when "Materials"
       new_survey_building_external_wall_structure_path(survey)
     when "BuildingExternalWallStructure"

@@ -47,7 +47,7 @@ module Surveys
       end
 
       def section(survey)
-        survey.sections.find_by(content_type: "BuildingHeight")
+        survey.sections.find_by(content_type: "BuildingWall")
       end
 
       def building_external_wall_structure
