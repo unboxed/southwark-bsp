@@ -22,11 +22,7 @@ class SurveySequenceRouter
     when "BuildingOwnership"
       new_survey_building_height_path(survey)
     when "BuildingHeight"
-      if current_section.incomplete?
-        survey_meters_and_storeys_path(survey)
-      else
-        survey_building_walls_path(survey)
-      end
+      survey_building_walls_path(survey)
     when "BuildingWall"
       new_survey_building_wall_material_path(survey)
     when "Materials"
