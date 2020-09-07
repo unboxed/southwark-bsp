@@ -1,0 +1,13 @@
+<%= render 'application/back_link', chosen_path: edit_survey_building_height_path(@survey.id, @section.content_id) %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">External features of the building</h1>
+    <p class="govuk-body-l">Each building may have one or more external facing materials.
+      We are looking to collect information on all of the external facing materials (e.g. cladding, render) and insulation combinations on the building.</p>
+    <p class="govuk-body-l">Please make sure you include all external facing materials on the walls of this building.</p>
+    <div class="govuk-inset-text">
+      <p class="govuk-body">For example, if your building is partly brick wall, and partly timber cladding, you will need to include <span class="govuk-!-font-weight-bold">both</span> of these.</p>
+    </div>
+  </div>
+</div>
+<%= button_to "Continue", new_survey_building_wall_path(@survey), method: :get, class: "govuk-button", data: { module: "govuk-button" } %>

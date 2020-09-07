@@ -2,6 +2,11 @@ module Surveys
   class BuildingWallsController < ApplicationController
     include SurveyRoutable
 
+    def index
+      @survey = survey
+      @section = section(@survey)
+    end
+
     def new
       @survey = survey
       @section = section(@survey)
