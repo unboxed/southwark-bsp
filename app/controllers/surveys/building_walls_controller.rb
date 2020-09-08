@@ -35,6 +35,7 @@ module Surveys
       @section = section(@survey, "BuildingHeight")
       @building_wall = building_wall
       @options_for_materials = materials
+      @other_material = building_wall.materials.where(name: "Other").map { | material | material.details }
     end
 
     def update
@@ -46,15 +47,12 @@ module Surveys
         end
       }
       building_wall.materials.each { |obj| obj.destroy unless building_materials.include?(obj.name) }
+      duplicate_other = building_wall.materials.where(name: "Other")
+      duplicate_other.count > 1 ? duplicate_other.first.destroy : ''
 
       if building_wall.save
-        if session[:previous_url] == survey_summary_url(survey)
-          redirect_to survey_summary_path(survey)
-        else
-          section = section(survey, "BuildingWall")
-          next_section = section(survey, "Materials")
-          redirect_to next_survey_section(current_section: section, survey: survey, next_section: next_section)
-        end
+        next_section = section(survey, "Materials")
+        redirect_to next_survey_section(current_section: building_wall.section, survey: survey, next_section: next_section)
       end
     end
 
