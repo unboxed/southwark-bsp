@@ -4,30 +4,32 @@ module Surveys
 
     def new
       @survey = survey
-      @section = section(@survey)
+      @section = section(@survey, "BuildingTenure")
       @ownership_information = BuildingOwnership.new(survey: @survey)
     end
 
     def create
       ownership_information = survey.sections.build content: BuildingOwnership.new(building_ownership_params)
       if ownership_information.save
-        redirect_to next_survey_section(current_section: ownership_information, survey: survey)
+        next_section = section(survey, "BuildingHeight")
+        redirect_to next_survey_section(current_section: ownership_information, survey: survey, next_section: next_section)
       end
     end
 
     def edit
       session[:previous_url] = request.referer
       @survey = survey
-      @section = section(@survey)
+      @section = section(@survey, "BuildingTenure")
       @ownership_information = building_ownership
     end
 
     def update
       if building_ownership.update building_ownership_params
-        if session[:previous_url] == new_survey_building_height_url(survey)
-          redirect_to new_survey_building_height_url(survey)
-        else
+        if session[:previous_url] == survey_summary_url(survey)
           redirect_to survey_summary_path(survey)
+        else
+          next_section = section(survey, "BuildingHeight")
+          redirect_to next_survey_section(current_section: building_ownership.section, survey: survey, next_section: next_section)
         end
       end
     end
@@ -36,10 +38,6 @@ module Surveys
 
     def survey
       Survey.find params[:survey_id]
-    end
-
-    def section(survey)
-      survey.sections.find_by(content_type: "BuildingTenure")
     end
 
     def building_ownership

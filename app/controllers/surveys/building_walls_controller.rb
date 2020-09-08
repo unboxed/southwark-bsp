@@ -4,12 +4,12 @@ module Surveys
 
     def index
       @survey = survey
-      @section = section(@survey)
+      @section = section(@survey, "BuildingHeight")
     end
 
     def new
       @survey = survey
-      @section = section(@survey)
+      @section = section(@survey, "BuildingHeight")
       @building_wall = BuildingWall.new(survey: @survey)
       @options_for_materials = materials
     end
@@ -32,7 +32,7 @@ module Surveys
     def edit
       session[:previous_url] = request.referer
       @survey = survey
-      @section = section(@survey)
+      @section = section(@survey, "BuildingHeight")
       @building_wall = building_wall
       @options_for_materials = materials
     end
@@ -51,7 +51,9 @@ module Surveys
         if session[:previous_url] == survey_summary_url(survey)
           redirect_to survey_summary_path(survey)
         else
-          redirect_to next_survey_section(current_section: building_wall.section, survey: survey)
+          section = section(survey, "BuildingWall")
+          next_section = section(survey, "Materials")
+          redirect_to next_survey_section(current_section: section, survey: survey, next_section: next_section)
         end
       end
     end
@@ -72,10 +74,6 @@ module Surveys
 
       def filtered_materials
         params[:building_wall][:materials].reject { |n| n.blank? }
-      end
-
-      def section(survey)
-        survey.sections.find_by(content_type: "BuildingHeight")
       end
 
       def materials

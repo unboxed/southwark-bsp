@@ -4,7 +4,7 @@ module Surveys
 
     def new
       @survey = survey
-      @section = section(@survey)
+      @section = section(@survey, "BuildingOwnership")
       @building_height = BuildingHeight.new(survey: @survey)
     end
 
@@ -12,14 +12,15 @@ module Surveys
       building_height = survey.sections.build content: BuildingHeight.new(building_height_params)
 
       if building_height.save
-        redirect_to next_survey_section(current_section: building_height, survey: survey)
+        next_section = section(survey, "BuildingWall")
+        redirect_to next_survey_section(current_section: building_height, survey: survey, next_section: next_section)
       end
     end
 
     def edit
       session[:previous_url] = request.referer
       @survey = survey
-      @section = section(@survey)
+      @section = section(@survey, "BuildingOwnership")
       @building_height = building_height
     end
 
@@ -28,7 +29,8 @@ module Surveys
         if session[:previous_url] == survey_summary_url(survey)
           redirect_to survey_summary_path(survey)
         else
-          redirect_to next_survey_section(current_section: building_height.section, survey: survey)
+          next_section = section(survey, "BuildingWall")
+          redirect_to next_survey_section(current_section: building_height.section, survey: survey, next_section: next_section)
         end
       end
     end
@@ -37,10 +39,6 @@ module Surveys
 
       def survey
         Survey.find params[:survey_id]
-      end
-
-      def section(survey)
-        survey.sections.find_by(content_type: "BuildingOwnership")
       end
 
       def building_height
