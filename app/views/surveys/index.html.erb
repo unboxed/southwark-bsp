@@ -7,12 +7,33 @@
     </div>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <h2 class="govuk-heading-l">Use this survey to identify the External Wall Materials on High-Rise Residential Buildings.</h2>
-        <p class="govuk-body-l">All buildings in Southwark, over 18m tall, are required to complete a building safety survey.</p>
+        <h2 class="govuk-heading-m">Use this survey to identify the External Wall Materials on High-Rise Residential Buildings.</h2>
+        <p class="govuk-body">All buildings in Southwark, over 18m tall, are required to complete a building safety survey.</p>
         <p class="govuk-body">In particular we are interested in the combination of external wall materials and insulation and the external wall structures on these buildings.</p>
+        <h2 class="govuk-heading-m">Information required to complete the building safety survey</h2>
+        <p class="govuk-body">The survey should take no longer than 10 minutes. The information you require to complete the process includes:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>Building UPRN which is included above</li>
+          <li>Height of the building</li>
+          <li>Details of cladding materials</li>
+          <li>Details and materials of external structures eg. balconies</li>
+        </ul>
+        <p class="govuk-body">To start the form or to tell us if this information is not correct click the following link.</p>
+        <%= link_to new_survey_building_status_path(@survey), role: "button", draggable: false, class: "govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8 govuk-button--start", data: { module: "govuk-button" } do %>
+          Start now
+          <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+          </svg>
+        <% end %>
+        <h2 class="govuk-heading-m">Asking someone else to fill in the building safety survey on your behalf</h2>
+        <p class="govuk-body">A colleague can complete this survey on your behalf if they have the information listed above.</p>
+        <h2 class="govuk-heading-m">Why this information is important</h2>
+        <p class="govuk-body">Shortly after the fire at Grenfell Tower, the Independent Expert Advisory Panel on Building Safety issued an advice note on external wall systems. This guidance can be found in Advice Note 14. The Independent Expert Advisory Panel advice states that if the external wall systems do not pass the listed safety requirements, then the building owner should seek professional advice and consider remediation measures.</p>
+        <p class="govuk-body"><%= link_to "https://www.gov.uk/government/publications/building-safety-advice-for-building-owners-including-fire-doors" %></p>
+        <p class="govuk-body">Once data has been collected on these buildings, the risks will be better known. The Ministry of Housing, Communities & Local Government</p>
       </div>
       <div class="govuk-grid-column-one-third">
-        <h3 class="govuk-heading-m">Related content</h3>
+        <h2 class="govuk-heading-s">Related content</h2>
         <p class="govuk-body"><%= link_to "Building safety advice", "https://www.gov.uk/government/publications/building-safety-advice-for-building-owners-including-fire-doors" %></p>
         <p class="govuk-body">Remediation measures / funding options</p>
         <p class="govuk-body">Data usage</p>
@@ -21,24 +42,3 @@
     </div>
   </main>
 </div>
-<h2 class="govuk-heading-l">Information required to complete the building safety survey</h2>
-<p class="govuk-body-l">The survey should take no longer than 10 minutes. The information you require to complete the process includes:</p>
-<ul class="govuk-list govuk-list--bullet">
-  <li>Building UPRN which is included above</li>
-  <li>Height of the building</li>
-  <li>Details of cladding materials</li>
-  <li>Details and materials of external structures eg. balconies</li>
-</ul>
-<p class="govuk-body-l">To start the form or to tell us if this information is not correct click the following link.</p>
-<%= link_to new_survey_building_status_path(@survey), role: "button", draggable: false, class: "govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8 govuk-button--start", data: { module: "govuk-button" } do %>
-  Start now
-  <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
-  </svg>
-<% end %>
-<h2 class="govuk-heading-l">Asking someone else to fill in the building safety survey on your behalf</h2>
-<p class="govuk-body-l">A colleague can complete this survey on your behalf if they have the information listed above.</p>
-<h2 class="govuk-heading-l">Why this information is important</h2>
-<p class="govuk-body-l">Shortly after the fire at Grenfell Tower, the Independent Expert Advisory Panel on Building Safety issued an advice note on external wall systems. This guidance can be found in Advice Note 14. The Independent Expert Advisory Panel advice states that if the external wall systems do not pass the listed safety requirements, then the building owner should seek professional advice and consider remediation measures.</p>
-<p class="govuk-body-l"><%= link_to "https://www.gov.uk/government/publications/building-safety-advice-for-building-owners-including-fire-doors" %></p>
-<p class="govuk-body-l">Once data has been collected on these buildings, the risks will be better known. The Ministry of Housing, Communities & Local Government</p>
