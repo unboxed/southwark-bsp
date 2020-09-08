@@ -142,6 +142,8 @@ RSpec.describe "Building manager views survey reply summary" do
 
     it "displays an error if no building external wall options are selected" do
       survey = create(:survey)
+      building_wall = create :building_wall, survey: survey
+      create :section, content: building_wall, survey: survey
       visit new_survey_building_external_wall_structure_path(survey)
 
       click_on "Continue"
