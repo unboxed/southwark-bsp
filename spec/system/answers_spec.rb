@@ -12,6 +12,8 @@ RSpec.describe "Building manager views survey reply summary" do
     before do
       visit root_path
       click_on "Start now"
+      fill_in with: building.uprn
+      click_button "Continue"
     end
 
     it "allows managers to modify building status" do
@@ -110,7 +112,17 @@ RSpec.describe "Building manager views survey reply summary" do
       click_on "Start now"
     end
 
+    it "displays an error if uprn is incorrect" do
+      fill_in with: 123
+      click_button "Continue"
+
+      expect(page).to have_text "There was a problem with code input"
+      expect(page).to have_text "Please enter the correct code"
+    end
+
     it "displays an error if building_status not selected" do
+      fill_in with: building.uprn
+      click_button "Continue"
       click_on "Continue"
 
       expect(page).to have_text "There was a problem with your survey"
@@ -118,6 +130,8 @@ RSpec.describe "Building manager views survey reply summary" do
     end
 
     it "displays an error if building_tenure not selected" do
+      fill_in with: building.uprn
+      click_button "Continue"
       choose "Existing", visible: false
       click_on "Continue"
       click_on "Continue"

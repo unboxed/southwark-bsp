@@ -3,6 +3,6 @@ FactoryBot.define do
     association :manager, factory: :building_manager
 
     address { "A place full of wonders" }
-    UPRN { rand 10**12 }
+    uprn { SecureRandom.alphanumeric }
   end
 end
