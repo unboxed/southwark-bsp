@@ -14,7 +14,9 @@ module Surveys
         redirect_to survey_building_wall_materials_details_path(survey_id: survey.id, building_wall_id: building_wall.id)
       elsif params[:building_wall][:insulation]
         params[:building_material].each { |key, val|  Material.find_by_id(key).update(insulation_material: val) }
-        if insulation_section_complete?
+        if insulation_section_complete? && !next_section_incomplete?
+          redirect_to survey_summary_path(survey)
+        elsif insulation_section_complete? && next_section_incomplete?
           redirect_to new_survey_building_external_wall_structure_path(survey)
         else
           redirect_to survey_building_wall_materials_details_path(survey_id: survey.id, building_wall_id: building_wall.id)
@@ -23,6 +25,8 @@ module Surveys
     end
 
     def material_partial
+      @survey = survey
+      @section = section(@survey, "BuildingWall")
       @building_wall = building_wall
       @options_for_insulation = insulations
       @material = all_materials.first
@@ -50,6 +54,11 @@ module Surveys
       def insulation_section_complete?
         all_materials.blank?
       end
+
+      def next_section_incomplete?
+        BuildingExternalWallStructure.find_by(survey_id: survey.id).blank?
+      end
+
 
       def insulations
         [

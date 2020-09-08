@@ -102,6 +102,39 @@ RSpec.describe "Building manager views survey reply summary" do
 
       expect(page).to have_text("External features of the building")
     end
+
+    it "allows managers to modify the building's external materials" do
+      survey = create :survey
+      building_height = create :building_height, higher_than_18_meters: true, height_in_storeys: 4, height_in_meters: 20, survey: survey
+      create :section, content: building_height, survey: survey
+      building_wall = create :building_wall, survey: survey
+      create :section, content: building_wall, survey: survey
+      material_one = create :material, name: "Brick", percentage: "80", insulation_material: "None", building_wall: building_wall
+      material_two = create :material, name: "Other",  percentage: "20", details: "Sheep", insulation_material: "Glass", building_wall: building_wall
+      external_wall_structure = create :building_external_wall_structure, has_no_external_structures: true, survey: survey
+      visit edit_survey_building_wall_path(survey_id: survey, id: building_wall)
+      uncheck 'Brick'
+      check 'Brick slips'
+
+      uncheck 'Other'
+      check 'Other'
+      fill_in "Please describe the selected material", with: "Candy canes"
+      click_on "Continue"
+
+      fill_in "Brick slips", with: "40"
+      fill_in "Other", with: "60"
+      click_button "Continue"
+
+      expect(page).to have_content "What insulation is used in combination with Brick slips?"
+      choose "Brick slips.None", visible: false
+      click_button "Continue"
+
+      expect(page).to have_content "What insulation is used in combination with Other : Candy canes?"
+      choose "Other.Glass wool", visible: false
+      click_button "Continue"
+
+      expect(page).to have_content "Brick slips - 40%, insulation: None Other Candy canes 60%, insulation: Glass wool"
+    end
   end
 
   context "errors" do

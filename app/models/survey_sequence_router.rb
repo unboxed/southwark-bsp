@@ -45,7 +45,7 @@ class SurveySequenceRouter
         survey_building_walls_path(survey)
       end
     when "BuildingWall"
-      material = Material.find_by(building_wall_id: next_section.content_id)
+      material = Material.find_by(building_wall_id: next_section)
       if material != nil
         edit_survey_building_wall_material_path(survey.id, next_section.content_id, material.id)
       else
