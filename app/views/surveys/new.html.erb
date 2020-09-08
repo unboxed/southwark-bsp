@@ -12,8 +12,9 @@
     </div>
   <% end %>
   <div class="govuk-form-group <%= " govuk-form-group--error" if @survey.errors.any? %>">
-    <p class="govuk-body-l">To complete the survey you need to find the correct building. Please enter the code included in the notification of this survey:</p>
+    <p class="govuk-body">Enter the unique property reference number (UPRN) for the building.</p>
     <%= form.text_field :uprn, class: "govuk-input govuk-input--width-20" %>
   </div>
+  <p class="govuk-body">You should have received this number in the letter or email notifying you to complete this survey.</p>
   <%= form.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
 <% end %>
