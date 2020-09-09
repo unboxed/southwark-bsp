@@ -121,8 +121,9 @@ RSpec.describe "Building manager views survey reply summary" do
       fill_in with: 123
       click_button "Continue"
 
-      expect(page).to have_text "There was a problem with code input"
-      expect(page).to have_text "Please enter the correct code"
+      expect(page).to have_text "There is a problem"
+      expect(page).to have_text "Either you have not entered a UPRN number or the number you have entered is not correct."
+      expect(page).to have_text "Please check the code provided on the letter or email."
     end
 
     it "displays an error if building_status not selected" do

@@ -1,12 +1,13 @@
 <%= render 'application/back_link', chosen_path: root_path %>
 <%= form_with model: @survey, local: true do |form| %>
-<h1 class="govuk-heading-xl">Get started</h1>
+  <h1 class="govuk-heading-xl">Get started</h1>
   <% if @survey.errors.any? %>
     <div class="govuk-error-summary">
-      <h2 class="govuk-error-summary__title">There was a problem with code input</h2>
+      <h2 class="govuk-error-summary__title">There is a problem</h2>
       <div class="govuk-error-summary__body">
         <ul>
-            <li>Please enter the correct code</li>
+          <li>Either you have not entered a UPRN number or the number you have entered is not correct.</li>
+          <li>Please check the code provided on the letter or email.</li>
         </ul>
       </div>
     </div>
