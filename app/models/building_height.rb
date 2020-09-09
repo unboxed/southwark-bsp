@@ -2,6 +2,9 @@ class BuildingHeight < ApplicationRecord
   belongs_to :survey
   has_one :section, as: :content
 
+  validates_inclusion_of :higher_than_18_meters, in: [true, false], message: 'Please select one'
+
+
   def name
     "Building height"
   end
@@ -11,7 +14,7 @@ class BuildingHeight < ApplicationRecord
   end
 
   def should_terminate_survey?
-    !higher_than_18_meters?
+    !higher_than_18_meters
   end
 
   private
