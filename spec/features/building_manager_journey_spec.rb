@@ -87,6 +87,9 @@ RSpec.describe "Building manager functionality" do
       click_button "Continue"
 
       expect(page).to have_content "Check your answers"
+      click_button "Submit"
+
+      expect(page).to have_content "Survey complete"
     end
   end
 end

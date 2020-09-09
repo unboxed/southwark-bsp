@@ -1,13 +1,13 @@
 class SurveysController < ApplicationController
-  before_action :set_survey, only: [:show, :destroy]
-
-  # GET /surveys
-  # GET /surveys.json
   def index
     if params.has_key?(:uprn)
       @building = Building.find_by(uprn: params[:uprn])
       @survey = Survey.create building: @building
     end
+  end
+
+  def show
+    @reference = survey.reference_id
   end
 
   def new
@@ -26,4 +26,11 @@ class SurveysController < ApplicationController
       end
     end
   end
+
+
+  private
+
+    def survey
+      Survey.find params[:survey_id]
+    end
 end

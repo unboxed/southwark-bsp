@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       resources :materials, controller: "surveys/materials"
     end
     resource :summary, controller: "surveys/summaries", only: [:show]
-    resource :end_survey, controller: "surveys/end_surveys", only: [:create]
+    post :end_survey, to:  "surveys#show"
+    get :end_survey, to:  "surveys#show"
   end
 end

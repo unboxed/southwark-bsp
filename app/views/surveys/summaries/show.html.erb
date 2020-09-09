@@ -4,6 +4,6 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <%= render @survey.sections %>
     </dl>
-    <%= button_to "Submit", survey_end_survey_path(@survey), remote: true, class: "govuk-button", data: { module: "govuk-button" } %>
+    <%= button_to "Submit", survey_end_survey_path(@survey), class: "govuk-button", data: { module: "govuk-button" } %>
   </div>
 </div>
