@@ -1,4 +1,4 @@
-<%= render 'application/back_link', chosen_path: edit_survey_building_ownership_path(@survey.id, @previous_section.content_id) unless @building_height.errors.any? %>
+<%= render 'application/back_link', chosen_path: edit_survey_building_tenure_path(@survey.id, @previous_section.content_id) unless @building_height.errors.any? %>
 <div data-controller="detail" data-detail-toggle-class="govuk-visually-hidden">
   <%= form_with model: [@survey, @building_height], local: true do |f| %>
     <% if @building_height.errors.any? %>

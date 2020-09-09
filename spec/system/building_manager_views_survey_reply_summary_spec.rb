@@ -5,7 +5,7 @@ RSpec.describe "Building manager views survey reply summary" do
     survey = create :survey
     building_status = create :building_status, status: "existing", survey: survey
     create :section, content: building_status, survey: survey
-    building_ownership = create :building_ownership, ownership_status: "developer", survey: survey
+    building_ownership = create :building_ownership, ownership_status: "building_developer", survey: survey
     create :section, content: building_ownership, survey: survey
     building_tenure = create :building_tenure, tenure_type: "private_residential", survey: survey
     create :section, content: building_tenure, survey: survey
@@ -40,17 +40,17 @@ RSpec.describe "Building manager views survey reply summary" do
 
     expect(page).to have_content "Check your answers"
     expect_building_status_to_be_displayed_as "Existing"
-    expect_building_ownership_to_be_displayed_as "Developer"
+    expect_building_ownership_to_be_displayed_as "Building developer"
     expect_building_tenure_to_be_displayed_as "Private residential"
     expect_building_height_to_be_displayed_as "Taller than 18 meters - 4 storey(s), 20 meters"
     expect_building_external_wall_structure_to_be_displayed_as "Green walls"
     expect(page).to have_content "Brick - 80%, insulation: None Other Sheep 20%, insulation: Glass"
 
     within(building_ownership_row) { click_on "Change" }
-    choose "Owner freeholder", visible: false
+    choose "Building owner freeholder", visible: false
     click_on "Continue"
 
-    expect_building_ownership_to_be_displayed_as "Owner freeholder"
+    expect_building_ownership_to_be_displayed_as "Building owner freeholder"
 
     within(building_tenure_row) { click_on "Change" }
     choose "Social residential", visible: false

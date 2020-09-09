@@ -16,7 +16,33 @@ RSpec.describe "Building manager views survey reply summary" do
       click_button "Continue"
     end
 
+
+    it "allows managers to modify building ownership" do
+      choose "Building owner freeholder", visible: false
+      click_on "Continue"
+
+      expect(page).to have_link "Back"
+
+      click_on "Back"
+
+      expect(page).to have_text("Your relationship to the building")
+
+      choose "Building developer", visible: false
+      check "Is this a right-to-manage company?"
+      within "fieldset" do
+        fill_in "Name", with: "Ana"
+        fill_in "Email", with: "test@test.com"
+        fill_in "Organisation", with: "Ana"
+      end
+      click_on "Continue"
+
+      expect(page).to have_text("Please confirm the status of this building")
+    end
+
+
     it "allows managers to modify building status" do
+       choose "Building owner freeholder", visible: false
+       click_on "Continue"
        choose "Existing", visible: false
        click_on "Continue"
 
@@ -33,6 +59,8 @@ RSpec.describe "Building manager views survey reply summary" do
      end
 
     it "allows managers to modify building tenure" do
+      choose "Building owner freeholder", visible: false
+      click_on "Continue"
       choose "Existing", visible: false
       click_on "Continue"
       choose "Social residential", visible: false
@@ -48,35 +76,15 @@ RSpec.describe "Building manager views survey reply summary" do
 
       click_on "Continue"
 
-      expect(page).to have_text("Please confirm ownership status")
-    end
-
-    it "allows managers to modify building ownership" do
-      choose "Existing", visible: false
-      click_on "Continue"
-      choose "Social residential", visible: false
-      click_on "Continue"
-      choose "Owner freeholder", visible: false
-      click_on "Continue"
-
-      expect(page).to have_link "Back"
-
-      click_on "Back"
-
-      expect(page).to have_text("Please confirm ownership status")
-
-      choose "Developer", visible: false
-      click_on "Continue"
-
       expect(page).to have_text("Is this building 18m or higher?")
     end
 
     it "allows managers to modify building height" do
+      choose "Building owner freeholder", visible: false
+      click_on "Continue"
       choose "Existing", visible: false
       click_on "Continue"
       choose "Social residential", visible: false
-      click_on "Continue"
-      choose "Owner freeholder", visible: false
       click_on "Continue"
       choose "Yes", visible: false
       within "fieldset", text: "How tall is the building?" do
@@ -162,6 +170,8 @@ RSpec.describe "Building manager views survey reply summary" do
     it "displays an error if building_status not selected" do
       fill_in with: building.uprn
       click_button "Continue"
+      choose "Building owner freeholder", visible: false
+      click_on "Continue"
       click_on "Continue"
 
       expect(page).to have_text "There was a problem with your survey"
@@ -171,6 +181,8 @@ RSpec.describe "Building manager views survey reply summary" do
     it "displays an error if building_tenure not selected" do
       fill_in with: building.uprn
       click_button "Continue"
+      choose "Building owner freeholder", visible: false
+      click_on "Continue"
       choose "Existing", visible: false
       click_on "Continue"
       click_on "Continue"

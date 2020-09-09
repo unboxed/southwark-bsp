@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_09_145919) do
+ActiveRecord::Schema.define(version: 2020_09_10_155124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -52,6 +52,10 @@ ActiveRecord::Schema.define(version: 2020_09_09_145919) do
     t.text "ownership_details"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "right_to_manage_company"
+    t.string "full_name"
+    t.string "email"
+    t.string "organisation"
     t.index ["survey_id"], name: "index_building_ownerships_on_survey_id"
   end
 
@@ -81,11 +85,14 @@ ActiveRecord::Schema.define(version: 2020_09_09_145919) do
   end
 
   create_table "buildings", force: :cascade do |t|
-    t.string "address", null: false
+    t.string "building_name", null: false
     t.string "uprn"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "manager_id"
+    t.string "street"
+    t.string "city_town"
+    t.string "postcode"
     t.index ["manager_id"], name: "index_buildings_on_manager_id"
   end
 

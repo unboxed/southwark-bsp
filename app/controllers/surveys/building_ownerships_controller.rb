@@ -4,14 +4,13 @@ module Surveys
 
     def new
       @survey = survey
-      @previous_section = section(@survey, "BuildingTenure")
       @ownership_information = BuildingOwnership.new(survey: @survey)
     end
 
     def create
       ownership_information = survey.sections.build content: BuildingOwnership.new(building_ownership_params)
       if ownership_information.save
-        next_section = section(survey, "BuildingHeight")
+        next_section = section(survey, "BuildingStatus")
         redirect_to next_survey_section(current_section: ownership_information, survey: survey, next_section: next_section)
       end
     end
@@ -19,7 +18,6 @@ module Surveys
     def edit
       session[:previous_url] = request.referer
       @survey = survey
-      @previous_section = section(@survey, "BuildingTenure")
       @ownership_information = building_ownership
     end
 
@@ -28,7 +26,7 @@ module Surveys
         if session[:previous_url] == survey_summary_url(survey)
           redirect_to survey_summary_path(survey)
         else
-          next_section = section(survey, "BuildingHeight")
+          next_section = section(survey, "BuildingStatus")
           redirect_to next_survey_section(current_section: building_ownership.section, survey: survey, next_section: next_section)
         end
       end
@@ -45,7 +43,7 @@ module Surveys
     end
 
     def building_ownership_params
-      params.require(:building_ownership).permit(:ownership_status).merge(survey: survey)
+      params.require(:building_ownership).permit(:ownership_status, :right_to_manage_company, :full_name, :email, :organisation).merge(survey: survey)
     end
   end
 end

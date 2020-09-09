@@ -11,7 +11,7 @@ module Surveys
     def create
       building_tenure = BuildingTenure.new(building_tenure_params)
       if building_tenure.save
-        next_section = section(survey, "BuildingOwnership")
+        next_section = section(survey, "BuildingHeight")
         survey.sections.create content: building_tenure
         redirect_to next_survey_section(current_section: building_tenure.section, survey: survey, next_section: next_section)
       else
@@ -36,7 +36,7 @@ module Surveys
         if session[:previous_url] == survey_summary_url(survey)
           redirect_to survey_summary_path(survey)
         else
-          next_section = section(survey, "BuildingOwnership")
+          next_section = section(survey, "BuildingHeight")
           redirect_to next_survey_section(current_section: building_tenure.section, survey: survey, next_section: next_section)
         end
       end

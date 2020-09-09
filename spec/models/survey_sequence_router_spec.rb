@@ -25,7 +25,7 @@ RSpec.describe SurveySequenceRouter, "#next_section_for" do
     expect(next_section_path).to eq new_survey_building_tenure_path(survey)
   end
 
-  it "returns the survey building ownership path if the current section is 'BuildingTenure'" do
+  it "returns the survey building height path if the current section is 'BuildingTenure'" do
     survey = build_stubbed :survey
     content = build_stubbed :building_tenure
     next_section = nil
@@ -33,6 +33,6 @@ RSpec.describe SurveySequenceRouter, "#next_section_for" do
 
     next_section_path = SurveySequenceRouter.for(survey).next_section_for(section.content, next_section)
 
-    expect(next_section_path).to eq new_survey_building_ownership_path(survey)
+    expect(next_section_path).to eq new_survey_building_height_path(survey)
   end
 end

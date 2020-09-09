@@ -19,7 +19,7 @@ class SurveysController < ApplicationController
     @building = Building.find_by(uprn: params[:survey][:uprn])
     @survey = Survey.new building: @building
     if @survey.save
-      redirect_to new_survey_building_status_path(@survey)
+      redirect_to new_survey_building_ownership_path(@survey)
     else
       respond_to do |format|
         format.html { render :new  }

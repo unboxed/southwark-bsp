@@ -20,6 +20,12 @@ class SurveySequenceRouter
     return survey_summary_path(survey) if current_section.should_terminate_survey?
 
     case current_section.class.name
+    when "BuildingOwnership"
+      if next_section != nil
+        edit_survey_building_status_path(survey.id, next_section.content_id)
+      else
+        new_survey_building_status_path(survey)
+      end
     when "BuildingStatus"
       if next_section != nil
         edit_survey_building_tenure_path(survey.id, next_section.content_id)
@@ -27,12 +33,6 @@ class SurveySequenceRouter
         new_survey_building_tenure_path(survey)
       end
     when "BuildingTenure"
-      if next_section != nil
-        edit_survey_building_ownership_path(survey.id, next_section.content_id)
-      else
-        new_survey_building_ownership_path(survey)
-      end
-    when "BuildingOwnership"
       if next_section != nil
         edit_survey_building_height_path(survey.id, next_section.content_id)
       else
