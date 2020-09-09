@@ -9,11 +9,17 @@ module Surveys
     end
 
     def create
-      building_height = survey.sections.build content: BuildingHeight.new(building_height_params)
+      @building_height = BuildingHeight.new(building_height_params)
 
-      if building_height.save
+      if @building_height.save
         next_section = section(survey, "BuildingWall")
-        redirect_to next_survey_section(current_section: building_height, survey: survey, next_section: next_section)
+        survey.sections.create content: @building_height
+        redirect_to next_survey_section(current_section: @building_height.section, survey: survey, next_section: next_section)
+      else
+        respond_to do |format|
+          @survey = survey
+          format.html { render :new }
+        end
       end
     end
 
