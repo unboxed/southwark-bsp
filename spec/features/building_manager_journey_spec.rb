@@ -71,15 +71,15 @@ RSpec.describe "Building manager functionality" do
       click_button "Continue"
 
       expect(page).to have_content "What insulation is used in combination with Glass?"
-      check "Glass.Phenolic foam insulation", visible: false
+      choose "Glass.Phenolic foam insulation", visible: false
       click_button "Continue"
 
       expect(page).to have_content "What insulation is used in combination with Brick slips?"
-      check "Brick slips.Expanded and Extruded polystyrene (EPS/XPS)", visible: false
+      choose "Brick slips.Expanded and Extruded polystyrene (EPS/XPS)", visible: false
       click_button "Continue"
 
       expect(page).to have_content "What insulation is used in combination with Other : Potatoes?"
-      check "Other.Wood fibre", visible: false
+      choose "Other.Wood fibre", visible: false
       click_button "Continue"
 
       expect(page).to have_content "Are there any sizeable external wall structures?"

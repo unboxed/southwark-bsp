@@ -11,10 +11,10 @@
       </div>
       <div class="govuk-checkboxes">
         <%= f.hidden_field :insulation, value: "insulation" %>
-        <%= f.collection_check_boxes(:materials, @options_for_insulation, :itself, :itself) do |b| %>
+        <%= f.collection_radio_buttons(:materials, @options_for_insulation, :itself, :itself) do |b| %>
           <div class="govuk-checkboxes__item">
-            <%= b.check_box(class: 'govuk-checkboxes__input', id: "#{@material.name}.#{b.value}", name: "building_material[#{@material.id}]") %>
-            <%= b.label(class: 'govuk-label govuk-checkboxes__label') %>
+            <%= b.radio_button(class: 'govuk-radios__input', id: "#{@material.name}.#{b.value}", name: "building_material[#{@material.id}]") %>
+            <%= b.label(class: 'govuk-label govuk-radios__label') %>
           </div>
         <% end %>
         <br>
