@@ -4,7 +4,7 @@ module Surveys
 
     def new
       @survey = survey
-      @section = section(@survey, "BuildingWall")
+      @previous_section = section(@survey, "BuildingWall")
       @building_external_wall_structure = BuildingExternalWallStructure.new survey: @survey
     end
 
@@ -25,7 +25,7 @@ module Surveys
     def edit
       session[:previous_url] = request.referer
       @survey = survey
-      @section = section(@survey, "BuildingWall")
+      @previous_section = section(@survey, "BuildingWall")
       @building_external_wall_structure = building_external_wall_structure
     end
 

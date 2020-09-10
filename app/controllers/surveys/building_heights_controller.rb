@@ -4,7 +4,7 @@ module Surveys
 
     def new
       @survey = survey
-      @section = section(@survey, "BuildingOwnership")
+      @previous_section = section(@survey, "BuildingOwnership")
       @building_height = BuildingHeight.new(survey: @survey)
     end
 
@@ -20,7 +20,7 @@ module Surveys
     def edit
       session[:previous_url] = request.referer
       @survey = survey
-      @section = section(@survey, "BuildingOwnership")
+      @previous_section = section(@survey, "BuildingOwnership")
       @building_height = building_height
     end
 

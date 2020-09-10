@@ -4,7 +4,7 @@ module Surveys
 
     def new
       @survey = survey
-      @section = section(@survey, "BuildingStatus")
+      @previous_section = section(@survey, "BuildingStatus")
       @building_tenure = BuildingTenure.new(survey: survey)
     end
 
@@ -18,7 +18,7 @@ module Surveys
         respond_to do |format|
           @building_tenure = building_tenure
           @survey = survey
-          @section = section(@survey, "BuildingStatus")
+          @previous_section = section(@survey, "BuildingStatus")
           format.html { render :new }
         end
       end
@@ -27,7 +27,7 @@ module Surveys
     def edit
       session[:previous_url] = request.referer
       @survey = survey
-      @section = section(@survey, "BuildingStatus")
+      @previous_section = section(@survey, "BuildingStatus")
       @building_tenure = building_tenure
     end
 

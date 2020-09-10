@@ -4,7 +4,7 @@ module Surveys
 
     def new
       @survey = survey
-      @section = section(@survey, "BuildingExternalWallStructure")
+      @previous_section = section(@survey, "BuildingExternalWallStructure")
       @external_wall_structure = external_wall_structure
       @material_detail_list = MaterialDetailList.new(
         external_structure_name: required_detail,
@@ -23,7 +23,7 @@ module Surveys
     def edit
       session[:previous_url] = request.referer
       @survey = survey
-      @section = section(@survey, "BuildingExternalWallStructure")
+      @previous_section = section(@survey, "BuildingExternalWallStructure")
       @external_wall_structure = external_wall_structure
       @material_detail_list = material_detail_list
     end

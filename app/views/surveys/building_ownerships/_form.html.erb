@@ -1,4 +1,4 @@
-<%= render 'application/back_link', chosen_path: edit_survey_building_tenure_path(@survey.id, @section.content_id) %>
+<%= render 'application/back_link', chosen_path: edit_survey_building_tenure_path(@survey.id, @previous_section.content_id) %>
 <div data-controller="building-status">
   <%= form_with model: [@survey, @ownership_information] do |form_builder| %>
     <div class="govuk-form-group">

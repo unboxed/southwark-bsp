@@ -1,4 +1,4 @@
-<%= render 'application/back_link', chosen_path: edit_survey_building_wall_path(@survey.id, @section.content_id) %>
+<%= render 'application/back_link', chosen_path: edit_survey_building_wall_path(@survey.id, @previous_section.content_id) %>
 <%= form_with model: [@survey, @building_wall], url: survey_building_wall_materials_details_path do |f| %>
   <div class="govuk-form-group">
     <fieldset class="govuk-fieldset">

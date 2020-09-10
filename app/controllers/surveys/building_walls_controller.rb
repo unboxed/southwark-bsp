@@ -4,12 +4,12 @@ module Surveys
 
     def index
       @survey = survey
-      @section = section(@survey, "BuildingHeight")
+      @previous_section = section(@survey, "BuildingHeight")
     end
 
     def new
       @survey = survey
-      @section = section(@survey, "BuildingHeight")
+      @previous_section = section(@survey, "BuildingHeight")
       @building_wall = BuildingWall.new(survey: @survey)
       @options_for_materials = materials
     end
@@ -32,7 +32,7 @@ module Surveys
     def edit
       session[:previous_url] = request.referer
       @survey = survey
-      @section = section(@survey, "BuildingHeight")
+      @previous_section = section(@survey, "BuildingHeight")
       @building_wall = building_wall
       @options_for_materials = materials
       @other_material = building_wall.materials.where(name: "Other").map { | material | material.details }
