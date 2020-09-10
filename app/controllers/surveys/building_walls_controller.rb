@@ -8,47 +8,31 @@ module Surveys
     end
 
     def create
-      building_wall = survey.sections.build content: BuildingWall.new
-      section = section(survey, "BuildingWall")
-      next_section = section(survey, "BuildingWallMaterials")
-      redirect_to next_survey_section(current_section: section, survey: survey, next_section: next_section)
-    end
+      building_wall = BuildingWall.new(building_walls_params)
 
-    def update
       if building_wall.save
-        if session[:previous_url] == survey_summary_url(survey)
-          redirect_to survey_summary_path(survey)
-        else
-          section = section(survey, "BuildingWall")
-          next_section = section(survey, "Materials")
-          redirect_to next_survey_section(current_section: section, survey: survey, next_section: next_section)
-        end
+
+        survey.sections.create content: building_wall
+        @previous_section = section(survey, "BuildingHeight")
+        next_section = section(survey, "BuildingWallMaterial")
+        redirect_to new_survey_building_wall_building_wall_material_path(survey, building_wall_id: building_wall)
+        # there are problems with creating the next section for some reason
+        # redirect_to next_survey_section(current_section: building_wall.section, survey: survey, next_section: nil)
       end
     end
 
     private
 
-      def survey
-        Survey.find params[:survey_id]
-      end
+    def building_walls_params
+      params.permit(:material_quantity).merge(survey: survey)
+    end
 
-      def building_wall
-        BuildingWall.find params[:id]
-      end
+    def survey
+      Survey.find params[:survey_id]
+    end
 
-      def filtered_materials
-        params[:building_wall][:materials].reject { |n| n.blank? }
-      end
-
-      def materials
-        [
-          "Glass", "High pressure laminate",
-          "Aluminium composite material", "Other metal composite material",
-          "Metal sheet panels", "Render system",
-          "Brick slips", "Brick", "Stone panels or stone",
-          "Tilling systems", "Timber or wood",
-          "Plastic", "Other"
-        ]
-      end
+    def building_wall
+      BuildingWall.find params[:id]
+    end
   end
 end

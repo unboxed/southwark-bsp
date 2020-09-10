@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2020_09_10_155124) do
-=======
-ActiveRecord::Schema.define(version: 2020_09_10_111155) do
->>>>>>> Add new models and db structure
+ActiveRecord::Schema.define(version: 2020_09_11_103055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -82,6 +78,8 @@ ActiveRecord::Schema.define(version: 2020_09_10_111155) do
 
   create_table "building_wall_material_insulations", force: :cascade do |t|
     t.bigint "building_wall_material_id", null: false
+    t.string "insulation_material"
+    t.text "insulation_details"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["building_wall_material_id"], name: "insulation_index"
@@ -89,6 +87,7 @@ ActiveRecord::Schema.define(version: 2020_09_10_111155) do
 
   create_table "building_wall_material_percentages", force: :cascade do |t|
     t.bigint "building_wall_material_id", null: false
+    t.integer "material_percentage"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["building_wall_material_id"], name: "percentage_index"

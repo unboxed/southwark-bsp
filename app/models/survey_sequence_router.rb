@@ -39,17 +39,9 @@ class SurveySequenceRouter
         new_survey_building_height_path(survey)
       end
     when "BuildingHeight"
-      if next_section != nil
-        edit_survey_building_wall_path(survey.id, next_section.content_id)
-      else
         survey_building_walls_path(survey)
-      end
-    when "BuildingWall"
-      if next_section != nil
-        edit_survey_building_wall_building_wall_material_path(survey.id, next_section.content_id, material.id)
-      else
+    when "BuildingWalls"
         new_survey_building_wall_building_wall_material_path(survey, building_wall_id: building_wall)
-      end
     when "BuildingWallMaterials"
       if next_section != nil
         new_survey_building_wall_building_wall_material_percentage_path(survey.id, next_section.content_id, material.id)

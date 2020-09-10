@@ -1,6 +1,8 @@
 class BuildingWallMaterial < ApplicationRecord
   belongs_to :building_wall
+  has_one :building_wall_material_percentage
   has_one :building_wall_material_insulation
+  has_one :section, as: :content
 
   enum material: {
     glass: "Glass",

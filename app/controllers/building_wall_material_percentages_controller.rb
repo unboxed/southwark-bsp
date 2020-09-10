@@ -1,2 +1,0 @@
-class BuildingWallMaterialPercentagesController < ApplicationController
-end
