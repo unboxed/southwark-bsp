@@ -45,18 +45,28 @@ class SurveySequenceRouter
         survey_building_walls_path(survey)
       end
     when "BuildingWall"
-      material = Material.find_by(building_wall_id: next_section)
-      if material != nil
-        edit_survey_building_wall_material_path(survey.id, next_section.content_id, material.id)
+      if next_section != nil
+        edit_survey_building_wall_building_wall_material_path(survey.id, next_section.content_id, material.id)
       else
-        new_survey_building_wall_material_path(survey, building_wall_id: building_wall)
+        new_survey_building_wall_building_wall_material_path(survey, building_wall_id: building_wall)
       end
-    when "Materials"
-      section = section(survey, "BuildingExternalWallStructure")
-      if section != nil
-        edit_survey_building_external_wall_structure_path(survey)
+    when "BuildingWallMaterials"
+      if next_section != nil
+        new_survey_building_wall_building_wall_material_percentage_path(survey.id, next_section.content_id, material.id)
       else
-        new_survey_building_external_wall_structure_path(survey)
+        edit_survey_building_wall_building_wall_material_percentage_path(survey, building_wall_id: building_wall)
+      end
+    when "BuildingWallPercentages"
+      if next_section != nil
+        edit_survey_building_wall_building_wall_material_insulation_path(survey.id, next_section.content_id, material.id)
+      else
+        new_survey_building_wall_building_wall_material_insulation_path(survey, building_wall_id: building_wall)
+      end
+    when "BuildingWallInsulations"
+      if next_section != nil
+        edit_survey_building_external_wall_structure_material_detail_list_path(survey.id, next_section.content_id, material.id)
+      else
+        new_survey_building_external_wall_structure_material_detail_list_path(survey, building_wall_id: building_wall)
       end
     when "BuildingExternalWallStructure"
       if current_section.incomplete?

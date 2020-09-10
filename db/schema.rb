@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_09_10_155124) do
+=======
+ActiveRecord::Schema.define(version: 2020_09_10_111155) do
+>>>>>>> Add new models and db structure
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -76,6 +80,29 @@ ActiveRecord::Schema.define(version: 2020_09_10_155124) do
     t.index ["survey_id"], name: "index_building_tenures_on_survey_id"
   end
 
+  create_table "building_wall_material_insulations", force: :cascade do |t|
+    t.bigint "building_wall_material_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["building_wall_material_id"], name: "insulation_index"
+  end
+
+  create_table "building_wall_material_percentages", force: :cascade do |t|
+    t.bigint "building_wall_material_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["building_wall_material_id"], name: "percentage_index"
+  end
+
+  create_table "building_wall_materials", force: :cascade do |t|
+    t.bigint "building_wall_id", null: false
+    t.string "material"
+    t.string "other_material"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["building_wall_id"], name: "material_index"
+  end
+
   create_table "building_walls", force: :cascade do |t|
     t.bigint "survey_id", null: false
     t.integer "material_quantity"
@@ -125,18 +152,6 @@ ActiveRecord::Schema.define(version: 2020_09_10_155124) do
     t.index ["building_external_wall_structure_id"], name: "index_detail_list_on_wall_structure_id"
   end
 
-  create_table "materials", force: :cascade do |t|
-    t.bigint "building_wall_id", null: false
-    t.string "name"
-    t.text "details"
-    t.integer "percentage"
-    t.string "insulation_material"
-    t.text "insulation_details"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["building_wall_id"], name: "index_materials_on_building_wall_id"
-  end
-
   create_table "sections", force: :cascade do |t|
     t.bigint "survey_id", null: false
     t.string "content_type"
@@ -172,10 +187,12 @@ ActiveRecord::Schema.define(version: 2020_09_10_155124) do
   add_foreign_key "building_ownerships", "surveys"
   add_foreign_key "building_statuses", "surveys"
   add_foreign_key "building_tenures", "surveys"
+  add_foreign_key "building_wall_material_insulations", "building_wall_materials"
+  add_foreign_key "building_wall_material_percentages", "building_wall_materials"
+  add_foreign_key "building_wall_materials", "building_walls"
   add_foreign_key "building_walls", "surveys"
   add_foreign_key "buildings", "building_managers", column: "manager_id"
   add_foreign_key "material_detail_lists", "building_external_wall_structures"
-  add_foreign_key "materials", "building_walls"
   add_foreign_key "sections", "surveys"
   add_foreign_key "surveys", "buildings"
 end

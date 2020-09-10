@@ -25,10 +25,9 @@ Rails.application.routes.draw do
       resources :material_detail_lists, controller: "surveys/external_walls_material_details"
     end
     resources :building_walls, controller: "surveys/building_walls" do
-      patch "/materials", to:  "surveys/materials#update"
-      get "materials/details", to:  "surveys/materials#material_partial"
-      patch "materials/details", to:  "surveys/materials#update"
-      resources :materials, controller: "surveys/materials"
+      resources :building_wall_materials, controller: "surveys/building_wall_materials"
+      resources :building_wall_material_insulations, controller: "surveys/building_wall_material_insulations"
+      resources :building_wall_material_percentages, controller: "surveys/building_wall_material_percentages"
     end
     resource :summary, controller: "surveys/summaries", only: [:show]
     post :end_survey, to:  "surveys#show"

@@ -1,0 +1,2 @@
+class BuildingWallMaterialPercentagesController < ApplicationController
+end
