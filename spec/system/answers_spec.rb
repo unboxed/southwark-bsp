@@ -79,9 +79,9 @@ RSpec.describe "Building manager views survey reply summary" do
       choose "Owner freeholder", visible: false
       click_on "Continue"
       choose "Yes", visible: false
-      within "fieldset", text: "If known, what is the height of this building?" do
-        fill_in "In meters", with: 20
-        fill_in "In storeys", with: 10
+      within "fieldset", text: "How tall is the building?" do
+        fill_in "In metres (optional)", with: 20
+        fill_in "In storeys (optional)", with: 10
       end
 
       click_on "Continue"
@@ -93,9 +93,9 @@ RSpec.describe "Building manager views survey reply summary" do
       expect(page).to have_text("Is this building 18m or higher?")
       choose "Yes", visible: false
 
-      within "fieldset", text: "If known, what is the height of this building?" do
-        fill_in "In meters", with: 22
-        fill_in "In storeys", with: 11
+      within "fieldset", text: "How tall is the building?" do
+        fill_in "In metres (optional)", with: 22
+        fill_in "In storeys (optional)", with: 11
       end
 
       click_on "Continue"

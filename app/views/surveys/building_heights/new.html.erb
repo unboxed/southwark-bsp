@@ -23,25 +23,19 @@
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <h1 class="govuk-label-wrapper">
             <label class="govuk-label govuk-label--l" for="event-name">
-              If known, what is the height of this building?
+              How tall is the building?
             </label>
           </h1>
-          <%= f.label :height_in_meters, "In meters", class: "govuk-label" %>
+          <%= f.label :height_in_meters, "In metres (optional)", class: "govuk-label" %>
           <%= f.text_field :height_in_meters, class: "govuk-input govuk-input--width-10 govuk-!-margin-bottom-3" %>
-          <%= f.label :height_in_storeys, "In storeys", class: "govuk-label" %>
+          <%= f.label :height_in_storeys, "In storeys (optional)", class: "govuk-label" %>
           <%= f.text_field :height_in_storeys, class: "govuk-input govuk-input--width-10" %>
         </fieldset>
       </div>
-      <details class="govuk-details" data-module="govuk-details">
-        <summary class="govuk-details__summary">
-          <span class="govuk-details__summary-text">
-            Why this data matters
-          </span>
-        </summary>
-        <div class="govuk-details__text">
-          Due to the Grenfell Tower fire, collecting data about building heights and stories will help us understand the risk involved if combustible building materials have been used.
-        </div>
-      </details>
       <%= f.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
+      <h2 class="govuk-heading-m">How to measure the building</h2>
+      <p class="govuk-body">Measurements should be taken from the ground to the floor of the top level.</p>
+      <img src=<%= image_url("building_height.png")%> alt="building_height">
+      <p class="govuk-body">Diagram sourced from: <%= link_to "Approved Document B on Appendix D Diagram D4, on page 142", "https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/832631/Approved_Document_B__fire_safety__volume_1_-_2019_edition.pdf" %>
     <% end %>
   </div>
