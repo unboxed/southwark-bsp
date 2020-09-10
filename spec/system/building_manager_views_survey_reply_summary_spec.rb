@@ -59,8 +59,8 @@ RSpec.describe "Building manager views survey reply summary" do
     expect_building_tenure_to_be_displayed_as "Social residential"
 
     within(building_height_row) { click_on "Change" }
-    fill_in "In storeys", with: 3
-    fill_in "In meters", with: 10
+    fill_in "In storeys (optional)", with: 3
+    fill_in "In metres (optional)", with: 10
     click_on "Continue"
 
     expect_building_height_to_be_displayed_as "Taller than 18 meters - 3 storey(s), 10 meters"
