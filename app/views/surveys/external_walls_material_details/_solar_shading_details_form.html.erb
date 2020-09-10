@@ -1,4 +1,4 @@
-<%= render 'application/back_link', chosen_path: edit_survey_building_external_wall_structure_path(@survey.id, @section.content_id) %>
+<%= render 'application/back_link', chosen_path: edit_survey_building_external_wall_structure_path(@survey.id, @previous_section.content_id) %>
 <div>
   <%= form_with model: [@survey, @external_wall_structure, @material_detail_list] do |form_builder| %>
     <%= hidden_field_tag :required_detail, :solar_shading %>

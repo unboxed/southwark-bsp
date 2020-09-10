@@ -4,7 +4,7 @@ module Surveys
 
     def new
       @survey = survey
-      @section = section(@survey, "BuildingWall")
+      @previous_section = section(@survey, "BuildingWall")
       @building_wall_materials = building_wall
     end
 
@@ -26,7 +26,7 @@ module Surveys
 
     def material_partial
       @survey = survey
-      @section = section(@survey, "BuildingWall")
+      @previous_section = section(@survey, "BuildingWall")
       @building_wall = building_wall
       @options_for_insulation = insulations
       @material = all_materials.first

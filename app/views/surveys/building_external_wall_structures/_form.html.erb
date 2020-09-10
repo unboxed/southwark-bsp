@@ -1,4 +1,4 @@
-<%= render 'application/back_link', chosen_path: edit_survey_building_wall_path(@survey.id, @section.content_id) unless @building_external_wall_structure.errors.any? %>
+<%= render 'application/back_link', chosen_path: edit_survey_building_wall_path(@survey.id, @previous_section.content_id) unless @building_external_wall_structure.errors.any? %>
 <div data-controller="detail" data-detail-toggle-class="govuk-visually-hidden">
   <%= form_with model: [@survey, @building_external_wall_structure], local: true do |form_builder| %>
     <% if @building_external_wall_structure.errors.any? %>
