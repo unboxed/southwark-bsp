@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
-  devise_for :users, only: %i(sessions confirmations passwords)
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :users, only: :sessions, module: :admin
+
   root to: "surveys#index"
+
+  namespace :admin do
+    devise_scope :user do
+      get "sign_in", to: "sessions#new"
+      delete "sign_out", to: "sessions#destroy"
+    end
+    get "/", to: "dashboards#show"
+    resource :dashboard, only: [:show]
+  end
 
   get "new_survey", to: "surveys/start_surveys#new", as: :start_new_survey
   get "get_started", to: "surveys#new", as: :get_started

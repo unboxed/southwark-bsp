@@ -1,0 +1,37 @@
+<% if flash[:alert] %>
+  <div class="govuk-error-summary">
+    <h2 class="govuk-error-summary__title">
+      There was a problem signining in
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list">
+        <li>
+          <span class="govuk-error-message">
+            <%= alert %>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h1 class="govuk-fieldset__heading">Sign in to access Admin area</h1>
+      </legend>
+      <div class="govuk-form-group">
+        <%= f.label :email, "Email address", class: "govuk-label" %>
+        <%= f.email_field :email, class: "govuk-input govuk-input--width-30", aspellcheck: false, autofocus: true, autocomplete: "email" %>
+      </div>
+      <div class="govuk-form-group">
+        <%= f.label :password, class: "govuk-label" %>
+        <%= f.password_field :password, class: "govuk-input govuk-input--width-30", autocomplete: "current-password" %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Sign in", class: "govuk-button", data: { module: "govuk-button" } %>
+      </div>
+    </fieldset>
+  </div>
+<% end %>
