@@ -30,7 +30,9 @@ module Surveys
       @building_wall = building_wall
       @options_for_insulation = insulations
       @material = all_materials.first
-      if insulation_section_complete?
+      if insulation_section_complete? && !next_section_incomplete?
+        redirect_to survey_summary_path(survey)
+      elsif insulation_section_complete? && next_section_incomplete?
         redirect_to new_survey_building_external_wall_structure_path(survey)
       else
         render "insulation_material"
