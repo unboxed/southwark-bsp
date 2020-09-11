@@ -4,12 +4,16 @@ function calculatePercentage() {
   const length = materials.length;
   let acc = 0;
   let count = 0;
- 
+
   if (materials) {
-    for(let i = 0; i < length; i++){
-        count += +materials[i].value;
-        acc = count;
+    for (let i = 0; i < length; i++) {
+      count += +materials[i].value;
+      acc = count;
+      if (acc > 100) {
+        material_percentage.innerHTML = "Please stop!"
+      } else {
         material_percentage.innerHTML = acc + "%";
+      }
     }
   }
 }
