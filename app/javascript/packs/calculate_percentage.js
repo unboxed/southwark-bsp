@@ -10,7 +10,8 @@ function calculatePercentage() {
       count += +materials[i].value;
       acc = count;
       if (acc > 100) {
-        material_percentage.innerHTML = "Please stop!"
+        material_percentage.innerHTML = acc + "%"
+        percentage_error_message.innerHTML = "Can not be more than 100%"
       } else {
         material_percentage.innerHTML = acc + "%";
       }
