@@ -1,4 +1,4 @@
-<%= render 'application/back_link', chosen_path: root_path %>
+<%= render 'application/back_link', chosen_path: edit_survey_building_ownership_path(@survey.id, @previous_section.content_id) %>
 <div data-controller="building-status">
   <%= form_with model: [@survey, @building_status], local: true do |form_builder| %>
     <% if @building_status.errors.any? %>

@@ -17,11 +17,11 @@ end
 
 RSpec.describe BuildingOwnership, "#reply" do
   it "returns a humanized form of the status" do
-    building_ownership = BuildingOwnership.new ownership_status: "owner_freeholder"
+    building_ownership = BuildingOwnership.new ownership_status: "building_owner_freeholder"
 
     reply = building_ownership.reply
 
-    expect(reply).to eq "Owner freeholder"
+    expect(reply).to eq "Building owner freeholder details:none   "
   end
 end
 

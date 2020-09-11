@@ -4,6 +4,7 @@ module Surveys
 
     def new
       @survey = survey
+      @previous_section = section(@survey, "BuildingOwnership")
       @building_status = BuildingStatus.new(survey: @survey)
     end
 
@@ -17,6 +18,7 @@ module Surveys
         respond_to do |format|
           @building_status = building_status
           @survey = survey
+          @previous_section = section(@survey, "BuildingOwnership")
           format.html { render :new  }
           format.json { render json: @building_status.errors, status: :unprocessable_entity }
         end
@@ -27,6 +29,7 @@ module Surveys
       session[:previous_url] = request.referer
       @survey = survey
       @building_status = building_status
+      @previous_section = section(@survey, "BuildingOwnership")
     end
 
     def update

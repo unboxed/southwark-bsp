@@ -1,11 +1,18 @@
-<%= render 'application/back_link', chosen_path: edit_survey_building_tenure_path(@survey.id, @previous_section.content_id) %>
+<%= render 'application/back_link', chosen_path: root_path %>
 <div data-controller="building-status">
+  <h1 class="govuk-heading-xl">Your relationship to the building</h1>
+  <ul class="govuk-list govuk-list">
+    <li><%= @survey.building.building_name %></li>
+    <li><%= @survey.building.street %></li>
+    <li><%= @survey.building.city_town %></li>
+    <li><%= @survey.building.postcode %></li>
+  </ul>
   <%= form_with model: [@survey, @ownership_information] do |form_builder| %>
     <div class="govuk-form-group">
       <fieldset class="govuk-fieldset">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-          <h1 class="govuk-fieldset__heading">
-            Please confirm ownership status
+          <h1 class="govuk-heading-m">
+            What is your role?
           </h1>
         </legend>
         <div class="govuk-radios">
@@ -16,12 +23,25 @@
             </div>
           <% end %>
         </div>
+        <br>
+        <div class="govuk-checkboxes">
+          <div class="govuk-checkboxes__item">
+            <%= form_builder.check_box :right_to_manage_company, {class: "govuk-checkboxes__input"}, "true", "false" %>
+            <%= form_builder.label :right_to_manage_company, "Is this a right-to-manage company?", class: "govuk-label govuk-checkboxes__label govuk-!-margin-bottom-5" %>
+          </div>
+        </div>
+        <%= form_builder.label :full_name, "Name", class: "govuk-label"%>
+        <%= form_builder.text_field :full_name, class: "govuk-input govuk-input--width-10 govuk-!-margin-bottom-3" %>
+        <%= form_builder.label :email, "Email", class: "govuk-label" %>
+        <%= form_builder.text_field :email, class: "govuk-input govuk-input--width-10 govuk-!-margin-bottom-3" %>
+        <%= form_builder.label :organisation, "Organisation", class: "govuk-label" %>
+        <%= form_builder.text_field :organisation, class: "govuk-input govuk-input--width-10" %>
       </fieldset>
     </div>
     <div class="govuk-form-group hidden" data-target="building-status.details">
       <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--l" for="more-detail">
-          Can you provide more detail?
+        <label class="govuk-label govuk-label--m" for="more-detail">
+          If relevant to the building please provide any other information about how it is managed?
         </label>
       </h1>
       <div id="more-detail-hint" class="govuk-hint">

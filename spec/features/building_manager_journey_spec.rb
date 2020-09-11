@@ -25,6 +25,11 @@ RSpec.describe "Building manager functionality" do
 
       fill_in with: building.uprn
       click_button "Continue"
+      expect(page).to have_text("Your relationship to the building")
+
+      choose "Building owner freeholder", visible: false
+      # add more tests
+      click_button "Continue"
       expect(page).to have_text("Please confirm the status of this building")
 
       choose "Existing", visible: false
@@ -33,11 +38,6 @@ RSpec.describe "Building manager functionality" do
 
       choose "Social residential", visible: false
       click_button "Continue"
-      expect(page).to have_text("Please confirm ownership status")
-
-      choose "Owner freeholder", visible: false
-      click_button "Continue"
-
       expect(page).to have_text("Is this building 18m or higher?")
       expect(page).to have_text("How tall is the building?")
 
