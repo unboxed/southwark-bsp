@@ -28,7 +28,7 @@ RSpec.describe "Building manager views survey reply summary" do
       expect(page).to have_text("Your relationship to the building")
 
       choose "Building developer", visible: false
-      check "Is this a right-to-manage company?"
+      choose "Yes", visible: false
       within "fieldset" do
         fill_in "Name", with: "Ana"
         fill_in "Email", with: "test@test.com"
