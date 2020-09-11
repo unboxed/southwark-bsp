@@ -4,18 +4,7 @@ class BuildingWallMaterial < ApplicationRecord
   has_one :building_wall_material_insulation
   has_one :section, as: :content
 
-  enum material: {
-    glass: "Glass",
-    laminate:  "High pressure laminate",
-    aluminium: "Aluminium composite material",
-    metalcomposite: "Other metal composite material",
-    brickslips: "Brick slips",
-    brick: "Brick",
-    stone: "Stone panels or stone",
-    tilling: "Tilling systems",
-    timberwood: "Timber or wood",
-    plastic: "Plastic"
-  }
+  validates :material_name, presence: true, allow_blank: false
 
   def should_terminate_survey?
     false

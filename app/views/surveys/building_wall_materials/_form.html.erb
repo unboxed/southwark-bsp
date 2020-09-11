@@ -1,17 +1,17 @@
 <div data-controller="building-status">
-  <%= form_with model: @building_wall_material do |f| %>
+  <%= form_with model: @building_wall_material, url: survey_building_wall_building_wall_materials_path, local: true do |f| %>
     <div class="govuk-form-group">
       <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <h1 class="govuk-fieldset__heading">
-            External facing materials [NEW]
+            External facing materials
           </h1>
         </legend>
         <div id="waste-hint" class="govuk-hint">
           Select all that apply
         </div>
         <div class="govuk-checkboxes">
-          <%= f.collection_check_boxes :building_wall_materials, @building_wall_materials.class.materials, :first, :second do |b| %>
+          <%= f.collection_check_boxes :material_name, Material.all, :name, :name do |b| %>
             <div class="govuk-checkboxes__item">
               <%= b.check_box(class: 'govuk-checkboxes__input') %>
               <%= b.label(class: 'govuk-label govuk-checkboxes__label') %>

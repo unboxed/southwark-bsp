@@ -4,11 +4,16 @@ module Surveys
 
     def new
       @survey = survey
-      @building_wall_materials = BuildingWallMaterial.new(building_wall: building_wall)
+      @building_wall_material = BuildingWallMaterial.new(building_wall: building_wall)
     end
 
     def create
-      byebug
+      building_wall_materials =  building_wall_material_params[:material_name].each do |m|
+         BuildingWallMaterial.create(material_name: m, building_wall: building_wall)
+      end
+      if building_wall_materials
+        redirect_to new_survey_building_wall_building_wall_material_percentage_path(survey, building_wall_id: building_wall)
+      end
     end
 
     def edit
@@ -28,7 +33,7 @@ module Surveys
       end
 
       def building_wall_material_params
-        params.fetch(:building_wall_material, {})
+        params.require(:building_wall_material).permit(:other_material, material_name: [])
       end
   end
 end

@@ -1,0 +1,28 @@
+<%= form_with model: @building_wall_material_insulation, url: survey_building_wall_building_wall_material_insulations_path do |f| %>
+<%= f.hidden_field :material, value: @material.id %>
+<div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h2 class="govuk-fieldset__heading govuk-heading-l">
+          What insulation is used in combination with <%= @material.material_name %>?
+        </h2>
+      </legend>
+      <div id="waste-hint" class="govuk-hint">
+        Please select one
+      </div>
+      <div class="govuk-checkboxes">
+        <%= f.collection_radio_buttons(:insulation_material, @options_for_insulation, :itself, :itself) do |b| %>
+          <div class="govuk-checkboxes__item">
+            <%= b.radio_button(class: 'govuk-radios__input')  %>
+            <%= b.label(class: 'govuk-label govuk-radios__label') %>
+          </div>
+        <% end %>
+        <br>
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <p class="govuk-body govuk-!-font-size-19"> Please provide any further details you may have about this insulation, such as manufacturer or product name </p>
+          <%= f.text_area :insulation_details, rows: "5", class: "govuk-textarea" %>
+          <%= f.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
+        <% end %>
+      </div>
+    </div>
+  </fieldset>

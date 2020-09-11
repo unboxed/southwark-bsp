@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_11_103055) do
+ActiveRecord::Schema.define(version: 2020_09_11_160037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 2020_09_11_103055) do
 
   create_table "building_wall_materials", force: :cascade do |t|
     t.bigint "building_wall_id", null: false
-    t.string "material"
+    t.string "material_name"
     t.string "other_material"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -149,6 +149,12 @@ ActiveRecord::Schema.define(version: 2020_09_11_103055) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["building_external_wall_structure_id"], name: "index_detail_list_on_wall_structure_id"
+  end
+
+  create_table "materials", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "sections", force: :cascade do |t|
