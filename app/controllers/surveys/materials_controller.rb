@@ -10,7 +10,10 @@ module Surveys
 
     def update
       if params[:building_wall][:percentage]
-        params[:building_material].each { |key, val|  Material.find_by_id(key).update(percentage: val) }
+        BuildingWall.transaction do
+          params[:building_material].each { |key, val|  Material.find_by_id(key).update(percentage: val) }
+        end
+        byebug
         redirect_to survey_building_wall_materials_details_path(survey_id: survey.id, building_wall_id: building_wall.id)
       elsif params[:building_wall][:insulation]
         params[:building_material].each { |key, val|  Material.find_by_id(key).update(insulation_material: val) }
