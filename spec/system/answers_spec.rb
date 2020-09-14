@@ -13,9 +13,12 @@ RSpec.describe "Building manager views survey reply summary" do
       click_button "Continue"
     end
 
-
     it "allows managers to modify building ownership" do
       choose "Building owner freeholder", visible: false
+      fill_in "Name", with: "Pepito"
+      fill_in "Email", with: "test@test.com"
+      fill_in "Organisation", with: "Pepito&Co"
+
       click_on "Continue"
 
       expect(page).to have_link "Back"
@@ -26,11 +29,11 @@ RSpec.describe "Building manager views survey reply summary" do
 
       choose "Building developer", visible: false
       choose "Yes", visible: false
-      within "fieldset" do
-        fill_in "Name", with: "Ana"
-        fill_in "Email", with: "test@test.com"
-        fill_in "Organisation", with: "Ana"
-      end
+
+      fill_in "Name", with: "Ana"
+      fill_in "Email", with: "test@test.com"
+      fill_in "Organisation", with: "Ana"
+
       click_on "Continue"
 
       expect(page).to have_text("Please confirm the status of this building")
@@ -39,6 +42,9 @@ RSpec.describe "Building manager views survey reply summary" do
 
     it "allows managers to modify building status" do
        choose "Building owner freeholder", visible: false
+       fill_in "Name", with: "Pepito"
+       fill_in "Email", with: "test@test.com"
+       fill_in "Organisation", with: "Pepito&Co"
        click_on "Continue"
        choose "Existing", visible: false
        click_on "Continue"
@@ -57,6 +63,9 @@ RSpec.describe "Building manager views survey reply summary" do
 
     it "allows managers to modify building tenure" do
       choose "Building owner freeholder", visible: false
+      fill_in "Name", with: "Pepito"
+      fill_in "Email", with: "test@test.com"
+      fill_in "Organisation", with: "Pepito&Co"
       click_on "Continue"
       choose "Existing", visible: false
       click_on "Continue"
@@ -78,6 +87,9 @@ RSpec.describe "Building manager views survey reply summary" do
 
     it "allows managers to modify building height" do
       choose "Building owner freeholder", visible: false
+      fill_in "Name", with: "Pepito"
+      fill_in "Email", with: "test@test.com"
+      fill_in "Organisation", with: "Pepito&Co"
       click_on "Continue"
       choose "Existing", visible: false
       click_on "Continue"
@@ -161,10 +173,32 @@ RSpec.describe "Building manager views survey reply summary" do
       expect(page).to have_text "Please check the code provided on the letter or email."
     end
 
+    it "displays an error if building_ownership not selected" do
+      fill_in with: building.uprn
+      click_button "Continue"
+      click_on "Continue"
+
+      expect(page).to have_text "There was a problem with your survey"
+      expect(page).to have_text "Ownership status can't be blank. Please select one value from the list"
+    end
+
+    it "displays an error if building_ownership is selected but name/email and organisation is blank" do
+      fill_in with: building.uprn
+      click_button "Continue"
+      choose "Building owner freeholder", visible: false
+      click_on "Continue"
+
+      expect(page).to have_text "There was a problem with your survey"
+      expect(page).to have_text "Empty details Please provide your details"
+    end
+
     it "displays an error if building_status not selected" do
       fill_in with: building.uprn
       click_button "Continue"
       choose "Building owner freeholder", visible: false
+      fill_in "Name", with: "Pepito"
+      fill_in "Email", with: "test@test.com"
+      fill_in "Organisation", with: "Pepito&Co"
       click_on "Continue"
       click_on "Continue"
 
@@ -176,6 +210,9 @@ RSpec.describe "Building manager views survey reply summary" do
       fill_in with: building.uprn
       click_button "Continue"
       choose "Building owner freeholder", visible: false
+      fill_in "Name", with: "Pepito"
+      fill_in "Email", with: "test@test.com"
+      fill_in "Organisation", with: "Pepito&Co"
       click_on "Continue"
       choose "Existing", visible: false
       click_on "Continue"
