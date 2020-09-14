@@ -10,7 +10,7 @@ class BuildingWall < ApplicationRecord
 
   def reply
     self.materials.map do |m|
-      "#{m.name} #{m.details ? m.details : '-'} #{m.percentage}%, insulation: #{m.insulation_material}"
+      "#{m.name} #{m.details ? m.details : '-'} #{m.percentage.material_percentage}%, insulation: #{m.insulation.insulation_material}"
     end.join("\n")
   end
 

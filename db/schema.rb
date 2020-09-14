@@ -88,6 +88,15 @@ ActiveRecord::Schema.define(version: 2020_09_16_101452) do
     t.citext "proprietor_email"
   end
 
+  create_table "insulations", force: :cascade do |t|
+    t.bigint "material_id", null: false
+    t.string "insulation_material"
+    t.text "insulation_details"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["material_id"], name: "insulation_index"
+  end
+
   create_table "material_detail_lists", force: :cascade do |t|
     t.bigint "building_external_wall_structure_id", null: false
     t.string "external_structure_name", default: "", null: false
@@ -121,12 +130,17 @@ ActiveRecord::Schema.define(version: 2020_09_16_101452) do
     t.bigint "building_wall_id", null: false
     t.string "name"
     t.text "details"
-    t.integer "percentage"
-    t.string "insulation_material"
-    t.text "insulation_details"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["building_wall_id"], name: "index_materials_on_building_wall_id"
+  end
+
+  create_table "percentages", force: :cascade do |t|
+    t.bigint "material_id", null: false
+    t.integer "material_percentage"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["material_id"], name: "percentage_index"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -165,8 +179,10 @@ ActiveRecord::Schema.define(version: 2020_09_16_101452) do
   add_foreign_key "building_statuses", "surveys"
   add_foreign_key "building_tenures", "surveys"
   add_foreign_key "building_walls", "surveys"
+  add_foreign_key "insulations", "materials"
   add_foreign_key "material_detail_lists", "building_external_wall_structures"
   add_foreign_key "materials", "building_walls"
+  add_foreign_key "percentages", "materials"
   add_foreign_key "sections", "surveys"
   add_foreign_key "surveys", "buildings"
 end

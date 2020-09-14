@@ -1,5 +1,5 @@
 function toggleOther() {
-  const materialOther = document.querySelector("#building_wall_materials_other");
+  const materialOther = document.querySelector("#materials_other");
   const materialDetails = document.querySelector("#other_material_details");
 
   if (materialOther) {
