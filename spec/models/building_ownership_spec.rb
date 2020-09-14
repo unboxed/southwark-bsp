@@ -26,8 +26,16 @@ RSpec.describe BuildingOwnership, "#reply" do
 end
 
 RSpec.describe BuildingOwnership, "#should_terminate_survey?" do
-  it "returns false" do
-    building_ownership = BuildingOwnership.new
+  it "returns true if the building ownership_status is 'i_am_not_associated_with_this_building'" do
+    building_ownership = building_ownership = BuildingOwnership.new ownership_status: "i_am_not_associated_with_this_building"
+
+    terminates_survey = building_ownership.should_terminate_survey?
+
+    expect(terminates_survey).to eq true
+  end
+
+  it "returns false if the building status is not 'i_am_not_associated_with_this_building'" do
+    building_ownership = building_ownership = BuildingOwnership.new ownership_status: "building_owner_freeholder"
 
     terminates_survey = building_ownership.should_terminate_survey?
 

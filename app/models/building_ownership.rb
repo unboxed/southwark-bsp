@@ -13,6 +13,6 @@ class BuildingOwnership < ApplicationRecord
   end
 
   def should_terminate_survey?
-    false
+    i_am_not_associated_with_this_building?
   end
 end
