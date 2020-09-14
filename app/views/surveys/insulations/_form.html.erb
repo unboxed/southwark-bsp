@@ -1,5 +1,5 @@
-<%= render 'application/back_link', chosen_path: edit_survey_building_wall_path(@survey.id, @previous_section.content_id) %>
-<%= form_with model: [@survey, @building_wall], url: survey_building_wall_materials_details_path do |f| %>
+<%= render 'application/back_link', chosen_path: edit_survey_building_wall_path(@survey.id, id: @previous_section) %>
+<%= form_with model: @insulation, url: survey_building_wall_insulations_path do |f| %>
   <div class="govuk-form-group">
     <fieldset class="govuk-fieldset">
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -11,17 +11,16 @@
         Please select one
       </div>
       <div class="govuk-checkboxes">
-        <%= f.hidden_field :insulation, value: "insulation" %>
-        <%= f.collection_radio_buttons(:materials, @options_for_insulation, :itself, :itself) do |b| %>
+        <%= f.collection_radio_buttons(:insulation, @options_for_insulation, :itself, :itself) do |b| %>
           <div class="govuk-checkboxes__item">
-            <%= b.radio_button(class: 'govuk-radios__input', id: "#{@material.name}.#{b.value}", name: "building_material[#{@material.id}]") %>
+            <%= b.radio_button(class: 'govuk-radios__input', id: "#{@material.name}.#{b.value}", name: "insulation_material[#{@material.id}]") %>
             <%= b.label(class: 'govuk-label govuk-radios__label') %>
           </div>
         <% end %>
         <br>
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
           <p class="govuk-body govuk-!-font-size-19"> Please provide any further details you may have about this insulation, such as manufacturer or product name </p>
-          <%= f.text_area :insulation_material_details, rows: "5", class: "govuk-textarea" %>
+          <%= f.text_area :insulation_details, rows: "5", class: "govuk-textarea" %>
           <%= f.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
         <% end %>
       </div>

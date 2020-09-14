@@ -126,8 +126,6 @@ RSpec.describe "Building manager views survey reply summary" do
       create :section, content: building_height, survey: survey
       building_wall = create :building_wall, survey: survey
       create :section, content: building_wall, survey: survey
-      material_one = create :material, name: "Brick", percentage: "80", insulation_material: "None", building_wall: building_wall
-      material_two = create :material, name: "Other",  percentage: "20", details: "Sheep", insulation_material: "Glass", building_wall: building_wall
       external_wall_structure = create :building_external_wall_structure, has_no_external_structures: true, survey: survey
       visit edit_survey_building_wall_path(survey_id: survey, id: building_wall)
       uncheck 'Brick'

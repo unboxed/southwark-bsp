@@ -2,7 +2,7 @@
   <dt class="govuk-summary-list__key"><%= building_wall.name %></dt>
   <dd class="govuk-summary-list__value"><%= building_wall.reply %></dd>
   <dd class="govuk-summary-list__actions">
-  <%= link_to [:edit, building_wall.survey, building_wall.content], class: "govuk-link" do %>
+  <%= link_to edit_survey_building_wall_path(building_wall.survey, id: building_wall.content_id), class: "govuk-link" do %>
     Change<span class="govuk-visually-hidden"> <%= building_wall.name %></span>
   <% end %>
   </dd>
