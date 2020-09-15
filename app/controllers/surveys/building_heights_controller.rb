@@ -31,8 +31,13 @@ module Surveys
     end
 
     def update
+      before_update = building_height.higher_than_18_meters?
       if building_height.update(building_height_params)
-        if session[:previous_url] == survey_summary_url(survey)
+        if !before_update && building_height.higher_than_18_meters?
+          next_section = section(survey, "BuildingWall")
+          redirect_to next_survey_section(current_section: building_height.section, survey: survey, next_section: next_section)
+        elsif
+          session[:previous_url] == survey_summary_url(survey)
           redirect_to survey_summary_path(survey)
         else
           next_section = section(survey, "BuildingWall")
