@@ -162,7 +162,6 @@ ActiveRecord::Schema.define(version: 2020_09_16_165118) do
     t.bigint "building_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "reference_id"
     t.index ["building_id"], name: "index_surveys_on_building_id"
   end
 
