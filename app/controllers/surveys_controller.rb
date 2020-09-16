@@ -7,7 +7,7 @@ class SurveysController < ApplicationController
   end
 
   def show
-    @reference = survey.reference_id
+    @uprn = survey.building.uprn
   end
 
   def new
