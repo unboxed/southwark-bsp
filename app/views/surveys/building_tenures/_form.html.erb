@@ -8,7 +8,7 @@
         </h2>
         <div class="govuk-error-summary__body">
           <ul class="govuk-list">
-            <% @building_tenure.errors.full_messages.each do |msg| %>
+            <% @building_tenure.errors.messages[:tenure_type].each do |msg| %>
               <li>
                 <span class="govuk-error-message">
                   <%= msg %>

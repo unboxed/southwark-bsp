@@ -188,7 +188,7 @@ RSpec.describe "Building manager views survey reply summary" do
       click_on "Continue"
 
       expect(page).to have_text "There was a problem with your survey"
-      expect(page).to have_text "Tenure type can't be blank. Please select one value from the list"
+      expect(page).to have_text "Please select one value from the list"
     end
 
     it "displays an error if no building external wall options are selected" do
