@@ -47,6 +47,10 @@ RSpec.describe "Building manager views survey reply summary" do
        fill_in "Organisation", with: "Pepito&Co"
        click_on "Continue"
        choose "Existing", visible: false
+       within "fieldset", text: "Can you provide more detail?" do
+         fill_in "status_details", with: "I really want some apple pie"
+       end
+
        click_on "Continue"
 
        expect(page).to have_link "Back"
@@ -54,6 +58,7 @@ RSpec.describe "Building manager views survey reply summary" do
        click_on "Back"
 
        expect(page).to have_text("Please confirm the status of this building")
+       expect(page).to have_text("I really want some apple pie")
 
        choose "Demolished", visible: false
        click_on "Continue"

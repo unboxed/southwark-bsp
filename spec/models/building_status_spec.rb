@@ -17,11 +17,11 @@ end
 
 RSpec.describe BuildingStatus, "#reply" do
   it "returns a humanized form of the status" do
-    building_status = BuildingStatus.new status: "not_recognized"
+    building_status = BuildingStatus.new status: "existing"
 
     reply = building_status.reply
 
-    expect(reply).to eq "Not recognized"
+    expect(reply).to eq "Existing"
   end
 end
 

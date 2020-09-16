@@ -3,7 +3,7 @@ class BuildingStatus < ApplicationRecord
   has_one :section, as: :content
   validates :status, presence: { message: "can't be blank. Please select one value from the list" }
 
-  enum status: { existing: 1, demolished: 2, duplicate: 3, not_recognized: 4 }
+  enum status: { existing: 1, demolished: 2 }
 
   def name
     "Building status"
