@@ -5,7 +5,7 @@ RSpec.describe "Building manager views survey reply summary" do
     survey = create :survey
     building_status = create :building_status, status: "existing", survey: survey
     create :section, content: building_status, survey: survey
-    building_ownership = create :building_ownership, ownership_status: "building_developer", survey: survey
+    building_ownership = create :building_ownership, ownership_status: "building_developer", full_name: "Pepe", email: "test@test.com", organisation: "Pepe&Co", survey: survey
     create :section, content: building_ownership, survey: survey
     building_tenure = create :building_tenure, tenure_type: "private_residential", survey: survey
     create :section, content: building_tenure, survey: survey

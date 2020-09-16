@@ -25,7 +25,10 @@ RSpec.describe "Building manager functionality" do
       expect(page).to have_text("Your relationship to the building")
 
       choose "Building owner freeholder", visible: false
-      # add more tests
+      fill_in "Name", with: "Pepito"
+      fill_in "Email", with: "test@test.com"
+      fill_in "Organisation", with: "Pepito&Co"
+
       click_button "Continue"
       expect(page).to have_text("Please confirm the status of this building")
 
