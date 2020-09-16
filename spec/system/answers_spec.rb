@@ -2,11 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Building manager views survey reply summary" do
   context "modifing previous answers" do
-    let!(:building_manager) do
-      create :building_manager
-    end
     let!(:building) do
-      create :building, manager: building_manager
+      create :building
     end
 
     before do
@@ -146,11 +143,8 @@ RSpec.describe "Building manager views survey reply summary" do
   end
 
   context "errors" do
-    let!(:building_manager) do
-      create :building_manager
-    end
     let!(:building) do
-      create :building, manager: building_manager
+      create :building
     end
 
     before do

@@ -13,7 +13,7 @@ module Surveys
     private
 
       def building
-        Building.includes(:manager).find params[:for]
+        Building.find params[:for]
       end
   end
 end
