@@ -1,11 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Building manager functionality" do
-  let!(:building_manager) do
-    create :building_manager
-  end
   let!(:building) do
-    create :building, manager: building_manager
+    create :building
   end
 
   before do

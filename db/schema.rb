@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_10_155124) do
+ActiveRecord::Schema.define(version: 2020_09_16_101452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -37,13 +37,6 @@ ActiveRecord::Schema.define(version: 2020_09_10_155124) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["survey_id"], name: "index_building_heights_on_survey_id"
-  end
-
-  create_table "building_managers", force: :cascade do |t|
-    t.citext "email", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_building_managers_on_email"
   end
 
   create_table "building_ownerships", force: :cascade do |t|
@@ -89,11 +82,10 @@ ActiveRecord::Schema.define(version: 2020_09_10_155124) do
     t.string "uprn"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "manager_id"
     t.string "street"
     t.string "city_town"
     t.string "postcode"
-    t.index ["manager_id"], name: "index_buildings_on_manager_id"
+    t.citext "proprietor_email"
   end
 
   create_table "material_detail_lists", force: :cascade do |t|
@@ -173,7 +165,6 @@ ActiveRecord::Schema.define(version: 2020_09_10_155124) do
   add_foreign_key "building_statuses", "surveys"
   add_foreign_key "building_tenures", "surveys"
   add_foreign_key "building_walls", "surveys"
-  add_foreign_key "buildings", "building_managers", column: "manager_id"
   add_foreign_key "material_detail_lists", "building_external_wall_structures"
   add_foreign_key "materials", "building_walls"
   add_foreign_key "sections", "surveys"
