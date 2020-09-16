@@ -30,6 +30,7 @@ module Surveys
       @survey = survey
       @building_status = building_status
       @previous_section = section(@survey, "BuildingOwnership")
+      @building_details = building_status.status_details
     end
 
     def update
@@ -55,7 +56,7 @@ module Surveys
       end
 
       def building_status_params
-        params.require(:building_status).permit(:status).merge(survey: survey)
+        params.require(:building_status).permit(:status, :status_details).merge(survey: survey)
       end
 
       def building_status
