@@ -40,6 +40,6 @@ RSpec.describe BuildingTenure, "validation" do
     building_tenure = BuildingTenure.new tenure_type: ""
 
     expect(building_tenure).not_to be_valid
-    expect(building_tenure.errors.added?(:tenure_type, "can't be blank. Please select one value from the list")).to be_truthy
+    expect(building_tenure.errors.added?(:tenure_type, "Please select one value from the list")).to be_truthy
   end
 end
