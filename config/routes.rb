@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
     get "/", to: "dashboards#show"
     resource :dashboard, only: [:show]
+    resources :bulk_imports, only: [:new, :create]
   end
 
   get "new_survey", to: "surveys/start_surveys#new", as: :start_new_survey

@@ -1,0 +1,38 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-xl">Upload building data</h1>
+  </div>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: [:admin, @upload_form], local: true do |form_builder| %>
+      <% if @upload_form.errors.any? %>
+        <div class="govuk-error-summary">
+          <h2 class="govuk-error-summary__title">
+            There was a problem with your upload.
+          </h2>
+          <div class="govuk-error-summary__body">
+            <ul class="govuk-list">
+              <% @upload_form.errors.full_messages.each do |msg| %>
+                <li>
+                  <span class="govuk-error-message">
+                    <%= msg %>
+                  </span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+      <div class="govuk-form-group <%= "govuk-form-group--error" if @upload_form.errors.any? %>">
+        <%= form_builder.label :file, "Upload a CSV file", class: "govuk-label" %>
+        <p class="govuk-hint">
+        If the file you are about to upload contains UPRNs that already exist in the database,
+        those records will updated with any new information.
+        </p>
+        <%= form_builder.file_field :file, required: true, accept: "text/csv", multiple: false %>
+      </div>
+      <%= form_builder.submit "Upload", class: "govuk-button" %>
+    <% end %>
+  </div>
+</div>

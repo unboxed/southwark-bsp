@@ -1,1 +1,40 @@
-<h1 class="govuk-heading-l">Admin dashboard</h1>
+<h4 class="govuk-heading-l">Admin dashboard</h1>
+
+<nav>
+  <%= link_to "Upload building list", new_admin_bulk_import_path, class: "govuk-button" %>
+</nav>
+
+<table class="govuk-table">
+  <caption class="govuk-table__caption">Building records</caption>
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">UPRN</th>
+      <th scope="col" class="govuk-table__header">Address</th>
+      <th scope="col" class="govuk-table__header">Proprietor</th>
+      <th scope="col" class="govuk-table__header">
+        Proprietor address
+      </th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <% @buildings.each do |building| %>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell"><%= building.uprn %></td>
+        <td class="govuk-table__cell">
+          <%= building.building_name %><br />
+          <%= building.street %>
+        </td>
+        <td class="govuk-table__cell">
+          <%= building.land_registry_proprietor_name %>
+          <% if building.land_registry_proprietor_category %>
+            <br />
+            (<%= building.land_registry_proprietor_category %>)
+          <% end %>
+        </td>
+        <td class="govuk-table__cell">
+          <%= building.land_registry_proprietor_address %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

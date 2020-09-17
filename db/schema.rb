@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_16_101452) do
+ActiveRecord::Schema.define(version: 2020_09_16_132752) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -78,14 +78,20 @@ ActiveRecord::Schema.define(version: 2020_09_16_101452) do
   end
 
   create_table "buildings", force: :cascade do |t|
-    t.string "building_name", null: false
+    t.string "building_name"
     t.string "uprn"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.string "street"
     t.string "city_town"
     t.string "postcode"
     t.citext "proprietor_email"
+    t.string "land_registry_title_number"
+    t.string "land_registry_proprietor_name"
+    t.string "land_registry_proprietor_address"
+    t.string "land_registry_proprietor_category"
+    t.string "land_registry_proprietor_company_registration_number"
+    t.index ["uprn"], name: "index_buildings_on_uprn", unique: true
   end
 
   create_table "insulations", force: :cascade do |t|
