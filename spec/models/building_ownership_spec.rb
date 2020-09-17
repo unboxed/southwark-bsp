@@ -48,13 +48,13 @@ RSpec.describe BuildingOwnership, "validation" do
     building_ownership = BuildingOwnership.new
 
     expect(building_ownership).not_to be_valid
-    expect(building_ownership.errors.added?(:ownership_status, "can't be blank. Please select one value from the list")).to be_truthy
+    expect(building_ownership.errors.added?(:ownership_status, "Select your role as either building owner, freeholder, building developer, managing agent, other, or if you are not associated with this building")).to be_truthy
   end
 
   it "throws an error if ownership_status is presented but name/email/organisation is blank" do
     building_ownership = BuildingOwnership.new ownership_status: "building_owner_freeholder"
 
     expect(building_ownership).not_to be_valid
-    expect(building_ownership.errors.added?(:empty_details, " Please provide your details")).to be_truthy
+    expect(building_ownership.errors.added?(:empty_details, "Please provide contact details")).to be_truthy
   end
 end

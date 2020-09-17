@@ -177,7 +177,7 @@ RSpec.describe "Building manager views survey reply summary" do
       click_on "Continue"
 
       expect(page).to have_text "There was a problem with your survey"
-      expect(page).to have_text "Ownership status can't be blank. Please select one value from the list"
+      expect(page).to have_text "Select your role as either building owner, freeholder, building developer, managing agent, other, or if you are not associated with this building"
     end
 
     it "displays an error if building_ownership is selected but name/email and organisation is blank" do
@@ -187,7 +187,7 @@ RSpec.describe "Building manager views survey reply summary" do
       click_on "Continue"
 
       expect(page).to have_text "There was a problem with your survey"
-      expect(page).to have_text "Empty details Please provide your details"
+      expect(page).to have_text "Please provide contact details"
     end
 
     it "displays an error if building_status not selected" do
