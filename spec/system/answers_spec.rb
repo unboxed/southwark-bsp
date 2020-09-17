@@ -149,10 +149,12 @@ RSpec.describe "Building manager views survey reply summary" do
 
       expect(page).to have_content "What insulation is used in combination with Brick slips?"
       choose "Brick slips.None", visible: false
+      fill_in "insulation_details", with: "feathers"
       click_button "Continue"
 
       expect(page).to have_content "What insulation is used in combination with Other : Candy canes?"
       choose "Other.Glass wool", visible: false
+      fill_in "insulation_details", with: "donuts"
       click_button "Continue"
 
       expect(page).to have_content "Brick slips - 40%, insulation: None Other Candy canes 60%, insulation: Glass wool"
@@ -224,6 +226,23 @@ RSpec.describe "Building manager views survey reply summary" do
       click_on "Continue"
 
       expect(page).to have_text "There was a problem with your survey"
+      expect(page).to have_text "Please select one value from the list"
+    end
+
+    it "displays an error if no building insulation options are selected" do
+      survey = create(:survey)
+      building_height = create :building_height, higher_than_18_meters: true, height_in_storeys: 4, height_in_meters: 20, survey: survey
+      create :section, content: building_height, survey: survey
+      building_wall = create :building_wall, survey: survey
+      create :section, content: building_wall, survey: survey
+      material = create :material, building_wall: building_wall, name: "Glass"
+
+      visit new_survey_building_wall_insulation_path(survey_id: survey.id, building_wall_id: building_wall.id)
+
+      click_on "Continue"
+
+      expect(page).to have_text "There was a problem with your survey"
+      expect(page).to have_text "Insulation material can't be blank"
       expect(page).to have_text "Please select one value from the list"
     end
 
