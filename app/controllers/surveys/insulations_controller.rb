@@ -5,19 +5,34 @@ module Surveys
       @material = all_materials_needing_insulation
       @survey = survey
       @previous_section = building_wall.id
+      @insulations = Insulation.new
     end
 
     def create
-      insulations = insulation_params[:insulation_material].each do |key, val|
-        Insulation.create(material_id: key, insulation_material: val, insulation_details: insulation_params[:insulation_details])
-      end
-
-      if insulation_section_complete? && !next_section_incomplete?
-        redirect_to survey_summary_path(survey)
-      elsif insulation_section_complete? && next_section_incomplete?
-        redirect_to new_survey_building_external_wall_structure_path(survey)
+      if params_are_not_present?
+        @material = all_materials_needing_insulation
+        @insulations = Insulation.new(material_id: @material.id, insulation_details: "bla")
+        @insulations.valid?
+        @options_for_insulation = insulations
+        @survey = survey
+        @previous_section = building_wall
+        render :new
       else
-        redirect_to new_survey_building_wall_insulation_path(survey: survey, building_wall: building_wall)
+        insulation_params[:insulation_material].each do |key, val|
+          insulation = Insulation.new(material_id: key, insulation_material: val, insulation_details: insulation_params[:insulation_details])
+          if insulation.save
+            redirect_to_next_section
+          else
+            respond_to do |format|
+              @insulations = insulation
+              @options_for_insulation = insulations
+              @material = all_materials_needing_insulation
+              @survey = survey
+              @previous_section = building_wall
+              format.html { render :new  }
+            end
+          end
+        end
       end
     end
 
@@ -53,6 +68,20 @@ module Surveys
 
       def next_section_incomplete?
         BuildingExternalWallStructure.find_by(survey_id: survey.id).blank?
+      end
+
+      def redirect_to_next_section
+        if insulation_section_complete? && !next_section_incomplete?
+          redirect_to survey_summary_path(survey)
+        elsif insulation_section_complete? && next_section_incomplete?
+          redirect_to new_survey_building_external_wall_structure_path(survey)
+        else
+          redirect_to new_survey_building_wall_insulation_path(survey: survey, building_wall: building_wall)
+        end
+      end
+
+      def params_are_not_present?
+        insulation_params[:insulation_material].blank?
       end
 
       def insulations

@@ -17,10 +17,10 @@ RSpec.describe "Building manager views survey reply summary" do
     create :section, content: building_wall, survey: survey
     material_one = create :material, building_wall: building_wall, name: "Brick"
     percentage_one = create :percentage, material: material_one
-    insulation_one = create :insulation, insulation_material: "Pompons", material: material_one
+    insulation_one = create :insulation, insulation_material: "Pompons", material: material_one, insulation_details: "glass turkeys"
     material_two = create :material, building_wall: building_wall, name: "Other", details: "Fudge"
     percentage_two = create :percentage, material: material_two
-    insulation_two = create :insulation, material: material_two, insulation_material: "Glass"
+    insulation_two = create :insulation, material: material_two, insulation_material: "Glass", insulation_details: "porcelain chickens"
 
     external_wall_structure = create :building_external_wall_structure, has_balconies: true, has_solar_shading: true, has_green_walls: true, survey: survey
     create :section, content: external_wall_structure, survey: survey
