@@ -28,6 +28,7 @@ module Surveys
       @previous_section = section(@survey, "BuildingHeight")
       @options_for_materials = materials
       @building_wall = building_wall
+      @other_material = building_wall.materials.where(name: "Other").pluck(:details)
     end
 
     def update

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_16_132752) do
+ActiveRecord::Schema.define(version: 2020_09_16_165118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -185,10 +185,10 @@ ActiveRecord::Schema.define(version: 2020_09_16_132752) do
   add_foreign_key "building_statuses", "surveys"
   add_foreign_key "building_tenures", "surveys"
   add_foreign_key "building_walls", "surveys"
-  add_foreign_key "insulations", "materials"
+  add_foreign_key "insulations", "materials", on_delete: :cascade
   add_foreign_key "material_detail_lists", "building_external_wall_structures"
   add_foreign_key "materials", "building_walls"
-  add_foreign_key "percentages", "materials"
+  add_foreign_key "percentages", "materials", on_delete: :cascade
   add_foreign_key "sections", "surveys"
   add_foreign_key "surveys", "buildings"
 end
