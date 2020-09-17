@@ -36,8 +36,9 @@ module Surveys
         if !before_update && building_height.higher_than_18_meters?
           next_section = section(survey, "BuildingWall")
           redirect_to next_survey_section(current_section: building_height.section, survey: survey, next_section: next_section)
-        elsif
-          session[:previous_url] == survey_summary_url(survey)
+        elsif session[:previous_url] == survey_summary_url(survey)
+          next_section = section(survey, "BuildingWall")
+          delete_not_relevant_info(current_section: building_height.section, next_section: next_section)
           redirect_to survey_summary_path(survey)
         else
           next_section = section(survey, "BuildingWall")

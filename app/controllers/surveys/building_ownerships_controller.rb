@@ -33,7 +33,10 @@ module Surveys
         if before_update == "i_am_not_associated_with_this_building" && building_ownership.ownership_status != "i_am_not_associated_with_this_building"
           next_section = section(survey, "BuildingStatus")
           redirect_to next_survey_section(current_section: building_ownership.section, survey: survey, next_section: next_section)
-        elsif session[:previous_url] == survey_summary_url(survey)
+        elsif
+          session[:previous_url] == survey_summary_url(survey)
+          next_section = section(survey, "BuildingStatus")
+          delete_not_relevant_info(current_section: building_ownership.section, next_section: next_section)
           redirect_to survey_summary_path(survey)
         else
           next_section = section(survey, "BuildingStatus")
