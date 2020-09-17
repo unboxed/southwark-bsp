@@ -23,7 +23,14 @@
                 </h2>
                 <div class="govuk-error-summary__body">
                   <ul class="govuk-list">
-                    <% @building_ownership.errors.full_messages.each do |msg| %>
+                    <% @building_ownership.errors.messages[:ownership_status].each do |msg| %>
+                      <li>
+                        <span class="govuk-error-message">
+                          <%= msg %>
+                        </span>
+                      </li>
+                    <% end %>
+                    <% @building_ownership.errors.messages[:empty_details].each do |msg| %>
                       <li>
                         <span class="govuk-error-message">
                           <%= msg %>
@@ -66,9 +73,9 @@
                     </div>
                   <% end %>
                 </div>
-             </fieldset>
+              </fieldset>
             </div>
-              <div class="govuk-form-group <%= " govuk-form-group--error" if @building_ownership.errors.messages[:empty_details].any? %>">
+            <div class="govuk-form-group <%= " govuk-form-group--error" if @building_ownership.errors.messages[:empty_details].any? %>">
               <fieldset class="govuk-fieldset">
                 <h2 class="govuk-heading-m"><%= form_builder.label :full_name, "Name" %></h2>
                 <%= form_builder.text_field :full_name, class: "govuk-input govuk-input--width-10 govuk-!-margin-bottom-3" %>
