@@ -41,11 +41,11 @@
         <div class="govuk-form-group">
           <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-              <h1 class="govuk-label-wrapper">
-                <label class="govuk-label govuk-label--l" for="more-detail">
+              <h2 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--m" for="more-detail">
                   Can you provide more detail?
                 </label>
-              </h1>
+              </h2>
               <%= form_builder.text_area :status_details, class: "govuk-textarea", id: "status_details", rows: "5",value: @building_details ? @building_details : '' %>
             </fieldset>
           </div>
