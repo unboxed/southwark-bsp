@@ -19,6 +19,7 @@ module Surveys
       end
 
       if !material.blank?
+        building_wall.update(material_quantity: building_wall.materials.count)
         redirect_to new_survey_building_wall_percentage_path(building_wall_id: building_wall)
       end
     end
@@ -44,7 +45,8 @@ module Surveys
       duplicate_other = building_wall.materials.where(name: "Other")
       duplicate_other.count > 1 ? duplicate_other.first.destroy : ''
 
-      if material
+      if !material.blank?
+        building_wall.update(material_quantity: building_wall.materials.count)
         redirect_to new_survey_building_wall_percentage_path(building_wall_id: building_wall)
       end
     end
