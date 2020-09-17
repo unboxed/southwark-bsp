@@ -1,3 +1,9 @@
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">Building details</dt>
+  <dd class="govuk-summary-list__value"><%= @survey.building.building_name %>, UPRN: <%= @survey.building.uprn %></dd>
+  <dd class="govuk-summary-list__actions">
+  </dd>
+</div>
 <div class="govuk-summary-list__row" data-information-displayed="<%= building_ownership.name.parameterize %>">
   <dt class="govuk-summary-list__key"><%= building_ownership.name %></dt>
   <dd class="govuk-summary-list__value"><%= building_ownership.reply %></dd>

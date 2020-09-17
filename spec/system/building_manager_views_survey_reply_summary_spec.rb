@@ -44,11 +44,15 @@ RSpec.describe "Building manager views survey reply summary" do
     visit survey_summary_path(survey)
 
     expect(page).to have_content "Check your answers"
+    expect(page).to have_content "Building details"
+    expect(page).to have_content "A place full of wonders, UPRN: #{survey.building.uprn}"
     expect_building_status_to_be_displayed_as "Existing"
     expect_building_ownership_to_be_displayed_as "Building developer"
     expect_building_tenure_to_be_displayed_as "Private residential"
     expect_building_height_to_be_displayed_as "Taller than 18 meters - 4 storey(s), 20 meters"
     expect_building_external_wall_structure_to_be_displayed_as "Green walls"
+    expect(page).to have_content "Number of materials"
+    expect(page).to have_content "2"
     expect(page).to have_content "Brick - 50%, insulation: Pompons Other Fudge 50%, insulation: Glass"
 
     within(building_ownership_row) { click_on "Change" }
