@@ -1,4 +1,6 @@
 require "rails_helper"
+### testing that back_links take you back to previous section and allow to modify answers
+### testing error messages if required fields are not selected
 
 RSpec.describe "Building manager views survey reply summary" do
   context "modifing previous answers" do

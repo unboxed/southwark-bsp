@@ -33,8 +33,13 @@ module Surveys
     end
 
     def update
+      before_update = building_status.status
       if building_status.update building_status_params
-        if session[:previous_url] == survey_summary_url(survey)
+        if before_update != "existing" && building_status.status == "existing"
+          next_section = section(survey, "BuildingTenure")
+          redirect_to next_survey_section(current_section: building_status.section, survey: survey, next_section: next_section)
+        elsif
+          session[:previous_url] == survey_summary_url(survey)
           redirect_to survey_summary_path(survey)
         else
           next_section = section(survey, "BuildingTenure")
