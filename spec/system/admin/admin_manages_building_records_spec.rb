@@ -22,7 +22,7 @@ RSpec.describe "Admin manages building records" do
     expect(page).to have_content parsed_building_list_fixture.first["pao"]
   end
 
-  it "adding a building record" do
+  it "adding/editing a building record" do
     user = create :user
 
     visit "/admin"
@@ -41,5 +41,16 @@ RSpec.describe "Admin manages building records" do
 
     expect(page).to have_content "0987654321"
     expect(page).to have_content "Runner Building, 34, Boom Street, ACME 12, NeverLand"
+
+    click_on "Edit"
+
+    fill_in "UPRN", with: "1234567890"
+    fill_in "Proprietor address", with: "Runner Building, 1, Edited Street, ACME 13, NeverNeverLand"
+    click_on "Update building record"
+
+    expect(page).not_to have_content "0987654321"
+    expect(page).to have_content "1234567890"
+    expect(page).not_to have_content "Runner Building, 34, Boom Street, ACME 12, NeverLand"
+    expect(page).to have_content "Runner Building, 1, Edited Street, ACME 13, NeverNeverLand"
   end
 end

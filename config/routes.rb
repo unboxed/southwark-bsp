@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     end
 
     resource :dashboard, only: [:show]
-    resources :buildings, only: [:new, :create]
+    resources :buildings, only: [:new, :create, :edit, :update]
     resources :bulk_imports, only: [:new, :create]
   end
 
