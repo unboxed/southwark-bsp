@@ -2,6 +2,7 @@
 
 <nav>
   <%= link_to "Upload building list", new_admin_bulk_import_path, class: "govuk-button" %>
+  <%= link_to "Add a building record", new_admin_building_path, class: "govuk-button" %>
 </nav>
 
 <table class="govuk-table">
@@ -22,7 +23,8 @@
         <td class="govuk-table__cell"><%= building.uprn %></td>
         <td class="govuk-table__cell">
           <%= building.building_name %><br />
-          <%= building.street %>
+          <%= building.street %><br />
+          <%= building.postcode %>
         </td>
         <td class="govuk-table__cell">
           <%= building.land_registry_proprietor_name %>

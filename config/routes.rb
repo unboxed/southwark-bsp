@@ -5,12 +5,15 @@ Rails.application.routes.draw do
   root to: "surveys#index"
 
   namespace :admin do
+    get "/", to: "dashboards#show"
+
     devise_scope :user do
       get "sign_in", to: "sessions#new"
       delete "sign_out", to: "sessions#destroy"
     end
-    get "/", to: "dashboards#show"
+
     resource :dashboard, only: [:show]
+    resources :buildings, only: [:new, :create]
     resources :bulk_imports, only: [:new, :create]
   end
 
