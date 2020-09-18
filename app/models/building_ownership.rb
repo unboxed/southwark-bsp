@@ -11,7 +11,19 @@ class BuildingOwnership < ApplicationRecord
   end
 
   def reply
-    "#{ownership_status.humanize} details:#{self.ownership_details ? self.ownership_details : 'none' } #{self.full_name} #{self.email} #{self.organisation}"
+    to_show = []
+    to_show << "#{ownership_status.humanize}"
+    to_show << "#{self.ownership_details ? 'Details: ' + self.ownership_details : '' }"
+    to_show << "#{self.full_name}"
+    to_show << " #{self.email}"
+    to_show << " #{self.organisation}"
+    string = to_show.join(" ")
+    to_show.each do |word|
+      if word.blank? == false
+        string.gsub!(/#{word}/i, "<span>#{word}</span><br>")
+      end
+    end
+    string.html_safe
   end
 
   def should_terminate_survey?

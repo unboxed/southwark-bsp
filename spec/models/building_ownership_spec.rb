@@ -21,7 +21,7 @@ RSpec.describe BuildingOwnership, "#reply" do
 
     reply = building_ownership.reply
 
-    expect(reply).to eq "Building owner freeholder details:none   "
+    expect(reply).to eq "<span>Building owner freeholder</span><br>      "
   end
 end
 

@@ -54,7 +54,7 @@ RSpec.describe "Building manager views survey reply summary" do
     expect_building_status_to_be_displayed_as "Existing"
     expect_building_ownership_to_be_displayed_as "Building developer"
     expect_building_tenure_to_be_displayed_as "Private residential"
-    expect_building_height_to_be_displayed_as "Taller than 18 meters - 4 storey(s), 20 meters"
+    expect_building_height_to_be_displayed_as "Taller than 18 meters - 20 meters 4 storey(s)"
     expect_building_external_wall_structure_to_be_displayed_as "Green walls"
     expect(page).to have_content "Number of materials"
     expect(page).to have_content "2"
@@ -77,7 +77,7 @@ RSpec.describe "Building manager views survey reply summary" do
     fill_in "In metres (optional)", with: 10
     click_on "Continue"
 
-    expect_building_height_to_be_displayed_as "Taller than 18 meters - 3 storey(s), 10 meters"
+    expect_building_height_to_be_displayed_as "Taller than 18 meters - 10 meters 3 storey(s)"
 
     within(building_external_wall_structure_row) { click_on "Change" }
     uncheck "Green walls", visible: false
