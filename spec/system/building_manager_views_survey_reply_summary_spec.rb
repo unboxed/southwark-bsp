@@ -45,7 +45,12 @@ RSpec.describe "Building manager views survey reply summary" do
 
     expect(page).to have_content "Check your answers"
     expect(page).to have_content "Building details"
-    expect(page).to have_content "A place full of wonders, UPRN: #{survey.building.uprn}"
+    expect(page).to have_content "A place full of wonders"
+    expect(page).to have_content "1 Union Street"
+    expect(page).to have_content "London"
+    expect(page).to have_content "NW1235"
+    expect(page).to have_content "UPRN"
+    expect(page).to have_content "#{survey.building.uprn}"
     expect_building_status_to_be_displayed_as "Existing"
     expect_building_ownership_to_be_displayed_as "Building developer"
     expect_building_tenure_to_be_displayed_as "Private residential"

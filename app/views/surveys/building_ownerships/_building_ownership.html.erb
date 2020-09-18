@@ -1,6 +1,16 @@
 <div class="govuk-summary-list__row">
   <dt class="govuk-summary-list__key">Building details</dt>
-  <dd class="govuk-summary-list__value"><%= @survey.building.building_name %>, UPRN: <%= @survey.building.uprn %></dd>
+  <dd class="govuk-summary-list__value">
+    <%= @survey.building.building_name %><br>
+    <%= @survey.building.street %><br>
+    <%= @survey.building.city_town %><br>
+    <%= @survey.building.postcode %></dd>
+  <dd class="govuk-summary-list__actions">
+  </dd>
+</div>
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">UPRN</dt>
+  <dd class="govuk-summary-list__value"><%= @survey.building.uprn %></dd>
   <dd class="govuk-summary-list__actions">
   </dd>
 </div>
@@ -8,8 +18,8 @@
   <dt class="govuk-summary-list__key"><%= building_ownership.name %></dt>
   <dd class="govuk-summary-list__value"><%= building_ownership.reply %></dd>
   <dd class="govuk-summary-list__actions">
-  <%= link_to [:edit, building_ownership.survey, building_ownership.content], class: "govuk-link" do %>
-    Change<span class="govuk-visually-hidden"> <%= building_ownership.name %></span>
-  <% end %>
+    <%= link_to [:edit, building_ownership.survey, building_ownership.content], class: "govuk-link" do %>
+      Change<span class="govuk-visually-hidden"> <%= building_ownership.name %></span>
+    <% end %>
   </dd>
 </div>
