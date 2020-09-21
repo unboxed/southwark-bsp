@@ -69,7 +69,7 @@ RSpec.describe "Building manager views survey reply summary" do
       click_on "Continue"
 
       expect(page).to have_text("Check your answers")
-      expect(building_height_row).to have_text("Under 18 meters tall - storey(s), meters")
+      expect(building_height_row).to have_text("Under 18 meters tall")
 
       within(building_height_row) { click_on "Change" }
       choose "Yes", visible: false

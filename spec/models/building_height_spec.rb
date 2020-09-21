@@ -22,7 +22,7 @@ RSpec.describe BuildingHeight, "#reply" do
 
       reply = building_height.reply
 
-      expect(reply).to eq "Taller than 18 meters - 10 storey(s), 22 meters"
+      expect(reply).to eq "Taller than 18 meters - 22 meters  10 storey(s)"
     end
   end
 
@@ -32,7 +32,7 @@ RSpec.describe BuildingHeight, "#reply" do
 
       reply = building_height.reply
 
-      expect(reply).to eq "Under 18 meters tall - 1 storey(s), 9 meters"
+      expect(reply).to eq "Under 18 meters tall - 9 meters  1 storey(s)"
     end
   end
 end

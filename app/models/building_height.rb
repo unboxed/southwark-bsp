@@ -10,7 +10,7 @@ class BuildingHeight < ApplicationRecord
   end
 
   def reply
-    "#{overall_height_data} - #{height_in_storeys} storey(s), #{height_in_meters} meters"
+    "#{overall_height_data} #{self.height_in_meters ? '- ' + self.height_in_meters.to_s + ' meters' : ''}  #{self.height_in_storeys ? self.height_in_storeys.to_s + ' storey(s)' : ''}"
   end
 
   def should_terminate_survey?
