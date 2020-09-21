@@ -13,10 +13,16 @@ module Surveys
     end
 
     def create
-      material_detail_list = MaterialDetailList.new detail_list_params
-      if material_detail_list.save
+      @material_detail_list = MaterialDetailList.new detail_list_params
+
+      if @material_detail_list.save
         next_section = nil
         redirect_to next_survey_section(current_section: external_wall_structure.section, survey: survey, next_section: next_section)
+      else
+        @survey = survey
+        @previous_section = section(@survey, "BuildingExternalWallStructure")
+        @external_wall_structure = external_wall_structure
+        render :new
       end
     end
 
@@ -29,9 +35,16 @@ module Surveys
     end
 
     def update
-      if material_detail_list.update detail_list_params
+      @material_detail_list = material_detail_list
+      if @material_detail_list.update detail_list_params
         next_section = nil
         redirect_to next_survey_section(current_section: external_wall_structure.section, survey: survey, next_section: next_section)
+      else
+        @survey = survey
+        @previous_section = section(@survey, "BuildingExternalWallStructure")
+        @external_wall_structure = external_wall_structure
+        @material_detail_list = @material_detail_list
+        render :edit
       end
     end
 

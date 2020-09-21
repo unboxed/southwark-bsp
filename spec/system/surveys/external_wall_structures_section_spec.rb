@@ -19,7 +19,6 @@ RSpec.describe "External wall structures section" do
 
     within(balcony_primary_material_section) do
       check "Timber or wood"
-      check "Metal"
     end
 
     within(balcony_floor_material_section) do
@@ -30,6 +29,7 @@ RSpec.describe "External wall structures section" do
       check "Metal"
       check "Do not know"
       check "Other"
+      fill_in "Please list other railing/balustrade materials for the balcony. Separate these by commas.", with: "Praline truffles"
     end
 
     click_on "Continue"
@@ -39,6 +39,7 @@ RSpec.describe "External wall structures section" do
     check "Metal"
     check "Do not know"
     check "Other"
+    fill_in "Please list other materials for the solar shading, separated by commas", with: "Minky whales"
 
     click_on "Continue"
 
