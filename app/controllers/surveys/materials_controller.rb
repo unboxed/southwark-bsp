@@ -20,6 +20,7 @@ module Surveys
 
       if !material.blank?
         building_wall.update(material_quantity: building_wall.materials.count)
+        building_wall.materials.map { |m| m.percentage ? m.percentage.destroy : '' }
         redirect_to new_survey_building_wall_percentage_path(building_wall_id: building_wall)
       end
     end
