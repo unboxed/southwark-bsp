@@ -16,8 +16,9 @@ class SurveySequenceRouter
     survey.sections.find_by(content_type: "BuildingWall").content_id
   end
 
+
   def next_section_for(current_section, next_section)
-    return survey_summary_path(survey) if current_section.should_terminate_survey?
+    return survey_summary_path(survey)   if current_section.should_terminate_survey?
 
     case current_section.class.name
     when "BuildingOwnership"

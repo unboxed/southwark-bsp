@@ -100,6 +100,71 @@ RSpec.describe "Building manager views survey reply summary" do
     expect_solar_shading_structure_to_be_displayed_as "Glass, Metal, Concrete"
   end
 
+  it "in order to check not relevant replies were deleted" do
+    survey = create :survey
+    building_status = create :building_status, status: "existing", survey: survey
+    create :section, content: building_status, survey: survey
+    building_ownership = create :building_ownership, ownership_status: "building_developer", full_name: "Pepe", email: "test@test.com", organisation: "Pepe&Co", survey: survey
+    create :section, content: building_ownership, survey: survey
+    building_tenure = create :building_tenure, tenure_type: "private_residential", survey: survey
+    create :section, content: building_tenure, survey: survey
+    building_height = create :building_height, higher_than_18_meters: true, height_in_storeys: 4, height_in_meters: 20, survey: survey
+    create :section, content: building_height, survey: survey
+    building_wall = create :building_wall, survey: survey
+    create :section, content: building_wall, survey: survey
+    material_one = create :material, building_wall: building_wall, name: "Brick"
+    percentage_one = create :percentage, material: material_one
+    insulation_one = create :insulation, insulation_material: "Pompons", material: material_one, insulation_details: "porcelain chickens"
+    material_two = create :material, building_wall: building_wall, name: "Other", details: "Fudge"
+    percentage_two = create :percentage, material: material_two
+    insulation_two = create :insulation, material: material_two, insulation_material: "Glass", insulation_details: "porcelain chickens"
+
+    external_wall_structure = create :building_external_wall_structure, has_balconies: true, has_solar_shading: true, has_green_walls: true, survey: survey
+    create :section, content: external_wall_structure, survey: survey
+    create(
+      :material_detail_list,
+      building_external_wall_structure: external_wall_structure,
+      external_structure_name: "balcony",
+      has_timber_or_wood_primary_material: true,
+      has_glass_primary_material: true,
+      has_concrete_floor_material: true,
+      has_metal_railing_material: true
+    )
+    create(
+      :material_detail_list,
+      building_external_wall_structure: external_wall_structure,
+      external_structure_name: "solar_shading",
+      has_glass_primary_material: true,
+      has_metal_primary_material: true
+    )
+
+    visit survey_summary_path(survey)
+
+    within(building_height_row) { click_on "Change" }
+    choose "No", visible: false
+    click_on "Continue"
+
+    expect_building_height_to_be_displayed_as "Under 18 meters tall - 20 meters 4 storey(s)"
+    expect(page).not_to have_content("Building wall")
+    expect(page).not_to have_content("External walls structures")
+
+    within(building_status_row) { click_on "Change" }
+    choose "Demolished", visible: false
+    click_on "Continue"
+
+    expect_building_status_to_be_displayed_as "Demolished"
+    expect(page).not_to have_content("Building tenure")
+    expect(page).not_to have_content("Building height")
+
+    within(building_ownership_row) { click_on "Change" }
+    choose "I am not associated with this building", visible: false
+    click_on "Continue"
+
+    expect_building_ownership_to_be_displayed_as "I am not associated with this building"
+    expect(page).not_to have_content("Building tenure")
+    expect(page).not_to have_content("Building status")
+  end
+
   def expect_building_status_to_be_displayed_as(status)
     expect(building_status_row).to have_text status
   end
