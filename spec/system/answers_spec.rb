@@ -244,6 +244,8 @@ RSpec.describe "Building manager views survey reply summary" do
       expect(page).to have_text "There was a problem with your survey"
       expect(page).to have_text "Insulation material can't be blank"
       expect(page).to have_text "Please select one value from the list"
+      expect(page).to have_text "Insulation details can't be blank"
+      expect(page).to have_text "Please provide further details in the comment box"
     end
 
     it "displays an error if no building external wall options are selected" do

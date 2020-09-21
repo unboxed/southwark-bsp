@@ -11,7 +11,7 @@ module Surveys
     def create
       if params_are_not_present?
         @material = all_materials_needing_insulation
-        @insulations = Insulation.new(material_id: @material.id, insulation_details: "bla")
+        @insulations = Insulation.new(material_id: @material.id)
         @insulations.valid?
         @options_for_insulation = insulations
         @survey = survey
