@@ -78,6 +78,7 @@ RSpec.describe BuildingExternalWallStructure, "#complete?" do
       )
       create(
         :material_detail_list,
+        has_concrete_primary_material: true,
         external_structure_name: "balcony",
         building_external_wall_structure: external_walls
       )
@@ -109,6 +110,7 @@ RSpec.describe BuildingExternalWallStructure, "#complete?" do
       )
       create(
         :material_detail_list,
+        has_concrete_primary_material: true,
         external_structure_name: "solar_shading",
         building_external_wall_structure: external_walls
       )
@@ -141,10 +143,12 @@ RSpec.describe BuildingExternalWallStructure, "#complete?" do
       create(
         :material_detail_list,
         external_structure_name: "balcony",
+        has_metal_primary_material: true,
         building_external_wall_structure: external_walls
       )
       create(
         :material_detail_list,
+        has_concrete_primary_material: true,
         external_structure_name: "solar_shading",
         building_external_wall_structure: external_walls
       )
@@ -176,6 +180,7 @@ RSpec.describe BuildingExternalWallStructure, "#next_required_detail" do
       )
       create(
         :material_detail_list,
+        has_concrete_primary_material: true,
         external_structure_name: "balcony",
         building_external_wall_structure: external_wall
       )
@@ -205,6 +210,7 @@ RSpec.describe BuildingExternalWallStructure, "#next_required_detail" do
       )
       create(
         :material_detail_list,
+        has_concrete_primary_material: true,
         external_structure_name: "solar_shading",
         building_external_wall_structure: external_wall
       )

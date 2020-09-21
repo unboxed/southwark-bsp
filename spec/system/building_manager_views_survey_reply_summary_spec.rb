@@ -29,7 +29,6 @@ RSpec.describe "Building manager views survey reply summary" do
       building_external_wall_structure: external_wall_structure,
       external_structure_name: "balcony",
       has_timber_or_wood_primary_material: true,
-      has_glass_primary_material: true,
       has_concrete_floor_material: true,
       has_metal_railing_material: true
     )
@@ -84,14 +83,8 @@ RSpec.describe "Building manager views survey reply summary" do
     click_on "Continue"
 
     expect_building_external_wall_structure_to_be_displayed_as "Solar shading"
-    expect_balcony_structure_to_be_displayed_as "Primary materials: Timber or wood, Glass Floor materials: Concrete Railings/balustrades: Metal"
-    expect_solar_shading_structure_to_be_displayed_as "Glass, Metal"
-
-    within(balcony_structure_row) { click_on "Change" }
-    within(balcony_primary_materials_row) { uncheck "Glass" }
-    click_on "Continue"
-
     expect_balcony_structure_to_be_displayed_as "Primary materials: Timber or wood Floor materials: Concrete Railings/balustrades: Metal"
+    expect_solar_shading_structure_to_be_displayed_as "Glass, Metal"
 
     within(solar_shading_structure_row) { click_on "Change" }
     within(solar_shading_floor_materials_row) { check "Concrete" }
@@ -126,7 +119,6 @@ RSpec.describe "Building manager views survey reply summary" do
       building_external_wall_structure: external_wall_structure,
       external_structure_name: "balcony",
       has_timber_or_wood_primary_material: true,
-      has_glass_primary_material: true,
       has_concrete_floor_material: true,
       has_metal_railing_material: true
     )

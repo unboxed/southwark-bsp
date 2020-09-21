@@ -1,106 +1,127 @@
 <%= render 'application/back_link', chosen_path: edit_survey_building_external_wall_structure_path(@survey.id, @previous_section.content_id) %>
-<div>
-  <%= form_with model: [@survey, @external_wall_structure, @material_detail_list] do |form_builder| %>
-    <%= hidden_field_tag :required_detail, :solar_shading %>
-    <div class="govuk-form-group">
-      <fieldset class="govuk-fieldset">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-          <h1 class="govuk-fieldset__heading">
-            Solar shading materials
-          </h1>
-        </legend>
-        <div class="govuk-checkboxes" data-materials="solar-shading-primary" data-controller="detail" data-detail-toggle-class="govuk-visually-hidden">
-          <div class="govuk-hint">
-            What material is the solar shading made from?
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <div>
+      <%= form_with model: [@survey, @external_wall_structure, @material_detail_list], local: true do |form_builder| %>
+        <%= hidden_field_tag :required_detail, :solar_shading %>
+        <% if @material_detail_list.errors.any? %>
+          <div class="govuk-error-summary">
+            <h2 class="govuk-error-summary__title">
+              There was a problem with your survey
+            </h2>
+            <div class="govuk-error-summary__body">
+              <ul class="govuk-list">
+                <% @material_detail_list.errors.full_messages.each do |msg| %>
+                  <li>
+                    <span class="govuk-error-message">
+                      <%= msg %>
+                    </span>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
           </div>
-          <div class="govuk-checkboxes__item">
-            <%= form_builder.check_box(
+        <% end %>
+        <div class="govuk-form-group<%= "govuk-form-group--error" if @material_detail_list.errors.any? %>">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Solar shading materials
+              </h1>
+            </legend>
+            <div class="govuk-checkboxes" data-materials="solar-shading-primary" data-controller="detail" data-detail-toggle-class="govuk-visually-hidden">
+              <div class="govuk-hint">
+                What material is the solar shading made from?
+              </div>
+              <div class="govuk-checkboxes__item">
+                <%= form_builder.check_box(
               :has_timber_or_wood_primary_material,
               {class: "govuk-checkboxes__input"},
               "true",
               "false"
             ) %>
-          <%= form_builder.label(
+                <%= form_builder.label(
             :has_timber_or_wood_primary_material,
             "Timber or wood",
             class: "govuk-label govuk-checkboxes__label"
           ) %>
-          </div>
-          <div class="govuk-checkboxes__item">
-            <%= form_builder.check_box(
+              </div>
+              <div class="govuk-checkboxes__item">
+                <%= form_builder.check_box(
               :has_glass_primary_material,
               {class: "govuk-checkboxes__input"},
               "true",
               "false"
             ) %>
-          <%= form_builder.label(
+                <%= form_builder.label(
             :has_glass_primary_material,
             "Glass",
             class: "govuk-label govuk-checkboxes__label"
           ) %>
-          </div>
-          <div class="govuk-checkboxes__item">
-            <%= form_builder.check_box(
+              </div>
+              <div class="govuk-checkboxes__item">
+                <%= form_builder.check_box(
               :has_metal_primary_material,
               {class: "govuk-checkboxes__input"},
               "true",
               "false"
             ) %>
-          <%= form_builder.label(
+                <%= form_builder.label(
             :has_metal_primary_material,
             "Metal",
             class: "govuk-label govuk-checkboxes__label"
           ) %>
-          </div>
-          <div class="govuk-checkboxes__item">
-            <%= form_builder.check_box(
+              </div>
+              <div class="govuk-checkboxes__item">
+                <%= form_builder.check_box(
               :has_concrete_primary_material,
               {class: "govuk-checkboxes__input"},
               "true",
               "false"
             ) %>
-          <%= form_builder.label(
+                <%= form_builder.label(
             :has_concrete_primary_material,
             "Concrete",
             class: "govuk-label govuk-checkboxes__label"
           ) %>
-          </div>
-          <div class="govuk-checkboxes__item">
-            <%= form_builder.check_box(
+              </div>
+              <div class="govuk-checkboxes__item">
+                <%= form_builder.check_box(
               :has_unknown_primary_material,
               {class: "govuk-checkboxes__input"},
               "true",
               "false"
             ) %>
-          <%= form_builder.label(
+                <%= form_builder.label(
             :has_unknown_primary_material,
             "Do not know",
             class: "govuk-label govuk-checkboxes__label"
           ) %>
-          </div>
-          <div class="govuk-checkboxes__item">
-            <%= form_builder.check_box(
+              </div>
+              <div class="govuk-checkboxes__item">
+                <%= form_builder.check_box(
               :has_other_primary_material,
               {class: "govuk-checkboxes__input", data: { action: "detail#toggle" }},
               "true",
               "false"
             ) %>
-          <%= form_builder.label(
+                <%= form_builder.label(
             :has_other_primary_material,
             "Other",
             class: "govuk-label govuk-checkboxes__label"
           ) %>
-          </div>
-          <div class="govuk-form-group <%= form_builder.object.has_other_primary_material? ? nil : "govuk-visually-hidden" %>" data-target="detail.input">
-            <%= form_builder.label :other_primary_material_details, "Please list other materials for the solar shading", class: "govuk-label" %>
-            <div class="govuk-hint">
-              List any other external structures, separated by commas.
+              </div>
+              <div class="<%= "govuk-form-group--error govuk-!-margin-2" if @material_detail_list.errors[:other_primary_material_details].any? %>">
+                <div class="govuk-form-group <%= form_builder.object.has_other_primary_material? ? nil : "govuk-visually-hidden" %>" data-target="detail.input">
+                  <%= form_builder.label :other_primary_material_details, "Please list other materials for the solar shading, separated by commas", class: "govuk-label" %>
+                  <%= form_builder.text_field :other_primary_material_details, class: "govuk-input govuk-input--width-20" %>
+                </div>
+              </div>
             </div>
-            <%= form_builder.text_field :other_primary_material_details, class: "govuk-input govuk-input--width-20" %>
           </div>
-        </div>
+        </fieldset>
+        <%= form_builder.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
+      <% end %>
     </div>
-      </fieldset>
-      <%= form_builder.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
-    <% end %>
+  </div>
 </div>
