@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_22_121219) do
+ActiveRecord::Schema.define(version: 2020_09_22_144536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -94,6 +94,21 @@ ActiveRecord::Schema.define(version: 2020_09_22_121219) do
     t.index ["uprn"], name: "index_buildings_on_uprn", unique: true
   end
 
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
   create_table "insulations", force: :cascade do |t|
     t.bigint "material_id", null: false
     t.string "insulation_material"
@@ -142,6 +157,21 @@ ActiveRecord::Schema.define(version: 2020_09_22_121219) do
     t.index ["building_wall_id"], name: "index_materials_on_building_wall_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "building_id", null: false
+    t.string "notification_mean", default: "", null: false
+    t.string "state", default: "created", null: false
+    t.datetime "enqueued_at"
+    t.datetime "sent_at"
+    t.datetime "delivered_at"
+    t.datetime "failed_at"
+    t.string "notify_id"
+    t.string "notify_uri"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["building_id"], name: "index_notifications_on_building_id"
+  end
+
   create_table "percentages", force: :cascade do |t|
     t.bigint "material_id", null: false
     t.integer "material_percentage"
@@ -188,6 +218,7 @@ ActiveRecord::Schema.define(version: 2020_09_22_121219) do
   add_foreign_key "insulations", "materials", on_delete: :cascade
   add_foreign_key "material_detail_lists", "building_external_wall_structures"
   add_foreign_key "materials", "building_walls"
+  add_foreign_key "notifications", "buildings"
   add_foreign_key "percentages", "materials", on_delete: :cascade
   add_foreign_key "sections", "surveys"
   add_foreign_key "surveys", "buildings"

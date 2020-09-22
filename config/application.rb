@@ -16,5 +16,6 @@ module SouthwarkBsp
     # the framework and any gems in your application.
 
     config.action_view.field_error_proc = ->(html_tag, instance) { html_tag }
+    config.active_job.queue_adapter = :delayed_job
   end
 end
