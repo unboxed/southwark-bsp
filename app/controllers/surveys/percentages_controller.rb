@@ -8,9 +8,30 @@ module Surveys
     end
 
     def create
-      percentages = percentage_params[:percentage].each do |key, val|
+      @error = nil
+      @building_wall = building_wall
+      @materials = building_wall.materials
+      @survey = survey
+      @previous_section = building_wall.id
+
+      percentages = percentage_params[:percentage]
+
+      percentages_created = percentage_params[:percentage].to_h.map do |key, val|
         Percentage.create(material_id: key, material_percentage: val)
       end
+
+      if percentages_created.any? { |p| !p.errors.empty? }
+        @error = "Please provide percentage for all materials"
+        percentages_created.each { |p| p.try(:destroy) }
+        render :new
+        return
+      elsif percentages_created.sum(&:material_percentage) != 100
+        @error = "Percentage does not add to 100"
+        percentages_created.each { |p| p.try(:destroy) }
+        render :new
+        return
+      end
+
       if !percentages.blank?
         if insulation_section_complete?
           redirect_to survey_summary_path(survey)

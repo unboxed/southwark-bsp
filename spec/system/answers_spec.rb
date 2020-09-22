@@ -259,5 +259,38 @@ RSpec.describe "Building manager views survey reply summary" do
       expect(page).to have_text "There was a problem with your survey"
       expect(page).to have_text "Please select at least one option"
     end
+
+
+    it "displays an error if no value was provided for percentages" do
+      survey = create(:survey)
+      building_height = create(:building_height, higher_than_18_meters: true, survey: survey)
+      create :section, content: building_height, survey: survey
+      visit survey_building_walls_path(survey)
+      click_on "Continue"
+      check "Glass"
+      check "Metal sheet panels"
+      click_on "Continue"
+      click_on "Continue"
+
+      expect(page).to have_text "There was a problem with your survey"
+      expect(page).to have_text "Please provide percentage for all materials"
+    end
+
+    it "displays an error if sum of percentage provided is not equal 100" do
+      survey = create(:survey)
+      building_height = create(:building_height, higher_than_18_meters: true, survey: survey)
+      create :section, content: building_height, survey: survey
+      visit survey_building_walls_path(survey)
+      click_on "Continue"
+      check "Glass"
+      check "Metal sheet panels"
+      click_on "Continue"
+      fill_in "Glass", with: 500
+      fill_in "Metal sheet panels", with: 70
+      click_on "Continue"
+
+      expect(page).to have_text "There was a problem with your survey"
+      expect(page).to have_text "Percentage does not add to 100"
+    end
   end
 end
