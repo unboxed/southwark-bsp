@@ -1,0 +1,12 @@
+<div class="govuk-error-summary">
+  <h2 class="govuk-error-summary__title">
+    There was a problem with saving this building record
+  </h2>
+  <div class="govuk-error-summary__body">
+    <ul class="govuk-list">
+      <% @building.errors.full_messages.each do |message| %>
+        <li><span class="govuk-error-message"><%= message %></span></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
