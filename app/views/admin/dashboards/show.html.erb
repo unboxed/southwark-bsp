@@ -15,7 +15,9 @@
       <th scope="col" class="govuk-table__header">
         Proprietor address
       </th>
+      <th scope="col" class="govuk-table__header">Contacts</th>
       <th scope="col" class="govuk-table__header"></th>
+      <th scope="col" class="govuk-table__header">Actions</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
@@ -36,6 +38,21 @@
         </td>
         <td class="govuk-table__cell">
           <%= building.land_registry_proprietor_address %>
+        </td>
+        <td class="govuk-table__cell">
+          <% if building.proprietor_email %>
+            <%= link_to(
+              "Email survey link",
+              admin_building_notifications_path(building, mean_of_notification: :email),
+              method: :post,
+              remote: true
+            ) %>
+          <% end %>
+        </td>
+        <td class="govuk-table__cell">
+          <% building.most_recent_notifications.each do |notification| %>
+            <%= notification.summary %>
+          <% end %>
         </td>
         <td class="govuk-table__cell">
           <%= link_to "Edit", edit_admin_building_path(building) %>
