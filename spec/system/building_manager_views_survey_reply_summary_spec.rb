@@ -15,10 +15,10 @@ RSpec.describe "Building manager views survey reply summary" do
     create :section, content: building_height, survey: survey
     building_wall = create :building_wall, survey: survey
     create :section, content: building_wall, survey: survey
-    material_one = create :material, building_wall: building_wall, name: "Brick"
+    material_one = create :material, building_wall: building_wall, name: "Brick", comments: "potato"
     percentage_one = create :percentage, material: material_one
     insulation_one = create :insulation, insulation_material: "Pompons", material: material_one, insulation_details: "glass turkeys"
-    material_two = create :material, building_wall: building_wall, name: "Other", details: "Fudge"
+    material_two = create :material, building_wall: building_wall, name: "Other", details: "Fudge", comments: "potato"
     percentage_two = create :percentage, material: material_two
     insulation_two = create :insulation, material: material_two, insulation_material: "Glass", insulation_details: "porcelain chickens"
 
@@ -112,10 +112,10 @@ RSpec.describe "Building manager views survey reply summary" do
     create :section, content: building_height, survey: survey
     building_wall = create :building_wall, survey: survey
     create :section, content: building_wall, survey: survey
-    material_one = create :material, building_wall: building_wall, name: "Brick"
+    material_one = create :material, building_wall: building_wall, name: "Brick", comments: "potato"
     percentage_one = create :percentage, material: material_one
     insulation_one = create :insulation, insulation_material: "Pompons", material: material_one, insulation_details: "porcelain chickens"
-    material_two = create :material, building_wall: building_wall, name: "Other", details: "Fudge"
+    material_two = create :material, building_wall: building_wall, name: "Other", details: "Fudge", comments: "potato"
     percentage_two = create :percentage, material: material_two
     insulation_two = create :insulation, material: material_two, insulation_material: "Glass", insulation_details: "porcelain chickens"
 

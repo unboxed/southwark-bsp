@@ -10,15 +10,33 @@ module Surveys
     end
 
     def create
-      material = material_params[:materials].each do |material|
-        if material == "Other"
-          Material.create(name: "Other", details: material_params[:details], building_wall_id: building_wall.id)
-        else
-          Material.create(name: material, building_wall_id: building_wall.id)
-        end
+      @error = nil
+      @survey = survey
+      @previous_section = section(@survey, "BuildingHeight")
+      @options_for_materials = materials
+      @building_wall = building_wall
+      all_materials = material_params[:materials]
+
+      if all_materials == nil
+        @error = "Please choose one of the options provided and leave a comment"
+        render :new
+        return
       end
 
-      if !material.blank?
+      materials_created = all_materials.map do |material|
+        if material == "Other"
+          Material.create(name: "Other", details: material_params[:details], building_wall_id: building_wall.id, comments: material_params[:comments])
+        else
+          Material.create(name: material, building_wall_id: building_wall.id, comments: material_params[:comments])
+        end
+      end
+      if materials_created.any? { |m| !m.errors.empty? }
+        @error = "Please choose one of the options provided and leave a comment"
+        render :new
+        return
+      end
+
+      if !all_materials.blank?
         building_wall.update(material_quantity: building_wall.materials.count)
         building_wall.materials.map { |m| m.percentage ? m.percentage.destroy : '' }
         redirect_to new_survey_building_wall_percentage_path(building_wall_id: building_wall)
@@ -34,19 +52,50 @@ module Surveys
     end
 
     def update
-      material = material_params[:materials].each do |material|
-        if material == "Other"
-          Material.find_or_create_by(name: material, details: material_params[:details], building_wall_id: building_wall.id)
-        else
-          Material.find_or_create_by(name: material, building_wall_id: building_wall.id)
-        end
+      @error = nil
+      @survey = survey
+      @previous_section = section(@survey, "BuildingHeight")
+      @options_for_materials = materials
+      @building_wall = building_wall
+      @other_material = building_wall.materials.where(name: "Other").pluck(:details)
+
+      all_materials = material_params[:materials]
+      if all_materials == nil
+        @error = "Please choose one of the options provided and leave a comment"
+        render :edit
+        return
+      end
+      obj_to_delete = building_wall.materials.select { |m| all_materials.include?(m.name) == false }
+      obj_to_update = building_wall.materials.select { |m| all_materials.include?(m.name) }
+      obj_to_create = all_materials.select { |n| building_wall.materials.find { |m| m.name == n } == nil }
+
+      obj_to_delete.each do |m|
+        m.try(:destroy)
       end
 
-      building_wall.materials.map { |obj| obj.destroy unless material_params[:materials].include?(obj.name) }
-      duplicate_other = building_wall.materials.where(name: "Other")
-      duplicate_other.count > 1 ? duplicate_other.first.destroy : ''
+      obj_to_update.each do |material|
+          if material.name == "Other"
+            material.update_attributes(comments: params[:comments], details: params[:details])
+          else
+            material.update_attribute(:comments, params[:comments])
+          end
+        end
 
-      if !material.blank?
+      created_materials = obj_to_create.map do |material|
+          if material == "Other"
+            Material.create(name: material, building_wall_id: building_wall.id, comments: params[:comments], details: params[:details])
+          else
+            Material.create(name: material, building_wall_id: building_wall.id, comments: params[:comments])
+          end
+        end
+
+      if obj_to_update.any? { |m| !m.valid? } || created_materials.any? { |m| !m.errors.empty? }
+        @error = "Please choose one of the options provided and leave a comment"
+        render :edit
+        return
+      end
+
+      if !all_materials.blank?
         building_wall.update(material_quantity: building_wall.materials.count)
         redirect_to new_survey_building_wall_percentage_path(building_wall_id: building_wall)
       end
@@ -55,7 +104,7 @@ module Surveys
     private
 
       def material_params
-        params.permit({ materials: [] }, :details).merge(building_wall: building_wall)
+        params.permit({ materials: [] }, :details, :comments).merge(building_wall: building_wall)
       end
 
       def survey

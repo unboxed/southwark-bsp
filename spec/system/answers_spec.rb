@@ -139,8 +139,9 @@ RSpec.describe "Building manager views survey reply summary" do
       check 'Brick slips'
 
       uncheck 'Other'
-      check 'Other'
+      check 'Other', visible: false
       fill_in "Please describe the selected material", with: "Candy canes"
+      fill_in "Please provide any further details you may have about any of the material(s) identified. Information could include the manufacturer, product name or reaction to fire classification", with: "Potatoes"
       click_on "Continue"
 
       fill_in "Brick slips", with: "40"
@@ -235,7 +236,7 @@ RSpec.describe "Building manager views survey reply summary" do
       create :section, content: building_height, survey: survey
       building_wall = create :building_wall, survey: survey
       create :section, content: building_wall, survey: survey
-      material = create :material, building_wall: building_wall, name: "Glass"
+      material = create :material, building_wall: building_wall, name: "Glass", comments: "potato"
 
       visit new_survey_building_wall_insulation_path(survey_id: survey.id, building_wall_id: building_wall.id)
 
@@ -260,6 +261,31 @@ RSpec.describe "Building manager views survey reply summary" do
       expect(page).to have_text "Please select at least one option"
     end
 
+    it "displays an error if no value was provided for external facing materials" do
+      survey = create(:survey)
+      building_height = create(:building_height, higher_than_18_meters: true, survey: survey)
+      create :section, content: building_height, survey: survey
+      visit survey_building_walls_path(survey)
+      click_on "Continue"
+      click_on "Continue"
+
+      expect(page).to have_text "There was a problem with your survey"
+      expect(page).to have_text "Please choose one of the options provided and leave a comment"
+    end
+
+    it "displays an error if no comments were provided for external facing materials" do
+      survey = create(:survey)
+      building_height = create(:building_height, higher_than_18_meters: true, survey: survey)
+      create :section, content: building_height, survey: survey
+      visit survey_building_walls_path(survey)
+      click_on "Continue"
+      check "Glass"
+      click_on "Continue"
+
+      expect(page).to have_text "There was a problem with your survey"
+      expect(page).to have_text "Please choose one of the options provided and leave a comment"
+    end
+
 
     it "displays an error if no value was provided for percentages" do
       survey = create(:survey)
@@ -269,6 +295,7 @@ RSpec.describe "Building manager views survey reply summary" do
       click_on "Continue"
       check "Glass"
       check "Metal sheet panels"
+      fill_in "Please provide any further details you may have about any of the material(s) identified. Information could include the manufacturer, product name or reaction to fire classification", with: "Potatoes"
       click_on "Continue"
       click_on "Continue"
 
@@ -284,6 +311,7 @@ RSpec.describe "Building manager views survey reply summary" do
       click_on "Continue"
       check "Glass"
       check "Metal sheet panels"
+      fill_in "Please provide any further details you may have about any of the material(s) identified. Information could include the manufacturer, product name or reaction to fire classification", with: "Potatoes"
       click_on "Continue"
       fill_in "Glass", with: 500
       fill_in "Metal sheet panels", with: 70

@@ -4,6 +4,7 @@ class Material < ApplicationRecord
   has_one :percentage, dependent: :destroy
 
   validates :name, presence: true, allow_blank: false
+  validates :comments, presence: true
 
   def should_terminate_survey?
     false
