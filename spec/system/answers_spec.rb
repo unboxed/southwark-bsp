@@ -290,7 +290,7 @@ RSpec.describe "Building manager views survey reply summary" do
       click_on "Continue"
 
       expect(page).to have_text "There was a problem with your survey"
-      expect(page).to have_text "Percentage does not add to 100"
+      expect(page).to have_text "Percentage does not equal 100%. Please fill in percentages again to total 100%."
     end
   end
 end

@@ -26,7 +26,7 @@ module Surveys
         render :new
         return
       elsif percentages_created.sum(&:material_percentage) != 100
-        @error = "Percentage does not add to 100"
+        @error = "Percentage does not equal 100%. Please fill in percentages again to total 100%."
         percentages_created.each { |p| p.try(:destroy) }
         render :new
         return
