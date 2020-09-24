@@ -40,7 +40,7 @@ class MaterialDetailList < ApplicationRecord
 
     def has_one_primary_material_for_balcony
       material_count = [
-        has_timber_or_wood_primary_material,
+        has_timber_or_wood_primary_material?,
         has_glass_primary_material?,
         has_metal_primary_material?,
         has_concrete_primary_material?,

@@ -33,10 +33,12 @@ module Surveys
       end
 
       if !percentages.blank?
-        if insulation_section_complete?
-          redirect_to survey_summary_path(survey)
-        else
+        if !insulation_section_complete?
           redirect_to new_survey_building_wall_insulation_path(survey: survey, building_wall: building_wall)
+        elsif insulation_section_complete? && balconies_and_insulations_incomplete?
+          redirect_to new_survey_building_external_wall_structure_path(survey)
+        else
+          redirect_to survey_summary_path(survey)
         end
       end
     end
@@ -67,6 +69,19 @@ module Surveys
 
       def insulation_section_complete?
         all_materials_needing_insulation.blank?
+      end
+
+      def balconies_and_insulations_incomplete?
+        external_structure = BuildingExternalWallStructure.find_by(survey_id: survey.id)
+        if external_structure.blank?
+          return true
+        elsif external_structure.has_no_external_structures?
+          return false
+        elsif external_structure.solar_shading_material_detail_list.blank? || external_structure.balcony_material_detail_list.blank?
+          return true
+        end
+
+        false
       end
   end
 end

@@ -67,7 +67,16 @@ module Surveys
       end
 
       def next_section_incomplete?
-        BuildingExternalWallStructure.find_by(survey_id: survey.id).blank?
+        external_structure = BuildingExternalWallStructure.find_by(survey_id: survey.id)
+        if external_structure.blank?
+          return true
+        elsif external_structure.has_no_external_structures?
+          return false
+        elsif external_structure.solar_shading_material_detail_list.blank? || external_structure.balcony_material_detail_list.blank?
+          return true
+        end
+
+        false
       end
 
       def redirect_to_next_section
