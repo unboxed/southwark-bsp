@@ -13,8 +13,14 @@ Rails.application.routes.draw do
     end
 
     resource :dashboard, only: [:show]
-    resources :buildings, only: [:new, :create, :edit, :update]
+    resources :buildings, only: [:new, :create, :edit, :update] do
+      resources :notifications, only: [:create]
+    end
     resources :bulk_imports, only: [:new, :create]
+  end
+
+  namespace :callbacks do
+    resources :notification_statuses, only: [:create], constraints: lambda { |request| request.format == :json }
   end
 
   get "new_survey", to: "surveys/start_surveys#new", as: :start_new_survey
