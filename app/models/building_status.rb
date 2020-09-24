@@ -13,6 +13,10 @@ class BuildingStatus < ApplicationRecord
     status.humanize
   end
 
+  def comments
+    status_details ? status_details.humanize : ""
+  end
+
   def should_terminate_survey?
     !existing?
   end

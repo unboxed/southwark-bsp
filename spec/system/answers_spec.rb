@@ -66,6 +66,9 @@ RSpec.describe "Building manager views survey reply summary" do
        click_on "Continue"
 
        expect(page).to have_text("Check your answers")
+       expect(page).to have_text("Demolished")
+       expect(page).to have_text("Building status comments")
+       expect(page).to have_text("I really want some apple pie")
      end
 
     it "allows managers to modify building tenure" do

@@ -7,3 +7,14 @@
   <% end %>
   </dd>
 </div>
+<% if !building_status.comments.empty? %>
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key">Building status comments</dt>
+  <dd class="govuk-summary-list__value"><%= building_status.comments %></dd>
+  <dd class="govuk-summary-list__actions">
+  <%= link_to [:edit, building_status.survey, building_status.content], class: "govuk-link" do %>
+    Change<span class="govuk-visually-hidden"> <%= building_status.name %></span>
+  <% end %>
+  </dd>
+</div>
+<% end %>
