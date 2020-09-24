@@ -57,6 +57,7 @@ RSpec.describe "Building manager functionality" do
       check "Brick slips", visible: false
       check "Other", visible: false
       fill_in "Please describe the selected material", with: "Potatoes"
+      fill_in "Please provide any further details you may have about any of the material(s) identified. Information could include the manufacturer, product name or reaction to fire classification", with: "Potatoes"
 
       click_button "Continue"
 

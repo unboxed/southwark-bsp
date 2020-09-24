@@ -10,5 +10,6 @@ FactoryBot.define do
       "Plastic"
     ]
     name { materials.sample }
+    comments { "potato" }
   end
 end

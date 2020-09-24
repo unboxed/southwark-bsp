@@ -1,6 +1,6 @@
 <%= render 'application/back_link', chosen_path: edit_survey_building_height_path(@survey.id, @previous_section.content_id) %>
 <div data-controller="building-status">
-  <%= form_with model: @materials, url: survey_building_wall_material_edit_path, method: :patch do |f| %>
+  <%= form_with model: @materials, url: survey_building_wall_material_edit_path, method: :patch, local: true do |f| %>
     <%= render "form", f:f %>
   <% end %>
 </div>
