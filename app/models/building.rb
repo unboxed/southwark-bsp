@@ -9,4 +9,14 @@ class Building < ApplicationRecord
   def most_recent_notifications
     Notification.most_recent_for_each_notification_mean(self)
   end
+
+  def parsed_proprietor_address
+    proprietor_address.parsed
+  end
+
+  private
+
+    def proprietor_address
+      ProprietorAddress.new self
+    end
 end

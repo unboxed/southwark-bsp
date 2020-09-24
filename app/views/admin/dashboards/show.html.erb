@@ -48,6 +48,14 @@
               remote: true
             ) %>
           <% end %>
+          <% if building.land_registry_proprietor_address %>
+            <%= link_to(
+              "Send survey letter",
+              admin_building_notifications_path(building, mean_of_notification: :letter),
+              method: :post,
+              remote: true
+            ) %>
+          <% end %>
         </td>
         <td class="govuk-table__cell">
           <% building.most_recent_notifications.each do |notification| %>

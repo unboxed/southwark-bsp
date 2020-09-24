@@ -205,6 +205,24 @@ RSpec.describe Notification, "#deliverable_by_email?" do
   end
 end
 
+RSpec.describe Notification, "#deliverable_by_letter?" do
+  it "returns true if the notification mean is set to letter" do
+    notification = build :letter_notification
+
+    letter_deliverable = notification.deliverable_by_letter?
+
+    expect(letter_deliverable).to eq true
+  end
+
+  it "returns false if the notification mean is not set to letter" do
+    notification = build :email_notification
+
+    letter_deliverable = notification.deliverable_by_letter?
+
+    expect(letter_deliverable).to eq false
+  end
+end
+
 RSpec.describe Notification, "#address_to" do
   context "for an email notification" do
     it "returns the associated building's proprietor email" do
