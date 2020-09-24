@@ -40,3 +40,6 @@ rspec_failures.txt
 
 #ignore mac ds files
 .DS_Store
+
+#ignore .env files
+.env
