@@ -60,7 +60,7 @@ module Surveys
     end
 
     def building_ownership_params
-      params.require(:building_ownership).permit(:ownership_status, :right_to_manage_company, :full_name, :email, :organisation).merge(survey: survey)
+      params.require(:building_ownership).permit(:ownership_status, :has_other_relationship, :has_other_relationship_details, :right_to_manage_company, :full_name, :email, :organisation).merge(survey: survey)
     end
   end
 end

@@ -21,7 +21,7 @@ RSpec.describe BuildingOwnership, "#reply" do
 
     reply = building_ownership.reply
 
-    expect(reply).to eq "<span>Building owner freeholder</span><br>      "
+    expect(reply).to eq "<span>Building owner freeholder</span><br>       "
   end
 end
 
@@ -56,5 +56,12 @@ RSpec.describe BuildingOwnership, "validation" do
 
     expect(building_ownership).not_to be_valid
     expect(building_ownership.errors.added?(:empty_details, "Please provide contact details")).to be_truthy
+  end
+
+  it "throws an error if other relationship status is selected but other relationship details are blank" do
+    building_ownership = BuildingOwnership.new has_other_relationship: true
+
+    expect(building_ownership).not_to be_valid
+    expect(building_ownership.errors.added?(:has_other_relationship_details, "Please fill in the other text details about the relationship selected")).to be_truthy
   end
 end

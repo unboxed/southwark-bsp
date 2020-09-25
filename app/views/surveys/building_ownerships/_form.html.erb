@@ -37,6 +37,13 @@
                         </span>
                       </li>
                     <% end %>
+                    <% @building_ownership.errors.messages[:has_other_relationship_details].each do |msg| %>
+                      <li>
+                        <span class="govuk-error-message">
+                          <%= msg %>
+                        </span>
+                      </li>
+                    <% end %>
                   </ul>
                 </div>
               </div>
@@ -57,6 +64,18 @@
                   <% end %>
                 </div>
               </fieldset>
+              <div class="govuk-checkboxes" data-controller="detail" data-detail-toggle-class="govuk-visually-hidden">
+                <div class="govuk-checkboxes__item">
+                  <%= form_builder.check_box :has_other_relationship, {class: "govuk-checkboxes__input", data: { action: "detail#toggle"} }, "true", "false" %>
+                  <%= form_builder.label :has_other_relationship, "Other", class: "govuk-label govuk-checkboxes__label" %>
+                </div>
+                <div class="govuk-form-group <%= " govuk-form-group--error" if @building_ownership.errors.messages[:has_other_relationship_details].any? %>">
+                  <div class="govuk-form-group <%= form_builder.object.has_other_relationship? ? nil : "govuk-visually-hidden" %>" data-target="detail.input">
+                    <%= form_builder.label :has_other_relationship_details, "Please describe details about your relationship to the building.", class: "govuk-label" %>
+                    <%= form_builder.text_field :has_other_relationship_details, class: "govuk-input govuk-input--width-20" %>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="govuk-form-group">
               <fieldset class="govuk-fieldset">
@@ -88,7 +107,7 @@
             <div class="govuk-form-group hidden" data-target="building-status.details">
               <h2 class="govuk-label-wrapper">
                 <label class="govuk-label govuk-label--m" for="more-detail">
-                  If relevant to the building please provide any other information about how it is managed?
+                  If relevant, please provide any other information about how it is managed (optional).
                 </label>
               </h2>
               <div id="more-detail-hint" class="govuk-hint">

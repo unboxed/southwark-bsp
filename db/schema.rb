@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_22_144536) do
+ActiveRecord::Schema.define(version: 2020_09_25_113256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2020_09_22_144536) do
     t.string "full_name"
     t.string "email"
     t.string "organisation"
+    t.boolean "has_other_relationship", default: false, null: false
+    t.string "has_other_relationship_details"
     t.index ["survey_id"], name: "index_building_ownerships_on_survey_id"
   end
 
