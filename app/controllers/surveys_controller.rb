@@ -1,7 +1,9 @@
 class SurveysController < ApplicationController
   def index
+    byebug
     if params.has_key?(:uprn)
       @building = Building.find_by(uprn: params[:uprn])
+      byebug
       @survey = Survey.create building: @building
     end
   end
