@@ -17,6 +17,7 @@
       </th>
       <th scope="col" class="govuk-table__header">Contacts</th>
       <th scope="col" class="govuk-table__header"></th>
+      <th scope="col" class="govuk-table__header">Survey state</th>
       <th scope="col" class="govuk-table__header">Actions</th>
     </tr>
   </thead>
@@ -52,6 +53,15 @@
         <td class="govuk-table__cell">
           <% building.most_recent_notifications.each do |notification| %>
             <%= notification.summary %>
+          <% end %>
+        </td>
+        <td class="govuk-table__cell">
+          <% if building.survey.nil? %>
+            Not started
+          <% elsif building.survey %>
+            Started on <%= building.survey.created_at.to_date %><br />
+            Most recent answer: <%= building.survey.most_recently_answered_question&.name || "N/A" %><br />
+            <%= link_to "View summary", "#" %>
           <% end %>
         </td>
         <td class="govuk-table__cell">
