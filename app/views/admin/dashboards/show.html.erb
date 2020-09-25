@@ -41,20 +41,28 @@
         </td>
         <td class="govuk-table__cell">
           <% if building.proprietor_email %>
-            <%= link_to(
-              "Email survey link",
-              admin_building_notifications_path(building, mean_of_notification: :email),
-              method: :post,
-              remote: true
-            ) %>
+              <%= link_to(
+                "Email survey link",
+                admin_building_notifications_path(building, mean_of_notification: :email),
+                method: :post,
+                remote: true,
+                data: { disable_with: "Sending..." }
+              ) %>
+            <br />
+            <br />
           <% end %>
           <% if building.land_registry_proprietor_address %>
-            <%= link_to(
-              "Send survey letter",
-              admin_building_notifications_path(building, mean_of_notification: :letter),
-              method: :post,
-              remote: true
-            ) %>
+            <div>
+              <%= link_to(
+                "Send survey letter",
+                admin_building_notifications_path(building, mean_of_notification: :letter),
+                method: :post,
+                remote: true,
+                data: { disable_with: "Sending..." }
+              ) %>
+            <br />
+            <br />
+            </div>
           <% end %>
         </td>
         <td class="govuk-table__cell">

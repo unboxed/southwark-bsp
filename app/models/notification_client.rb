@@ -27,9 +27,9 @@ class NotificationClient
         reference: notification.id.to_s,
         personalisation: {
           full_name: notification.building.land_registry_proprietor_name,
-          building_name: notification.building.building_name,
-          address_line_1: notification.building.street,
-          postal_code: notification.building.postcode,
+          building_name: notification.building.building_name || "",
+          address_line_1: notification.building.street || "",
+          postal_code: notification.building.postcode || "",
           uprn: notification.building.uprn,
           survey_link: get_started_url(uprn: notification.building.uprn, host: ENV.fetch("APPLICATION_HOST"))
         }
@@ -49,9 +49,9 @@ class NotificationClient
           address_line_6: notification.parsed_proprietor_address.fetch("line_5", ""),
           address_line_7: notification.parsed_proprietor_address.fetch("line_6", ""),
           full_name: notification.building.land_registry_proprietor_name,
-          building_name: notification.building.building_name,
-          building_address_line_1: notification.building.street,
-          building_postal_code: notification.building.postcode,
+          building_name: notification.building.building_name || "",
+          building_address_line_1: notification.building.street || "",
+          building_postal_code: notification.building.postcode || "",
           uprn: notification.building.uprn,
           survey_link: get_started_url(uprn: notification.building.uprn, host: ENV.fetch("APPLICATION_HOST"))
         }
