@@ -10,6 +10,8 @@ class Notification < ApplicationRecord
   scope :email_notifications, -> { where notification_mean: "email" }
   scope :ordered_by_most_recent, -> { order created_at: :desc }
 
+  delegate :parsed_proprietor_address, to: :building
+
   def self.most_recent_for_each_notification_mean(building)
     [
       for_building(building).email_notifications.ordered_by_most_recent.first,
@@ -23,6 +25,10 @@ class Notification < ApplicationRecord
 
   def deliverable_by_email?
     notification_mean == "email"
+  end
+
+  def deliverable_by_letter?
+    notification_mean == "letter"
   end
 
   def addressed_to
