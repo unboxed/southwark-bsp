@@ -27,7 +27,6 @@ class SurveysController < ApplicationController
     end
   end
 
-
   private
 
     def survey

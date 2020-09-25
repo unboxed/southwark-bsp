@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   get "new_survey", to: "surveys/start_surveys#new", as: :start_new_survey
   get "get_started", to: "surveys#new", as: :get_started
+  get "help",  to: "help_page#index", as: :help
 
   resources :surveys do
     resources :building_statuses, controller: "surveys/building_statuses"
