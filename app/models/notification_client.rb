@@ -31,7 +31,7 @@ class NotificationClient
           address_line_1: notification.building.street || "",
           postal_code: notification.building.postcode || "",
           uprn: notification.building.uprn,
-          survey_link: get_started_url(uprn: notification.building.uprn, host: ENV.fetch("APPLICATION_HOST"))
+          survey_link: root_url(uprn: notification.building.uprn, host: ENV.fetch("APPLICATION_HOST"))
         }
       }
     end
@@ -53,7 +53,7 @@ class NotificationClient
           building_address_line_1: notification.building.street || "",
           building_postal_code: notification.building.postcode || "",
           uprn: notification.building.uprn,
-          survey_link: get_started_url(uprn: notification.building.uprn, host: ENV.fetch("APPLICATION_HOST"))
+          survey_link: root_url(uprn: notification.building.uprn, host: ENV.fetch("APPLICATION_HOST"))
         }
       }
     end
