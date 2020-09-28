@@ -26,7 +26,11 @@
       </div>
     </dl>
     <table class="govuk-table">
-      <h2 class="govuk-heading-m">Your answers</h2>
+      <% if @survey.completed? %>
+        <h2 class="govuk-heading-m">Your answers</h2>
+      <%else%>
+        <h2 class="govuk-heading-m">Your answers so far</h2>
+      <%end%>
       <tr class="govuk-table__row">
         <th scope="col" class="govuk-table__header govuk-!-width-one-half"></th>
       </tr>
@@ -34,6 +38,10 @@
     <dl class="govuk-summary-list govuk-!-margin-bottom-9">
       <%= render @survey.sections %>
     </dl>
-    <%= button_to "Submit", survey_end_survey_path(@survey), class: "govuk-button", data: { module: "govuk-button" } %>
+    <%if @finish_survey == true %>
+      <%= link_to "Submit", survey_end_survey_path(@survey), class: "govuk-button", data: { module: "govuk-button" } %>
+    <%else%>
+      <%= link_to "Continue", survey_end_survey_path(@survey), class: "govuk-button", data: { module: "govuk-button" } %>
+    <% end %>
   </div>
 </div>
