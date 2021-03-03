@@ -48,11 +48,19 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen'
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-cucumber'
+  gem 'spring-commands-rubocop'
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
+  gem 'cucumber-rails', require: false
+  gem 'guard-rails'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
+  gem 'guard-rubocop'
+  gem 'database_cleaner'
   gem 'selenium-webdriver'
   gem 'webdrivers'
   gem 'shoulda-matchers'
