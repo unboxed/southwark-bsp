@@ -63,5 +63,9 @@ jobs:
           command: bundle exec rubocop
 
       - run:
-          name: Parallel RSpec
+          name: RSpec
           command: bundle exec rspec
+
+      - run:
+          name: Cucumber
+          command: bundle exec cucumber
