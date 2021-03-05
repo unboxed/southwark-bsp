@@ -10,9 +10,11 @@ jobs:
           RAILS_ENV: test
           BUNDLE_JOBS: 4
           BUNDLE_RETRY: 3
+          PGUSER: postgres
           PGHOST: 127.0.0.1
       - image: circleci/postgres:13-postgis-ram
         environment:
+          POSTGRES_USER: postgres
           POSTGRES_HOST_AUTH_METHOD: trust
 
     steps:
