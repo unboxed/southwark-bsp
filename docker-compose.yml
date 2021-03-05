@@ -1,6 +1,14 @@
 ---
 services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_PASSWORD: postgres
   web:
     build: .
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432
     ports:
       - "3000:3000"
+    depends_on:
+      - db
