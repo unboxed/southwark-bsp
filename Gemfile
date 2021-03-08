@@ -56,14 +56,15 @@ end
 group :test do
   gem 'capybara'
   gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
   gem 'guard-rails'
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'guard-rubocop'
-  gem 'database_cleaner'
   gem 'selenium-webdriver'
-  gem 'webdrivers'
   gem 'shoulda-matchers'
+  gem 'pry'
+  gem 'webdrivers'
   gem 'webmock'
 end
 

@@ -398,6 +398,7 @@ DEPENDENCIES
   listen
   notifications-ruby-client
   pg
+  pry
   puma
   rails
   rspec-rails
