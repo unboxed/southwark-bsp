@@ -13,3 +13,15 @@ end
 Given('I fill in {string} with {string}') do |label, value|
   fill_in label, with: value
 end
+
+Given('I choose {string}') do |option|
+  choose option
+end
+
+Given('I check {string}') do |option|
+  check option
+end
+
+Then('print the page') do
+  log page.html
+end
