@@ -107,6 +107,14 @@ cucumber_options = {
 }
 
 guard "cucumber", cucumber_options do
+  require "guard/rspec/dsl"
+  dsl = Guard::RSpec::Dsl.new(self)
+
+  # Rails files
+  rails = dsl.rails(view_extensions: %w(erb haml slim))
+
+  watch(rails.views) { "features" }
+
   watch(%r{^features/.+\.feature$})
   watch(%r{^features/support/.+$}) { "features" }
 
