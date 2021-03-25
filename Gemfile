@@ -60,6 +60,7 @@ group :test do
   gem 'capybara'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
+  gem 'faker'
   gem 'guard-rails'
   gem 'guard-rspec'
   gem 'guard-cucumber'
