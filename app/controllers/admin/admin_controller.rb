@@ -1,5 +1,5 @@
 module Admin
   class AdminController < ApplicationController
-    before_action :authenticate_user!, unless: :devise_controller?
+    before_action :authenticate_admin!, unless: :devise_controller?
   end
 end

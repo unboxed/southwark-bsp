@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  devise_for :users, only: :sessions, module: :admin
 
   root to: "surveys#index"
   get "/help", to: "pages#help"
@@ -8,10 +6,6 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/", to: "dashboards#show"
 
-    devise_scope :user do
-      get "sign_in", to: "sessions#new"
-      delete "sign_out", to: "sessions#destroy"
-    end
 
     resource :dashboard, only: [:show]
     resources :buildings, only: [:new, :create, :edit, :update] do
