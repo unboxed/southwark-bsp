@@ -14,17 +14,17 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <a href="https://southwark-bsp-staging.herokuapp.com/" class="govuk-header__link govuk-header__link--service-name" target = "_blank">
+      <a href="/" class="govuk-header__link govuk-header__link--service-name">
         Building Safety Platform
       </a>
-      <% if user_signed_in? %>
+      <% if admin_signed_in? %>
         <nav>
           <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
-              <%= link_to "Dashboard", admin_dashboard_path, class: "govuk-header__link" %>
+              <%= link_to "Dashboard", admin_root_path, class: "govuk-header__link" %>
             </li>
             <li class="govuk-header__navigation-item">
-              <%= link_to "Sign out", admin_sign_out_path, method: :delete, class:"govuk-header__link" %>
+              <%= link_to "Sign out", destroy_admin_session_path, method: :delete, class:"govuk-header__link" %>
             </li>
           </ul>
         </nav>

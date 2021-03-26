@@ -4,6 +4,6 @@ FactoryBot.define do
     street { "1 Union Street" }
     city_town { "London" }
     postcode { "NW1235" }
-    uprn { SecureRandom.alphanumeric }
+    uprn { SecureRandom.rand(100000000) + 10000000000 }
   end
 end

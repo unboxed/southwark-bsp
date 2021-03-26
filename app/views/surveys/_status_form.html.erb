@@ -1,0 +1,40 @@
+<%= render 'application/back_link', chosen_path: goto_path("ownership") %>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+    <div>
+      <%= form_with model: @survey do |form| %>
+        <%= render "errors" %>
+        <div class="govuk-form-group <%= " govuk-form-group--error" if @survey.errors.any? %>">
+          <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint changed-name-error">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Please confirm the status of this building
+              </h1>
+            </legend>
+            <div class="govuk-radios">
+              <% @survey.statuses.each do |status| %>
+                <div class="govuk-radios__item">
+                  <%= form.radio_button :status, status, class: "govuk-radios__input" %>
+                  <%= form.label :status, value: status, class: "govuk-label govuk-radios__label" %>
+                </div>
+              <% end %>
+            </div>
+          </fieldset>
+        </div>
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h2 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--m" for="more-detail">
+                  Can you provide more detail?
+                </label>
+              </h2>
+            </legend>
+            <%= form.text_area :status_details, class: "govuk-textarea", id: "status_details", rows: "5" %>
+          </fieldset>
+        </div>
+        <%= form.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
+      <% end %>
+    </div>
+  </div>
+</div>

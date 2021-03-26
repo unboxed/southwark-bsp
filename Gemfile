@@ -33,12 +33,15 @@ gem 'delayed_job_active_record'
 gem 'notifications-ruby-client'
 
 group :development, :test do
+  gem 'dotenv-rails'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'rubocop'
-  gem 'dotenv-rails'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
 end
 
 group :development do

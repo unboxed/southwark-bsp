@@ -11,14 +11,14 @@ module Admin
 
       DeliverNotificationJob.perform_now notification
 
-      redirect_to admin_dashboard_path
+      redirect_to admin_root_path
     end
 
     private
 
       def ensure_valid_notification_mean
         unless valid_notification_mean_is_present?
-          redirect_to admin_dashboard_path and return
+          redirect_to admin_root_path and return
         end
       end
 

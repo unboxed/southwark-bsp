@@ -8,7 +8,7 @@ module Admin
       @building = Building.new building_params
 
       if @building.save
-        redirect_to admin_dashboard_path
+        redirect_to admin_root_path
       else
         render :new
       end
@@ -22,7 +22,7 @@ module Admin
       @building = building
 
       if @building.update building_params
-        redirect_to admin_dashboard_path
+        redirect_to admin_root_path
       else
         render :edit
       end

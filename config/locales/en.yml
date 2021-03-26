@@ -1,33 +1,53 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  errors:
+    format: "%{message}"
+
+  helpers:
+    label:
+      survey:
+        role:
+          owner: "Building owner/freeholder"
+          developer: "Building developer"
+          agent: "Managing agent"
+          other: "Other"
+          none: "I am not associated with this building"
+
+        right_to_manage_company:
+          true: "Yes"
+          false: "No"
+
+  activerecord:
+    errors:
+      models:
+        survey/record:
+          attributes:
+            building:
+              required: "Sorry, we couldn't find a building with that UPRN"
+
+  activemodel:
+    errors:
+      models:
+        survey:
+          attributes:
+            uprn:
+              blank: "Please enter a URPN - you should have received this number in the letter or email you received"
+              invalid: "Sorry, that URPN is invalid - it should be a number up to 12 digits long"
+
+            role:
+              inclusion: "Please indicate what your role is"
+
+            right_to_manage_company:
+              inclusion: "Please indicate whether this is a right-to-manage company"
+
+            full_name:
+              blank: "Please tell us your name"
+
+            email:
+              blank: "Please tell us your email address"
+              invalid: "Please enter a valid email address"
+
+            organisation:
+              blank: "Please tell us the organisation to which you belong"
+
+            status:
+              blank: "Please indicate the status of this building"

@@ -1,49 +1,29 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  devise_for :users, only: :sessions, module: :admin
+  root to: "pages#index"
 
-  root to: "surveys#index"
+  get "/help", to: "pages#help"
+
+  controller "surveys" do
+    get  "/survey/:section", action: "goto",   as: :goto
+    post "/survey",          action: "update", as: nil
+    get  "/survey",          action: "edit",   as: :survey
+  end
+
+  devise_for :admin, only: :sessions, class_name: "User", module: "admin"
 
   namespace :admin do
-    get "/", to: "dashboards#show"
+    root to: "dashboards#show"
 
-    devise_scope :user do
-      get "sign_in", to: "sessions#new"
-      delete "sign_out", to: "sessions#destroy"
-    end
+    resources :bulk_imports, only: [:new, :create]
 
-    resource :dashboard, only: [:show]
     resources :buildings, only: [:new, :create, :edit, :update] do
       resources :notifications, only: [:create]
     end
-    resources :bulk_imports, only: [:new, :create]
   end
 
   namespace :callbacks do
     resources :notification_statuses, only: [:create], constraints: lambda { |request| request.format == :json }
   end
 
-  get "new_survey", to: "surveys/start_surveys#new", as: :start_new_survey
-  get "get_started", to: "surveys#new", as: :get_started
-  get "help",  to: "help_page#index", as: :help
-
-  resources :surveys do
-    resources :building_statuses, controller: "surveys/building_statuses"
-    resources :building_tenures, controller: "surveys/building_tenures"
-    resources :building_ownerships, controller: "surveys/building_ownerships"
-    resources :building_heights, controller: "surveys/building_heights"
-    resources :building_external_wall_structures, controller: "surveys/building_external_wall_structures" do
-      resources :material_detail_lists, controller: "surveys/external_walls_material_details"
-    end
-    resources :building_walls, controller: "surveys/building_walls" do
-      get "/edit", to:  "surveys/materials#edit"
-      patch "/edit", to:  "surveys/materials#update", as: :material_edit
-      resources :materials, controller: "surveys/materials"
-      resources :percentages, controller: "surveys/percentages"
-      resources :insulations, controller: "surveys/insulations"
-    end
-    resource :summary, controller: "surveys/summaries", only: [:show]
-    post :end_survey, to:  "surveys#show"
-    get :end_survey, to:  "surveys#show"
-  end
+  resolve("Survey") { [:survey] }
 end

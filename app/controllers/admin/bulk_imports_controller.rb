@@ -8,7 +8,7 @@ module Admin
       @upload_form = BulkUploadForm.new bulk_upload_params
 
       if @upload_form.submit
-        redirect_to admin_dashboard_path
+        redirect_to admin_root_path
       else
         render :new
       end
