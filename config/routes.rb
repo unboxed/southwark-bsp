@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users, only: :sessions, module: :admin
 
   root to: "surveys#index"
+  get "/help", to: "pages#help"
 
   namespace :admin do
     get "/", to: "dashboards#show"
