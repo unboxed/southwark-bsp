@@ -1,1 +1,45 @@
-<p id="notice"><%= notice %></p>
+<div class="govuk-width-container">
+  <main class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Building safety survey</h1>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-m">Use this survey to identify the External Wall Materials on High-Rise Residential Buildings.</h2>
+        <p class="govuk-body">All buildings in Southwark, over 18m tall, are required to complete a building safety survey.</p>
+        <p class="govuk-body">Collecting this data is to enable the Ministry of Housing, Communities and Local Government (MHCLG) to build a more complete picture of the high-rise residential buildings and the <strong>external wall materials used.</strong> We are also collecting data on external wall systems to support the work of the new Building Safety regulator.</p>
+        <h2 class="govuk-heading-m">Information required to complete the building safety survey</h2>
+        <p class="govuk-body">The survey should take no longer than 10 minutes. The information you require to complete the process includes:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>Building UPRN</li>
+          <li>Height of the building</li>
+          <li>Details of cladding materials</li>
+          <li>Details and materials of external structures eg. balconies</li>
+        </ul>
+        <p class="govuk-body">To start the form or to tell us if this information is not correct click the following link.</p>
+        <%= link_to survey_path, role: "button", draggable: false, class: "govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-8 govuk-button--start", data: { module: "govuk-button" } do %>
+          Start now
+          <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+            <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
+          </svg>
+        <% end %>
+        <h2 class="govuk-heading-m">Asking someone else to fill in the building safety survey on your behalf</h2>
+        <p class="govuk-body">A colleague can complete this survey on your behalf if they have the information listed above.</p>
+        <h2 class="govuk-heading-m">Why this information is important</h2>
+        <p class="govuk-body">Shortly after the fire at Grenfell Tower, the Independent Expert Advisory Panel on Building Safety issued an advice note on external wall systems. This guidance can be found in Advice Note 14. The Independent Expert Advisory Panel advice states that if the external wall systems do not pass the listed safety requirements, then the building owner should seek professional advice and consider remediation measures.</p>
+        <p class="govuk-body"><%= link_to nil, "https://www.gov.uk/government/publications/building-safety-advice-for-building-owners-including-fire-doors" %></p>
+        <p class="govuk-body">Once data has been collected on these buildings, the risks will be better known. The Ministry of Housing, Communities & Local Government</p>
+        <h2 class="govuk-heading-m">How this data will be used</h1>
+        <p class="govuk-body">Southwark Council will share the data with MHCLG only. We will not be publishing this data publicly.</p>
+      </div>
+      <div class="govuk-grid-column-one-third">
+        <h2 class="govuk-heading-m">Related content</h2>
+        <p class="govuk-body"><%= link_to "Building safety advice", "https://www.gov.uk/government/publications/building-safety-advice-for-building-owners-including-fire-doors" %></p>
+        <p class="govuk-body"><%= link_to "Funding for unsafe cladding", "https://www.gov.uk/government/news/government-releases-funding-to-replace-unsafe-cladding" %></p>
+        <p class="govuk-body"><%= link_to "Help", "/help" %></p>
+      </div>
+    </div>
+  </main>
+</div>
