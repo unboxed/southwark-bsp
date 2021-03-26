@@ -21,7 +21,7 @@
         <nav>
           <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
             <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
-              <%= link_to "Dashboard", admin_dashboard_path, class: "govuk-header__link" %>
+              <%= link_to "Dashboard", admin_root_path, class: "govuk-header__link" %>
             </li>
             <li class="govuk-header__navigation-item">
               <%= link_to "Sign out", destroy_admin_session_path, method: :delete, class:"govuk-header__link" %>

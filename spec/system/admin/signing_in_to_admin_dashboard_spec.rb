@@ -15,6 +15,6 @@ RSpec.describe "Admin signs in" do
     click_link "Sign out"
 
     expect(current_path).to eq root_path
-    expect(page).not_to have_link "Dashboard", href: admin_dashboard_path
+    expect(page).not_to have_link "Dashboard", href: admin_root_path
   end
 end

@@ -3,15 +3,16 @@ Rails.application.routes.draw do
   root to: "surveys#index"
   get "/help", to: "pages#help"
 
+  devise_for :admin, only: :sessions, class_name: "User", module: "admin"
+
   namespace :admin do
-    get "/", to: "dashboards#show"
+    root to: "dashboards#show"
 
+    resources :bulk_imports, only: [:new, :create]
 
-    resource :dashboard, only: [:show]
     resources :buildings, only: [:new, :create, :edit, :update] do
       resources :notifications, only: [:create]
     end
-    resources :bulk_imports, only: [:new, :create]
   end
 
   namespace :callbacks do
