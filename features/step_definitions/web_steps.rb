@@ -1,4 +1,4 @@
-Then('I should see {string}') do |content|
+Then('the page contains {string}') do |content|
   expect(page).to have_content(content)
 end
 
