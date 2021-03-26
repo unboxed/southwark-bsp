@@ -3,6 +3,12 @@ Rails.application.routes.draw do
 
   get "/help", to: "pages#help"
 
+  controller "surveys" do
+    get  "/survey/:section", action: "goto",   as: :goto
+    post "/survey",          action: "update", as: nil
+    get  "/survey",          action: "edit",   as: :survey
+  end
+
   devise_for :admin, only: :sessions, class_name: "User", module: "admin"
 
   namespace :admin do
@@ -18,4 +24,6 @@ Rails.application.routes.draw do
   namespace :callbacks do
     resources :notification_statuses, only: [:create], constraints: lambda { |request| request.format == :json }
   end
+
+  resolve("Survey") { [:survey] }
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_195448) do
+ActiveRecord::Schema.define(version: 2021_03_24_221436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -63,6 +63,19 @@ ActiveRecord::Schema.define(version: 2021_03_24_195448) do
     t.index ["building_id"], name: "index_notifications_on_building_id"
   end
 
+  create_table "survey_records", force: :cascade do |t|
+    t.bigint "building_id"
+    t.string "session_id", null: false
+    t.string "stage", limit: 50, default: "uprn", null: false
+    t.jsonb "data", default: {}, null: false
+    t.datetime "completed_at"
+    t.datetime "submitted_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["building_id"], name: "index_survey_records_on_building_id"
+    t.index ["session_id"], name: "index_survey_records_on_session_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -77,4 +90,5 @@ ActiveRecord::Schema.define(version: 2021_03_24_195448) do
   end
 
   add_foreign_key "notifications", "buildings"
+  add_foreign_key "survey_records", "buildings"
 end

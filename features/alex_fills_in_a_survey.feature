@@ -9,4 +9,4 @@ Feature: Alex fills in a report about a building
     And I press "Start now"
     And I fill in "survey_uprn" with "Doowap"
     And I press "Continue"
-    Then I should see an error about "number you have entered is not correct"
+    Then I should see an error about "Sorry, we couldn't find a building with that UPRN"

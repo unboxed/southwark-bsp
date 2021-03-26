@@ -1,0 +1,16 @@
+<% if @survey.errors.any? %>
+  <div class="govuk-error-summary">
+    <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list">
+        <% @survey.errors.full_messages.each do |message| %>
+          <li>
+            <span class="govuk-error-message"><%= message %></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
