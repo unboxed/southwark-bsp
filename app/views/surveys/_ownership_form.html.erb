@@ -1,83 +1,67 @@
 <%= render 'application/back_link', chosen_path: goto_path("uprn") %>
-<div class="govuk-width-container">
-  <main class="govuk-main-wrapper">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">Your relationship to the building</h1>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @survey do |form| %>
+      <%= render "errors" %>
+      <div class="govuk-form-group <%= " govuk-form-group--error" if form.object.errors.messages[:empty_details].any? %>">
+        <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Your details
+            </h1>
+          </legend>
+          <p class="govuk-body">
+            Please provide your details so Southwark Council can
+            contact you if they require any further
+            information. Your contact details will not be shared
+            with anybody else.
+          </p>
+
+          <div class="govuk-form-group">
+            <%= form.label :full_name, class: "govuk-label" %>
+            <%= form.text_field :full_name, spellcheck: false, autocomplete: "name", class: "govuk-input" %>
+          </div>
+
+          <div class="govuk-form-group">
+            <%= form.label :email, "Email address", class: "govuk-label" %>
+            <div id="email-hint" class="govuk-hint">
+              We’ll only use this if we need to contact you about the building
+            </div>
+            <%= form.email_field :email, class: "govuk-input", spellcheck: false, aria: { describedby: "email-hint" } %>
+          </div>
+        </fieldset>
       </div>
-    </div>
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <ul class="govuk-list govuk-list govuk-!-margin-bottom-8 govuk-!-margin-left-4">
-          <li><%= @survey.building.building_name %></li>
-          <li><%= @survey.building.street %></li>
-          <li><%= @survey.building.city_town %></li>
-          <li><%= @survey.building.postcode %></li>
-        </ul>
-        <div>
-          <%= form_with model: @survey do |form| %>
-            <%= render "errors" %>
-            <div class="govuk-form-group <%= " govuk-form-group--error" if form.object.errors.messages[:ownership_status].any? %>">
-              <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                  <h2 class="govuk-heading-m">
-                    What is your role?
-                  </h2>
-                </legend>
-                <div class="govuk-radios govuk-!-margin-bottom-4">
-                  <% @survey.roles.each do |role| %>
-                    <div class="govuk-radios__item">
-                      <%= form.radio_button :role, role, class: "govuk-radios__input" %>
-                      <%= form.label :role, value: role, class: "govuk-label govuk-radios__label" %>
-                    </div>
-                  <% end %>
-                </div>
-              </fieldset>
-            </div>
-            <div class="govuk-form-group">
-              <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                  <h2 class="govuk-heading-m">
-                    Is this a right-to-manage company?
-                  </h2>
-                </legend>
-                <div class="govuk-radios govuk-!-margin-bottom-4">
-                  <div class="govuk-radios__item">
-                    <%= form.radio_button :right_to_manage_company, "true", class: "govuk-radios__input" %>
-                    <%= form.label :right_to_manage_company, value: "true", class: "govuk-label govuk-radios__label" %>
-                  </div>
-                  <div class="govuk-radios__item">
-                    <%= form.radio_button :right_to_manage_company, "false", class: "govuk-radios__input" %>
-                    <%= form.label :right_to_manage_company, value: "false", class: "govuk-label govuk-radios__label" %>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-            <div class="govuk-form-group <%= " govuk-form-group--error" if form.object.errors.messages[:empty_details].any? %>">
-              <fieldset class="govuk-fieldset">
-                <h2 class="govuk-heading-m"><%= form.label :full_name, "Name" %></h2>
-                <%= form.text_field :full_name, class: "govuk-input govuk-input--width-10 govuk-!-margin-bottom-3" %>
-                <h2 class="govuk-heading-m"><%= form.label :email, "Email" %></h2>
-                <%= form.text_field :email, class: "govuk-input govuk-input--width-10 govuk-!-margin-bottom-3" %>
-                <h2 class="govuk-heading-m"><%= form.label :organisation, "Organisation" %></h2>
-                <%= form.text_field :organisation, class: "govuk-input govuk-input--width-10" %>
-              </fieldset>
-            </div>
-            <div class="govuk-form-group hidden" data-target="building-status.details">
-              <h2 class="govuk-label-wrapper">
-                <label class="govuk-label govuk-label--m" for="more-detail">
-                  If relevant to the building please provide any other information about how it is managed?
-                </label>
-              </h2>
-              <div id="more-detail-hint" class="govuk-hint">
-                Do not include personal or financial information, like your National Insurance number or credit card details.
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              How are you connected to the building?
+            </h1>
+          </legend>
+          <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+            <% @survey.roles.reject { |r| r == "other" }.each do |role| %>
+              <div class="govuk-radios__item">
+                <%= form.radio_button :role, role, class: "govuk-radios__input" %>
+                <%= form.label :role, value: role, class: "govuk-label govuk-radios__label" %>
               </div>
-              <%= form.text_area :ownership_details, rows: "5", class: "govuk-textarea", aria: { describedby: "more-detail-hint" } %>
+            <% end %>
+
+            <div class="govuk-radios__item">
+              <%= form.radio_button :role, :other, class: "govuk-radios__input", data: { "aria-controls" => "conditional-role"} %>
+              <%= form.label :role_other, "Other", class: "govuk-label govuk-radios__label" %>
             </div>
-            <%= form.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
-          <% end %>
-        </div>
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-role">
+              <div class="govuk-form-group">
+                <%= form.label :role_description, "Please describe your relationship to the building", class: "govuk-label" %>
+                <%= form.text_area :role_description, class: "govuk-textarea" %>
+              </div>
+            </div>
+          </div>
+        </fieldset>
       </div>
-    </div>
-  </main>
+      <%= form.button "Continue", class: "govuk-button" %>
+    <% end %>
+  </div>
 </div>
