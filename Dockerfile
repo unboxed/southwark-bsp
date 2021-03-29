@@ -1,7 +1,7 @@
 FROM ruby:2.7.2
 
 # Match our Bundler version
-RUN gem install bundler -v 2.2.8
+RUN gem install bundler -v 2.2.13
 
 ## Install gems in a separate Docker fs layer
 WORKDIR /gems
