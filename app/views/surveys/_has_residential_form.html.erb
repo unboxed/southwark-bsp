@@ -1,0 +1,35 @@
+<%= render 'application/back_link', chosen_path: goto_path("uprn") %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @survey do |form| %>
+      <%= render "errors" %>
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group"> <!-- FIXME: restore aria-labelledby -->
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Is any part of the building used for residential purposes?
+            </h1>
+          </legend>
+          <div class="govuk-form-group">
+            <div class="govuk-hint">
+              For example, as a hotel or housing
+            </div>
+
+            <div class="govuk-radios">
+              <div class="govuk-radios__item">
+                <%= form.radio_button :residential_use, "yes", class: "govuk-radios__input" %>
+                <%= form.label :residential_use_yes, "Yes", class: "govuk-label govuk-radios__label" %>
+              </div>
+              <div class="govuk-radios__item">
+                <%= form.radio_button :residential_use, "no", class: "govuk-radios__input" %>
+                <%= form.label :residential_use_no, "No", class: "govuk-label govuk-radios__label" %>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <%= form.submit "Continue", class: "govuk-button" %>
+    <% end %>
+  </div>
+</div>

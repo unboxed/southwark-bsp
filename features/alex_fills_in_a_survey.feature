@@ -6,9 +6,14 @@ Feature: Alex fills in a report about a building
     And I press "Continue"
     Then the page contains an error about "couldn't find a building with that UPRN"
 
-  Scenario: Alex completes a survey
+  Scenario: Alex completes a survey old
     Given I start filling a survey for a building
     And I fill in the user details
     And I press "Continue"
-    Then the page contains "Please confirm the status of this building"
-
+    And I say the building is used for residential purpose
+    And I press "Continue"
+    And I choose the building residential use
+    And I press "Continue"
+    And I say who manages the building
+    And I press "Continue"
+    And I fill in the height information

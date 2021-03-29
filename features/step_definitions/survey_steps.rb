@@ -28,3 +28,36 @@ And('I fill in the user details') do
     And I choose "Managing agent"
   )
 end
+
+And('I say the building is used for residential purpose') do
+  steps %(
+    Given the page contains "Is any part of the building used for residential purposes?"
+    And I choose "Yes"
+  )
+end
+
+And('I choose the building residential use') do
+  steps %(
+    Given the page contains "What is the residential part of the building mainly used for?"
+    And I choose "Student accommodation"
+  )
+end
+
+And('I say who manages the building') do
+  steps %(
+    Given the page contains "Building management details"
+    And I choose "Yes, the building is managed by a RTM company"
+    And I fill in "RTM company" with "Ringo"
+    And I fill in "Building owner" with "Paul"
+    And I fill in "Building developer" with "John"
+    And I fill in "Managing agent" with "George"
+  )
+end
+
+And('I fill in the height information') do
+  steps %(
+    Given the page contains "Building height"
+    And I fill in "Height in meters" with "39"
+    And I fill in "Number of storeys" with "5"
+  )
+end

@@ -2,7 +2,12 @@ module Survey
   module Staging
     extend ActiveSupport::Concern
 
-    STAGES = %w[uprn ownership status]
+    STAGES = %w[
+      uprn
+      ownership
+      has_residential
+      residential_use
+    ]
 
     included do
       delegate :stage, to: :record
