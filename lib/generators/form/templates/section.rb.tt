@@ -1,0 +1,6 @@
+module <%= name %>
+  module Sections
+    class <%= Thor::Util.camel_case(@section) %>Form < BaseForm
+    end
+  end
+end
