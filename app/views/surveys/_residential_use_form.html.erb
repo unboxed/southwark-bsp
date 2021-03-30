@@ -1,0 +1,42 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @survey do |form| %>
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group"> <!-- FIXME: restore aria-labelledby -->
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              What is the residential part of the building mainly used for?
+            </h1>
+          </legend>
+
+          <div class="govuk-radios">
+            <% @survey.residential_use_options.each do |option| %>
+              <div class="govuk-radios__item">
+                <%= form.radio_button :usage, option, class: "govuk-radios__input" %>
+                <%= form.label "usage_#{option}", option.humanize, class: "govuk-label govuk-radios__label" %>
+              </div>
+            <% end %>
+          </div>
+        </fieldset>
+      </div>
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Help with identifying the building’s main use
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p>A building may have multiple uses. For example, if a
+            building is mainly used for offices or shops but also
+            contains a hotel, please select hotel.</p>
+
+          <p>For a building that has social and private housing,
+            but is owned by a private freeholder, please select
+            private residential.</p>
+        </div>
+      </details>
+
+      <%= form.submit "Continue", class: "govuk-button" %>
+    <% end %>
+  </div>
+</div>

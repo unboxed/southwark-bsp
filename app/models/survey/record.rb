@@ -10,6 +10,12 @@ module Survey
     store_accessor :data, :full_name, :email, :organisation
     store_accessor :data, :ownership_details
 
+    # stage: has residential
+    # TODO
+
+    # stage: residential use
+    store_accessor :data, :usage
+
     # stage: status
     store_accessor :data, :status, :status_details
   end
