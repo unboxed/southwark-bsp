@@ -1,7 +1,7 @@
 module Survey
   module Sections
     class ResidentialUseForm < BaseForm
-      USES = %w(social_housing private_housing student_accommodation hotel)
+      USES = %w[social_housing private_housing student_accommodation hotel].freeze
 
       attribute :usage, type: :string
       validates :usage, inclusion: USES
