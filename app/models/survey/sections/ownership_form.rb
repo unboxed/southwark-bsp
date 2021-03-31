@@ -12,11 +12,15 @@ module Survey
       attribute :email, :string
       validates :email, presence: true, email: { allow_blank: true }, length: { maximum: 100 }
 
-      attribute :ownership_details, :string
-      validates :ownership_details, length: { maximum: 2000 }
+      attribute :role_details, :string
+      validates :role_details, presence: true, length: { maximum: 2000 }, if: :other_role?
 
       def roles
         ROLES
+      end
+
+      def other_role?
+        role == 'other'
       end
     end
   end

@@ -8,6 +8,10 @@ Then('the page contains an error about {string}') do |msg|
   end
 end
 
+Given('a building exists with UPRN {int}') do |uprn|
+  @building = FactoryBot.create(:building, uprn: uprn)
+end
+
 Given('I start filling a survey for a building') do
   @building = FactoryBot.create(:building)
 

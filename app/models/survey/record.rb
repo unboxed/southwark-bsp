@@ -6,9 +6,8 @@ module Survey
     store_accessor :data, :uprn
 
     # stage: ownership
-    store_accessor :data, :role
+    store_accessor :data, :role, :role_details
     store_accessor :data, :full_name, :email, :organisation
-    store_accessor :data, :ownership_details
 
     # stage: has residential
     store_accessor :data, :has_residential_usage # FIXME: this should be indicated by the next stage

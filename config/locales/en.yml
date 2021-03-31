@@ -32,6 +32,9 @@ en:
               blank: "Please enter a URPN - you should have received this number in the letter or email you received"
               invalid: "Sorry, that URPN is invalid - it should be a number up to 12 digits long"
 
+            role_details:
+              blank: "Please provide details about your role."
+
             role:
               inclusion: "Please indicate what your role is"
 
