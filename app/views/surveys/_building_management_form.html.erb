@@ -1,0 +1,83 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <h1 class="govuk-heading-l">Building management details</h1>
+    <%= form_with model: @survey do |form| %>
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Is this building managed by a right-to-manage (RTM) company?
+          </legend>
+          <div class="govuk-hint">
+            This helps us stay in touch.
+          </div>
+          <div class="govuk-form-group">
+            <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <%= form.radio_button :is_rtm, :yes, class: "govuk-radios__input", data: { "aria-controls" => "right-to-manage-company"} %>
+                <%= form.label :is_rtm_yes, "Yes, the building is managed by a RTM company", class: "govuk-label govuk-radios__label" %>
+              </div>
+              <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="right-to-manage-company">
+                <div class="govuk-form-group">
+                  <%= form.label :rtm_company, "RTM company name", class: "govuk-label" %>
+                  <%= form.text_field :rtm_company, class: "govuk-input" %>
+                </div>
+              </div>
+              <div class="govuk-radios__item">
+                <%= form.radio_button :is_rtm, :no, class: "govuk-radios__input" %>
+                <%= form.label :is_rtm_no, "No", class: "govuk-label govuk-radios__label" %>
+              </div>
+              <div class="govuk-radios__item">
+                <%= form.radio_button :is_rtm, :unknown, class: "govuk-radios__input" %>
+                <%= form.label :is_rtm_unknown, "I don't know", class: "govuk-label govuk-radios__label" %>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            What is a right-to-manage company?
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p>The Right to Manage lets tenants and leaseholders take
+            over certain management responsibilities from their
+            landlord. To do this, leaseholders must set up a Right To
+            Manage (RTM) company.</p>
+
+          <p>The RTM company can manage the building directly, or
+            pay a managing agent to do it. More information is
+            <a class="govuk-link" href="https://www.gov.uk/right-to-manage-a-guide-for-landlords">
+              available on the GOV.UK website
+            </a>
+            .
+          </p>
+        </div>
+      </details>
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Other management details
+          </legend>
+          <div class="govuk-hint">
+            Please provide any further information you might have about the management team of this building.
+          </div>
+          <div class="govuk-form-group">
+            <%= form.label :building_owner, class: "govuk-label" %>
+            <%= form.text_field :building_owner, class: "govuk-input" %>
+          </div>
+          <div class="govuk-form-group">
+            <%= form.label :building_developer, class: "govuk-label" %>
+            <%= form.text_field :building_developer, class: "govuk-input" %>
+          </div>
+          <div class="govuk-form-group">
+            <%= form.label :managing_agent, class: "govuk-label" %>
+            <%= form.text_field :managing_agent, class: "govuk-input" %>
+          </div>
+        </fieldset>
+      </div>
+      <%= form.submit "Continue", class: "govuk-button" %>
+    <% end %>
+  </div>
+</div>

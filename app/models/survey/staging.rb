@@ -7,6 +7,7 @@ module Survey
       ownership
       has_residential
       residential_use
+      building_management
     ]
 
     included do
