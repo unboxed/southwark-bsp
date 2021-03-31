@@ -14,6 +14,9 @@ en:
         right_to_manage_company:
           true: "Yes"
           false: "No"
+        building_owner: "Building owner (optional)"
+        building_developer: "Building developer (optional)"
+        managing_agent: "Managing agent (optional)"
 
   activerecord:
     errors:
