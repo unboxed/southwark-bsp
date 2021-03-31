@@ -57,7 +57,7 @@ end
 And('I fill in the height information') do
   steps %(
     Given the page contains "Building height"
-    And I fill in "Height in meters" with "39"
+    And I fill in "Height in metres" with "39"
     And I fill in "Number of storeys" with "5"
   )
 end

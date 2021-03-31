@@ -1,0 +1,31 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @survey do |form| %>
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">Building height</h1>
+          </legend>
+          <div class="govuk-hint">
+            Please provide any further information you might have about the management team of this building.
+          </div>
+          <div class="govuk-form-group">
+            <%= form.label :building_height_metres, "Height in metres", class: "govuk-label" %>
+            <div class="govuk-input__wrapper">
+              <%= form.text_field :building_height_metres, class: "govuk-input govuk-input--width-5" %>
+              <div class="govuk-input__suffix" aria-hidden="true">metres</div>
+            </div>
+          </div>
+          <div class="govuk-form-group">
+            <%= form.label :building_height_storeys, "Number of storeys", class: "govuk-label" %>
+            <div class="govuk-input__wrapper">
+              <%= form.text_field :building_height_storeys, class: "govuk-input govuk-input--width-5" %>
+              <div class="govuk-input__suffix" aria-hidden="true">storeys</div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <%= form.submit "Continue", class: "govuk-button" %>
+    <% end %>
+  </div>
+</div>

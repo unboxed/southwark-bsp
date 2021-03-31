@@ -8,6 +8,7 @@ module Survey
       has_residential
       residential_use
       building_management
+      height
     ]
 
     included do
