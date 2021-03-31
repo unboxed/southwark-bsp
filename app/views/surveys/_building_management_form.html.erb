@@ -13,22 +13,22 @@
           <div class="govuk-form-group">
             <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
               <div class="govuk-radios__item">
-                <%= form.radio_button :is_rtm, :yes, class: "govuk-radios__input", data: { "aria-controls" => "right-to-manage-company"} %>
-                <%= form.label :is_rtm_yes, "Yes, the building is managed by a RTM company", class: "govuk-label govuk-radios__label" %>
+                <%= form.radio_button :is_right_to_manage, :yes, class: "govuk-radios__input", data: { "aria-controls" => "right-to-manage-company"} %>
+                <%= form.label :is_right_to_manage_yes, "Yes, the building is managed by a RTM company", class: "govuk-label govuk-radios__label" %>
               </div>
               <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="right-to-manage-company">
                 <div class="govuk-form-group">
-                  <%= form.label :rtm_company, "RTM company name", class: "govuk-label" %>
-                  <%= form.text_field :rtm_company, class: "govuk-input" %>
+                  <%= form.label :right_to_manage_company, "RTM company name", class: "govuk-label" %>
+                  <%= form.text_field :right_to_manage_company, class: "govuk-input" %>
                 </div>
               </div>
               <div class="govuk-radios__item">
-                <%= form.radio_button :is_rtm, :no, class: "govuk-radios__input" %>
-                <%= form.label :is_rtm_no, "No", class: "govuk-label govuk-radios__label" %>
+                <%= form.radio_button :is_right_to_manage, :no, class: "govuk-radios__input" %>
+                <%= form.label :is_right_to_manage_no, "No", class: "govuk-label govuk-radios__label" %>
               </div>
               <div class="govuk-radios__item">
-                <%= form.radio_button :is_rtm, :unknown, class: "govuk-radios__input" %>
-                <%= form.label :is_rtm_unknown, "I don't know", class: "govuk-label govuk-radios__label" %>
+                <%= form.radio_button :is_right_to_manage, :unknown, class: "govuk-radios__input" %>
+                <%= form.label :is_right_to_manage_unknown, "I don't know", class: "govuk-label govuk-radios__label" %>
               </div>
             </div>
           </div>

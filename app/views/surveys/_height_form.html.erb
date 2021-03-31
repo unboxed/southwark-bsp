@@ -1,3 +1,5 @@
+<%= render 'application/back_link', chosen_path: goto_path("uprn") %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @survey do |form| %>
@@ -10,16 +12,16 @@
             Please provide any further information you might have about the management team of this building.
           </div>
           <div class="govuk-form-group">
-            <%= form.label :building_height_metres, "Height in metres", class: "govuk-label" %>
+            <%= form.label :height_in_metres, "Height in metres", class: "govuk-label" %>
             <div class="govuk-input__wrapper">
-              <%= form.text_field :building_height_metres, class: "govuk-input govuk-input--width-5" %>
+              <%= form.text_field :height_in_metres, class: "govuk-input govuk-input--width-5" %>
               <div class="govuk-input__suffix" aria-hidden="true">metres</div>
             </div>
           </div>
           <div class="govuk-form-group">
-            <%= form.label :building_height_storeys, "Number of storeys", class: "govuk-label" %>
+            <%= form.label :number_of_storeys, "Number of storeys", class: "govuk-label" %>
             <div class="govuk-input__wrapper">
-              <%= form.text_field :building_height_storeys, class: "govuk-input govuk-input--width-5" %>
+              <%= form.text_field :number_of_storeys, class: "govuk-input govuk-input--width-5" %>
               <div class="govuk-input__suffix" aria-hidden="true">storeys</div>
             </div>
           </div>
