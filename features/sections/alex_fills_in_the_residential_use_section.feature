@@ -16,6 +16,7 @@ Feature: Alex fills in the Residential use section
     And I press "Continue"
     Then the page contains "What is the residential part of the building"
 
+  @wip
   Scenario: Alex enters an invalid UPRN number
     Given I choose "No"
     Then we need to figure out what happens then
