@@ -38,8 +38,11 @@ en:
             role:
               inclusion: "Please indicate what your role is"
 
+            is_right_to_manage:
+              blank: "Please indicate whether this building is managed by a right-to-manage company"
+
             right_to_manage_company:
-              inclusion: "Please indicate whether this is a right-to-manage company"
+              blank: "Please provide the name of the right-to-manage company"
 
             full_name:
               blank: "Please tell us your name"
