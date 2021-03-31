@@ -6,7 +6,7 @@ Feature: Alex fills in a report about a building
     And I press "Continue"
     Then the page contains an error about "couldn't find a building with that UPRN"
 
-  Scenario: Alex completes a survey old
+  Scenario: Alex completes a building survey
     Given I start filling a survey for a building
     And I fill in the user details
     And I press "Continue"
@@ -17,3 +17,5 @@ Feature: Alex fills in a report about a building
     And I say who manages the building
     And I press "Continue"
     And I fill in the height information
+    And I press "Continue"
+    Then the page contains "You haven't added any materials yet."

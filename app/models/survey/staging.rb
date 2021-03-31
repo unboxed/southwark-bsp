@@ -9,6 +9,7 @@ module Survey
       residential_use
       building_management
       height
+      external_walls_summary
     ]
 
     included do

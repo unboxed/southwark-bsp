@@ -1,0 +1,40 @@
+<%= render 'application/back_link', chosen_path: goto_path("uprn") %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @survey do |form| %>
+      <% if @survey.materials.empty? %>
+        <p class="govuk-hint">
+          You haven't added any materials yet.
+        </p>
+      <% else %>
+        <div class="govuk-form-group">
+          <table class="govuk-table">
+            <caption class="govuk-table__caption govuk-table__caption--l">Building materials</caption>
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Material</th>
+                <th scope="col" class="govuk-table__header">Percentage</th>
+                <th scope="col" class="govuk-table__header">Insulation</th>
+              </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+              <%= @survey.materials.each do |material| %>
+                <tr class="govuk-table__row">
+                  <th scope="row" class="govuk-table__header"><%= material.name %></th>
+                  <td class="govuk-table__cell"><%= material.percentage %></td>
+                  <td class="govuk-table__cell"><%= material.insulation %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% end %>
+
+      <%= form.submit "Add material", class: "govuk-button govuk-button--secondary" %>
+      <div class="govuk-form-group">
+        <%= form.submit "Save and continue", class: "govuk-button" %>
+      </div>
+    <% end %>
+  </div>
+</div>
