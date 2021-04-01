@@ -1,6 +1,28 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%%= form_with model: @survey do |form| %>
+      <%%= render "errors" %>
+      <h1 class="govuk-heading-l">Section header</h1>
+
+      <div class="govuk-form-group">
+        <%%= form.label :field, class: "govuk-label govuk-label--m" %>
+        <div id="field-hint" class="govuk-hint">
+          This should be a hint about this field.
+        </div>
+        <%%= form.text_area :field, class: "govuk-textarea" %>
+      </div>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group" aria-describedby="fieldset-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Multiple related fields
+          </legend>
+          <div id="fieldset-hint" class="govuk-hint">
+            Another hint.
+          </div>
+        </fieldset>
+      </div>
+      <%%= form.submit "Continue", class: "govuk-button" %>
     <%% end %>
   </div>
 </div>
