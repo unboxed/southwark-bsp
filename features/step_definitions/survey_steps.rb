@@ -65,3 +65,16 @@ And('I fill in the height information') do
     And I fill in "Number of storeys" with "5"
   )
 end
+
+Given('a building survey at stage {string}') do |stage|
+  @building = FactoryBot.create(:building)
+
+  steps %(
+    Given I am on the home page
+    And I press "Start now"
+    And I fill in "UPRN" with "#{@building.uprn}"
+    And I press "Continue"
+    )
+
+  visit "/survey/#{stage}"
+end

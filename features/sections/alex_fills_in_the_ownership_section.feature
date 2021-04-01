@@ -1,11 +1,7 @@
 Feature: Alex fills in the ownership section
 
   Background:
-    Given a building exists with UPRN 12345
-    Given I am on the home page
-    And I press "Start now"
-    Given I fill in "Unique Property Reference Number" with "12345"
-    And I press "Continue"
+    Given a building survey at stage "ownership"
 
   Scenario: Alex completes the ownership section
     Given I fill in "Full name" with "Alex"
