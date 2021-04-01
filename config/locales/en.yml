@@ -41,6 +41,9 @@ en:
             role:
               inclusion: "Please indicate what your role is"
 
+            usage:
+              inclusion: "Please indicate the main residential use of this building"
+
             is_right_to_manage:
               blank: "Please indicate whether this building is managed by a right-to-manage company"
 
@@ -53,9 +56,3 @@ en:
             email:
               blank: "Please tell us your email address"
               invalid: "Please enter a valid email address"
-
-            organisation:
-              blank: "Please tell us the organisation to which you belong"
-
-            status:
-              blank: "Please indicate the status of this building"
