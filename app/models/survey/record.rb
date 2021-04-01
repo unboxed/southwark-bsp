@@ -25,5 +25,8 @@ module Survey
 
     # stage: height
     store_accessor :data, :height_in_metres, :number_of_storeys
+
+    # stage: add material
+    store_accessor :data, :material, :material_details
   end
 end

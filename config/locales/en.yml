@@ -17,6 +17,8 @@ en:
         building_owner: "Building owner (optional)"
         building_developer: "Building developer (optional)"
         managing_agent: "Managing agent (optional)"
+        material:
+          unknown: "I don't know"
 
   activerecord:
     errors:
@@ -56,3 +58,6 @@ en:
             email:
               blank: "Please tell us your email address"
               invalid: "Please enter a valid email address"
+
+            material_details:
+              blank: "Please provide details about this other material"

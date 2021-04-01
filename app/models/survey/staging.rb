@@ -10,6 +10,7 @@ module Survey
       building_management
       height
       external_walls_summary
+      add_material
     ]
 
     included do

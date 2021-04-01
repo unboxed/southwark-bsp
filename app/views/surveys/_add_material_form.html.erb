@@ -1,0 +1,39 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @survey do |form| %>
+      <%= render "errors" %>
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Add an external wall material
+            </h1>
+          </legend>
+          <div class="govuk-hint">
+            Please select one option. More materials can be added later.
+          </div>
+          <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+            <% @survey.materials.reject { |r| r == "other" }.each do |material| %>
+              <div class="govuk-radios__item">
+                <%= form.radio_button :material, material, class: "govuk-radios__input" %>
+                <%= form.label :material, value: material, class: "govuk-label govuk-radios__label" %>
+              </div>
+            <% end %>
+
+            <div class="govuk-radios__item">
+              <%= form.radio_button :material, :other, class: "govuk-radios__input", data: { "aria-controls" => "conditional-material"} %>
+              <%= form.label :material_other, "Other", class: "govuk-label govuk-radios__label" %>
+            </div>
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-material">
+              <div class="govuk-form-group">
+                <%= form.label :material_details, "Please provide details about this other material", class: "govuk-label" %>
+                <%= form.text_area :material_details, class: "govuk-textarea" %>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <%= form.submit "Continue", class: "govuk-button" %>
+    <% end %>
+  </div>
+</div>
