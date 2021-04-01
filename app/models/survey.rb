@@ -20,7 +20,7 @@ module Survey
     end
 
     def form(stage)
-      "Survey::Sections::#{stage.classify}Form".safe_constantize
+      "Survey::Sections::#{stage.camelize}Form".safe_constantize
     end
 
     def find_or_initialize(session_id)
