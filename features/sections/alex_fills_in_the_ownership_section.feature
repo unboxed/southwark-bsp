@@ -1,5 +1,4 @@
 Feature: Alex fills in the ownership section
-
   Background:
     Given a building survey at stage "ownership"
 

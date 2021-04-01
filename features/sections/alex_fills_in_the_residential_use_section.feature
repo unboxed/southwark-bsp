@@ -1,5 +1,4 @@
 Feature: Alex fills in the Residential use section
-
   Background:
     Given a building survey at stage "residential_use"
 
