@@ -22,6 +22,14 @@ en:
         managing_agent: "Managing agent (optional)"
         material:
           unknown: "I don't know"
+        insulation:
+          pur_or_pir: "Polyurethane rigid foam (PUR) or Polyisocyanurate foam (PIR)"
+          eps_xps: "Expanded and Extruded polystyrene (EPS/XPS)"
+          unknown: "I don't know"
+        description: "Can you provide more details? (optional)"
+        insulation_details: "Can you provide more details about the insulation material? (optional)"
+
+
 
   activerecord:
     errors:
@@ -67,3 +75,6 @@ en:
 
             material_details:
               blank: "Please provide details about this other material"
+
+            insulation:
+              inclusion: "Please indicate the insulation used with this material"

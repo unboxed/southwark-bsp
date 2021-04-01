@@ -28,5 +28,8 @@ module Survey
 
     # stage: add material
     store_accessor :data, :material, :material_details
+
+    # stage: add material details
+    store_accessor :data, :material_description, :insulation, :insulation_details
   end
 end

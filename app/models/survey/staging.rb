@@ -11,6 +11,7 @@ module Survey
       height
       external_walls_summary
       add_material
+      material_details
     ]
 
     included do
