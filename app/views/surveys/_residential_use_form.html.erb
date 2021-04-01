@@ -2,6 +2,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @survey do |form| %>
       <%= render "errors" %>
+      <%= form.hidden_field :usage %>
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset" role="group"> <!-- FIXME: restore aria-labelledby -->
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
