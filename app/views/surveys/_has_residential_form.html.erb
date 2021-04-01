@@ -2,6 +2,7 @@
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @survey do |form| %>
       <%= render "errors" %>
+      <%= form.hidden_field :has_residential_use %>
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset" role="group"> <!-- FIXME: restore aria-labelledby -->
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -16,12 +17,12 @@
 
             <div class="govuk-radios">
               <div class="govuk-radios__item">
-                <%= form.radio_button :residential_use, "yes", class: "govuk-radios__input" %>
-                <%= form.label :residential_use_yes, "Yes", class: "govuk-label govuk-radios__label" %>
+                <%= form.radio_button :has_residential_use, true, class: "govuk-radios__input" %>
+                <%= form.label :has_residential_use, value: true, class: "govuk-label govuk-radios__label" %>
               </div>
               <div class="govuk-radios__item">
-                <%= form.radio_button :residential_use, "no", class: "govuk-radios__input" %>
-                <%= form.label :residential_use_no, "No", class: "govuk-label govuk-radios__label" %>
+                <%= form.radio_button :has_residential_use, false, class: "govuk-radios__input" %>
+                <%= form.label :has_residential_use, value: "false", class: "govuk-label govuk-radios__label" %>
               </div>
             </div>
           </div>

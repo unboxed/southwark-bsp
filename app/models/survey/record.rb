@@ -10,7 +10,7 @@ module Survey
     store_accessor :data, :full_name, :email, :organisation
 
     # stage: has residential
-    store_accessor :data, :has_residential_usage # FIXME: this should be indicated by the next stage
+    store_accessor :data, :has_residential_use # FIXME: this should be indicated by the next stage
 
     # stage: residential use
     store_accessor :data, :usage

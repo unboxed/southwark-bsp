@@ -11,6 +11,9 @@ en:
           agent: "Managing agent"
           other: "Other"
           none: "I am not associated with this building"
+        has_residential_use:
+          true: "Yes"
+          false: "No"
         right_to_manage_company:
           true: "Yes"
           false: "No"
@@ -42,6 +45,9 @@ en:
 
             role:
               inclusion: "Please indicate what your role is"
+
+            has_residential_use:
+              blank: "Please indicate whether any part of the building is used for residential purposes"
 
             usage:
               inclusion: "Please indicate the main residential use of this building"
