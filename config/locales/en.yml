@@ -76,5 +76,8 @@ en:
             material_details:
               blank: "Please provide details about this other material"
 
+            material:
+              inclusion: "Please indicate which material this wall is made of"
+
             insulation:
               inclusion: "Please indicate the insulation used with this material"
