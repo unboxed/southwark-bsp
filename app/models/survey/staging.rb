@@ -12,6 +12,7 @@ module Survey
       external_walls_summary
       add_material
       material_details
+      external_wall_structures
     ]
 
     included do

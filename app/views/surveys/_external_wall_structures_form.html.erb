@@ -1,0 +1,45 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @survey do |form| %>
+      <%= render "errors" %>
+      <h1 class="govuk-heading-l">External wall structures</h1>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="structure-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <span class="govuk-fieldset__heading">
+              Are there are any external wall structures?
+            </span>
+          </legend>
+          <div id="structure-hint" class="govuk-hint">
+            Select all that apply.
+          </div>
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <% @survey.structures.reject {|s| s == "other" }.each do |structure| %>
+              <div class="govuk-checkboxes__item">
+                <%= form.check_box :structure, { class: "govuk-checkboxes__input", id: "survey_structure_#{structure}", multiple: true }, structure, nil %>
+                <%= form.label :structure, value: structure, class: "govuk-label govuk-checkboxes__label" %>
+
+                <% if I18n.exists?("helpers.hints.survey.structure.#{structure}") %>
+                  <div id="structure-<%= structure %>-hint" class="govuk-hint govuk-checkboxes__hint">
+                    <%= t("helpers.hints.survey.structure.#{structure}") %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+            <div class="govuk-checkboxes__item">
+              <%= form.check_box :structure, { class: "govuk-checkboxes__input", id: "survey_structure_other", multiple: true, data: { "aria-controls": "conditional-other-structure" }}, "other", nil %>
+              <%= form.label :structure, value: "other", class: "govuk-label govuk-checkboxes__label" %>
+            </div>
+            <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-other-structure">
+              <div class="govuk-form-group">
+                <%= form.label :structures_details, class: "govuk-label" %>
+                <%= form.text_area :structures_details, class: "govuk-textarea" %>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <%= form.submit "Continue", class: "govuk-button" %>
+    <% end %>
+      </div>
+  </div>

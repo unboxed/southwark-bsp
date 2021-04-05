@@ -3,6 +3,12 @@ en:
     format: "%{message}"
 
   helpers:
+    hints:
+      survey:
+        structure:
+          solar_shading: "For example, canopies or awnings that control or reduce the amount of heat and sunlight admitted into a building"
+          green_walls: "A wall or part of a wall covered by plants. Also known as living walls and vertical gardens"
+
     label:
       survey:
         role:
@@ -28,6 +34,7 @@ en:
           unknown: "I don't know"
         description: "Can you provide more details? (optional)"
         insulation_details: "Can you provide more details about the insulation material? (optional)"
+        structures_details: "Can you provide more details about the other external structures?"
 
 
 
@@ -81,3 +88,6 @@ en:
 
             insulation:
               inclusion: "Please indicate the insulation used with this material"
+
+            structures_details:
+              blank: "Please describe the other external wall structures of the building"
