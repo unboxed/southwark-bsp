@@ -23,8 +23,6 @@ RSpec.describe "Admin manages building records" do
   end
 
   it "adding/editing a building record" do
-    pending "move to cucumber"
-
     user = create :user
 
     visit "/admin"
