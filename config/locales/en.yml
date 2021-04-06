@@ -122,3 +122,6 @@ en:
 
             balcony_other_materials_details:
               blank: "Please describe the other materials for the balcony balustrade/railings"
+
+            solar_shading_materials_details:
+              blank: "Please describe the other solar shading materials"

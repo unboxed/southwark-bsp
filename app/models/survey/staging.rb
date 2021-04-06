@@ -14,6 +14,7 @@ module Survey
       material_details
       external_wall_structures
       balcony_materials
+      solar_shading_materials
       complete
     ]
 

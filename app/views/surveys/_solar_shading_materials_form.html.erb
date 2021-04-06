@@ -1,0 +1,46 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @survey do |form| %>
+      <%= render "errors" %>
+      <h1 class="govuk-heading-l">Solar shading materials</h1>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="solar_shading_materials-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <span class="govuk-fieldset__heading">
+              Select all that apply
+            </span>
+          </legend>
+          <div id="solar_shading_materials-hint" class="govuk-hint">
+            Select all that apply
+          </div>
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <% @survey.solar_shading_materials_options.reject {|s| s == "other" }.each do |option| %>
+              <div class="govuk-checkboxes__item">
+                <%= form.check_box :solar_shading_materials, { class: "govuk-checkboxes__input", id: "survey_solar_shading_materials_#{option}", multiple: true }, option, nil %>
+                <%= form.label :solar_shading_materials, value: option, class: "govuk-label govuk-checkboxes__label" %>
+
+                <% if I18n.exists?("helpers.hints.survey.solar_shading_materials.#{option}") %>
+                  <div id="solar_shading_materials-<%= option %>-hint" class="govuk-hint govuk-checkboxes__hint">
+                    <%= t("helpers.hints.survey.solar_shading_materials.#{option}") %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+            <div class="govuk-checkboxes__item">
+              <%= form.check_box :solar_shading_materials, { class: "govuk-checkboxes__input", id: "survey_solar_shading_materials_other", multiple: true, data: { "aria-controls": "conditional-other-solar_shading_materials" }}, "other", nil %>
+              <%= form.label :solar_shading_materials, value: "other", class: "govuk-label govuk-checkboxes__label" %>
+            </div>
+            <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-other-solar_shading_materials">
+              <div class="govuk-form-group">
+                <%= form.label :solar_shading_materials_details, class: "govuk-label" %>
+                <%= form.text_area :solar_shading_materials_details, class: "govuk-textarea" %>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <%= form.submit "Continue", class: "govuk-button" %>
+    <% end %>
+  </div>
+</div>

@@ -43,5 +43,10 @@ module Survey
                    :balcony_floor_materials_details,
                    :balcony_other_materials,
                    :balcony_other_materials_details
+
+    # stage: solar shading materials
+    store_accessor :data,
+                   :solar_shading_materials,
+                   :solar_shading_materials_details
   end
 end
