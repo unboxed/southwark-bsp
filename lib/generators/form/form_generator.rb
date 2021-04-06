@@ -17,6 +17,7 @@ class FormGenerator < Rails::Generators::NamedBase
 
       template "section.rb", "app/models/#{file_name}/sections/#{section}_form.rb"
       template "view.html.erb", "app/views/#{plural_name}/_#{section}_form.html.erb"
+      template "test.feature.tt", "features/sections/alex_fills_in_the_#{section}_section.feature"
     end
   end
 end

@@ -1,0 +1,7 @@
+Feature: Alex fills in the <%= @section %> section
+  Background:
+    Given a building survey at stage "<%= @section %>"
+
+  Scenario: Alex completes the <%= @section %> section
+    Given I press "Continue"
+    Then the next page is "Complete"
