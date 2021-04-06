@@ -32,7 +32,7 @@ en:
           pur_or_pir: "Polyurethane rigid foam (PUR) or Polyisocyanurate foam (PIR)"
           eps_xps: "Expanded and Extruded polystyrene (EPS/XPS)"
           unknown: "I don't know"
-        description: "Can you provide more details? (optional)"
+        material_description: "Can you provide more details? (optional)"
         insulation_details: "Can you provide more details about the insulation material? (optional)"
         structures_details: "Can you provide more details about the other external structures?"
 
