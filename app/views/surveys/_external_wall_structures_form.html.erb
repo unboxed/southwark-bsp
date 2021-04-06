@@ -15,10 +15,10 @@
             Select all that apply.
           </div>
           <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-            <% @survey.structures.reject {|s| s == "other" }.each do |structure| %>
+            <% @survey.structure_options.reject {|s| s == "other" }.each do |structure| %>
               <div class="govuk-checkboxes__item">
-                <%= form.check_box :structure, { class: "govuk-checkboxes__input", id: "survey_structure_#{structure}", multiple: true }, structure, nil %>
-                <%= form.label :structure, value: structure, class: "govuk-label govuk-checkboxes__label" %>
+                <%= form.check_box :structures, { class: "govuk-checkboxes__input", id: "survey_structures_#{structure}", multiple: true }, structure, nil %>
+                <%= form.label :structures, value: structure, class: "govuk-label govuk-checkboxes__label" %>
 
                 <% if I18n.exists?("helpers.hints.survey.structure.#{structure}") %>
                   <div id="structure-<%= structure %>-hint" class="govuk-hint govuk-checkboxes__hint">
@@ -28,8 +28,8 @@
               </div>
             <% end %>
             <div class="govuk-checkboxes__item">
-              <%= form.check_box :structure, { class: "govuk-checkboxes__input", id: "survey_structure_other", multiple: true, data: { "aria-controls": "conditional-other-structure" }}, "other", nil %>
-              <%= form.label :structure, value: "other", class: "govuk-label govuk-checkboxes__label" %>
+              <%= form.check_box :structures, { class: "govuk-checkboxes__input", id: "survey_structures_other", multiple: true, data: { "aria-controls": "conditional-other-structure" }}, "other", nil %>
+              <%= form.label :structures, value: "other", class: "govuk-label govuk-checkboxes__label" %>
             </div>
             <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-other-structure">
               <div class="govuk-form-group">
@@ -39,7 +39,9 @@
             </div>
           </div>
         </fieldset>
-        <%= form.submit "Continue", class: "govuk-button" %>
-    <% end %>
       </div>
+
+      <%= form.submit "Continue", class: "govuk-button" %>
+    <% end %>
   </div>
+</div>

@@ -32,6 +32,7 @@ module Survey
     # stage: add material details
     store_accessor :data, :material_description, :insulation, :insulation_details
 
+    # stage: external wall structures
     store_accessor :data, :structures, :structures_details
   end
 end
