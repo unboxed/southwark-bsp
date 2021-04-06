@@ -9,7 +9,7 @@ module Survey
       ].freeze
 
       attribute :structures, ListType.new(String)
-      validates :structures, length: { maximum: 100 }, presence: true
+      validates :structures, presence: true
 
       attribute :structures_details, :string
       validates :structures_details, length: { maximum: 100 }, presence: true, if: :other_structures?

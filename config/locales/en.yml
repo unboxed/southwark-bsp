@@ -98,3 +98,12 @@ en:
 
             structures_details:
               blank: "Please describe the other external wall structures of the building"
+
+            balcony_main_material_details:
+              blank: "Please describe the other materials used on this building's balconies"
+
+            balcony_floor_materials_details:
+              blank: "Please describe the other materials for the balcony floors"
+
+            balcony_other_materials_details:
+              blank: "Please describe the other materials for the balcony balustrade/railings"

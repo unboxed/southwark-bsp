@@ -22,8 +22,20 @@ Given('I choose {string}') do |option|
   choose option
 end
 
+Given('I choose {string} for {string}') do |option, legend|
+  within find('fieldset', text: legend) do
+    choose option
+  end
+end
+
 Given('I check {string}') do |option|
   check option
+end
+
+Given('I check {string} for {string}') do |option, legend|
+  within find('fieldset', text: legend) do
+    check option
+  end
 end
 
 Then('print the page') do

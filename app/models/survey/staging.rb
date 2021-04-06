@@ -13,6 +13,8 @@ module Survey
       add_material
       material_details
       external_wall_structures
+      balcony_materials
+      complete
     ]
 
     included do

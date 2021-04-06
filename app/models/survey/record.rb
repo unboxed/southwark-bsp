@@ -34,5 +34,14 @@ module Survey
 
     # stage: external wall structures
     store_accessor :data, :structures, :structures_details
+
+    # stage: balconies
+    store_accessor :data,
+                   :balcony_main_material,
+                   :balcony_main_material_details,
+                   :balcony_floor_materials,
+                   :balcony_floor_materials_details,
+                   :balcony_other_materials,
+                   :balcony_other_materials_details
   end
 end
