@@ -36,8 +36,6 @@ en:
         insulation_details: "Can you provide more details about the insulation material? (optional)"
         structures_details: "Can you provide more details about the other external structures?"
 
-
-
   activerecord:
     errors:
       models:
@@ -79,6 +77,15 @@ en:
             email:
               blank: "Please tell us your email address"
               invalid: "Please enter a valid email address"
+
+            height_in_metres:
+              greater_than: "The building height must be more than %{count} metres"
+              not_a_number: "The building height must be a number"
+
+            number_of_storeys:
+              greater_than: "The number of storeys must be more than %{count}"
+              not_a_number: "The number of storeys must be a number"
+              not_an_integer: "The number of storeys must be a whole number"
 
             material_details:
               blank: "Please provide details about this other material"

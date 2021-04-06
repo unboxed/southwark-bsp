@@ -1,13 +1,14 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <%= form_with model: @survey do |form| %>
+      <%= render "errors" %>
       <div class="govuk-form-group">
         <fieldset class="govuk-fieldset" role="group">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">Building height</h1>
           </legend>
           <div class="govuk-hint">
-            Please provide any further information you might have about the management team of this building.
+            If known please enter the building’s height in metres and storeys.
           </div>
           <div class="govuk-form-group">
             <%= form.label :height_in_metres, "Height in metres", class: "govuk-label" %>
