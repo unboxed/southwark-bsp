@@ -8,7 +8,7 @@ module Survey
         concrete
         do_not_know
         other
-      ]
+      ].freeze
 
       attribute :solar_shading_materials, ListType.new(String)
       validates :solar_shading_materials, presence: true
