@@ -13,3 +13,8 @@ building = Building.find_or_create_by(
   postcode: "NW1235",
   uprn: "123123"
 )
+
+admin = User.create!(
+  email: 'admin@example.com',
+  password: 'Letmein1!'
+)
