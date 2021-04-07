@@ -47,6 +47,8 @@ en:
         building_owner: "Building owner (optional)"
         building_developer: "Building developer (optional)"
         managing_agent: "Managing agent (optional)"
+        height_in_metres: "Height in metres (optional)"
+        number_of_storeys: "Number of storeys (optional)"
         material:
           unknown: "I don't know"
         insulation:

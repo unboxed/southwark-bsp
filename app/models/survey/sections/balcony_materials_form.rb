@@ -69,7 +69,8 @@ module Survey
           params.permit(
             :balcony_main_material,
             :balcony_main_material_details,
-            :balcony_floor_material_details,
+            :balcony_floor_materials_details,
+            :balcony_other_materials_details,
             balcony_floor_materials: [],
             balcony_other_materials: []
           )

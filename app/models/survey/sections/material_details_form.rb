@@ -24,7 +24,6 @@ module Survey
       def insulation_options
         INSULATION_MATERIALS
       end
-      # attribute :insulation_details
     end
   end
 end
