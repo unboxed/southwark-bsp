@@ -48,5 +48,9 @@ module Survey
     store_accessor :data,
                    :solar_shading_materials,
                    :solar_shading_materials_details
+
+    # stage: check your answers
+    store_accessor :data,
+                   :completed
   end
 end

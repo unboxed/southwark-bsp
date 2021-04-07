@@ -15,6 +15,7 @@ module Survey
       external_wall_structures
       balcony_materials
       solar_shading_materials
+      check_your_answers
       complete
     ]
 
@@ -24,6 +25,10 @@ module Survey
       before_save unless: :last_stage? do
         record.stage = next_stage
       end
+    end
+
+    def all_stages
+      STAGES
     end
 
     def goto(stage)
