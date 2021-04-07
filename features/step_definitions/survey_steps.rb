@@ -78,3 +78,13 @@ Given('a building survey at stage {string}') do |stage|
 
   visit "/survey/#{stage}"
 end
+
+Given('I amend {string}') do |attribute|
+  within('div', class: "govuk-summary-list__row", text: attribute) do
+    click_on "Change"
+  end
+end
+
+Given('I move to the {string} stage') do |section|
+  visit "/survey/#{section}"
+end

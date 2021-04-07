@@ -1,4 +1,4 @@
-<% unless @survey.first_stage? %>
+<% unless @survey.first_stage? or @survey.last_stage? %>
   <%= render 'application/back_link', chosen_path: goto_path(@survey.previous_stage) %>
 <% end %>
 

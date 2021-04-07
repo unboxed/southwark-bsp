@@ -23,7 +23,7 @@ module Survey
       delegate :stage, to: :record
 
       before_save unless: :last_stage? do
-        record.stage = next_stage
+        record.stage = next_logical_stage
       end
     end
 
@@ -61,6 +61,18 @@ module Survey
 
     def next_stage
       STAGES[[stage_index + 1, STAGES.size - 1].min]
+    end
+
+    def before_stage?(other_stage)
+      stage_index < STAGES.index(other_stage)
+    end
+
+    def next_logical_stage
+      if before_stage?("check_your_answers") && record.completed
+        "check_your_answers"
+      else
+        next_stage
+      end
     end
 
     def last_stage
