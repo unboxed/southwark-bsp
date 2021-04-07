@@ -2,7 +2,7 @@
   <div class="govuk-grid-column-two-thirds-from-desktop">
     <h1 class="govuk-heading-l">Check your answers before submitting this building's survey</h1>
 
-    <% stages_with_forms.each do |stage, form| %>
+    <% stages_with_forms(@survey).each do |stage, form| %>
       <h2 class="govuk-heading-m"><%= t(:header, scope: [:"survey.summary.stages", stage], default: stage.humanize) %></h2>
 
       <dl class="govuk-summary-list govuk-!-margin-bottom-9">

@@ -1,14 +1,11 @@
 module SummaryHelper
-  def form_for_stage(stage)
-    build_for_stage(@survey.record, stage)
-  end
-
-  def stages_with_forms
-    stages = @survey.all_stages
-               .reject { |s| ["check_your_answers", "complete"].include? s }
+  def stages_with_forms(survey)
+    stages = survey
+             .all_stages
+             .reject { |s| ["check_your_answers", "complete"].include? s }
 
     forms = stages
-              .map { |s| form_for_stage(s) }
+            .map { |s| form_for_stage(survey, s) }
 
     stages.zip(forms)
   end
@@ -20,9 +17,10 @@ module SummaryHelper
   def summary_format(value)
     formatted = case value
                 when String
-                  if value == "true"
+                  case value
+                  when "true"
                     "Yes"
-                  elsif value == "false"
+                  when "false"
                     "No"
                   else
                     value
@@ -42,8 +40,8 @@ module SummaryHelper
 
   private
 
-  def build_for_stage(record, stage)
-    form(stage).build(record)
+  def form_for_stage(survey, stage)
+    form(stage).build(survey.record)
   end
 
   def form(stage)
