@@ -2,6 +2,7 @@ module Survey
   module Sections
     class CheckYourAnswersForm < BaseForm
       attribute :completed, :boolean
+      attribute :submitted, :boolean
 
       class << self
         def build(attributes)

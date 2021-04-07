@@ -18,3 +18,8 @@ Feature: Alex fills in the check_your_answers section
     And I press "Continue"
     Then the page contains "Check your answers"
     And the page contains "Bruno"
+
+  Scenario: Alex completes a survey and can fill in a new one
+    Given I press "Submit"
+    And I press "fill a new survey"
+    Then the next page is "What is the building's UPRN"

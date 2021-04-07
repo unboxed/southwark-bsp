@@ -31,7 +31,7 @@
     <p class="govuk-body">By submitting this survey you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
 
     <%= form_with model: @survey do |form| %>
-      <%= form.hidden_field :completed, value: true %>
+      <%= form.hidden_field :submitted, value: true %>
 
       <%= form.submit "Submit survey", class: "govuk-button" %>
     <% end %>

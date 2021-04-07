@@ -1,5 +1,5 @@
 class SurveysController < ApplicationController
-  before_action :find_survey
+  before_action :find_survey, except: :completed
 
   rescue_from Survey::RecordNotFound do
     redirect_to new_survey_url
@@ -13,7 +13,12 @@ class SurveysController < ApplicationController
 
   def update
     if @survey.update(survey_params)
-      redirect_to survey_path
+      if @survey.stage == "complete"
+        reset_session
+        render :completed
+      else
+        redirect_to survey_path
+      end
     else
       respond_to do |format|
         format.html { render :edit }
@@ -25,6 +30,8 @@ class SurveysController < ApplicationController
     @survey.goto(section_param)
     redirect_to survey_path
   end
+
+  def completed; end
 
   private
 
