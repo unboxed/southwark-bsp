@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_221436) do
+ActiveRecord::Schema.define(version: 2021_04_07_160347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_221436) do
     t.string "land_registry_proprietor_address"
     t.string "land_registry_proprietor_category"
     t.string "land_registry_proprietor_company_registration_number"
+    t.integer "on_delta"
     t.index ["uprn"], name: "index_buildings_on_uprn", unique: true
   end
 
