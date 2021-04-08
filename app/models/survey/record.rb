@@ -51,7 +51,6 @@ module Survey
 
     # stage: check your answers
     store_accessor :data,
-                   :completed,
-                   :submitted
+                   :completed
   end
 end

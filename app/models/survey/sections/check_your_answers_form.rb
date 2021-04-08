@@ -1,13 +1,12 @@
 module Survey
   module Sections
     class CheckYourAnswersForm < BaseForm
-      attribute :completed, :boolean
-      attribute :submitted, :boolean
+      after_assign_record :mark_survey_completed
 
-      class << self
-        def build(attributes)
-          super.tap { |f| f.record.update({ completed: true }) }
-        end
+      private
+
+      def mark_survey_completed
+        record.update({ completed: true })
       end
     end
   end

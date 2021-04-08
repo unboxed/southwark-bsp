@@ -3,8 +3,9 @@ module Survey
     extend ActiveSupport::Concern
 
     included do
-      attr_accessor :record
+      attr_reader :record
       define_model_callbacks :save, :commit, :rollback
+      define_model_callbacks :assign_record, only: :after
 
       delegate :building, :transaction, to: :record
       delegate :with_transaction_returning_status, to: :record
@@ -26,6 +27,12 @@ module Survey
         def slice(attributes)
           attributes.slice(*attribute_types.keys)
         end
+    end
+
+    def record=(value)
+      run_callbacks :assign_record do
+        @record = value
+      end
     end
 
     def assign_attributes(attributes)
