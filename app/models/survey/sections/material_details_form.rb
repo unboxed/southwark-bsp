@@ -4,7 +4,7 @@ module Survey
       INSULATION_MATERIALS = %w[
         mineral_wool
         pur_or_pir
-        phonetic_foam_insulation
+        phenolic_foam_insulation
         eps_xps
         glass_wool
         wood_fibre
