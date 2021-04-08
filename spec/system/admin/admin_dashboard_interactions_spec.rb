@@ -2,12 +2,10 @@ require "rails_helper"
 require "csv"
 
 RSpec.describe "Admin can make bulk edits" do
-
   let!(:user) { create :user }
 
   before do
     building_list_fixture = file_fixture("building_record_list.csv")
-    parsed_building_list_fixture = CSV.parse building_list_fixture.read, headers: true
 
     visit "/admin"
 
@@ -25,9 +23,7 @@ RSpec.describe "Admin can make bulk edits" do
   it "can change on Delta property for multiple buildings" do
     selected_checkboxes = page.all("#building_building_id_").values_at(2, 4, 6)
 
-    selected_checkboxes.each do |checkbox|
-      checkbox.check
-    end
+    selected_checkboxes.each(&:check)
 
     selected_checkboxes.each do |checkbox|
       expect(checkbox).to be_checked
@@ -35,7 +31,7 @@ RSpec.describe "Admin can make bulk edits" do
 
     click_button "Mark as 'on Delta'"
 
-    delta_cells = page.all(".delta").values_at(2,4,6)
+    delta_cells = page.all(".delta").values_at(2, 4, 6)
 
     delta_cells.each do |cell|
       within(cell) do

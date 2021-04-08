@@ -10,6 +10,7 @@ require("channels")
 require("../stylesheets/application.scss")
 require("./calculate_percentage.js")
 require("./toggle_other_material.js")
+require("./check_all.js")
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
