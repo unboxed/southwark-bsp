@@ -2,7 +2,6 @@ require "rails_helper"
 require "csv"
 
 RSpec.describe "Admin signs in" do
-
   let!(:user) { create :user }
 
   it "to view dashboard" do

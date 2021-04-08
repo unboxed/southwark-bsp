@@ -30,7 +30,7 @@ module Admin
 
     def bulk_update
       if params[:building] && Building.find(params[:building][:building_id].map(&:to_i))
-                                                .each { |element| apply_update(element) }
+                                      .each { |element| apply_update(element) }
         flash[:notice] = "Building records were updated successfully"
       else
         flash[:error] = "Building records were not updated"
@@ -50,17 +50,17 @@ module Admin
 
     def building_params
       params.require(:building).permit(
-          :uprn,
-          :building_name,
-          :building_id,
-          :street,
-          :postcode,
-          :land_registry_proprietor_address,
-          :land_registry_proprietor_name,
-          :proprietor_email,
-          :on_delta,
-          :letter,
-          :email
+        :uprn,
+        :building_name,
+        :building_id,
+        :street,
+        :postcode,
+        :land_registry_proprietor_address,
+        :land_registry_proprietor_name,
+        :proprietor_email,
+        :on_delta,
+        :letter,
+        :email
       )
     end
 

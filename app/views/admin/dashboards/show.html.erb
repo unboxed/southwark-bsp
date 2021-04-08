@@ -1,79 +1,90 @@
-<h4 class="govuk-heading-l">Admin dashboard</h1>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <h1 class="govuk-heading-l">Dashboard</h1>
+  </div>
 
-<nav>
-  <%= link_to "Upload building list", new_admin_bulk_import_path, class: "govuk-button" %>
-  <%= link_to "Add a building record", new_admin_building_path, class: "govuk-button" %>
-</nav>
+  <div class="govuk-grid-column-one-half dashboard-actions">
+    <%= link_to "Upload building list", new_admin_bulk_import_path, class: "govuk-button" %>
+    <%= link_to "Add a building record", new_admin_building_path, class: "govuk-button" %>
+  </div>
+</div>
+
+<% if flash[:alert] %>
+  <div class="govuk-error-summary">
+    <h2 class="govuk-error-summary__title">
+      There was a problem saving
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list">
+        <li>
+          <span class="govuk-error-message">
+            <%= alert %>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+<% end %>
 
 <table class="govuk-table">
-  <caption class="govuk-table__caption">Building records</caption>
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">UPRN</th>
-      <th scope="col" class="govuk-table__header">Address</th>
-      <th scope="col" class="govuk-table__header">Proprietor</th>
-      <th scope="col" class="govuk-table__header">
-        Proprietor address
-      </th>
-      <th scope="col" class="govuk-table__header">Contacts</th>
-      <th scope="col" class="govuk-table__header"></th>
-      <th scope="col" class="govuk-table__header">Actions</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <% @buildings.each do |building| %>
+  <%= form_tag bulk_update_admin_buildings_path(@buildings), method: :put do %>
+    <caption class="govuk-table__caption"><h1 class="govuk-heading-m">Building records: <%= @buildings.count %> total </h1>
+      <%= submit_tag "Send email", class: "govuk-button" %>
+      <%= submit_tag "Send letter", class: "govuk-button" %>
+      <%= submit_tag "Mark as 'on Delta'", class: "govuk-button", data: { disable_with: "Processing update" } %>
+    </caption>
+    <thead class="govuk-table__head">
       <tr class="govuk-table__row">
-        <td class="govuk-table__cell"><%= building.uprn %></td>
-        <td class="govuk-table__cell">
-          <%= building.building_name %><br />
-          <%= building.street %><br />
-          <%= building.postcode %>
-        </td>
-        <td class="govuk-table__cell">
-          <%= building.land_registry_proprietor_name %>
-          <% if building.land_registry_proprietor_category %>
-            <br />
-            (<%= building.land_registry_proprietor_category %>)
-          <% end %>
-        </td>
-        <td class="govuk-table__cell">
-          <%= building.land_registry_proprietor_address %>
-        </td>
-        <td class="govuk-table__cell">
-          <% if building.proprietor_email %>
-              <%= link_to(
-                "Email survey link",
-                admin_building_notifications_path(building, mean_of_notification: :email),
-                method: :post,
-                remote: true,
-                data: { disable_with: "Sending..." }
-              ) %>
-            <br />
-            <br />
-          <% end %>
-          <% if building.land_registry_proprietor_address %>
-            <div>
-              <%= link_to(
-                "Send survey letter",
-                admin_building_notifications_path(building, mean_of_notification: :letter),
-                method: :post,
-                remote: true,
-                data: { disable_with: "Sending..." }
-              ) %>
-            <br />
-            <br />
-            </div>
-          <% end %>
-        </td>
-        <td class="govuk-table__cell">
-          <% building.most_recent_notifications.each do |notification| %>
-            <%= notification.summary %>
-          <% end %>
-        </td>
-        <td class="govuk-table__cell">
-          <%= link_to "Edit", edit_admin_building_path(building) %>
-        </td>
+        <th scope="col" class="govuk-table__header"><%= check_box_tag 'building[id]', @buildings.map(&:id) %></th>
+        <th scope="col" class="govuk-table__header">UPRN</th>
+        <th scope="col" class="govuk-table__header">Building</th>
+        <th scope="col" class="govuk-table__header">Owner</th>
+        <th scope="col" class="govuk-table__header">Last emailed</th>
+        <th scope="col" class="govuk-table__header"></th>
+        <th scope="col" class="govuk-table__header">Letter sent</th>
+        <th scope="col" class="govuk-table__header">EWS survey</th>
+        <th scope="col" class="govuk-table__header">On Delta?</th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody class="govuk-table__body">
+      <% @buildings.each do |building| %>
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell"><%= check_box_tag 'building[building_id][]', building.id %></td>
+          <td class="govuk-table__cell"><%= link_to building.uprn, edit_admin_building_path(building) %></td>
+          <td class="govuk-table__cell">
+            <%= building.building_name %><br />
+            <%= building.street %><br />
+            <%= building.postcode %>
+          </td>
+          <td class="govuk-table__cell">
+            <%= building.land_registry_proprietor_name %>
+            <% if building.land_registry_proprietor_category %>
+              <br />
+              (<%= building.land_registry_proprietor_category %>)
+            <% end %>
+          </td>
+          <td class="govuk-table__cell">
+            <% building.most_recent_notifications.each do |notification| %>
+              <%= notification.sent_at %>
+            <% end %>
+          </td>
+          <td class="govuk-table__cell email">
+            <% building.most_recent_notifications.each do |notification| %>
+              <%= notification.sent_at %>
+            <% end %>
+          </td>
+          <td class="govuk-table__cell letter">
+            <% building.most_recent_notifications.each do |notification| %>
+              <%= notification.sent_at %>
+            <% end %>
+          </td>
+          <td class="govuk-table__cell">
+          </td>
+          <td class="govuk-table__cell delta">
+            <%= building.on_delta %>
+          </td>
+        </tr>
+      <% end %>
+  <% end %>
   </tbody>
 </table>

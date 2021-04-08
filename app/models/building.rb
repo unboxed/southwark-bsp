@@ -4,7 +4,7 @@ class Building < ApplicationRecord
 
   validates :uprn, presence: true, uniqueness: true
 
-  enum on_delta: { "No": 0, "Yes": 1 }
+  enum on_delta: { No: 0, Yes: 1 }
 
   scope :ordered_by_uprn, -> { order uprn: :asc }
 
