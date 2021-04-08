@@ -28,22 +28,44 @@ module Admin
       end
     end
 
+    def bulk_update
+      if params[:building] && Building.find(params[:building][:building_id].map(&:to_i))
+                                                .each { |element| apply_update(element) }
+        flash[:notice] = "Building records were updated successfully"
+      else
+        flash[:error] = "Building records were not updated"
+      end
+      redirect_to admin_root_path
+    end
+
+    def apply_update(building)
+      if params[:commit] == "Mark as 'on Delta'"
+        building.update!(on_delta: 1)
+      else
+        redirect_to admin_root_path
+      end
+    end
+
     private
 
-      def building_params
-        params.require(:building).permit(
+    def building_params
+      params.require(:building).permit(
           :uprn,
           :building_name,
+          :building_id,
           :street,
           :postcode,
           :land_registry_proprietor_address,
           :land_registry_proprietor_name,
           :proprietor_email,
-        )
-      end
+          :on_delta,
+          :letter,
+          :email
+      )
+    end
 
-      def building
-        Building.find params[:id]
-      end
+    def building
+      Building.find params[:id]
+    end
   end
 end
