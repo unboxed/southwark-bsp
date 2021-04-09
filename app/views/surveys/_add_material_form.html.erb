@@ -21,7 +21,7 @@
             <% end %>
 
             <div class="govuk-radios__item">
-              <%= form.radio_button :material, :other, class: "govuk-radios__input", data: { "aria-controls" => "conditional-material"} %>
+              <%= form.radio_button :material, :other, class: "govuk-radios__input", aria: { controls: "conditional-material" } %>
               <%= form.label :material_other, "Other", class: "govuk-label govuk-radios__label" %>
             </div>
             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-material">

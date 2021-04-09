@@ -1,12 +1,12 @@
 module Survey
   module Sections
     class CheckYourAnswersForm < BaseForm
-      after_assign_record :mark_survey_completed
+      before_save do
+        record.completed_at = Time.current
+      end
 
-      private
-
-      def mark_survey_completed
-        record.update({ completed: true })
+      def next_stage
+        "complete"
       end
     end
   end

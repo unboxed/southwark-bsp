@@ -15,5 +15,6 @@ Feature: Alex fills in a report about a building
 
   Scenario: Alex can go back to the previous stage
     Given a building survey at stage "height"
-    And I press "Back"
+    Then the page contains "Building height"
+    When I press "Back"
     Then the page contains "Building management details"

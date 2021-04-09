@@ -1,34 +1,42 @@
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @survey do |form| %>
-      <%= render "errors" %>
-      <%= form.hidden_field :has_residential_use %>
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" role="group"> <!-- FIXME: restore aria-labelledby -->
+<%= render "application/back_link", chosen_path: goto_path("ownership") %>
+
+<%= form_with model: @survey do |form| %>
+  <%= form.hidden_field :has_residential_use %>
+
+  <div class="govuk-grid-row govuk-!-margin-top-2">
+    <div class="govuk-grid-column-two-thirds">
+      <%= error_summary @survey %>
+
+      <%= form_group for: [@survey, :has_residential_use] do %>
+        <fieldset class="govuk-fieldset">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
               Is any part of the building used for residential purposes?
             </h1>
           </legend>
-          <div class="govuk-form-group">
+
             <div class="govuk-hint">
               For example, as a hotel or housing
             </div>
 
+            <%= error_message_for @survey, :has_residential_use %>
+
             <div class="govuk-radios">
               <div class="govuk-radios__item">
                 <%= form.radio_button :has_residential_use, true, class: "govuk-radios__input" %>
-                <%= form.label :has_residential_use, value: true, class: "govuk-label govuk-radios__label" %>
+                <%= form.label :has_residential_use, value: "true", class: "govuk-label govuk-radios__label" %>
               </div>
               <div class="govuk-radios__item">
                 <%= form.radio_button :has_residential_use, false, class: "govuk-radios__input" %>
                 <%= form.label :has_residential_use, value: "false", class: "govuk-label govuk-radios__label" %>
               </div>
             </div>
-          </div>
         </fieldset>
+      <% end %>
+
+      <div class="govuk-form-group">
+        <%= form.submit "Continue", class: "govuk-button" %>
       </div>
-      <%= form.submit "Continue", class: "govuk-button" %>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>

@@ -21,5 +21,5 @@ Feature: Alex fills in the check_your_answers section
 
   Scenario: Alex completes a survey and can fill in a new one
     Given I press "Submit"
-    And I press "fill a new survey"
-    Then the next page is "What is the building's UPRN"
+    And I press "Start now"
+    Then the next page is "What is the building’s UPRN"

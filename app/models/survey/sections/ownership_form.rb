@@ -1,7 +1,7 @@
 module Survey
   module Sections
     class OwnershipForm < BaseForm
-      ROLES = %w[owner developer agent other none]
+      ROLES = %w[owner developer agent none other].freeze
 
       attribute :role, :string
       validates :role, inclusion: ROLES
@@ -20,7 +20,11 @@ module Survey
       end
 
       def other_role?
-        role == 'other'
+        role == "other"
+      end
+
+      def next_stage
+        completed ? "check_your_answers" : "has_residential"
       end
     end
   end

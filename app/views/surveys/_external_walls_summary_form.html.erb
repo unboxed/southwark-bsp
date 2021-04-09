@@ -1,4 +1,6 @@
-<div class="govuk-grid-row">
+<%= render "application/back_link", chosen_path: goto_path("height") %>
+
+<div class="govuk-grid-row govuk-!-margin-top-2">
   <div class="govuk-grid-column-two-thirds">
     <%= error_summary @survey %>
     <%= form_with model: @survey do |form| %>

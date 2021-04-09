@@ -1,34 +1,41 @@
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @survey do |form| %>
+<%= render "application/back_link", chosen_path: goto_path("building_management") %>
+
+<%= form_with model: @survey do |form| %>
+  <div class="govuk-grid-row govuk-!-margin-top-2">
+    <div class="govuk-grid-column-two-thirds">
       <%= error_summary @survey %>
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" role="group">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 class="govuk-fieldset__heading">Building height</h1>
-          </legend>
-          <div class="govuk-hint">
-            If known please enter the building’s height in metres and storeys.
+
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <h1 class="govuk-fieldset__heading">Building height</h1>
+        </legend>
+
+        <div class="govuk-hint">
+          If known please enter the building’s height in metres and storeys.
+        </div>
+
+        <%= form_group for: [@survey, :height_in_metres] do %>
+          <%= form.label :height_in_metres, class: "govuk-label" %>
+          <%= error_message_for @survey, :height_in_metres %>
+          <div class="govuk-input__wrapper">
+            <%= form.text_field :height_in_metres, class: "govuk-input govuk-input--width-5" %>
+            <div class="govuk-input__suffix" aria-hidden="true">metres</div>
           </div>
-          <%= form_group for: [@survey, :height_in_metres] do %>
-            <%= form.label :height_in_metres, class: "govuk-label" %>
-            <%= error_message_for @survey, :height_in_metres %>
-            <div class="govuk-input__wrapper">
-              <%= form.text_field :height_in_metres, class: "govuk-input govuk-input--width-5" %>
-              <div class="govuk-input__suffix" aria-hidden="true">metres</div>
-            </div>
-          <% end %>
-          <%= form_group for: [@survey, :number_of_storeys] do %>
-            <%= form.label :number_of_storeys, class: "govuk-label" %>
-            <%= error_message_for @survey, :number_of_storeys %>
-            <div class="govuk-input__wrapper">
-              <%= form.text_field :number_of_storeys, class: "govuk-input govuk-input--width-5" %>
-              <div class="govuk-input__suffix" aria-hidden="true">storeys</div>
-            </div>
-          <% end %>
-        </fieldset>
+        <% end %>
+
+        <%= form_group for: [@survey, :number_of_storeys] do %>
+          <%= form.label :number_of_storeys, class: "govuk-label" %>
+          <%= error_message_for @survey, :number_of_storeys %>
+          <div class="govuk-input__wrapper">
+            <%= form.text_field :number_of_storeys, class: "govuk-input govuk-input--width-5" %>
+            <div class="govuk-input__suffix" aria-hidden="true">storeys</div>
+          </div>
+        <% end %>
+      </fieldset>
+
+      <div class="govuk-form-group">
+        <%= form.submit "Continue", class: "govuk-button" %>
       </div>
-      <%= form.submit "Continue", class: "govuk-button" %>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>

@@ -18,7 +18,7 @@ Given('I start filling a survey for a building') do
   steps %(
     Given I am on the home page
     And I press "Start now"
-    And I fill in "UPRN" with "#{@building.uprn}"
+    And I fill in "What is the building’s UPRN?" with "#{@building.uprn}"
     And I press "Continue"
   )
 
@@ -51,7 +51,7 @@ And('I say who manages the building') do
   steps %(
     Given the page contains "Building management details"
     And I choose "Yes, the building is managed by a RTM company"
-    And I fill in "RTM company" with "Ringo"
+    And I fill in "Company name" with "Ringo"
     And I fill in "Building owner" with "Paul"
     And I fill in "Building developer" with "John"
     And I fill in "Managing agent" with "George"
@@ -67,16 +67,10 @@ And('I fill in the height information') do
 end
 
 Given('a building survey at stage {string}') do |stage|
-  @building = FactoryBot.create(:building)
+  survey = FactoryBot.create(:survey, stage: stage)
+  set_session_id(survey.session_id)
 
-  steps %(
-    Given I am on the home page
-    And I press "Start now"
-    And I fill in "UPRN" with "#{@building.uprn}"
-    And I press "Continue"
-    )
-
-  visit "/survey/#{stage}"
+  visit "/survey"
 end
 
 Given('I amend {string}') do |attribute|

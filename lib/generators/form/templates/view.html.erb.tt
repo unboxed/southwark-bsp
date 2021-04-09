@@ -39,7 +39,7 @@
             <%% end %>
 
             <div class="govuk-radios__item">
-              <%%= form.radio_button :role, :other, class: "govuk-radios__input", data: { "aria-controls" => "conditional-option"} %>
+              <%%= form.radio_button :role, :other, class: "govuk-radios__input", aria: { controls: "conditional-option" } %>
               <%%= form.label :role_other, "Other", class: "govuk-label govuk-radios__label" %>
             </div>
 
