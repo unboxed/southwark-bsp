@@ -3,16 +3,18 @@ function checkAll() {
     const boxes = document.querySelectorAll("#building_building_id_");
     let i;
 
-    if (cb.checked) {
+    document.getElementById("building_id").addEventListener("change", e => {
+        e.preventDefault();
+
         for (i = 0; i < boxes.length; i++) {
-            boxes[i].checked = true;
+            cb.checked ? boxes[i].checked = true : boxes[i].checked = false;
         }
-    }
+    })
 }
 
-document.addEventListener("change", e => {
+document.addEventListener("turbolinks:load", (e) => {
     e.preventDefault();
 
     checkAll();
-})
+});
 
