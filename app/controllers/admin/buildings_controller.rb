@@ -29,21 +29,12 @@ module Admin
     end
 
     def bulk_update
-      if params[:building] && Building.find(params[:building][:building_id].map(&:to_i))
-                                      .each { |element| apply_update(element) }
+      if Building.update_building_collection(params[:commit], params[:building][:building_id].map(&:to_i))
         flash[:notice] = "Building records were updated successfully"
       else
         flash[:error] = "Building records were not updated"
       end
       redirect_to admin_root_path
-    end
-
-    def apply_update(building)
-      if params[:commit] == "Mark as 'on Delta'"
-        building.update!(on_delta: 1)
-      else
-        redirect_to admin_root_path
-      end
     end
 
     private

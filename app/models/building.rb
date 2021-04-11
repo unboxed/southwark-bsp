@@ -16,6 +16,12 @@ class Building < ApplicationRecord
     proprietor_address.parsed
   end
 
+  def self.update_building_collection(commit_params, ids)
+    if commit_params == "Mark as 'on Delta'"
+      Building.where(id: [ids]).update_all(on_delta: 1)
+    end
+  end
+
   private
 
     def proprietor_address
