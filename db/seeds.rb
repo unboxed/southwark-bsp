@@ -11,5 +11,5 @@ building = Building.find_or_create_by(
   street: "1 Union Street",
   city_town: "London",
   postcode: "NW1235",
-  uprn: "123123"
+  uprn: "1234567890"
 )
