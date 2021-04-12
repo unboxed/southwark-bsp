@@ -1,82 +1,100 @@
+require "set"
+
 module Survey
   module Staging
     extend ActiveSupport::Concern
 
-    STAGES = %w[
-      uprn
-      ownership
-      has_residential
-      residential_use
-      building_management
-      height
-      external_walls_summary
-      add_material
-      material_details
-      external_wall_structures
-      balcony_materials
-      solar_shading_materials
-      check_your_answers
-      complete
-    ]
-
     included do
-      delegate :stage, to: :record
+      class_attribute :initial_stage, instance_writer: false
+      class_attribute :stages, instance_writer: false, default: Set.new
+      class_attribute :transitions, instance_writer: false, default: Hash.new { Set.new }
+      class_attribute :guards, instance_writer: false, default: []
 
-      before_save unless: :last_stage? do
-        record.stage = next_logical_stage
+      attribute :next_stage, :string
+
+      define_model_callbacks :transition
+      before_transition :validate_transition
+    end
+
+    class Guard
+      attr_reader :block
+
+      def initialize(from, to, block)
+        @from  = Array(from)
+        @to    = Array(to)
+        @block = block
+      end
+
+      def match?(from, to)
+        match_from?(from) && match_to?(to)
+      end
+
+      private
+
+      def match_from?(from)
+        @from.empty? || @from.include?(from)
+      end
+
+      def match_to?(to)
+        @to.empty? || @to.include?(to)
       end
     end
 
-    def all_stages
-      STAGES
-    end
+    module ClassMethods
+      def stage(name, initial: false)
+        if initial
+          self.initial_stage = name
+        end
 
-    def goto(stage)
-      if stage.in?(STAGES)
-        record.update(stage: stage)
-      else
-        raise SectionNotFound, "Couldn't find stage '#{stage}'"
+        stages << name
+      end
+
+      def transition(from:, to:)
+        transitions[from] += [from] + Array(to)
+      end
+
+      def guard(from: nil, to: nil, &block)
+        guards << Guard.new(from, to, block)
       end
     end
 
     def first_stage?
-      stage == first_stage
+      stage == initial_stage
     end
 
-    def last_stage?
-      stage == last_stage
+    def current_stage?(name)
+      stage == name
     end
 
-    def stage_index
-      STAGES.index(stage)
-    end
+    def goto(name)
+      self.stage = name
 
-    def first_stage
-      STAGES.first
-    end
-
-    def previous_stage
-      STAGES[[stage_index - 1, 0].max]
-    end
-
-    def next_stage
-      STAGES[[stage_index + 1, STAGES.size - 1].min]
-    end
-
-    def before_stage?(other_stage)
-      stage_index < STAGES.index(other_stage)
-    end
-
-    def next_logical_stage
-      if before_stage?("check_your_answers") && record.completed
-        "check_your_answers"
-      else
-        next_stage
+      run_callbacks :transition do
+        save
       end
     end
 
-    def last_stage
-      STAGES.last
+    def can_transition?(from:, to:)
+      return false unless stages.include?(to)
+      return false unless transitions[from].include?(to)
+
+      select_guards(from, to).all? do |guard|
+        instance_exec(&guard.block)
+      end
+    end
+
+    private
+
+    def validate_transition
+      return unless stage_changed?
+
+      unless can_transition?(from: stage_was, to: stage)
+        throw :abort
+      end
+    end
+
+    def select_guards(from, to)
+      guards.select { |guard| guard.match?(from, to) }
     end
   end
 end

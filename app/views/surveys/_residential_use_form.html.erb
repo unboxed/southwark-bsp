@@ -1,26 +1,33 @@
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @survey do |form| %>
-      <%= render "errors" %>
-      <%= form.hidden_field :usage %>
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" role="group"> <!-- FIXME: restore aria-labelledby -->
+<%= render "application/back_link", chosen_path: goto_path("has_residential") %>
+
+<%= form_with model: @survey do |form| %>
+  <%= form.hidden_field :usage %>
+
+  <div class="govuk-grid-row govuk-!-margin-top-2">
+    <div class="govuk-grid-column-two-thirds">
+      <%= error_summary @survey %>
+
+      <%= form_group for: [@survey, :usage] do %>
+        <fieldset class="govuk-fieldset">
           <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
               What is the residential part of the building mainly used for?
             </h1>
           </legend>
 
+          <%= error_message_for @survey, :usage %>
+
           <div class="govuk-radios">
             <% @survey.residential_use_options.each do |option| %>
               <div class="govuk-radios__item">
                 <%= form.radio_button :usage, option, class: "govuk-radios__input" %>
-                <%= form.label "usage_#{option}", option.humanize, class: "govuk-label govuk-radios__label" %>
+                <%= form.label :usage, value: option, class: "govuk-label govuk-radios__label" %>
               </div>
             <% end %>
           </div>
         </fieldset>
-      </div>
+      <% end %>
+
       <details class="govuk-details" data-module="govuk-details">
         <summary class="govuk-details__summary">
           <span class="govuk-details__summary-text">
@@ -28,17 +35,23 @@
           </span>
         </summary>
         <div class="govuk-details__text">
-          <p>A building may have multiple uses. For example, if a
+          <p>
+            A building may have multiple uses. For example, if a
             building is mainly used for offices or shops but also
-            contains a hotel, please select hotel.</p>
+            contains a hotel, please select hotel.
+          </p>
 
-          <p>For a building that has social and private housing,
+          <p>
+            For a building that has social and private housing,
             but is owned by a private freeholder, please select
-            private residential.</p>
+            private residential.
+          </p>
         </div>
       </details>
 
-      <%= form.submit "Continue", class: "govuk-button" %>
-    <% end %>
+      <div class="govuk-form-group">
+        <%= form.submit "Continue", class: "govuk-button" %>
+      </div>
+    </div>
   </div>
-</div>
+<% end %>

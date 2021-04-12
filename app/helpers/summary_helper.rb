@@ -1,7 +1,7 @@
 module SummaryHelper
   def stages_with_forms(survey)
     stages = survey
-             .all_stages
+             .record.stages
              .reject { |s| ["check_your_answers", "complete"].include? s }
 
     forms = stages

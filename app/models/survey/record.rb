@@ -1,6 +1,9 @@
 module Survey
   class Record < ApplicationRecord
-    belongs_to :building
+    include Survey::Staging
+    include Survey::Stages
+
+    belongs_to :building, optional: true
 
     # stage: uprn
     store_accessor :data, :uprn
@@ -41,8 +44,8 @@ module Survey
                    :balcony_main_material_details,
                    :balcony_floor_materials,
                    :balcony_floor_materials_details,
-                   :balcony_other_materials,
-                   :balcony_other_materials_details
+                   :balcony_railing_materials,
+                   :balcony_railing_materials_details
 
     # stage: solar shading materials
     store_accessor :data,

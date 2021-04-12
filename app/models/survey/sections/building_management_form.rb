@@ -2,7 +2,7 @@ module Survey
   module Sections
     class BuildingManagementForm < BaseForm
       attribute :is_right_to_manage, :string
-      validates :is_right_to_manage, presence: true
+      validates :is_right_to_manage, inclusion: { in: %w[yes no unknown] }
 
       attribute :right_to_manage_company, :string
       validates :right_to_manage_company, presence: true, length: { maximum: 100 }, if: :right_to_manage?
@@ -17,7 +17,11 @@ module Survey
       validates :managing_agent, length: { maximum: 100 }
 
       def right_to_manage?
-        is_right_to_manage == "true"
+        is_right_to_manage == "yes"
+      end
+
+      def next_stage
+        completed ? "check_your_answers" : "height"
       end
     end
   end

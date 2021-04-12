@@ -5,8 +5,8 @@ module Survey
         timber_or_wood
         metal
         concrete
-        do_not_know
         other
+        do_not_know
       ].freeze
 
       FLOOR_MATERIALS = %w[
@@ -14,40 +14,54 @@ module Survey
         glass
         metal
         concrete
-        do_not_know
         other
+        do_not_know
       ].freeze
 
       OTHER_MATERIALS = FLOOR_MATERIALS.dup
 
-      attribute :balcony_main_material, :string
-      validates :balcony_main_material, length: { maximum: 100 }, presence: true, inclusion: { in: MAIN_MATERIALS }
+      delegate :structures, to: :record
+
+      attribute :balcony_main_material, :enum, values: MAIN_MATERIALS
+      validates :balcony_main_material, presence: true
 
       attribute :balcony_main_material_details, :string
-      validates :balcony_main_material_details, presence: true, if: :other_main_material?
+      validates :balcony_main_material_details, presence: true, length: { maximum: 100 }, if: :other_main_material?
 
-      attribute :balcony_floor_materials, ListType.new(String)
+      attribute :balcony_floor_materials, :list, values: FLOOR_MATERIALS, default: []
       validates :balcony_floor_materials, presence: true
 
       attribute :balcony_floor_materials_details, :string
-      validates :balcony_floor_materials_details, presence: true, if: :other_floor_materials?
+      validates :balcony_floor_materials_details, presence: true, length: { maximum: 100 }, if: :other_floor_materials?
 
-      attribute :balcony_other_materials, ListType.new(String)
-      validates :balcony_other_materials, presence: true
+      attribute :balcony_railing_materials, :list, values: OTHER_MATERIALS, default: []
+      validates :balcony_railing_materials, presence: true
 
-      attribute :balcony_other_materials_details, :string
-      validates :balcony_other_materials_details, presence: true, if: :other_railing_materials?
+      attribute :balcony_railing_materials_details, :string
+      validates :balcony_railing_materials_details, presence: true, length: { maximum: 100 }, if: :other_railing_materials?
 
-      def main_materials
-        MAIN_MATERIALS
+      validate do
+        if do_not_know_floor_materials? && balcony_floor_materials.many?
+          errors.add :balcony_floor_materials, :invalid
+        end
+
+        if do_not_know_railing_materials? && balcony_railing_materials.many?
+          errors.add :balcony_railing_materials, :invalid
+        end
       end
 
-      def floor_materials
-        FLOOR_MATERIALS
+      before_save do
+        self.completed = !solar_shading_structures?
       end
 
-      def other_materials
-        OTHER_MATERIALS
+      def next_stage
+        if completed
+          "check_your_answers"
+        elsif solar_shading_structures?
+          "solar_shading_materials"
+        else
+          stage # something is wrong if we get here
+        end
       end
 
       def other_main_material?
@@ -55,24 +69,34 @@ module Survey
       end
 
       def other_floor_materials?
-        balcony_floor_materials.detect { |m| m == "other" }
+        balcony_floor_materials.include?("other")
+      end
+
+      def do_not_know_floor_materials?
+        balcony_floor_materials.include?("do_not_know")
       end
 
       def other_railing_materials?
-        balcony_other_materials.detect { |m| m == "other" }
+        balcony_railing_materials.include?("other")
+      end
+
+      def do_not_know_railing_materials?
+        balcony_railing_materials.include?("do_not_know")
+      end
+
+      def solar_shading_structures?
+        structures.include?("solar_shading")
       end
 
       def permit(params)
-        super(params)
-
-        if params.respond_to? :permit
+        if params.respond_to?(:permit)
           params.permit(
             :balcony_main_material,
             :balcony_main_material_details,
             :balcony_floor_materials_details,
-            :balcony_other_materials_details,
+            :balcony_railing_materials_details,
             balcony_floor_materials: [],
-            balcony_other_materials: []
+            balcony_railing_materials: []
           )
         else
           params

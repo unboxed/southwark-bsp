@@ -13,7 +13,7 @@ Feature: Alex fills in the balcony materials section
     Given I choose "Metal" for "Which material is the main balcony structure made from?"
     And I check "Glass" for "Which materials are the balcony floors made from?"
     And I check "Other" for "Which materials are the balcony balustrade and/or railings made from?"
-    And I fill in "Balcony other materials details" with "Melted earth core"
+    And I fill in "Please list any other materials the balustrade/railings are made from" with "Melted earth core"
     And I press "Continue"
     Then the next page is "Solar shading"
 
@@ -27,7 +27,7 @@ Feature: Alex fills in the balcony materials section
     Then the page contains an error about "<validation>"
 
     Scenarios:
-      | section                                    | validation                                        | method |
-      | Which material is the main balcony         | other materials used on this building's balconies | choose |
-      | Which materials are the balcony floors     | balcony floors                                    | check  |
-      | Which materials are the balcony balustrade | balcony balustrade                                | check  |
+      | section                                    | validation                                          | method |
+      | Which material is the main balcony         | other materials used on this building’s balconies   | choose |
+      | Which materials are the balcony floors     | other materials for the balcony floors              | check  |
+      | Which materials are the balcony balustrade | other materials for the balcony balustrade/railings | check  |
