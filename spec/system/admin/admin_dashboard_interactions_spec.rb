@@ -22,12 +22,9 @@ RSpec.describe "Admin can make bulk edits" do
 
   it "can change on Delta property for multiple buildings" do
     selected_checkboxes = page.all("#building_building_id_").values_at(2, 4, 6)
+    selected_checkboxes.map(&:check)
 
-    selected_checkboxes.each(&:check)
-
-    selected_checkboxes.each do |checkbox|
-      expect(checkbox).to be_checked
-    end
+    selected_checkboxes.each { |checkbox| expect(checkbox).to be_checked }
 
     click_button "Mark as 'on Delta'"
 

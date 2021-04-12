@@ -9,22 +9,7 @@
   </div>
 </div>
 
-<% if flash[:alert] %>
-  <div class="govuk-error-summary">
-    <h2 class="govuk-error-summary__title">
-      There was a problem saving
-    </h2>
-    <div class="govuk-error-summary__body">
-      <ul class="govuk-list">
-        <li>
-          <span class="govuk-error-message">
-            <%= alert %>
-          </span>
-        </li>
-      </ul>
-    </div>
-  </div>
-<% end %>
+<%= render "admin/buildings/flash_content" %>
 
 <table class="govuk-table">
   <%= form_tag bulk_update_admin_buildings_path(@buildings), method: :put do %>
@@ -81,7 +66,7 @@
           <td class="govuk-table__cell">
           </td>
           <td class="govuk-table__cell delta">
-            <%= building.on_delta %>
+            <%= "Yes" if building.on_delta == true %>
           </td>
         </tr>
       <% end %>

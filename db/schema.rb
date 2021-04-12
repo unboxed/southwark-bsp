@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2021_04_07_160347) do
     t.string "land_registry_proprietor_address"
     t.string "land_registry_proprietor_category"
     t.string "land_registry_proprietor_company_registration_number"
-    t.integer "on_delta"
+    t.boolean "on_delta", default: false
     t.index ["uprn"], name: "index_buildings_on_uprn", unique: true
   end
 
