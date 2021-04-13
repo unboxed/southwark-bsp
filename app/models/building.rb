@@ -15,7 +15,7 @@ class Building < ApplicationRecord
   end
 
   def self.update_building_collection(commit_params, ids)
-    Building.where(id: [ids]).update(on_delta: 1) if commit_params == "Mark as 'on Delta'"
+    Building.where(id: [ids]).update_all(on_delta: true) if commit_params == "Mark as 'on Delta'" # rubocop:disable Rails/SkipsModelValidations
   end
 
   private
