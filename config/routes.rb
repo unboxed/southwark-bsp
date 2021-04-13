@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     resources :buildings, only: [:new, :create, :edit, :update] do
       collection do
         put :bulk_update
+        get :bulk_notifications_form
+        post :confirm_bulk_notifications
       end
       resources :notifications, only: [:create]
     end

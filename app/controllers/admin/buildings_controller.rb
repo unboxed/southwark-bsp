@@ -29,12 +29,27 @@ module Admin
     end
 
     def bulk_update
-      if Building.update_building_collection(params[:commit], params[:building][:building_id].map(&:to_i))
-        flash[:notice] = "Building records were updated successfully"
+      if params[:commit] == "Mark as 'on Delta'"
+        if Building.update_building_collection(params[:building][:building_id].map(&:to_i))
+          flash[:notice] = "Building records were updated successfully"
+        else
+          flash[:error] = "Building records were not updated"
+        end
+        redirect_to admin_root_path
       else
-        flash[:error] = "Building records were not updated"
+        redirect_to bulk_notifications_form_admin_buildings_path(request.parameters)
       end
-      redirect_to admin_root_path
+    end
+
+    def bulk_notifications_form
+      @buildings = params[:building][:building_id] if params[:building]
+      @notification_type = params[:commit] == "Send email" ? "email" : "letter"
+
+          render "admin/notifications/notifications_form"
+    end
+
+    def confirm_bulk_notifications
+      redirect_to admin_root_path if Building.send_bulk_notifications(params[:buildings], params[:notification_type])
     end
 
     private

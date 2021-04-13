@@ -44,9 +44,24 @@ Then('I should not see the dashboard content') do
   expect(page).not_to have_content("Dashboard")
 end
 
-Then('the on Delta column contains {string}') do |string|
-  within(".delta") do
-    expect(page).to have_content(string)
+Then('the on Delta column contains {string} for each entry') do |string|
+  page.all(".delta").each do |cell|
+    within(cell) do
+      expect(page).to have_content(string)
+    end
+  end
+end
+
+When('I select buildings and press {string}') do |string|
+  page.all("#building_building_id_").each(&:check)
+  click_button(string)
+end
+
+Then('I should see the current date in the {string} column') do |selector|
+  page.all(".#{selector}").each do |cell|
+    within(cell) do
+      expect(page).to have_content(Time.zone.now.strftime("%e %b %Y"))
+    end
   end
 end
 
