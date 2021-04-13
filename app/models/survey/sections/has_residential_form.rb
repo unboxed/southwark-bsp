@@ -7,10 +7,6 @@ module Survey
       before_save do
         self.completed = !has_residential_use
       end
-
-      def next_stage
-        completed ? "check_your_answers" : "residential_use"
-      end
     end
   end
 end

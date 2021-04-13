@@ -22,10 +22,6 @@ module Survey
       def other_role?
         role == "other"
       end
-
-      def next_stage
-        completed ? "check_your_answers" : "has_residential"
-      end
     end
   end
 end

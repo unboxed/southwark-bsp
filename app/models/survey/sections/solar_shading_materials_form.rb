@@ -28,10 +28,6 @@ module Survey
         self.completed = true
       end
 
-      def next_stage
-        "check_your_answers"
-      end
-
       def other_solar_shading_materials?
         solar_shading_materials.include?("other")
       end
@@ -53,6 +49,10 @@ module Survey
         else
           params
         end
+      end
+
+      def relevant?
+        record.has_residential_use != false && record.structures&.include?("solar_shading")
       end
     end
   end

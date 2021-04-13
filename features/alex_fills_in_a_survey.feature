@@ -18,3 +18,13 @@ Feature: Alex fills in a report about a building
     Then the page contains "Building height"
     When I press "Back"
     Then the page contains "Building management details"
+
+  Scenario: Alex only sees relevant sections when reviewing answers
+    Given I start filling a survey for a building
+    And I fill in the user details
+    And I press "Continue"
+    And the page contains "Is any part of the building used for residential purposes?"
+    And I choose "No"
+    And I press "Continue"
+    Then the page contains "Check your answers"
+    And the page doesn't contain "Building management"

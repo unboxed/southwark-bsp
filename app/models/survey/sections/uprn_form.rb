@@ -16,8 +16,8 @@ module Survey
         end
       end
 
-      def next_stage
-        completed ? "check_your_answers" : "ownership"
+      def relevant?
+        true
       end
 
       def uprn_valid?

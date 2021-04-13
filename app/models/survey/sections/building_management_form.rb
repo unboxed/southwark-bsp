@@ -20,8 +20,8 @@ module Survey
         is_right_to_manage == "yes"
       end
 
-      def next_stage
-        completed ? "check_your_answers" : "height"
+      def relevant?
+        record.has_residential_use != false
       end
     end
   end

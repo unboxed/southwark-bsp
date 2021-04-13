@@ -9,7 +9,7 @@ module Survey
       include Survey::Naming
 
       delegate :completed, :completed=, to: :record
-      delegate :stage, :goto, to: :record
+      delegate :stage, :goto, :next_stage, to: :record
 
       after_save do
         if next_stage && next_stage != stage
@@ -17,8 +17,8 @@ module Survey
         end
       end
 
-      def next_stage
-        stage
+      def relevant?
+        true
       end
     end
   end

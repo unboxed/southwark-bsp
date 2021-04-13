@@ -2,6 +2,10 @@ Then('the page contains {string}') do |content|
   expect(page).to have_content(content)
 end
 
+Then('the page doesn\'t contain {string}') do |content|
+  expect(page).to_not have_content(content)
+end
+
 Then('the next page is {string}') do |header|
   expect(page.find('h1')).to have_content(header)
 end

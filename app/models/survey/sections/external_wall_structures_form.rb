@@ -25,18 +25,6 @@ module Survey
         self.completed = !(balcony_structures? || solar_shading_structures?)
       end
 
-      def next_stage
-        if completed
-          "check_your_answers"
-        elsif balcony_structures?
-          "balcony_materials"
-        elsif solar_shading_structures?
-          "solar_shading_materials"
-        else
-          stage # something is wrong if we get here
-        end
-      end
-
       def structure_options
         EXTERNAL_WALLS_STRUCTURES
       end
@@ -63,6 +51,10 @@ module Survey
         else
           params
         end
+      end
+
+      def relevant?
+        record.has_residential_use != false
       end
     end
   end

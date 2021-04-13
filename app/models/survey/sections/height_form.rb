@@ -7,8 +7,8 @@ module Survey
       attribute :number_of_storeys, :integer
       validates :number_of_storeys, numericality: { greater_than: 0, only_integer: true, allow_blank: true }
 
-      def next_stage
-        completed ? "check_your_answers" : "external_walls_summary"
+      def relevant?
+        record.has_residential_use != false
       end
     end
   end

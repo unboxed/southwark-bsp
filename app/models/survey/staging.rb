@@ -10,7 +10,7 @@ module Survey
       class_attribute :transitions, instance_writer: false, default: Hash.new { Set.new }
       class_attribute :guards, instance_writer: false, default: []
 
-      attribute :next_stage, :string
+      # attribute :next_stage, :string
 
       define_model_callbacks :transition
       before_transition :validate_transition
@@ -64,6 +64,28 @@ module Survey
 
     def current_stage?(name)
       stage == name
+    end
+
+    def logical_stages
+      stages.filter do |stage|
+        klass = "Survey::Sections::#{stage.camelize}Form".safe_constantize
+
+        section = klass.build(self)
+
+        section.relevant?
+      end
+    end
+
+    def next_stage
+      if completed && stage != "check_your_answers"
+        "check_your_answers"
+      else
+        logical_stages[current_logical_index + 1]
+      end
+    end
+
+    def current_logical_index
+      logical_stages.index(stage)
     end
 
     def goto(name)

@@ -10,8 +10,8 @@ module Survey
         USES
       end
 
-      def next_stage
-        completed ? "check_your_answers" : "building_management"
+      def relevant?
+        record.has_residential_use != false
       end
     end
   end

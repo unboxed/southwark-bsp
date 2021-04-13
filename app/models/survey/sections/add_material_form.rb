@@ -31,6 +31,10 @@ module Survey
       def other_material?
         material == "other"
       end
+
+      def relevant?
+        record.has_residential_use != false
+      end
     end
   end
 end
