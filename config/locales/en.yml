@@ -83,6 +83,10 @@ en:
 
   helpers:
     label:
+      building:
+        on_delta:
+          true: "Yes"
+          false: "No"
       survey:
         full_name: "Full name"
         email: "Email address"
