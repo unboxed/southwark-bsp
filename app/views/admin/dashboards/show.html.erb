@@ -74,6 +74,7 @@
                   <% end %>
                 </td>
                 <td class="govuk-table__cell">
+                  <%= @survey.present? %>
                 </td>
                 <td class="govuk-table__cell delta">
                   <%= I18n.t building.on_delta, scope: :"helpers.label.building.on_delta" %>
