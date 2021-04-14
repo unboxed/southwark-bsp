@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     resources :bulk_imports, only: [:new, :create]
 
     resources :buildings, only: [:new, :create, :edit, :update] do
+      collection do
+        put :bulk_update
+      end
       resources :notifications, only: [:create]
     end
   end
