@@ -1,6 +1,8 @@
 $govuk-assets-path: "~govuk-frontend/govuk/assets/";
 @import "govuk-frontend/govuk/all";
 
+@import 'admin';
+
 .custom-background {
   background-color: #f3f2f1;
 }
