@@ -17,8 +17,10 @@
     <div class="govuk-grid-column-full">
       <table class="govuk-table">
         <%= form_tag bulk_update_admin_buildings_path(@buildings), method: :put do %>
-          <caption class="govuk-table__caption">
-            <h1 class="govuk-heading-m"><%= pluralize(@buildings.count, "building record") %></h1>
+          <caption class="govuk-table__caption govuk-table__caption--l">
+            <h1 class="govuk-heading-m">
+              <%= pluralize(@buildings.count, "building record") %>
+            </h1>
             <%= submit_tag "Send email", class: "govuk-button" %>
             <%= submit_tag "Send letter", class: "govuk-button" %>
             <%= submit_tag "Mark as 'on Delta'", class: "govuk-button", data: { disable_with: "Processing update" } %>
