@@ -39,7 +39,7 @@
             <%= check_box_tag 'building[building_id][]', building.id %>
             <%= label_tag 'building[building_id][]', building.id, class: 'govuk-visually-hidden' %>
           </td>
-          <td class="govuk-table__cell"><%= link_to building.uprn, edit_admin_building_path(building) %></td>
+          <td class="govuk-table__cell"><%= link_to building.uprn, edit_admin_building_path(building), class: "govuk-link" %></td>
           <td class="govuk-table__cell">
             <%= building.building_name %><br />
             <%= building.street %><br />
