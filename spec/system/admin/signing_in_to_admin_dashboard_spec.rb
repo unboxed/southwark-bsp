@@ -1,16 +1,17 @@
 require "rails_helper"
+require "csv"
 
 RSpec.describe "Admin signs in" do
-  it "to view dashboard" do
-    user = create :user
+  let!(:user) { create :user }
 
+  it "to view dashboard" do
     visit "/admin"
 
     fill_in "Email", with: user.email
     fill_in "Password", with: user.password
     click_on "Sign in"
 
-    expect(page).to have_content "Admin dashboard"
+    expect(page).to have_content "Dashboard"
 
     click_link "Sign out"
 

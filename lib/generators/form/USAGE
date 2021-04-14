@@ -1,0 +1,12 @@
+Description:
+    Generates form-related resources.
+
+Example:
+    bin/rails generate form Survey details summary
+
+    This will create:
+        app/models/survey.rb # FIXME: not yet
+        app/models/survey/sections/details_form.rb
+        app/models/survey/sections/summary_form.rb
+        app/views/surveys/sections/_details_form.html.erb
+        app/views/surveys/sections/_summary_form.html_erb

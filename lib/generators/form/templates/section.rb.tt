@@ -1,0 +1,8 @@
+module <%= name %>
+  module Sections
+    class <%= Thor::Util.camel_case(@section) %>Form < BaseForm
+      attribute :field, :string
+      validates :field, length: { maximum: 100 }, presence: true
+    end
+  end
+end

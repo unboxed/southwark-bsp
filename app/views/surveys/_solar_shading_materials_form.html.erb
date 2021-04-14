@@ -1,0 +1,59 @@
+<% if @survey.balcony_structures? %>
+  <%= render "application/back_link", chosen_path: goto_path("balcony_materials") %>
+<% else %>
+  <%= render "application/back_link", chosen_path: goto_path("external_wall_structures") %>
+<% end %>
+
+<%= form_with model: @survey do |form| %>
+  <div class="govuk-grid-row govuk-!-margin-top-2">
+    <div class="govuk-grid-column-two-thirds">
+      <%= error_summary @survey %>
+
+      <span class="govuk-caption-l">External wall structures</span>
+      <h1 class="govuk-heading-l">Solar shading materials</h1>
+
+      <%= form_group for: [@survey, :solar_shading_materials] do %>
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <span class="govuk-fieldset__heading">
+              Which materials is the solar shading made from?
+            </span>
+          </legend>
+
+          <div class="govuk-hint">
+            Select all that apply. If you know some but not others, select the ones you know and then use the ‘Other’ to describe the unknown material.
+          </div>
+
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <%= form.collection_check_boxes :solar_shading_materials, t(:solar_shading_materials, scope: :survey), :first, :last do |builder| %>
+              <% if builder.value == "do_not_know" %>
+                <div class="govuk-body govuk-!-margin-left-2 govuk-!-margin-top-5 govuk-!-margin-bottom-5">Or</div>
+              <% end %>
+              <div class="govuk-checkboxes__item">
+                <% if builder.value == "other" %>
+                  <%= builder.check_box class: "govuk-checkboxes__input", aria: { controls: "conditional-other-solar-shading-material" } %>
+                <% else %>
+                  <%= builder.check_box class: "govuk-checkboxes__input" %>
+                <% end %>
+                <%= builder.label class: "govuk-label govuk-checkboxes__label" %>
+              </div>
+              <% if builder.value == "other" %>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-other-solar-shading-material">
+                  <%= form_group for: [@survey, :solar_shading_materials_details] do %>
+                    <%= form.label :solar_shading_materials_details, class: "govuk-label" %>
+                    <%= error_message_for @survey, :solar_shading_materials_details %>
+                    <%= form.text_area :solar_shading_materials_details, class: "govuk-textarea" %>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </fieldset>
+      <% end %>
+
+      <div class="govuk-form-group">
+        <%= form.submit "Continue", class: "govuk-button" %>
+      </div>
+    </div>
+  </div>
+<% end %>

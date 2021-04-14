@@ -1,28 +1,128 @@
 en:
+  email: "buildingsafety@southwark.gov.uk"
   errors:
     format: "%{message}"
+    prefix_html: "<span class=\"govuk-visually-hidden\">Error:</span> "
+    summary_html: |-
+      <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+          There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            %{summary}
+          </ul>
+        </div>
+      </div>
+
+  survey:
+    structure_hints:
+      none_html: |-
+        <div id="structure-none-hint" class="govuk-hint govuk-checkboxes__hint">
+          If the building has no external wall structures select this option only
+        </div>
+      balconies_html: |-
+        <div id="structure-none-hint" class="govuk-hint govuk-checkboxes__hint">
+        </div>
+      solar_shading_html: |-
+        <div id="structure-solar_shading-hint" class="govuk-hint govuk-checkboxes__hint">
+          For example, canopies or awnings that control or reduce the amount of heat and sunlight admitted into a building
+        </div>
+      green_walls_html: |-
+        <div id="structure-green_walls-hint" class="govuk-hint govuk-checkboxes__hint">
+          A wall or part of a wall covered by plants. Also known as living walls and vertical gardens
+        </div>
+      other_html: |-
+        <div id="structure-other-hint" class="govuk-hint govuk-checkboxes__hint">
+        </div>
+
+    structure_options:
+      - ["balconies", "Balconies"]
+      - ["solar_shading", "Solar shading"]
+      - ["green_walls", "Green walls"]
+      - ["other", "Other"]
+      - ["none", "No external wall structures"]
+
+    balcony_main_materials:
+      - ["timber_or_wood", "Timber or wood"]
+      - ["metal", "Metal"]
+      - ["concrete", "Concrete"]
+      - ["other", "Other"]
+      - ["do_not_know", "Do not know"]
+
+    balcony_floor_materials:
+      - ["timber_or_wood", "Timber or wood"]
+      - ["glass", "Glass"]
+      - ["metal", "Metal"]
+      - ["concrete", "Concrete"]
+      - ["other", "Other"]
+      - ["do_not_know", "Do not know"]
+
+    balcony_railing_materials:
+      - ["timber_or_wood", "Timber or wood"]
+      - ["glass", "Glass"]
+      - ["metal", "Metal"]
+      - ["concrete", "Concrete"]
+      - ["other", "Other"]
+      - ["do_not_know", "Do not know"]
+
+    solar_shading_materials:
+      - ["timber_or_wood", "Timber or wood"]
+      - ["glass", "Glass"]
+      - ["metal", "Metal"]
+      - ["concrete", "Concrete"]
+      - ["other", "Other"]
+      - ["do_not_know", "Do not know"]
+
+    summary:
+      stages:
+        uprn:
+          header: "Building details"
+          attributes:
+            uprn: "UPRN"
 
   helpers:
     label:
       survey:
+        full_name: "Full name"
+        email: "Email address"
         role:
           owner: "Building owner/freeholder"
           developer: "Building developer"
           agent: "Managing agent"
-          other: "Other"
           none: "I am not associated with this building"
-
-        right_to_manage_company:
+          other: "Other"
+        has_residential_use:
           true: "Yes"
           false: "No"
-
-  activerecord:
-    errors:
-      models:
-        survey/record:
-          attributes:
-            building:
-              required: "Sorry, we couldn't find a building with that UPRN"
+        usage:
+          social_housing: "Social housing"
+          private_housing: "Private housing"
+          student_accommodation: "Student accommodation"
+          hotel: "Hotel"
+        is_right_to_manage:
+          "yes": "Yes, the building is managed by a RTM company"
+          "no": "No"
+          "unknown": "I don’t know"
+        right_to_manage_company: "Company name"
+        building_owner: "Building owner (optional)"
+        building_developer: "Building developer (optional)"
+        managing_agent: "Managing agent (optional)"
+        height_in_metres: "Height in metres (optional)"
+        number_of_storeys: "Number of storeys (optional)"
+        balcony_main_material_details: "Please list any other materials"
+        balcony_floor_materials_details: "Please list any other materials the floors are made from"
+        balcony_railing_materials_details: "Please list any other materials the balustrade/railings are made from"
+        solar_shading_materials_details: "Please list any other materials the solar shading is made from"
+        material:
+          unknown: "I don’t know"
+        insulation:
+          pur_or_pir: "Polyurethane rigid foam (PUR) or Polyisocyanurate foam (PIR)"
+          eps_xps: "Expanded and Extruded polystyrene (EPS/XPS)"
+          unknown: "I don’t know"
+        material_description: "Can you provide more details? (optional)"
+        insulation_details: "Can you provide more details about the insulation material? (optional)"
+        structures_details: "Can you provide more details about the other external structures?"
 
   activemodel:
     errors:
@@ -31,13 +131,35 @@ en:
           attributes:
             uprn:
               blank: "Please enter a URPN - you should have received this number in the letter or email you received"
-              invalid: "Sorry, that URPN is invalid - it should be a number up to 12 digits long"
+              invalid: "Sorry, that URPN is invalid - it should be a number between 10 and 12 digits long"
+              not_found: "Sorry, we couldn’t find a building with that UPRN"
+
+            role_details:
+              blank: "Please provide details about your role."
 
             role:
               inclusion: "Please indicate what your role is"
 
+            has_residential_use:
+              inclusion: "Please indicate whether any part of the building is used for residential purposes"
+
+            usage:
+              inclusion: "Please indicate the main residential use of this building"
+
+            is_right_to_manage:
+              inclusion: "Please indicate whether this building is managed by a right-to-manage company"
+
+            building_owner:
+              too_long: "Building owner must be %{count} characters or fewer"
+
+            building_developer:
+              too_long: "Building developer must be %{count} characters or fewer"
+
+            managing_agent:
+              too_long: "Managing agent must be %{count} characters or fewer"
+
             right_to_manage_company:
-              inclusion: "Please indicate whether this is a right-to-manage company"
+              blank: "Please provide the name of the right-to-manage company"
 
             full_name:
               blank: "Please tell us your name"
@@ -46,8 +168,57 @@ en:
               blank: "Please tell us your email address"
               invalid: "Please enter a valid email address"
 
-            organisation:
-              blank: "Please tell us the organisation to which you belong"
+            height_in_metres:
+              greater_than: "The building height must be more than %{count} metres"
+              not_a_number: "The building height must be a number"
 
-            status:
-              blank: "Please indicate the status of this building"
+            number_of_storeys:
+              greater_than: "The number of storeys must be more than %{count}"
+              not_a_number: "The number of storeys must be a number"
+              not_an_integer: "The number of storeys must be a whole number"
+
+            materials:
+              blank: "Please add at least one material"
+
+            material_details:
+              blank: "Please provide details about this other material"
+
+            material:
+              inclusion: "Please indicate which material this wall is made of"
+
+            insulation:
+              inclusion: "Please indicate the insulation used with this material"
+
+            structures:
+              blank: "Please indicate what external wall structures there are"
+              invalid: "If you select ‘No external wall structures’ you must not select any other structures"
+
+            structures_details:
+              blank: "Please describe the other external wall structures of the building"
+
+            balcony_main_material:
+              blank: "Please indicate what the main balcony structure is made from"
+
+            balcony_main_material_details:
+              blank: "Please describe the other materials used on this building’s balconies"
+
+            balcony_floor_materials:
+              blank: "Please indicate the materials that the balcony floors are made from"
+              invalid: "If you select ‘Do not know’ you must not select any other floor materials"
+
+            balcony_floor_materials_details:
+              blank: "Please describe the other materials for the balcony floors"
+
+            balcony_railing_materials:
+              blank: "Please indicate the materials that the balcony balustrade/railings are made from"
+              invalid: "If you select ‘Do not know’ you must not select any other balustrade/railings materials"
+
+            balcony_railing_materials_details:
+              blank: "Please describe the other materials for the balcony balustrade/railings"
+
+            solar_shading_materials:
+              blank: "Please indicate the materials that the solar shading is made from"
+              invalid: "If you select ‘Do not know’ you must not select any other solar shading materials"
+
+            solar_shading_materials_details:
+              blank: "Please describe the other solar shading materials"

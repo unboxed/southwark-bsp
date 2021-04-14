@@ -2,8 +2,9 @@ require "rails_helper"
 require "csv"
 
 RSpec.describe "Admin manages building records" do
+  let!(:user) { create :user }
+
   it "importing records via CSV upload" do
-    user = create :user
     building_list_fixture = file_fixture("building_record_list.csv")
     parsed_building_list_fixture = CSV.parse building_list_fixture.read, headers: true
 
@@ -40,17 +41,17 @@ RSpec.describe "Admin manages building records" do
     click_on "Add building"
 
     expect(page).to have_content "0987654321"
-    expect(page).to have_content "Runner Building, 34, Boom Street, ACME 12, NeverLand"
+    expect(page).to have_content "1, Dynamite Lane"
 
-    click_on "Edit"
+    click_on "0987654321"
 
     fill_in "UPRN", with: "1234567890"
-    fill_in "Proprietor address", with: "Runner Building, 1, Edited Street, ACME 13, NeverNeverLand"
+    fill_in "Building street", with: "1, Edited Street, ACME 13"
     click_on "Update building record"
 
     expect(page).not_to have_content "0987654321"
     expect(page).to have_content "1234567890"
-    expect(page).not_to have_content "Runner Building, 34, Boom Street, ACME 12, NeverLand"
-    expect(page).to have_content "Runner Building, 1, Edited Street, ACME 13, NeverNeverLand"
+    expect(page).not_to have_content "1, Dynamite Lane"
+    expect(page).to have_content "1, Edited Street, ACME 13"
   end
 end

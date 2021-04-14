@@ -1,27 +1,21 @@
-<%= render 'application/back_link', chosen_path: root_path %>
+<%= render "application/back_link", chosen_path: root_path %>
 
 <%= form_with model: @survey do |form| %>
-  <%= render "errors" %>
-
-  <div class="govuk-grid-row">
+  <div class="govuk-grid-row govuk-!-margin-top-2">
     <div class="govuk-grid-column-two-thirds">
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" role="group" aria-describedby="dob-hint">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <span class="govuk-caption-l">Building details</span>
-            <h1 class="govuk-fieldset__heading">
-              What is the building's UPRN?
-            </h1>
-          </legend>
-          <div id="uprn-hint" class="govuk-hint">
-            You can find it in the letter or email we've sent you.
-          </div>
-          <div class="govuk-form-group <%= " govuk-form-group--error" if @survey.errors.any? %>">
-            <%= form.label :uprn, "Unique Property Reference Number (UPRN)", class: "govuk-label" %>
-            <%= form.number_field :uprn, class: "govuk-input" %>
-          </div>
-        </fieldset>
-      </div>
+      <%= error_summary @survey %>
+
+      <%= form_group for: [@survey, :uprn] do %>
+        <%= form.label :uprn, class: "govuk-label" do %>
+          <h1 class="govuk-heading-l">What is the building’s UPRN?</h1>
+        <% end %>
+        <div id="uprn-hint" class="govuk-hint">
+          This is the 10 to 12 digit number listed on the letter that was sent to you. For example 20012524507
+        </div>
+        <%= error_message_for @survey, :uprn %>
+        <%= form.text_field :uprn, inputmode: "numeric", class: "govuk-input", aria: { describedby: "uprn-hint" } %>
+      <% end %>
+
       <details class="govuk-details" data-module="govuk-details">
         <summary class="govuk-details__summary">
           <span class="govuk-details__summary-text">
@@ -37,7 +31,10 @@
             a ‘postal ’ address – such as a bus shelter.</p>
         </div>
       </details>
+
+      <div class="govuk-form-group">
+        <%= form.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
+      </div>
     </div>
   </div>
-  <%= form.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
 <% end %>

@@ -21,6 +21,11 @@ class SurveysController < ApplicationController
     end
   end
 
+  def destroy
+    reset_session
+    redirect_to survey_path
+  end
+
   def goto
     @survey.goto(section_param)
     redirect_to survey_path

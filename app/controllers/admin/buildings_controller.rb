@@ -28,22 +28,35 @@ module Admin
       end
     end
 
+    def bulk_update
+      if Building.update_building_collection(params[:commit], params[:building][:building_id].map(&:to_i))
+        flash[:notice] = "Building records were updated successfully"
+      else
+        flash[:error] = "Building records were not updated"
+      end
+      redirect_to admin_root_path
+    end
+
     private
 
-      def building_params
-        params.require(:building).permit(
-          :uprn,
-          :building_name,
-          :street,
-          :postcode,
-          :land_registry_proprietor_address,
-          :land_registry_proprietor_name,
-          :proprietor_email,
-        )
-      end
+    def building_params
+      params.require(:building).permit(
+        :uprn,
+        :building_name,
+        :building_id,
+        :street,
+        :postcode,
+        :land_registry_proprietor_address,
+        :land_registry_proprietor_name,
+        :proprietor_email,
+        :on_delta,
+        :letter,
+        :email
+      )
+    end
 
-      def building
-        Building.find params[:id]
-      end
+    def building
+      Building.find params[:id]
+    end
   end
 end

@@ -1,0 +1,46 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <%= form_with model: @survey do |form| %>
+      <%= render "errors" %>
+      <h1 class="govuk-heading-l">Details about FIXME</h1>
+
+      <div class="govuk-form-group">
+        <%= form.label :material_description, class: "govuk-label govuk-label--m" %>
+        <div id="description-hint" class="govuk-hint">
+          For example, the name of the manufacturer or product, or
+          reaction to fire classification.
+        </div>
+        <%= form.text_area :material_description, class: "govuk-textarea" %>
+      </div>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group" aria-describedby="expiry-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Which insulation is used in combination with this material?
+          </legend>
+          <div id="insulation-hint" class="govuk-hint">
+            Please select one
+          </div>
+          <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+            <% @survey.insulation_options.each do |option| %>
+              <div class="govuk-radios__item">
+                <%= form.radio_button :insulation, option, class: "govuk-radios__input" %>
+                <%= form.label "insulation", value: option, class: "govuk-label govuk-radios__label" %>
+              </div>
+            <% end %>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-form-group">
+        <%= form.label :insulation_details, class: "govuk-label govuk-label--m" %>
+        <div id="insulation-details-hint" class="govuk-hint">
+          For example, the name of the manufacturer or the product.
+        </div>
+        <%= form.text_area :insulation_details, class: "govuk-textarea" %>
+      </div>
+
+      <%= form.submit "Continue", class: "govuk-button" %>
+    <% end %>
+  </div>
+</div>

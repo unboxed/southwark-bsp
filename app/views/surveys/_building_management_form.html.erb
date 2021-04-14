@@ -1,0 +1,106 @@
+<%= render "application/back_link", chosen_path: goto_path("residential_use") %>
+
+<%= form_with model: @survey do |form| %>
+  <div class="govuk-grid-row govuk-!-margin-top-2">
+    <div class="govuk-grid-column-two-thirds">
+      <%= error_summary @survey %>
+
+      <h1 class="govuk-heading-l">Building management details</h1>
+
+      <%= form_group for: [@survey, :is_right_to_manage] do %>
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Is this building managed by a right-to-manage (RTM) company?
+          </legend>
+
+          <div class="govuk-hint">
+            This helps us stay in touch.
+          </div>
+
+          <%= error_message_for @survey, :is_right_to_manage %>
+
+          <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <%= form.radio_button :is_right_to_manage, "yes", class: "govuk-radios__input", aria: { controls: "right-to-manage-company" } %>
+              <%= form.label :is_right_to_manage, value: "yes", class: "govuk-label govuk-radios__label" %>
+            </div>
+
+            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="right-to-manage-company">
+              <%= form_group for: [@survey, :right_to_manage_company] do %>
+                <%= form.label :right_to_manage_company, class: "govuk-label" %>
+                <%= error_message_for @survey, :right_to_manage_company %>
+                <%= form.text_field :right_to_manage_company, class: "govuk-input" %>
+              <% end %>
+            </div>
+
+            <div class="govuk-radios__item">
+              <%= form.radio_button :is_right_to_manage, "no", class: "govuk-radios__input" %>
+              <%= form.label :is_right_to_manage, value: "no", class: "govuk-label govuk-radios__label" %>
+            </div>
+
+            <div class="govuk-radios__item">
+              <%= form.radio_button :is_right_to_manage, "unknown", class: "govuk-radios__input" %>
+              <%= form.label :is_right_to_manage, value: "unknown", class: "govuk-label govuk-radios__label" %>
+            </div>
+          </div>
+        </fieldset>
+      <% end %>
+
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            What is a right-to-manage company?
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p>
+            The Right to Manage lets tenants and leaseholders take
+            over certain management responsibilities from their
+            landlord. To do this, leaseholders must set up a Right To
+            Manage (RTM) company.
+          </p>
+
+          <p>
+            The RTM company can manage the building directly, or
+            pay a managing agent to do it. More information is
+            <a class="govuk-link" href="https://www.gov.uk/right-to-manage-a-guide-for-landlords">
+              available on the GOV.UK website
+            </a>.
+          </p>
+        </div>
+      </details>
+
+      <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+          Other management details
+        </legend>
+
+        <div class="govuk-hint">
+          Please provide any further information you might have about the management team of this building.
+        </div>
+
+        <%= form_group for: [@survey, :building_owner] do %>
+          <%= form.label :building_owner, class: "govuk-label" %>
+          <%= error_message_for @survey, :building_owner %>
+          <%= form.text_field :building_owner, class: "govuk-input" %>
+        <% end %>
+
+        <%= form_group for: [@survey, :building_developer] do %>
+          <%= form.label :building_developer, class: "govuk-label" %>
+          <%= error_message_for @survey, :building_developer %>
+          <%= form.text_field :building_developer, class: "govuk-input" %>
+        <% end %>
+
+        <%= form_group for: [@survey, :managing_agent] do %>
+          <%= form.label :managing_agent, class: "govuk-label" %>
+          <%= error_message_for @survey, :managing_agent %>
+          <%= form.text_field :managing_agent, class: "govuk-input" %>
+        <% end %>
+      </fieldset>
+
+      <div class="govuk-form-group">
+        <%= form.submit "Continue", class: "govuk-button" %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,133 @@
+<%= render "application/back_link", chosen_path: goto_path("external_wall_structures") %>
+
+<%= form_with model: @survey do |form| %>
+  <div class="govuk-grid-row govuk-!-margin-top-2">
+    <div class="govuk-grid-column-two-thirds">
+      <%= error_summary @survey %>
+
+      <span class="govuk-caption-l">External wall structures</span>
+      <h1 class="govuk-heading-l">Balcony materials</h1>
+
+      <%= form_group for: [@survey, :balcony_main_material] do %>
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Which material is the main balcony structure made from?
+          </legend>
+
+          <%= error_message_for @survey, :balcony_main_material %>
+
+          <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+            <%= form.collection_radio_buttons :balcony_main_material, t(:balcony_main_materials, scope: :survey), :first, :last do |builder| %>
+              <% if builder.value == "do_not_know" %>
+                <div class="govuk-body govuk-!-margin-left-2 govuk-!-margin-top-5 govuk-!-margin-bottom-5">Or</div>
+              <% end %>
+              <div class="govuk-radios__item">
+                <% if builder.value == "other" %>
+                  <%= builder.radio_button class: "govuk-radios__input", aria: { controls: "conditional-other-balcony-main-material" } %>
+                <% else %>
+                  <%= builder.radio_button class: "govuk-radios__input" %>
+                <% end %>
+                <%= builder.label class: "govuk-label govuk-radios__label" %>
+              </div>
+              <% if builder.value == "other" %>
+                <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-other-balcony-main-material">
+                  <%= form_group for: [@survey, :balcony_main_material_details] do %>
+                    <%= form.label :balcony_main_material_details, class: "govuk-label" %>
+                    <%= error_message_for @survey, :balcony_main_material_details %>
+                    <%= form.text_area :balcony_main_material_details, class: "govuk-textarea" %>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </fieldset>
+      <% end %>
+
+      <%= form_group for: [@survey, :balcony_floor_materials] do %>
+        <fieldset class="govuk-fieldset" aria-describedby="balcony_floor_materials-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <span class="govuk-fieldset__heading">
+              Which materials are the balcony floors made from?
+            </span>
+          </legend>
+
+          <div class="govuk-hint">
+            Select all that apply. If you know some but not others, select the ones you know and then use the ‘Other’ to describe the unknown material.
+          </div>
+
+          <%= error_message_for @survey, :balcony_floor_materials %>
+
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <%= form.collection_check_boxes :balcony_floor_materials, t(:balcony_floor_materials, scope: :survey), :first, :last do |builder| %>
+              <% if builder.value == "do_not_know" %>
+                <div class="govuk-body govuk-!-margin-left-2 govuk-!-margin-top-5 govuk-!-margin-bottom-5">Or</div>
+              <% end %>
+              <div class="govuk-checkboxes__item">
+                <% if builder.value == "other" %>
+                  <%= builder.check_box class: "govuk-checkboxes__input", aria: { controls: "conditional-other-balcony-floor-material" } %>
+                <% else %>
+                  <%= builder.check_box class: "govuk-checkboxes__input" %>
+                <% end %>
+                <%= builder.label class: "govuk-label govuk-checkboxes__label" %>
+              </div>
+              <% if builder.value == "other" %>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-other-balcony-floor-material">
+                  <%= form_group for: [@survey, :balcony_floor_materials_details] do %>
+                    <%= form.label :balcony_floor_materials_details, class: "govuk-label" %>
+                    <%= error_message_for @survey, :balcony_floor_materials_details %>
+                    <%= form.text_area :balcony_floor_materials_details, class: "govuk-textarea" %>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </fieldset>
+      <% end %>
+
+      <%= form_group for: [@survey, :balcony_railing_materials] do %>
+        <fieldset class="govuk-fieldset" aria-describedby="balcony_other_materials-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <span class="govuk-fieldset__heading">
+              Which materials are the balcony balustrade and/or railings made from?
+            </span>
+          </legend>
+
+          <div class="govuk-hint">
+            Select all that apply. If you know some but not others, select the ones you know and then use the ‘Other’ to describe the unknown material.
+          </div>
+
+          <%= error_message_for @survey, :balcony_railing_materials %>
+
+          <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+            <%= form.collection_check_boxes :balcony_railing_materials, t(:balcony_railing_materials, scope: :survey), :first, :last do |builder| %>
+              <% if builder.value == "do_not_know" %>
+                <div class="govuk-body govuk-!-margin-left-2 govuk-!-margin-top-5 govuk-!-margin-bottom-5">Or</div>
+              <% end %>
+              <div class="govuk-checkboxes__item">
+                <% if builder.value == "other" %>
+                  <%= builder.check_box class: "govuk-checkboxes__input", aria: { controls: "conditional-other-balcony-railing-material" } %>
+                <% else %>
+                  <%= builder.check_box class: "govuk-checkboxes__input" %>
+                <% end %>
+                <%= builder.label class: "govuk-label govuk-checkboxes__label" %>
+              </div>
+              <% if builder.value == "other" %>
+                <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-other-balcony-railing-material">
+                  <%= form_group for: [@survey, :balcony_railing_materials_details] do %>
+                    <%= form.label :balcony_railing_materials_details, class: "govuk-label" %>
+                    <%= error_message_for @survey, :balcony_railing_materials_details %>
+                    <%= form.text_area :balcony_railing_materials_details, class: "govuk-textarea" %>
+                  <% end %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </fieldset>
+      <% end %>
+
+      <div class="govuk-form-group">
+        <%= form.submit "Continue", class: "govuk-button" %>
+      </div>
+    </div>
+  </div>
+<% end %>
