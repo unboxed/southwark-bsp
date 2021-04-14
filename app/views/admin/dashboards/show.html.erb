@@ -74,7 +74,13 @@
                   <% end %>
                 </td>
                 <td class="govuk-table__cell">
-                  <%= @survey.present? %>
+                  <% if building.latest_survey.present? %>
+                    <% if building.latest_survey.completed %>
+                      <%= t(:"helpers.label.building.ews_survey.completed", date: short_date_format(building.latest_survey.completed_at))%>
+                    <% end %>
+                  <% else %>
+                    <%= t(:"helpers.label.building.ews_survey.missing") %>
+                  <% end %>
                 </td>
                 <td class="govuk-table__cell delta">
                   <%= I18n.t building.on_delta, scope: :"helpers.label.building.on_delta" %>

@@ -84,6 +84,9 @@ en:
   helpers:
     label:
       building:
+        ews_survey:
+          completed: "Completed on %{date}"
+          missing: "Not received"
         on_delta:
           true: "Yes"
           false: "No"

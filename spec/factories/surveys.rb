@@ -10,5 +10,10 @@ FactoryBot.define do
     structures { %w[balconies solar_shading] }
 
     completed { stage == "check_your_answers" }
+
+    trait :completed do
+      completed { true }
+      completed_at { Time.zone.now }
+    end
   end
 end
