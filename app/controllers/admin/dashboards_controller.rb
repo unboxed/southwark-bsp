@@ -15,7 +15,7 @@ module Admin
     end
 
     def filtered?
-      @filtered = !params[:state].empty?
+      @filtered = params[:state]
     end
   end
 end
