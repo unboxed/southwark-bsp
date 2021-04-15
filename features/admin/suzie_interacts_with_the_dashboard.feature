@@ -37,7 +37,5 @@ Feature: Suzie the admin views and edits buildings on dashboard
     And a building exists with UPRN 345
     And a building exists with UPRN 567
     And I am on the dashboard
-    And I open the filters
-    And I check "Completed"
-    And I press "Filter"
+    And I filter the buildings on "Completed"
     Then I should see 1 building record

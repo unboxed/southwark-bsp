@@ -72,9 +72,12 @@ Then("I should see {int} building record(s)") do |count|
   expect(page.all("tbody tr").length).to eq count
 end
 
-# FIXME: the step should be "given I filter by X"
-Given("I open the filters") do
-  page.find("span", text: "Filter").click
+Given("I filter the buildings on {string}") do |attr|
+  page.find("span", text: "Filters").click
+
+  check(attr)
+
+  click_on "Filter"
 end
 
 Then("the page contains the building's {}") do |property|

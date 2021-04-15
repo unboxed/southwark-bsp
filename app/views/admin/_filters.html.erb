@@ -3,7 +3,7 @@
     <details class="filters govuk-details" data-module="govuk-details">
       <summary class="govuk-details__summary">
         <span class="govuk-details__summary-text">
-          Filter
+          Filters
         </span>
       </summary>
       <div class="govuk-details__text">
@@ -14,11 +14,11 @@
                 <h2 class="govuk-heading-s">EWS Survey</h2>
                 <div class="govuk-checkboxes">
                   <div class="govuk-checkboxes__item">
-                    <%= form.check_box :completed, class: "govuk-checkboxes__input" %>
+                    <%= form.check_box :completed, class: "govuk-checkboxes__input", include_hidden: false %>
                     <%= form.label :completed, "Completed", class: "govuk-label govuk-checkboxes__label" %>
                   </div>
                   <div class="govuk-checkboxes__item">
-                    <%= form.check_box :not_received, class: "govuk-checkboxes__input" %>
+                    <%= form.check_box :not_received, class: "govuk-checkboxes__input", include_hidden: false %>
                     <%= form.label :not_received, "Not received", class: "govuk-label govuk-checkboxes__label" %>
                   </div>
                 </div>
