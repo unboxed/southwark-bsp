@@ -3,6 +3,8 @@ module Survey
     extend ActiveSupport::Concern
 
     included do
+      class_attribute :permit_attributes, instance_writer: false
+
       attr_reader :record
       define_model_callbacks :save, :commit, :rollback
       define_model_callbacks :assign_record, only: :after
@@ -73,10 +75,14 @@ module Survey
 
       def permit(params)
         if params.respond_to?(:permit)
-          params.permit(attribute_names)
+          params.permit(permitted_attributes)
         else
           params
         end
+      end
+
+      def permitted_attributes
+        permit_attributes || attribute_names
       end
 
       def validate_record
@@ -88,12 +94,16 @@ module Survey
       def save_in_transaction(options)
         record.transaction do
           run_callbacks :save do
-            record.assign_attributes(attributes)
+            record.assign_attributes(stored_attributes)
             record.save!(options)
           end
         end
       rescue Exception => e
         handle_transaction_rollback(e)
+      end
+
+      def stored_attributes
+        attributes.slice(*record.form_attributes)
       end
 
       def handle_transaction_rollback(exception)

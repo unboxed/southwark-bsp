@@ -1,46 +1,112 @@
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <%= form_with model: @survey do |form| %>
-      <%= render "errors" %>
-      <h1 class="govuk-heading-l">Details about FIXME</h1>
+<%= form_with model: @survey do |form| %>
+  <div class="govuk-grid-row govuk-!-margin-top-2">
+    <div class="govuk-grid-column-two-thirds">
+      <%= error_summary @survey %>
 
-      <div class="govuk-form-group">
-        <%= form.label :material_description, class: "govuk-label govuk-label--m" %>
-        <div id="description-hint" class="govuk-hint">
-          For example, the name of the manufacturer or product, or
-          reaction to fire classification.
-        </div>
-        <%= form.text_area :material_description, class: "govuk-textarea" %>
-      </div>
+      <%= form.fields_for :material, @survey.material do |fields| %>
+        <span class="govuk-caption-l">External wall materials</span>
+        <h1 class="govuk-heading-l">Provide details about ‘<%= t(@survey.material.type, scope: :"survey.wall_material.types", other: @survey.material.other_type) %>’</h1>
 
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" role="group" aria-describedby="expiry-hint">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-            Which insulation is used in combination with this material?
-          </legend>
-          <div id="insulation-hint" class="govuk-hint">
-            Please select one
-          </div>
-          <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
-            <% @survey.insulation_options.each do |option| %>
-              <div class="govuk-radios__item">
-                <%= form.radio_button :insulation, option, class: "govuk-radios__input" %>
-                <%= form.label "insulation", value: option, class: "govuk-label govuk-radios__label" %>
-              </div>
+        <%= form_group for: [@survey, :material_details] do %>
+          <fieldset class="govuk-fieldset" aria-describedby="material_details-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+              Please provide any further details you may have about this material
+            </legend>
+
+            <div id="material_details-hint" class="govuk-hint">
+              For example, the name of the manufacturer or product, or reaction to fire classification.
+            </div>
+
+            <%= error_message_for @survey, :material_details %>
+
+            <%= form_group for: [@survey, :material_details] do %>
+              <%= fields.label :details, class: "govuk-label" %>
+              <%= error_message_for @survey, :material_details %>
+              <%= fields.text_area :details, rows: 4, class: "govuk-textarea" %>
             <% end %>
-          </div>
-        </fieldset>
-      </div>
+          </fieldset>
+        <% end %>
+
+        <%= form_group for: [@survey, :material_coverage] do %>
+          <fieldset class="govuk-fieldset" aria-describedby="material_coverage-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+              How much of the total external wall does this material cover?
+            </legend>
+
+            <div id="material_coverage-hint" class="govuk-hint">
+              Please provide an estimate.
+            </div>
+
+            <%= error_message_for @survey, :material_coverage %>
+
+            <div class="govuk-radios" data-module="govuk-radios">
+              <%= fields.collection_radio_buttons :coverage, t(:wall_coverages, scope: :survey), :first, :last do |builder| %>
+                <div class="govuk-radios__item">
+                  <%= builder.radio_button class: "govuk-radios__input" %>
+                  <%= builder.label class: "govuk-label govuk-radios__label" %>
+                </div>
+              <% end %>
+            </div>
+          </fieldset>
+        <% end %>
+
+        <%= form_group for: [@survey, :material_insulation] do %>
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+              Which insulation is used in combination with this material?
+            </legend>
+
+            <%= error_message_for @survey, :material_insulation %>
+
+            <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+              <%= fields.collection_radio_buttons :insulation, t(:wall_insulations, scope: :survey), :first, :last do |builder| %>
+                <% if builder.value == "unknown" %>
+                  <div class="govuk-body govuk-!-margin-left-2 govuk-!-margin-top-5 govuk-!-margin-bottom-5">Or</div>
+                <% end %>
+                <div class="govuk-radios__item">
+                  <% if builder.value == "other" %>
+                    <%= builder.radio_button class: "govuk-radios__input", aria: { controls: "conditional-material-other-insulation" } %>
+                  <% else %>
+                    <%= builder.radio_button class: "govuk-radios__input" %>
+                  <% end %>
+                  <%= builder.label class: "govuk-label govuk-radios__label" %>
+                </div>
+                <% if builder.value == "other" %>
+                  <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-material-other-insulation">
+                    <%= form_group for: [@survey, :material_other_insulation] do %>
+                      <%= fields.label :other_insulation, class: "govuk-label" %>
+                      <%= error_message_for @survey, :material_other_insulation %>
+                      <%= fields.text_area :other_insulation, class: "govuk-textarea" %>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </fieldset>
+        <% end %>
+
+        <%= form_group for: [@survey, :material_insulation_details] do %>
+          <fieldset class="govuk-fieldset" aria-describedby="material_details-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+              Please provide any further details you may have about this material
+            </legend>
+
+            <div id="material_details-hint" class="govuk-hint">
+              For example, the name of the manufacturer or product, or reaction to fire classification.
+            </div>
+
+            <%= form_group for: [@survey, :material_insulation_details] do %>
+              <%= fields.label :insulation_details, class: "govuk-label" %>
+              <%= error_message_for @survey, :material_insulation_details %>
+              <%= fields.text_area :insulation_details, rows: 4, class: "govuk-textarea" %>
+            <% end %>
+          </fieldset>
+        <% end %>
+      <% end %>
 
       <div class="govuk-form-group">
-        <%= form.label :insulation_details, class: "govuk-label govuk-label--m" %>
-        <div id="insulation-details-hint" class="govuk-hint">
-          For example, the name of the manufacturer or the product.
-        </div>
-        <%= form.text_area :insulation_details, class: "govuk-textarea" %>
+        <%= form.submit "Continue", class: "govuk-button" %>
       </div>
-
-      <%= form.submit "Continue", class: "govuk-button" %>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>

@@ -11,7 +11,7 @@ Feature: Alex fills in a report about a building
     And I press "Continue"
     And I fill in the height information
     And I press "Continue"
-    Then the page contains "You haven't added any materials yet."
+    Then the page contains "You haven’t added any materials yet."
 
   Scenario: Alex can go back to the previous stage
     Given a building survey at stage "height"

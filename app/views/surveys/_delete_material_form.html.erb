@@ -1,0 +1,42 @@
+<%= render "application/back_link", chosen_path: goto_path("external_walls_summary") %>
+
+<%= form_with model: @survey do |form| %>
+  <%= form.hidden_field :confirm_deletion %>
+
+  <div class="govuk-grid-row govuk-!-margin-top-2">
+    <div class="govuk-grid-column-two-thirds">
+      <%= error_summary @survey %>
+
+      <%= form_group for: [@survey, :confirm_deletion] do %>
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+              Are you sure you want to delete the material ‘<%= t(@survey.material.type, scope: :"survey.wall_material.types", other: @survey.material.other_type) %>’?
+            </h1>
+          </legend>
+
+            <div class="govuk-hint">
+              This cannot be undone.
+            </div>
+
+            <%= error_message_for @survey, :confirm_deletion %>
+
+            <div class="govuk-radios">
+              <div class="govuk-radios__item">
+                <%= form.radio_button :confirm_deletion, "yes", class: "govuk-radios__input" %>
+                <%= form.label :confirm_deletion, value: "yes", class: "govuk-label govuk-radios__label" %>
+              </div>
+              <div class="govuk-radios__item">
+                <%= form.radio_button :confirm_deletion, "no", class: "govuk-radios__input" %>
+                <%= form.label :confirm_deletion, value: "no", class: "govuk-label govuk-radios__label" %>
+              </div>
+            </div>
+        </fieldset>
+      <% end %>
+
+      <div class="govuk-form-group">
+        <%= form.submit "Delete ‘#{t(@survey.material.type, scope: :"survey.wall_material.types", other: @survey.material.other_type)}’", class: "govuk-button govuk-button--warning" %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -29,11 +29,11 @@ module Survey
     # stage: height
     store_accessor :data, :height_in_metres, :number_of_storeys
 
-    # stage: add material
-    store_accessor :data, :material, :material_details
+    # stage: external walls summary
+    store_accessor :data, :materials
 
-    # stage: add material details
-    store_accessor :data, :material_description, :insulation, :insulation_details
+    # stage: add material, edit material, delete material
+    store_accessor :data, :material
 
     # stage: external wall structures
     store_accessor :data, :structures, :structures_details
@@ -55,5 +55,9 @@ module Survey
     # stage: check your answers
     store_accessor :data,
                    :completed
+
+    def form_attributes
+      @form_attributes ||= self.class.stored_attributes[:data].map(&:to_s)
+    end
   end
 end

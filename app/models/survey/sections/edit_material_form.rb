@@ -1,8 +1,8 @@
 module Survey
   module Sections
-    class AddMaterialForm < MaterialForm
+    class EditMaterialForm < MaterialForm
       def next_stage
-        "add_material_details"
+        "edit_material_details"
       end
     end
   end

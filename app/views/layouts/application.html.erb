@@ -12,6 +12,7 @@
     <%= render "application/header" %>
     <div class="govuk-width-container app-width-container">
       <main class="govuk-main-wrapper" id="main-content" role="main">
+        <%= render "messages" %>
         <%= yield %>
       </main>
       <%= javascript_pack_tag 'govuk' %>

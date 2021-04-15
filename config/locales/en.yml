@@ -16,6 +16,75 @@ en:
       </div>
 
   survey:
+    wall_material:
+      types:
+        glass: "Glass"
+        high_pressure_laminate: "High pressure laminate"
+        aluminium_composite_material: "Aluminium composite material"
+        other_metal_composite_material: "Other metal composite material"
+        metal_sheet_panels: "Metal sheet panels"
+        render_system: "Render system"
+        brick_slips: "Brick slips"
+        brick: "Brick"
+        stone_panels_or_stone: "Stone panels or stone"
+        tiling_systems: "Tiling systems"
+        timber_or_wood: "Timber or wood"
+        plastic: "Plastic"
+        other: "%{other}"
+        unknown: "Unknown"
+
+      insulation_types:
+        mineral_wool: "Mineral wool"
+        pur_or_pir: "Polyurethane rigid foam (PUR) or Polyisocyanurate foam (PIR)"
+        phenolic_foam_insulation: "Phenolic foam insulation"
+        eps_xps: "Expanded and Extruded polystyrene (EPS/XPS)"
+        glass_wool: "Glass wool"
+        wood_fibre: "Wood fibre"
+        none: "None"
+        other: "%{other}"
+        unknown: "Unknown"
+
+      coverage:
+        10: "0–20%"
+        30: "20–40%"
+        50: "40–60%"
+        70: "60–80%"
+        90: "80–100%"
+
+    wall_materials:
+      - ["glass", "Glass"]
+      - ["high_pressure_laminate", "High pressure laminate"]
+      - ["aluminium_composite_material", "Aluminium composite material"]
+      - ["other_metal_composite_material", "Other metal composite material"]
+      - ["metal_sheet_panels", "Metal sheet panels"]
+      - ["render_system", "Render system"]
+      - ["brick_slips", "Brick slips"]
+      - ["brick", "Brick"]
+      - ["stone_panels_or_stone", "Stone panels or stone"]
+      - ["tiling_systems", "Tiling systems"]
+      - ["timber_or_wood", "Timber or wood"]
+      - ["plastic", "Plastic"]
+      - ["other", "Other"]
+      - ["unknown", "Unknown"]
+
+    wall_coverages:
+      - ["10", "0–20%"]
+      - ["30", "20–40%"]
+      - ["50", "40–60%"]
+      - ["70", "60–80%"]
+      - ["90", "80–100%"]
+
+    wall_insulations:
+      - ["mineral_wool", "Mineral wool"]
+      - ["pur_or_pir", "Polyurethane rigid foam (PUR) or Polyisocyanurate foam (PIR)"]
+      - ["phenolic_foam_insulation", "Phenolic foam insulation"]
+      - ["eps_xps", "Expanded and Extruded polystyrene (EPS/XPS)"]
+      - ["glass_wool", "Glass wool"]
+      - ["wood_fibre", "Wood fibre"]
+      - ["none", "None"]
+      - ["other", "Other"]
+      - ["unknown", "Unknown"]
+
     structure_hints:
       none_html: |-
         <div id="structure-none-hint" class="govuk-hint govuk-checkboxes__hint">
@@ -117,19 +186,20 @@ en:
         managing_agent: "Managing agent (optional)"
         height_in_metres: "Height in metres (optional)"
         number_of_storeys: "Number of storeys (optional)"
+        confirm_deletion:
+          "yes": "Delete this material"
+          "no": "Go back to the summary"
         balcony_main_material_details: "Please list any other materials"
         balcony_floor_materials_details: "Please list any other materials the floors are made from"
         balcony_railing_materials_details: "Please list any other materials the balustrade/railings are made from"
         solar_shading_materials_details: "Please list any other materials the solar shading is made from"
-        material:
-          unknown: "I don’t know"
-        insulation:
-          pur_or_pir: "Polyurethane rigid foam (PUR) or Polyisocyanurate foam (PIR)"
-          eps_xps: "Expanded and Extruded polystyrene (EPS/XPS)"
-          unknown: "I don’t know"
-        material_description: "Can you provide more details? (optional)"
-        insulation_details: "Can you provide more details about the insulation material? (optional)"
         structures_details: "Can you provide more details about the other external structures?"
+
+      survey/material:
+        other_type: "What is the material used?"
+        details: "Can you provide more details? (optional)"
+        other_insulation: "Please list any other insulation materials"
+        insulation_details: "Can you provide more details about the insulation material? (optional)"
 
   activemodel:
     errors:
@@ -187,14 +257,37 @@ en:
             materials:
               blank: "Please add at least one material"
 
-            material_details:
+            min_coverage:
+              less_than_or_equal_to: "The minimum total percentage should be at most %{count}%"
+
+            max_coverage:
+              greater_than_or_equal_to: "The maximum total percentage should be at least %{count}%"
+
+            material_type:
+              blank: "Please indicate which material this wall is made of"
+
+            material_other_type:
               blank: "Please provide details about this other material"
+              too_long: "Material details must be %{count} characters or fewer"
 
-            material:
-              inclusion: "Please indicate which material this wall is made of"
+            material_details:
+              too_long: "Material details must be %{count} characters or fewer"
 
-            insulation:
-              inclusion: "Please indicate the insulation used with this material"
+            material_coverage:
+              inclusion: "Please provide an estimate of the total wall coverage for this material"
+
+            material_insulation:
+              blank: "Please provide details about the insulation used in combination with this material"
+
+            material_other_insulation:
+              blank: "Please provide details about this other insulation material"
+              too_long: "Insulation details must be %{count} characters or fewer"
+
+            material_insulation_details:
+              too_long: "Insulation details must be %{count} characters or fewer"
+
+            confirm_deletion:
+              inclusion: "Please select one of the options"
 
             structures:
               blank: "Please indicate what external wall structures there are"

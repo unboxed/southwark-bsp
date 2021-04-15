@@ -16,3 +16,7 @@ end
 
 Capybara.javascript_driver = ENV.fetch("JS_DRIVER", "chrome_headless").to_sym
 Capybara.automatic_label_click = true
+
+Capybara.add_selector(:material) do
+  xpath { |material| "//tr/td[1][text()='#{material}']/parent::tr" }
+end
