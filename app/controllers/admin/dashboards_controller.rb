@@ -1,6 +1,6 @@
 module Admin
   class DashboardsController < AdminController
-    before_action :fetch_buildings
+    before_action :fetch_buildings, :filtered?, :fetch_total
 
     def show; end
 
@@ -14,6 +14,14 @@ module Admin
       scope = scope.where('surveys.completed_at' => nil) if params[:not_received] == "1"
 
       @buildings = scope
+    end
+
+    def fetch_total
+      @total = Building.count
+    end
+
+    def filtered?
+      @filtered = !!(params[:completed] || params[:not_received])
     end
   end
 end

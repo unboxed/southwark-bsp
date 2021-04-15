@@ -15,6 +15,20 @@ en:
         </div>
       </div>
 
+  dashboard:
+    headers:
+      buildings:
+        prefix: "Building records: "
+        total:
+          zero: No buildings
+          one: 1 total
+          other: "%{count} total"
+
+        filtered:
+          zero: No matching results
+          one: 1 filtered result
+          other: "%{count} filtered results"
+
   survey:
     wall_material:
       types:

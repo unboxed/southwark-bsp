@@ -8,6 +8,7 @@ Feature: Suzie the admin views and edits buildings on dashboard
     And the page contains the building's building name
     And the page contains the building's street
     And the page contains the building's postcode
+    And the page contains "Building records: 1 total"
 
   Scenario: Suzie can see buildings without surveys
     Given I am on the dashboard
@@ -39,3 +40,4 @@ Feature: Suzie the admin views and edits buildings on dashboard
     And I am on the dashboard
     And I filter the buildings on "Completed"
     Then I should see 1 building record
+    And the page contains "Building records: 1 filtered result (4 total)"
