@@ -1,6 +1,9 @@
 module Browseable
   extend ActiveSupport::Concern
 
+  VALID_PAGE = /\A[1-9][0-9]{0,4}\z/
+  VALID_PAGE_SIZE = /\A(?:[1-9]|[1-5][0-9])\z/
+
   included do
     class_attribute :facet_definitions, instance_writer: false
     self.facet_definitions = {}
@@ -115,13 +118,14 @@ module Browseable
     delegate :next_page, :previous_page, to: :results
     delegate :total_entries, :total_pages, to: :results
     delegate :each, :empty?, :map, :to_a, to: :results
+    delegate :count, to: :execute_search
 
     def initialize(klass, params = {})
       @klass, @params = klass, params
     end
 
     def current_page
-      @current_page ||= [params[:page].to_i, 1].max
+      @current_page ||= [sanitized_page, 1].max
     end
 
     def each(&block)
@@ -156,8 +160,24 @@ module Browseable
       @query ||= params[:q].to_s
     end
 
+    def query?
+      query.present?
+    end
+
     def page_size
-      @page_size ||= [[params.fetch(:count, default_page_size).to_i, max_page_size].min, 1].max
+      @page_size ||= [[sanitized_page_size, max_page_size].min, 1].max
+    end
+
+    def page_size?
+      page_size != default_page_size
+    end
+
+    def current_params
+      new_params(current_page)
+    end
+
+    def first_params
+      new_params(1)
     end
 
     def previous_params
@@ -166,6 +186,10 @@ module Browseable
 
     def next_params
       new_params(next_page)
+    end
+
+    def last_params
+      new_params(total_pages)
     end
 
     def scope
@@ -207,12 +231,16 @@ module Browseable
 
     private
 
+    def page_param
+      params[:page].to_s[0..8].to_i
+    end
+
     def new_params(page)
       {}.tap do |params|
-        params[:q] = query if query.present?
-        params[:state] = scope
-        params[:page] = page
-        params[:count] = page_size if params.key?(:count)
+        params[:q] = query if query?
+        params[:state] = scope if scoped?
+        params[:page] = page if page && page > 1
+        params[:count] = page_size if page_size?
         params.merge!(filters)
       end
     end
@@ -240,6 +268,18 @@ module Browseable
 
     def star
       klass.arel_table[Arel.star]
+    end
+
+    def sanitize_param(value, pattern, default)
+      value.match?(pattern) ? Integer(value) : default
+    end
+
+    def sanitized_page
+      sanitize_param(params[:page].to_s, VALID_PAGE, 1)
+    end
+
+    def sanitized_page_size
+      sanitize_param(params[:count].to_s, VALID_PAGE_SIZE, default_page_size)
     end
   end
 
