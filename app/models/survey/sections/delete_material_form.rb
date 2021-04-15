@@ -8,19 +8,14 @@ module Survey
       attribute :material, :model, model: Material
       attribute :materials, :collection, collection: MaterialList, item: Material
 
-      attribute :confirm_deletion, :enum, values: %w[yes no]
-      validates :confirm_deletion, inclusion: { in: %w[yes no] }
+      attribute :confirm_deletion, :boolean, default: false
 
       before_transition do
         record.material = nil
       end
 
-      before_save if: :delete_material? do
+      before_save if: :confirm_deletion do
         materials.delete(material.id)
-      end
-
-      def delete_material?
-        confirm_deletion == "yes"
       end
 
       def next_stage
