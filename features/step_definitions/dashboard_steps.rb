@@ -67,3 +67,12 @@ Then("the building's row contains {string} in the {string} column") do |value, c
     expect(page.find("td:nth-child(#{index})")).to have_content(value)
   end
 end
+
+Then("I should see {int} building record(s)") do |count|
+  expect(page.all("tbody tr").length).to eq count
+end
+
+# FIXME: the step should be "given I filter by X"
+Given("I open the filters") do
+  page.find("span", text: "Filter").click
+end

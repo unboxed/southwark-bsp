@@ -30,3 +30,14 @@ Feature: Suzie the admin views and edits buildings on dashboard
     Given I am on the dashboard
     When I mark building as on Delta
     Then the on Delta column contains "Yes"
+
+  Scenario: Suzie filters buildings
+    Given a survey has been completed for UPRN 1234567890
+    And a building exists with UPRN 123
+    And a building exists with UPRN 345
+    And a building exists with UPRN 567
+    And I am on the dashboard
+    And I open the filters
+    And I check "Completed"
+    And I press "Filter"
+    Then I should see 1 building record
