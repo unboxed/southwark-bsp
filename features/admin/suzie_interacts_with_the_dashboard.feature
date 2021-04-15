@@ -57,4 +57,4 @@ Feature: Suzie the admin views and edits buildings on dashboard
     And I am on the dashboard
     When I filter the buildings on "Not received"
     Then I should see 3 building records
-    And the page contains "Building records: 3 filtered result (4 total)"
+    And the page contains "Building records: 3 filtered results (4 total)"
