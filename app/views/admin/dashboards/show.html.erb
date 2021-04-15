@@ -12,6 +12,7 @@
 
   <%= render "admin/buildings/flash_content" %>
 
+  <%= render "admin/filters" %>
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
@@ -19,7 +20,18 @@
         <%= form_tag bulk_update_admin_buildings_path(@buildings), method: :put do %>
           <caption class="govuk-table__caption govuk-table__caption--l">
             <h1 class="govuk-heading-m">
-              <%= pluralize(@buildings.count, "building record") %>
+              <strong>
+                <%= t(:"dashboard.headers.buildings.prefix") %>
+              </strong>
+
+              <span class="results">
+                <% if @filtered %>
+                  <%= t(:"dashboard.headers.buildings.filtered", count: @buildings.count) %>
+                  (<%= t(:"dashboard.headers.buildings.total", count: @total) %>)
+                <% else %>
+                  <%= t(:"dashboard.headers.buildings.total", count: @total) %>
+                <% end %>
+              </span>
             </h1>
             <%= submit_tag "Send email", class: "govuk-button" %>
             <%= submit_tag "Send letter", class: "govuk-button" %>
@@ -59,19 +71,10 @@
                   <% end %>
                 </td>
                 <td class="govuk-table__cell">
-                  <% building.most_recent_notifications.each do |notification| %>
-                    <%= notification.sent_at %>
-                  <% end %>
                 </td>
                 <td class="govuk-table__cell email">
-                  <% building.most_recent_notifications.each do |notification| %>
-                    <%= notification.sent_at %>
-                  <% end %>
                 </td>
                 <td class="govuk-table__cell letter">
-                  <% building.most_recent_notifications.each do |notification| %>
-                    <%= notification.sent_at %>
-                  <% end %>
                 </td>
                 <td class="govuk-table__cell">
                   <% if building.latest_survey.present? %>

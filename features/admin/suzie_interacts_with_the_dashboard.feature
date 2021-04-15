@@ -5,9 +5,10 @@ Feature: Suzie the admin views and edits buildings on dashboard
   Scenario: Suzie can see relevant content
     Given I am on the dashboard
     Then the dashboard contains all expected columns
-    And the page contains "A place full of wonders"
-    And the page contains "1 Union Street"
-    And the page contains "NW1235"
+    And the page contains the building's building name
+    And the page contains the building's street
+    And the page contains the building's postcode
+    And the page contains "Building records: 1 total"
 
   Scenario: Suzie can see buildings without surveys
     Given I am on the dashboard
@@ -26,7 +27,34 @@ Feature: Suzie the admin views and edits buildings on dashboard
     Then the page contains an error about "There was a problem signing in"
     And I should not see the dashboard content
 
-  Scenario: Suzie can mark building as 'on Delta'
-    Given I am on the dashboard
-    When I mark building as on Delta
-    Then the on Delta column contains "Yes"
+  Scenario: Suzie can mark buildings as 'on Delta'
+    Given a building exists with UPRN 111
+    And a building exists with UPRN 222
+    And a building exists with UPRN 333
+    And I am on the dashboard
+    When I select UPRN 111
+    And I select UPRN 333
+    And I press "Mark as 'on Delta'"
+    Then the row for UPRN 111 contains "Yes" in the "On Delta?" column
+    And the row for UPRN 333 contains "Yes" in the "On Delta?" column
+    And the row for UPRN 222 contains "No" in the "On Delta?" column
+
+  Scenario: Suzie filters out buildings with completed surveys
+    Given a survey has been completed for UPRN 1234567890
+    And a building exists with UPRN 123
+    And a building exists with UPRN 345
+    And a building exists with UPRN 567
+    And I am on the dashboard
+    When I filter the buildings on "Completed"
+    Then I should see 1 building record
+    And the page contains "Building records: 1 filtered result (4 total)"
+
+  Scenario: Suzie filters out buildings with completed surveys
+    Given a survey has been completed for UPRN 1234567890
+    And a building exists with UPRN 123
+    And a building exists with UPRN 345
+    And a building exists with UPRN 567
+    And I am on the dashboard
+    When I filter the buildings on "Not received"
+    Then I should see 3 building records
+    And the page contains "Building records: 3 filtered result (4 total)"

@@ -31,6 +31,7 @@ gem 'bootsnap', require: false
 gem 'devise'
 gem 'delayed_job_active_record'
 gem 'notifications-ruby-client'
+gem 'will_paginate'
 
 group :development, :test do
   gem 'dotenv-rails'

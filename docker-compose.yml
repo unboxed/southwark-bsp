@@ -10,6 +10,7 @@ services:
       POSTGRES_PASSWORD: postgres
   web:
     build: .
+    stdin_open: true
     environment:
       DATABASE_URL: postgres://postgres:postgres@db:5432
     ports:

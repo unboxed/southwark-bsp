@@ -6,6 +6,15 @@ class Building < ApplicationRecord
 
   scope :ordered_by_uprn, -> { order uprn: :asc }
 
+  include Browseable
+
+  filter :state, ->(name) { get_state(name) }
+
+  scope :completed, -> { joins(:surveys).where.not('survey_records.completed_at' => nil) }
+  scope :not_received, -> { left_outer_joins(:surveys).where('survey_records.completed_at' => nil) }
+
+  facet :all, -> { all }
+
   def most_recent_notifications
     Notification.most_recent_for_each_notification_mean(self)
   end
@@ -20,6 +29,17 @@ class Building < ApplicationRecord
 
   def latest_survey
     surveys.order(completed_at: :desc).first
+  end
+
+  def self.get_state(name)
+    case name
+    when "completed"
+      completed
+    when "not_received"
+      not_received
+    else
+      all
+    end
   end
 
   private

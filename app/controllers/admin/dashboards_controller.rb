@@ -1,7 +1,21 @@
 module Admin
   class DashboardsController < AdminController
-    def show
-      @buildings = Building.all.ordered_by_uprn
+    before_action :fetch_buildings, :filtered?, :fetch_total
+
+    def show; end
+
+    private
+
+    def fetch_buildings
+      @buildings = Building.search(params)
+    end
+
+    def fetch_total
+      @total = Building.all.count
+    end
+
+    def filtered?
+      @filtered = !params[:state].empty?
     end
   end
 end

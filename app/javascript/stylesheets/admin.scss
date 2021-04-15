@@ -6,4 +6,17 @@
       }
     }
   }
+
+  .filters {
+    .filters-container {
+      padding: govuk-spacing(6);
+      background: govuk-colour("light-grey");
+    }
+  }
+
+  h1 {
+    .results {
+      font-weight: normal;
+    }
+  }
 }

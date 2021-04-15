@@ -50,7 +50,7 @@ Then('the on Delta column contains {string}') do |string|
   end
 end
 
-Then("the building's row contains {string} in the {string} column") do |value, column|
+Then("the row for UPRN {int} contains {string} in the {string} column") do |uprn, value, column|
   # find the relevant column in the table eader
   col = page.find("thead tr th", text: column)
 
@@ -63,7 +63,35 @@ Then("the building's row contains {string} in the {string} column") do |value, c
 
   # find the row with a corresponding UPRN and assert on the table
   # division (column) for that index
-  within(page.find("tr", text: @building.uprn)) do
+  within(page.find("tr", text: uprn)) do
     expect(page.find("td:nth-child(#{index})")).to have_content(value)
   end
+end
+
+Then("the building's row contains {string} in the {string} column") do |value, column|
+  steps %(
+    Then the row for UPRN #{@building.uprn} contains "#{value}" in the "#{column}" column
+  )
+end
+
+Then("I should see {int} building record(s)") do |count|
+  expect(page.all("tbody tr").length).to eq count
+end
+
+When("I filter the buildings on {string}") do |attr|
+  page.find("span", text: "Filters").click
+
+  check(attr)
+
+  click_on "Filter"
+end
+
+Then("the page contains the building's {}") do |property|
+  attr = property.parameterize.underscore
+
+  expect(page).to have_content(@building.send(attr))
+end
+
+When("I select UPRN {int}") do |uprn|
+  page.find("tr", text: uprn).find("input[type=checkbox]").check
 end
