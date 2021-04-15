@@ -12,6 +12,12 @@ Given('a building exists with UPRN {int}') do |uprn|
   @building = FactoryBot.create(:building, uprn: uprn)
 end
 
+Given('a survey has been completed for UPRN {int}') do |uprn|
+  building = Building.find_by(uprn: uprn)
+
+  @survey = FactoryBot.create(:survey, :completed, building: building, uprn: uprn)
+end
+
 Given('I start filling a survey for a building') do
   @building = FactoryBot.create(:building)
 

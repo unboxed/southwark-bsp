@@ -1,5 +1,5 @@
 class Building < ApplicationRecord
-  has_one :survey
+  has_many :surveys, class_name: "Survey::Record"
   has_many :notifications
 
   validates :uprn, presence: true, uniqueness: true
@@ -16,6 +16,10 @@ class Building < ApplicationRecord
 
   def self.update_building_collection(commit_params, ids)
     Building.where(id: [ids]).update_all(on_delta: true) if commit_params == "Mark as 'on Delta'" # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def latest_survey
+    surveys.order(completed_at: :desc).first
   end
 
   private

@@ -1,7 +1,6 @@
 Given('I am on the dashboard') do
   steps %(
     Given I am on the sign in page
-    And a building exists with UPRN 1234567890
     And I log in
   )
 end
@@ -48,5 +47,23 @@ end
 Then('the on Delta column contains {string}') do |string|
   within(".delta") do
     expect(page).to have_content(string)
+  end
+end
+
+Then("the building's row contains {string} in the {string} column") do |value, column|
+  # find the relevant column in the table eader
+  col = page.find("thead tr th", text: column)
+
+  raise "No `#{column}' column found" if col.nil?
+
+  # use the xpath (.path) of the column to figure out its index within siblings
+  # it's in the shape: '"/foo/bar/etc.../table/form/thead/tr/th[8]"
+  # so we grab the last digit and we have our index
+  index = col.path.match(/\[(\d+)\]$/)[1]
+
+  # find the row with a corresponding UPRN and assert on the table
+  # division (column) for that index
+  within(page.find("tr", text: @building.uprn)) do
+    expect(page.find("td:nth-child(#{index})")).to have_content(value)
   end
 end
