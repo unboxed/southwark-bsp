@@ -9,9 +9,9 @@ module Admin
     def fetch_buildings
       scope = Building.left_outer_joins(:surveys)
 
-      scope = scope.where.not('surveys.completed_at' => nil) if params[:completed] == "1"
+      scope = scope.where.not('survey_records.completed_at' => nil) if params[:completed] == "1"
 
-      scope = scope.where('surveys.completed_at' => nil) if params[:not_received] == "1"
+      scope = scope.where('survey_records.completed_at' => nil) if params[:not_received] == "1"
 
       @buildings = scope
     end
