@@ -76,3 +76,9 @@ end
 Given("I open the filters") do
   page.find("span", text: "Filter").click
 end
+
+Then("the page contains the building's {}") do |property|
+  attr = property.parameterize.underscore
+
+  expect(page).to have_content(@building.send(attr))
+end

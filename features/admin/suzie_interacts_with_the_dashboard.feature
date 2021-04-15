@@ -5,9 +5,9 @@ Feature: Suzie the admin views and edits buildings on dashboard
   Scenario: Suzie can see relevant content
     Given I am on the dashboard
     Then the dashboard contains all expected columns
-    And the page contains "A place full of wonders"
-    And the page contains "1 Union Street"
-    And the page contains "NW1235"
+    And the page contains the building's building name
+    And the page contains the building's street
+    And the page contains the building's postcode
 
   Scenario: Suzie can see buildings without surveys
     Given I am on the dashboard
