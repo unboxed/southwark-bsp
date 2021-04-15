@@ -32,12 +32,12 @@ Feature: Suzie the admin views and edits buildings on dashboard
     And a building exists with UPRN 222
     And a building exists with UPRN 333
     And I am on the dashboard
-    And I select UPRN 111
+    When I select UPRN 111
     And I select UPRN 333
     And I press "Mark as 'on Delta'"
     Then the row for UPRN 111 contains "Yes" in the "On Delta?" column
-    Then the row for UPRN 333 contains "Yes" in the "On Delta?" column
-    Then the row for UPRN 222 contains "No" in the "On Delta?" column
+    And the row for UPRN 333 contains "Yes" in the "On Delta?" column
+    And the row for UPRN 222 contains "No" in the "On Delta?" column
 
   Scenario: Suzie filters buildings
     Given a survey has been completed for UPRN 1234567890
@@ -45,6 +45,6 @@ Feature: Suzie the admin views and edits buildings on dashboard
     And a building exists with UPRN 345
     And a building exists with UPRN 567
     And I am on the dashboard
-    And I filter the buildings on "Completed"
+    When I filter the buildings on "Completed"
     Then I should see 1 building record
     And the page contains "Building records: 1 filtered result (4 total)"

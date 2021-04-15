@@ -78,7 +78,7 @@ Then("I should see {int} building record(s)") do |count|
   expect(page.all("tbody tr").length).to eq count
 end
 
-Given("I filter the buildings on {string}") do |attr|
+When("I filter the buildings on {string}") do |attr|
   page.find("span", text: "Filters").click
 
   check(attr)
@@ -92,6 +92,6 @@ Then("the page contains the building's {}") do |property|
   expect(page).to have_content(@building.send(attr))
 end
 
-Given("I select UPRN {int}") do |uprn|
+When("I select UPRN {int}") do |uprn|
   page.find("tr", text: uprn).find("input[type=checkbox]").check
 end
