@@ -1,28 +1,43 @@
 module Survey
   module Sections
     class MaterialDetailsForm < BaseForm
-      INSULATION_MATERIALS = %w[
-        mineral_wool
-        pur_or_pir
-        phenolic_foam_insulation
-        eps_xps
-        glass_wool
-        wood_fibre
-        none
-        unknown
-        other
-      ].freeze
+      COVERAGE = [10, 30, 50, 70, 90].freeze
 
-      attribute :material_description, :string
-      validates :material_description, length: { maximum: 100 }
+      self.permit_attributes = [
+        material_attributes: %i[
+          details coverage insulation
+          other_insulation insulation_details
+        ]
+      ]
 
-      attribute :insulation, :string
-      validates :insulation, inclusion: { in: INSULATION_MATERIALS }
+      attribute :material, :model, model: Material
+      accepts_nested_attributes_for :material
 
-      attribute :insulation_details, :string
+      attribute :materials, :collection, collection: MaterialList, item: Material
 
-      def insulation_options
-        INSULATION_MATERIALS
+      with_options to: :material, prefix: true do
+        delegate :details, :coverage, :insulation
+        delegate :other_insulation, :insulation_details
+      end
+
+      delegate :other_insulation?, to: :material
+
+      validates :material_details, length: { maximum: 100 }
+      validates :material_coverage, inclusion: { in: COVERAGE }
+      validates :material_insulation, presence: true
+      validates :material_insulation_details, length: { maximum: 100 }
+      validates :material_other_insulation, length: { maximum: 100 }
+      validates :material_other_insulation, presence: true, if: :other_insulation?
+
+      before_transition do
+        case stage
+        when "external_walls_summary"
+          record.material = nil
+        end
+      end
+
+      def next_stage
+        "external_walls_summary"
       end
     end
   end

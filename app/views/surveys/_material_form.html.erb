@@ -1,0 +1,54 @@
+<%= form_with model: @survey do |form| %>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <%= error_summary @survey %>
+
+      <%= form.fields_for :material, @survey.material do |fields| %>
+        <%= form_group for: [@survey, :material_type] do %>
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                <%= title %>
+              </h1>
+            </legend>
+
+            <div class="govuk-hint">
+              Please select one option. More materials can be added later.
+            </div>
+
+            <%= error_message_for @survey, :material_type %>
+
+            <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+              <%= fields.collection_radio_buttons :type, t(:wall_materials, scope: :survey), :first, :last do |builder| %>
+                <% if builder.value == "unknown" %>
+                  <div class="govuk-body govuk-!-margin-left-2 govuk-!-margin-top-5 govuk-!-margin-bottom-5">Or</div>
+                <% end %>
+                <div class="govuk-radios__item">
+                  <% if builder.value == "other" %>
+                    <%= builder.radio_button class: "govuk-radios__input", aria: { controls: "conditional-material-other-type" } %>
+                  <% else %>
+                    <%= builder.radio_button class: "govuk-radios__input" %>
+                  <% end %>
+                  <%= builder.label class: "govuk-label govuk-radios__label" %>
+                </div>
+                <% if builder.value == "other" %>
+                  <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-material-other-type">
+                    <%= form_group for: [@survey, :material_other_type] do %>
+                      <%= fields.label :other_type, class: "govuk-label" %>
+                      <%= error_message_for @survey, :material_other_type %>
+                      <%= fields.text_area :other_type, class: "govuk-textarea" %>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </fieldset>
+        <% end %>
+      <% end %>
+
+      <div class="govuk-form-group">
+        <%= form.submit "Continue", class: "govuk-button" %>
+      </div>
+    </div>
+  </div>
+<% end %>

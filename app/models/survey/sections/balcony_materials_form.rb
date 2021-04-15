@@ -9,7 +9,7 @@ module Survey
         do_not_know
       ].freeze
 
-      FLOOR_MATERIALS = %w[
+      MATERIALS = %w[
         timber_or_wood
         glass
         metal
@@ -18,7 +18,16 @@ module Survey
         do_not_know
       ].freeze
 
-      OTHER_MATERIALS = FLOOR_MATERIALS.dup
+      self.permit_attributes = [
+        :balcony_main_material,
+        :balcony_main_material_details,
+        :balcony_floor_materials_details,
+        :balcony_railing_materials_details,
+        {
+          balcony_floor_materials: [],
+          balcony_railing_materials: []
+        }
+      ]
 
       delegate :structures, to: :record
 
@@ -28,13 +37,13 @@ module Survey
       attribute :balcony_main_material_details, :string
       validates :balcony_main_material_details, presence: true, length: { maximum: 100 }, if: :other_main_material?
 
-      attribute :balcony_floor_materials, :list, values: FLOOR_MATERIALS, default: []
+      attribute :balcony_floor_materials, :list, values: MATERIALS, default: []
       validates :balcony_floor_materials, presence: true
 
       attribute :balcony_floor_materials_details, :string
       validates :balcony_floor_materials_details, presence: true, length: { maximum: 100 }, if: :other_floor_materials?
 
-      attribute :balcony_railing_materials, :list, values: OTHER_MATERIALS, default: []
+      attribute :balcony_railing_materials, :list, values: MATERIALS, default: []
       validates :balcony_railing_materials, presence: true
 
       attribute :balcony_railing_materials_details, :string
@@ -86,21 +95,6 @@ module Survey
 
       def solar_shading_structures?
         structures.include?("solar_shading")
-      end
-
-      def permit(params)
-        if params.respond_to?(:permit)
-          params.permit(
-            :balcony_main_material,
-            :balcony_main_material_details,
-            :balcony_floor_materials_details,
-            :balcony_railing_materials_details,
-            balcony_floor_materials: [],
-            balcony_railing_materials: []
-          )
-        else
-          params
-        end
       end
     end
   end

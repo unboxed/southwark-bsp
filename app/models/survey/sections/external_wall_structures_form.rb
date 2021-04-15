@@ -1,7 +1,7 @@
 module Survey
   module Sections
     class ExternalWallStructuresForm < BaseForm
-      EXTERNAL_WALLS_STRUCTURES = %w[
+      STRUCTURES = %w[
         none
         balconies
         solar_shading
@@ -9,7 +9,11 @@ module Survey
         other
       ].freeze
 
-      attribute :structures, :list, values: EXTERNAL_WALLS_STRUCTURES, default: []
+      self.permit_attributes = [
+        :structures_details, { structures: [] }
+      ]
+
+      attribute :structures, :list, values: STRUCTURES, default: []
       validates :structures, presence: true
 
       attribute :structures_details, :string
@@ -37,10 +41,6 @@ module Survey
         end
       end
 
-      def structure_options
-        EXTERNAL_WALLS_STRUCTURES
-      end
-
       def no_structures?
         structures.include?("none")
       end
@@ -55,14 +55,6 @@ module Survey
 
       def solar_shading_structures?
         structures.include?("solar_shading")
-      end
-
-      def permit(params)
-        if params.respond_to? :permit
-          params.permit(:structures_details, structures: [])
-        else
-          params
-        end
       end
     end
   end

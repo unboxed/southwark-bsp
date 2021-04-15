@@ -66,14 +66,6 @@ module Survey
       stage == name
     end
 
-    def goto(name)
-      self.stage = name
-
-      run_callbacks :transition do
-        save
-      end
-    end
-
     def can_transition?(from:, to:)
       return false unless stages.include?(to)
       return false unless transitions[from].include?(to)

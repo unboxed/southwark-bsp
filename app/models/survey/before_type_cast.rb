@@ -7,10 +7,6 @@ module Survey
       attribute_method_suffix "_came_from_user?"
     end
 
-    def read_attribute_before_type_cast(attr_name)
-      attribute_before_type_cast(attr_name.to_s)
-    end
-
     def attributes_before_type_cast
       @attributes.values_before_type_cast
     end

@@ -3,49 +3,84 @@
 <div class="govuk-grid-row govuk-!-margin-top-2">
   <div class="govuk-grid-column-two-thirds">
     <%= error_summary @survey %>
-    <%= form_with model: @survey do |form| %>
-      <%= form.hidden_field :materials %>
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset" role="group">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <h1 class="govuk-fieldset__heading">Add external wall materials</h1>
-          </legend>
-          <%= form_group for: [@survey, :materials] do %>
-            <%= error_message_for @survey, :materials %>
-            <% if @survey.materials.empty? %>
-              <p class="govuk-hint">
-                You haven't added any materials yet.
-              </p>
-            <% else %>
-              <div class="govuk-form-group">
-                <table class="govuk-table">
-                  <caption class="govuk-table__caption govuk-table__caption--l">Building materials</caption>
-                  <thead class="govuk-table__head">
-                    <tr class="govuk-table__row">
-                      <th scope="col" class="govuk-table__header">Material</th>
-                      <th scope="col" class="govuk-table__header">Percentage</th>
-                      <th scope="col" class="govuk-table__header">Insulation</th>
-                    </tr>
-                  </thead>
-                  <tbody class="govuk-table__body">
-                    <%= @survey.materials.each do |material| %>
-                      <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header"><%= material.name %></th>
-                        <td class="govuk-table__cell"><%= material.percentage %></td>
-                        <td class="govuk-table__cell"><%= material.insulation %></td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-              </div>
+    <h1 class="govuk-heading-l">External features of the building</h1>
+    <p class="govuk-body">
+      Each building may have several external facing materials e.g cladding,
+      render, and glass. Please provide information about all of the building's
+      external facing materials and insulation combinations.
+    </p>
+    <div class="govuk-inset-text">
+      <p class="govuk-body">For example, if your building is partly brick wall, and partly timber cladding, you will need to include <span class="govuk-!-font-weight-bold">both</span> of these.</p>
+    </div>
+
+    <div class="govuk-form-group govuk-!-margin-top-7">
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">
+          External wall materials
+        </caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Material</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Insulation</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter govuk-table__header--numeric">Percentage</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <% if @survey.materials.empty? %>
+            <tr class="govuk-table__row">
+              <td colspan="4" class="govuk-table__cell">
+                <p class="govuk-hint govuk-!-margin-0">You haven’t added any materials yet.</p>
+              </td>
+            </tr>
+          <% else %>
+            <% @survey.materials.each do |material| %>
+              <tr class="govuk-table__row">
+                <td class="govuk-table__header"><%= t(material.type, scope: :"survey.wall_material.types", other: material.other_type) %></td>
+                <td class="govuk-table__cell"><%= t(material.insulation, scope: :"survey.wall_material.insulation_types", other: material.other_insulation) %></td>
+                <td class="govuk-table__cell govuk-table__header--numeric"><%= t(material.coverage, scope: :"survey.wall_material.coverage") %></td>
+                <td class="govuk-table__cell govuk-table__header--numeric">
+                  <%= form_tag survey_path, class: "govuk-!-display-inline-block" do %>
+                    <%= hidden_field_tag "survey[material_id]", material.id %>
+                    <%= hidden_field_tag "survey[next_stage]", "edit_material" %>
+                    <%= button_tag "Edit", name: nil, class: "govuk-button govuk-button--secondary govuk-!-margin-bottom-0",data: { module: "govuk-button" } %>
+                  <% end %>
+                  <%= form_tag survey_path, class: "govuk-!-display-inline-block" do %>
+                    <%= hidden_field_tag "survey[material_id]", material.id %>
+                    <%= hidden_field_tag "survey[next_stage]", "delete_material" %>
+                    <%= button_tag "Delete", name: nil, class: "govuk-button govuk-button--warning govuk-!-margin-bottom-0",data: { module: "govuk-button" } %>
+                  <% end %>
+                </td>
+              </tr>
             <% end %>
+            <tr class="govuk-table__row">
+              <td colspan="2" class="govuk-table__header">Total percentage</td>
+              <td class="govuk-table__cell govuk-table__header--numeric">
+                <%= @survey.materials.min_coverage %>–<%= @survey.materials.max_coverage %>%
+              </td>
+              <td class="govuk-table__cell govuk-table__header--numeric">&nbsp;</td>
+            </tr>
           <% end %>
-          <%= form.submit "Add material", class: "govuk-button govuk-button--secondary" %>
-        </fieldset>
-      </div>
-      <div class="govuk-form-group">
-        <%= form.submit "Save and continue", class: "govuk-button" %>
-      </div>
+        </tbody>
+      </table>
+
+      <% if @survey.can_add_material? %>
+        <%= form_with model: @survey do |form| %>
+          <div class="govuk-form-group">
+            <%= form.hidden_field :next_stage, value: "add_material" %>
+            <%= form.submit "Add material", class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" } %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <% if @survey.can_continue? %>
+      <%= form_with model: @survey do |form| %>
+        <div class="govuk-form-group">
+          <%= form.hidden_field :validate_materials, value: "true" %>
+          <%= form.submit "Save and continue", class: "govuk-button", data: { module: "govuk-button" } %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

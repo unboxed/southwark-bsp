@@ -10,6 +10,11 @@ module Survey
       stage "building_management"
       stage "height"
       stage "external_walls_summary"
+      stage "add_material"
+      stage "edit_material"
+      stage "add_material_details"
+      stage "edit_material_details"
+      stage "delete_material"
       stage "external_wall_structures"
       stage "balcony_materials"
       stage "solar_shading_materials"
@@ -59,9 +64,41 @@ module Survey
 
       transition from: "external_walls_summary",
         to: %w[
+          add_material
+          edit_material
+          delete_material
           external_wall_structures
           height
           check_your_answers
+        ]
+
+      transition from: "add_material",
+        to: %w[
+          add_material_details
+          external_walls_summary
+        ]
+
+      transition from: "add_material_details",
+        to: %w[
+          add_material
+          external_walls_summary
+        ]
+
+      transition from: "edit_material",
+        to: %w[
+          edit_material_details
+          external_walls_summary
+        ]
+
+      transition from: "edit_material_details",
+        to: %w[
+          edit_material
+          external_walls_summary
+        ]
+
+      transition from: "delete_material",
+        to: %w[
+          external_walls_summary
         ]
 
       transition from: "external_wall_structures",
@@ -86,7 +123,11 @@ module Survey
           external_wall_structures
         ]
 
-      transition from: "check_your_answers", to: stages
+      transition from: "check_your_answers",
+        to: stages - %w[
+          add_material edit_material delete_material
+          add_material_details edit_material_details
+        ]
 
       guard to: "check_your_answers" do
         completed

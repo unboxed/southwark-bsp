@@ -3,6 +3,7 @@ module Survey
   class RecordNotFound < SurveyError; end
   class RecordNotSaved < SurveyError; end
   class SectionNotFound < SurveyError; end
+  class MaterialNotFound < SurveyError; end
 
   mattr_accessor :table_name_prefix, instance_writer: false, default: "survey_"
 

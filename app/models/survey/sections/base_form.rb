@@ -7,13 +7,26 @@ module Survey
       include Survey::BeforeTypeCast
       include Survey::Persistence
       include Survey::Naming
+      include Survey::NestedAttributes
 
       delegate :completed, :completed=, to: :record
-      delegate :stage, :goto, to: :record
+      delegate :stage, :stage=, :stage_was, to: :record
+
+      define_model_callbacks :transition
 
       after_save do
         if next_stage && next_stage != stage
           goto(next_stage)
+        end
+      end
+
+      def goto(name)
+        self.stage = name
+
+        run_callbacks :transition do
+          record.run_callbacks :transition do
+            record.save
+          end
         end
       end
 
