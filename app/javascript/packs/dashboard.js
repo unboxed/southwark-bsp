@@ -1,7 +1,3 @@
-function openFiltersPanel() {
-  document.querySelector(".filters").setAttribute("open", true);
-}
-
 function setCheckbox(value, key) {
   if (value == "1") {
     checkbox = document.querySelector(`#${key}`);
@@ -17,12 +13,10 @@ function setCheckbox(value, key) {
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URL(document.location).searchParams;
 
-  let searchKeys = [];
-  params.keys(key => allKeys.push(key));
+  const searchKeys = Array.from(params.keys());
+  const hasSearch = searchKeys.some(key => key != "commit");
 
-  if (!!searchKeys) {
-    openFiltersPanel();
-
+  if (hasSearch) {
     params.forEach(setCheckbox);
   }
 });
