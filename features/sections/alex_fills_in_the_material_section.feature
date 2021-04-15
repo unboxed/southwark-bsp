@@ -91,7 +91,7 @@ Feature: Alex fills in the material section
 
   Scenario: Alex edits a material
     Given a material "Brick" that covers "40–60%" of the building and is insulated with "Phenolic foam insulation"
-    Given a material "Glass" that covers "20–40%" of the building and is insulated with "Mineral wool"
+    And a material "Glass" that covers "20–40%" of the building and is insulated with "Mineral wool"
     When I press "Edit" for the material "Glass"
     Then the page contains "Update an external wall material"
     When I press "Continue"
@@ -110,7 +110,7 @@ Feature: Alex fills in the material section
 
   Scenario: Alex deletes a material
     Given a material "Brick" that covers "40–60%" of the building and is insulated with "Phenolic foam insulation"
-    Given a material "Glass" that covers "20–40%" of the building and is insulated with "Mineral wool"
+    And a material "Glass" that covers "20–40%" of the building and is insulated with "Mineral wool"
     Then the page contains "External features of the building"
     And I should see the following within "External wall materials"
       | Material | Insulation               | Percentage |
@@ -121,8 +121,7 @@ Feature: Alex fills in the material section
       | Total percentage |    60–100% |
     When I press "Delete" for the material "Glass"
     Then the page contains "Are you sure you want to delete the material ‘Glass’?"
-    When I choose "Delete this material"
-    And I press "Delete ‘Glass’"
+    When I press "Delete ‘Glass’"
     Then the page contains "External features of the building"
     And I should see the following within "External wall materials"
       | Material | Insulation               | Percentage |
@@ -133,6 +132,29 @@ Feature: Alex fills in the material section
     And I should see the following within "External wall materials"
       | Material         | Percentage |
       | Total percentage |     40–60% |
+
+  Scenario: Alex thinks about deleting a material
+    Given a material "Brick" that covers "40–60%" of the building and is insulated with "Phenolic foam insulation"
+    And a material "Glass" that covers "20–40%" of the building and is insulated with "Mineral wool"
+    Then the page contains "External features of the building"
+    And I should see the following within "External wall materials"
+      | Material | Insulation               | Percentage |
+      | Brick    | Phenolic foam insulation |     40–60% |
+      | Glass    | Mineral wool             |     20–40% |
+    And I should see the following within "External wall materials"
+      | Material         | Percentage |
+      | Total percentage |    60–100% |
+    When I press "Delete" for the material "Glass"
+    Then the page contains "Are you sure you want to delete the material ‘Glass’?"
+    When I press "Go back to summary"
+    Then the page contains "External features of the building"
+    And I should see the following within "External wall materials"
+      | Material | Insulation               | Percentage |
+      | Brick    | Phenolic foam insulation |     40–60% |
+      | Glass    | Mineral wool             |     20–40% |
+    And I should see the following within "External wall materials"
+      | Material         | Percentage |
+      | Total percentage |    60–100% |
 
   Scenario: Alex tries to go to the next section with no materials
     Then the page contains "External features of the building"
