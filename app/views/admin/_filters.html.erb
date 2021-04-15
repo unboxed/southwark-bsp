@@ -13,14 +13,12 @@
               <div class="govuk-grid-column-one-third">
                 <h2 class="govuk-heading-s">EWS Survey</h2>
                 <div class="govuk-checkboxes">
-                  <div class="govuk-checkboxes__item">
-                    <%= form.check_box :completed, class: "govuk-checkboxes__input", include_hidden: false %>
-                    <%= form.label :completed, "Completed", class: "govuk-label govuk-checkboxes__label" %>
-                  </div>
-                  <div class="govuk-checkboxes__item">
-                    <%= form.check_box :not_received, class: "govuk-checkboxes__input", include_hidden: false %>
-                    <%= form.label :not_received, "Not received", class: "govuk-label govuk-checkboxes__label" %>
-                  </div>
+                  <% [:completed, :not_received].each do |sym| %>
+                    <div class="govuk-checkboxes__item">
+                      <%= form.check_box :state, { id: sym, class: "govuk-checkboxes__input", include_hidden: false, checked: params[:state] == sym.to_s }, sym %>
+                      <%= form.label sym, class: "govuk-label govuk-checkboxes__label" %>
+                    </div>
+                    <% end %>
                 </div>
               </div>
             </div>

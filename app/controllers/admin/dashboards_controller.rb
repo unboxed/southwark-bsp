@@ -7,21 +7,15 @@ module Admin
     private
 
     def fetch_buildings
-      scope = Building.left_outer_joins(:surveys)
-
-      scope = scope.where.not('survey_records.completed_at' => nil) if params[:completed] == "1"
-
-      scope = scope.where('survey_records.completed_at' => nil) if params[:not_received] == "1"
-
-      @buildings = scope
+      @buildings = Building.search(params)
     end
 
     def fetch_total
-      @total = Building.count
+      @total = Building.all.count
     end
 
     def filtered?
-      @filtered = !!(params[:completed] || params[:not_received])
+      @filtered = !params[:state].empty?
     end
   end
 end
