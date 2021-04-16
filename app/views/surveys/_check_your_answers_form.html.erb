@@ -1,34 +1,16 @@
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds-from-desktop">
-    <h1 class="govuk-heading-l">Check your answers before submitting this building's survey</h1>
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">
+      Check your answers before submitting this building’s survey
+    </h1>
 
-    <% stages_with_forms(@survey).each do |stage, form| %>
-      <h2 class="govuk-heading-m"><%= t(:header, scope: [:"survey.summary.stages", stage], default: stage.humanize) %></h2>
-
-      <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-        <% form.attributes.each do |key, attr| %>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              <%= t(key, scope: [:"survey.summary.stages", stage, :attributes], default: key.humanize) %>
-            </dt>
-            <dd class="govuk-summary-list__value">
-              <%= summary_format(attr) %>
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <% unless no_value(attr) %>
-                <a class="govuk-link" href="/survey/<%= stage %>">
-                  Change<span class="govuk-visually-hidden"> <%= key %></span>
-                </a>
-              <% end %>
-            </dd>
-          </div>
-        <% end %>
-      </dl>
-    <% end %>
+    <%= render @survey.summaries(self) %>
 
     <h2 class="govuk-heading-m">Now send the survey</h2>
-
-    <p class="govuk-body">By submitting this survey you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
+    <p class="govuk-body">
+      By submitting this survey you are confirming that, to the best of
+      your knowledge, the details you are providing are correct.
+    </p>
 
     <%= form_with model: @survey do |form| %>
       <%= form.hidden_field :id %>

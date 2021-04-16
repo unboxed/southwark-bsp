@@ -131,7 +131,7 @@ en:
       - ["metal", "Metal"]
       - ["concrete", "Concrete"]
       - ["other", "Other"]
-      - ["do_not_know", "Do not know"]
+      - ["unknown", "Do not know"]
 
     balcony_floor_materials:
       - ["timber_or_wood", "Timber or wood"]
@@ -139,7 +139,7 @@ en:
       - ["metal", "Metal"]
       - ["concrete", "Concrete"]
       - ["other", "Other"]
-      - ["do_not_know", "Do not know"]
+      - ["uknown", "Do not know"]
 
     balcony_railing_materials:
       - ["timber_or_wood", "Timber or wood"]
@@ -147,7 +147,7 @@ en:
       - ["metal", "Metal"]
       - ["concrete", "Concrete"]
       - ["other", "Other"]
-      - ["do_not_know", "Do not know"]
+      - ["unknown", "Do not know"]
 
     solar_shading_materials:
       - ["timber_or_wood", "Timber or wood"]
@@ -155,14 +155,99 @@ en:
       - ["metal", "Metal"]
       - ["concrete", "Concrete"]
       - ["other", "Other"]
-      - ["do_not_know", "Do not know"]
+      - ["unknown", "Do not know"]
 
     summary:
-      stages:
-        uprn:
-          header: "Building details"
-          attributes:
-            uprn: "UPRN"
+      heading:
+        building: "Building details"
+        ownership: "Your details"
+        management: "Building management"
+        features: "External wall features"
+
+      attributes:
+        building:
+          uprn: "UPRN"
+          address: "Address"
+          residential_use: "Usage"
+          height_in_metres: "Height"
+          number_of_storeys: "Storeys"
+
+        ownership:
+          full_name: "Full name"
+          email: "Email address"
+          role: "Connection"
+
+        management:
+          right_to_manage_company: "RTM company"
+          building_owner: "Building owner"
+          building_developer: "Building developer"
+          managing_agent: "Managing agent"
+
+        features:
+          materials: "External walls"
+          structures: "External structures"
+          balcony_main_material: "Balcony structure"
+          balcony_floor_materials: "Balcony floors"
+          balcony_railings_materials: "Balcony balustrade/railings"
+          solar_shading_materials: "Solar shading"
+
+      values:
+        building:
+          residential_use:
+            none: "Non-residential"
+            social_housing: "Social housing"
+            private_housing: "Private housing"
+            student_accommodation: "Student accommodation"
+            hotel: "Hotel"
+
+        ownership:
+          role:
+            owner: "Building owner/freeholder"
+            developer: "Building developer"
+            agent: "Managing agent"
+            none: "No association"
+            other: "%{other}"
+
+        management:
+          is_right_to_manage:
+            "yes": "%{company}"
+            "no": "Not managed by a RTM company"
+            "unknown": "Unknown"
+
+        features:
+          structures:
+            balconies: "Balconies"
+            solar_shading: "Solar shading"
+            green_walls: "Green walls"
+            other: "%{other}"
+            none: "None"
+          balcony_main_material:
+            timber_or_wood: "Timber or wood"
+            metal: "Metal"
+            concrete: "Concrete"
+            other: "%{other}"
+            unknown: "Unknown"
+          balcony_floor_materials:
+            timber_or_wood: "Timber or wood"
+            glass: "Glass"
+            metal: "Metal"
+            concrete: "Concrete"
+            other: "%{other}"
+            unknown: "Unknown"
+          balcony_railings_materials:
+            timber_or_wood: "Timber or wood"
+            glass: "Glass"
+            metal: "Metal"
+            concrete: "Concrete"
+            other: "%{other}"
+            unknown: "Unknown"
+          solar_shading_materials:
+            timber_or_wood: "Timber or wood"
+            glass: "Glass"
+            metal: "Metal"
+            concrete: "Concrete"
+            other: "%{other}"
+            unknown: "Unknown"
 
   helpers:
     label:

@@ -1,0 +1,41 @@
+<% materials.each do |material| %>
+  <dl class="govuk-summary-list govuk-summary-list--no-border govuk-!-margin-bottom-6">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key govuk-!-padding-top-0 govuk-!-padding-bottom-0">
+        Material
+      </dt>
+      <dd class="govuk-summary-list__value govuk-!-padding-top-0 govuk-!-padding-bottom-0">
+        <%= t(material.type, scope: :"survey.wall_material.types", other: material.other_type) %>
+        (<%= t(material.coverage, scope: :"survey.wall_material.coverage") %>)
+      </dd>
+    </div>
+    <% if material.details.present? %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-padding-top-0 govuk-!-padding-bottom-0">
+          Details
+        </dt>
+        <dd class="govuk-summary-list__value govuk-!-padding-top-0 govuk-!-padding-bottom-0">
+          <%= material.details %>
+        </dd>
+      </div>
+    <% end %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key govuk-!-padding-top-0 govuk-!-padding-bottom-0">
+        Insulation
+      </dt>
+      <dd class="govuk-summary-list__value govuk-!-padding-top-0 govuk-!-padding-bottom-0">
+        <%= t(material.insulation, scope: :"survey.wall_material.insulation_types", other: material.other_insulation) %>
+      </dd>
+    </div>
+    <% if material.insulation_details.present? %>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-padding-top-0 govuk-!-padding-bottom-0">
+          Details
+        </dt>
+        <dd class="govuk-summary-list__value govuk-!-padding-top-0 govuk-!-padding-bottom-0">
+          <%= material.insulation_details %>
+        </dd>
+      </div>
+    <% end %>
+  </dl>
+<% end %>

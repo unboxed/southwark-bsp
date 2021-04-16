@@ -15,6 +15,10 @@ module Survey
       attribute :role_details, :string
       validates :role_details, presence: true, length: { maximum: 2000 }, if: :other_role?
 
+      before_save unless: :other_role? do
+        self.role_details = nil
+      end
+
       def roles
         ROLES
       end
