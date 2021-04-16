@@ -78,12 +78,14 @@ Then("I should see {int} building record(s)") do |count|
   expect(page.all("tbody tr").length).to eq count
 end
 
-When("I filter the buildings on {string}") do |attr|
-  page.find("span", text: "Filters").click
+When("I filter the buildings with {string} as {string}") do |attr, value|
+  within(".filters") do
+    within("fieldset", text: attr) do
+      choose value
+    end
+  end
 
-  check(attr)
-
-  click_on "Filter"
+  click_button "Filter"
 end
 
 Then("the page contains the building's {}") do |property|

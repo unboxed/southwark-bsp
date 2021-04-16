@@ -19,20 +19,20 @@
       <table class="govuk-table">
         <%= form_tag bulk_update_admin_buildings_path(@buildings), method: :put do %>
           <caption class="govuk-table__caption govuk-table__caption--l">
-            <h1 class="govuk-heading-m">
+            <h2 class="table-header govuk-heading-m">
               <strong>
                 <%= t(:"dashboard.headers.buildings.prefix") %>
               </strong>
 
               <span class="results">
-                <% if @filtered %>
+                <% if filtered? %>
                   <%= t(:"dashboard.headers.buildings.filtered", count: @buildings.count) %>
                   (<%= t(:"dashboard.headers.buildings.total", count: @total) %>)
                 <% else %>
                   <%= t(:"dashboard.headers.buildings.total", count: @total) %>
                 <% end %>
               </span>
-            </h1>
+            </h2>
             <%= submit_tag "Send email", class: "govuk-button" %>
             <%= submit_tag "Send letter", class: "govuk-button" %>
             <%= submit_tag "Mark as 'on Delta'", class: "govuk-button", data: { disable_with: "Processing update" } %>

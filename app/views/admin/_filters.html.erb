@@ -1,35 +1,35 @@
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <details class="filters govuk-details" data-module="govuk-details" <%= @filtered ? "open=true" : ""%>>
-      <summary class="govuk-details__summary">
-        <span class="govuk-details__summary-text">
-          Filters
-        </span>
-      </summary>
-      <div class="govuk-details__text">
-        <div class="filters-container">
+<div class="filters">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h2 class="govuk-heading-m">Filters</h2>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
           <%= form_with method: :get do |form| %>
-            <div class="govuk-grid-row">
-              <div class="govuk-grid-column-one-third">
-                <h2 class="govuk-heading-s">EWS Survey</h2>
-                <div class="govuk-checkboxes">
-                  <% [:completed, :not_received].each do |sym| %>
-                    <div class="govuk-checkboxes__item">
-                      <%= form.check_box :state, { id: sym, class: "govuk-checkboxes__input", include_hidden: false, checked: params[:state] == sym.to_s }, sym %>
-                      <%= form.label sym, class: "govuk-label govuk-checkboxes__label" %>
+            <div class="govuk-form-group">
+              <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+                  <h3 class="govuk-fieldset__heading">
+                    Survey state
+                  </h3>
+                </legend>
+                <div class="govuk-radios govuk-radios--small govuk-radios--conditional" data-module="govuk-radios">
+                  <% t(:"dashboard.facets").each do |state| %>
+                    <div class="govuk-radios__item">
+                      <%= form.radio_button :state, state, checked: state == selected_facet, class: "govuk-radios__input" %>
+                      <%= form.label :state, value: state, class: "govuk-label govuk-radios__label" %>
                     </div>
-                    <% end %>
+                  <% end %>
                 </div>
-              </div>
+              </fieldset>
             </div>
             <div class="govuk-grid-row">
               <div class="govuk-grid-column-full">
-                <%= form.submit "Filter", class: "govuk-button govuk-!-margin-top-6" %>
+                <%= form.submit "Filter", class: "govuk-button" %>
               </div>
             </div>
           <% end %>
         </div>
       </div>
-    </details>
+    </div>
   </div>
 </div>

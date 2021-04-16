@@ -1,6 +1,6 @@
 module Admin
   class DashboardsController < AdminController
-    before_action :fetch_buildings, :filtered?, :fetch_total
+    before_action :fetch_buildings, :fetch_total
 
     def show; end
 
@@ -12,10 +12,6 @@ module Admin
 
     def fetch_total
       @total = Building.all.count
-    end
-
-    def filtered?
-      @filtered = params[:state]
     end
   end
 end

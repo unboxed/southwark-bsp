@@ -1,20 +1,11 @@
 .dashboard {
-  table {
-    caption {
-      .govuk-button {
-        margin-right: govuk-spacing(3);
-      }
-    }
-  }
-
   .filters {
-    .filters-container {
-      padding: govuk-spacing(6);
-      background: govuk-colour("light-grey");
-    }
+    padding: govuk-spacing(6);
+    margin: govuk-spacing(3) initial;
+    background: govuk-colour("light-grey");
   }
 
-  h1 {
+  .table-header {
     .results {
       font-weight: normal;
     }

@@ -16,6 +16,11 @@ en:
       </div>
 
   dashboard:
+    facets:
+      - all
+      - completed
+      - not_received
+
     headers:
       buildings:
         prefix: "Building records: "
@@ -251,6 +256,10 @@ en:
 
   helpers:
     label:
+      state:
+        all: "All"
+        completed: "Completed"
+        not_received: "Not received"
       building:
         ews_survey:
           completed: "Completed on %{date}"
