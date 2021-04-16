@@ -1,9 +1,5 @@
 module DashboardHelper
-  def selected_facet
-    params[:state].presence || "all"
-  end
-
   def filtered?
-    selected_facet != "all"
+    @buildings.scope != :all # rubocop:disable Rails/HelperInstanceVariable
   end
 end
