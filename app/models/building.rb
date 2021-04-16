@@ -8,12 +8,12 @@ class Building < ApplicationRecord
 
   include Browseable
 
-  filter :state, ->(name) { get_state(name) }
-
   scope :completed, -> { joins(:surveys).where.not('survey_records.completed_at' => nil) }
   scope :not_received, -> { left_outer_joins(:surveys).where('survey_records.completed_at' => nil) }
 
   facet :all, -> { all }
+  facet :completed, -> { completed }
+  facet :not_received, -> { not_received }
 
   def address
     [

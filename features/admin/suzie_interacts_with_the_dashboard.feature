@@ -45,9 +45,9 @@ Feature: Suzie the admin views and edits buildings on dashboard
     And a building exists with UPRN 345
     And a building exists with UPRN 567
     And I am on the dashboard
-    When I filter the buildings on "Completed"
+    When I filter the buildings with "Survey state" as "Completed"
     Then I should see 1 building record
-    And the page contains "Building records: 1 filtered result (4 total)"
+    And the page contains "Building records: 1 filtered result (1 total)"
 
   Scenario: Suzie filters out buildings with completed surveys
     Given a survey has been completed for UPRN 1234567890
@@ -55,6 +55,6 @@ Feature: Suzie the admin views and edits buildings on dashboard
     And a building exists with UPRN 345
     And a building exists with UPRN 567
     And I am on the dashboard
-    When I filter the buildings on "Not received"
+    When I filter the buildings with "Survey state" as "Not received"
     Then I should see 3 building records
-    And the page contains "Building records: 3 filtered results (4 total)"
+    And the page contains "Building records: 3 filtered results (3 total)"
