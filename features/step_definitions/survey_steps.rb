@@ -6,6 +6,10 @@ Given('a building exists with UPRN {int}') do |uprn|
   @building = FactoryBot.create(:building, uprn: uprn)
 end
 
+Given('the building with UPRN {int} is on DELTA') do |uprn|
+  Building.find_by(uprn: uprn).update!(on_delta: true)
+end
+
 Given('a building survey at stage {string}') do |stage|
   survey = FactoryBot.create(:survey, stage: stage)
   set_session_id(survey.session_id)
