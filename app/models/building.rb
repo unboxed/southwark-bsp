@@ -8,8 +8,12 @@ class Building < ApplicationRecord
 
   include Browseable
 
+  filter :delta_state, ->(name) { get_delta_state(name) }
+
   scope :completed, -> { joins(:surveys).where.not('survey_records.completed_at' => nil) }
   scope :not_received, -> { left_outer_joins(:surveys).where('survey_records.completed_at' => nil) }
+  scope :on_delta, -> { where(on_delta: true) }
+  scope :not_on_delta, -> { where.not(on_delta: true) }
 
   facet :all, -> { all }
   facet :completed, -> { completed }
@@ -38,6 +42,17 @@ class Building < ApplicationRecord
 
   def latest_survey
     surveys.order(completed_at: :desc).first
+  end
+
+  def self.get_delta_state(name)
+    case name
+    when "on_delta"
+      on_delta
+    when "not_on_delta"
+      not_on_delta
+    else
+      all
+    end
   end
 
   def self.get_state(name)

@@ -74,6 +74,12 @@ Then("the building's row contains {string} in the {string} column") do |value, c
   )
 end
 
+Then('I should see a table row for UPRN {int}') do |uprn|
+  steps %(
+    Then the row for UPRN #{uprn} contains "#{uprn}" in the "UPRN" column
+  )
+end
+
 Then("I should see {int} building record(s)") do |count|
   expect(page.all("tbody tr").length).to eq count
 end
