@@ -1,0 +1,21 @@
+<h2 class="govuk-heading-m"><%= summary.heading %></h2>
+
+<dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  <% summary.attributes do |name, value, url| %>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        <%= name %>
+      </dt>
+      <dd class="govuk-summary-list__value">
+        <%= value %>
+      </dd>
+      <dd class="govuk-summary-list__actions">
+        <% if url %>
+          <%= link_to url, class: "govuk-link" do %>
+            Change<span class="govuk-visually-hidden"> <%= name %></span>
+          <% end %>
+        <% end %>
+      </dd>
+    </div>
+  <% end %>
+</dl>

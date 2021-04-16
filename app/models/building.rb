@@ -15,6 +15,15 @@ class Building < ApplicationRecord
 
   facet :all, -> { all }
 
+  def address
+    [
+      building_name,
+      street,
+      city_town,
+      postcode
+    ].reject(&:blank?).join("\n")
+  end
+
   def most_recent_notifications
     Notification.most_recent_for_each_notification_mean(self)
   end

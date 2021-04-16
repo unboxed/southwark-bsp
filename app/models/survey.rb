@@ -4,6 +4,7 @@ module Survey
   class RecordNotSaved < SurveyError; end
   class SectionNotFound < SurveyError; end
   class MaterialNotFound < SurveyError; end
+  class SummaryNotFound < SurveyError; end
 
   mattr_accessor :table_name_prefix, instance_writer: false, default: "survey_"
 
@@ -21,7 +22,7 @@ module Survey
     end
 
     def form(stage)
-      "Survey::Sections::#{stage.camelize}Form".safe_constantize
+      "Survey::Sections::#{stage.camelize}Form".constantize
     end
 
     def find_or_initialize(session_id)

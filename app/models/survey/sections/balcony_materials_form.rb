@@ -6,7 +6,7 @@ module Survey
         metal
         concrete
         other
-        do_not_know
+        unknown
       ].freeze
 
       MATERIALS = %w[
@@ -15,7 +15,7 @@ module Survey
         metal
         concrete
         other
-        do_not_know
+        unknown
       ].freeze
 
       self.permit_attributes = [
@@ -50,11 +50,11 @@ module Survey
       validates :balcony_railing_materials_details, presence: true, length: { maximum: 100 }, if: :other_railing_materials?
 
       validate do
-        if do_not_know_floor_materials? && balcony_floor_materials.many?
+        if unknown_floor_materials? && balcony_floor_materials.many?
           errors.add :balcony_floor_materials, :invalid
         end
 
-        if do_not_know_railing_materials? && balcony_railing_materials.many?
+        if unknown_railing_materials? && balcony_railing_materials.many?
           errors.add :balcony_railing_materials, :invalid
         end
       end
@@ -81,16 +81,16 @@ module Survey
         balcony_floor_materials.include?("other")
       end
 
-      def do_not_know_floor_materials?
-        balcony_floor_materials.include?("do_not_know")
+      def unknown_floor_materials?
+        balcony_floor_materials.include?("unknown")
       end
 
       def other_railing_materials?
         balcony_railing_materials.include?("other")
       end
 
-      def do_not_know_railing_materials?
-        balcony_railing_materials.include?("do_not_know")
+      def unknown_railing_materials?
+        balcony_railing_materials.include?("unknown")
       end
 
       def solar_shading_structures?
