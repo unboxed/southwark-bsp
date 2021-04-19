@@ -1,17 +1,11 @@
 <div class="dashboard">
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-half">
-      <h1 class="govuk-heading-l">Dashboard</h1>
-    </div>
-
-    <div class="govuk-grid-column-one-half dashboard-actions">
-      <%= link_to "Upload building list", new_admin_bulk_import_path, class: "govuk-button" %>
-      <%= link_to "Add a building record", new_admin_building_path, class: "govuk-button" %>
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l">All buildings</h1>
     </div>
   </div>
 
   <%= render "admin/buildings/flash_content" %>
-
   <%= render "admin/filters" %>
 
   <div class="govuk-grid-row">
@@ -33,9 +27,8 @@
                 <% end %>
               </span>
             </h2>
-            <%= submit_tag "Send email", class: "govuk-button" %>
-            <%= submit_tag "Send letter", class: "govuk-button" %>
-            <%= submit_tag "Mark as 'on Delta'", class: "govuk-button", data: { disable_with: "Processing update" } %>
+            <%= submit_tag "Send letter", class: "govuk-button govuk-button--secondary" %>
+            <%= submit_tag "Mark as 'on Delta'", class: "govuk-button govuk-button--secondary", data: { disable_with: "Processing update" } %>
           </caption>
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">
