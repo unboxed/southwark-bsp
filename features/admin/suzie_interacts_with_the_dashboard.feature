@@ -70,3 +70,12 @@ Feature: Suzie the admin views and edits buildings on dashboard
     And I filter the buildings with "Survey status" as "Completed"
     Then I should see 1 building record
     And I should see a table row for UPRN 123
+
+  @javascript
+  Scenario: Suzie can't interact with the bulk actions if she hasn't selected any records
+    Given I am on the dashboard
+    Then I can't press the "Send letter" button
+    And I can't press the "Mark as 'on Delta'" button
+    When I select UPRN 1234567890
+    Then the page has button "Send letter"
+    Then the page has button "Mark as 'on Delta'"

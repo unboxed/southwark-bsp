@@ -27,8 +27,11 @@
                 <% end %>
               </span>
             </h2>
-            <%= submit_tag "Send letter", class: "govuk-button govuk-button--secondary" %>
-            <%= submit_tag "Mark as 'on Delta'", class: "govuk-button govuk-button--secondary", data: { disable_with: "Processing update" } %>
+
+            <div class="bulk-actions">
+              <%= submit_tag "Send letter", class: "govuk-button govuk-button--secondary" %>
+              <%= submit_tag "Mark as 'on Delta'", class: "govuk-button govuk-button--secondary", data: { disable_with: "Processing update" } %>
+            </div>
           </caption>
           <thead class="govuk-table__head">
             <tr class="govuk-table__row">

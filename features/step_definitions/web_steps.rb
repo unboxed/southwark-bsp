@@ -32,6 +32,10 @@ Then('I should not see the following within {string}') do |caption, table|
   expect(page).not_to have_table(caption, with_rows: table.rows)
 end
 
+Then("I can't press the {string} button") do |string|
+  expect(page).to have_button(string, disabled: true)
+end
+
 Then('print the page') do
   log page.html
 end
