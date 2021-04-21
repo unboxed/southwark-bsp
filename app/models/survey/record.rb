@@ -5,6 +5,9 @@ module Survey
 
     belongs_to :building, optional: true
 
+    scope :completed, -> { where.not(completed_at: nil) }
+    scope :latest_completed, -> { completed.order(completed_at: :desc) }
+
     # stage: uprn
     store_accessor :data, :uprn
 

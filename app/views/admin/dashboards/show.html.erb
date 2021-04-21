@@ -1,7 +1,11 @@
 <div class="dashboard">
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column-one-half">
       <h1 class="govuk-heading-l">All buildings</h1>
+    </div>
+
+    <div class="govuk-grid-column-one-half dashboard-actions">
+      <%= link_to "Export data for Delta", admin_buildings_path(:csv), class: "govuk-button govuk-button--download" %>
     </div>
   </div>
 
@@ -53,9 +57,7 @@
                 </td>
                 <td class="govuk-table__cell"><%= link_to building.uprn, edit_admin_building_path(building), class: "govuk-link" %></td>
                 <td class="govuk-table__cell">
-                  <%= building.building_name %><br />
-                  <%= building.street %><br />
-                  <%= building.postcode %>
+                  <%= simple_format(building.address, {}, wrapper_tag: "div") %>
                 </td>
                 <td class="govuk-table__cell">
                   <%= building.land_registry_proprietor_name %>
