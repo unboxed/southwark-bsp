@@ -51,7 +51,9 @@ module Admin
     def confirm_bulk_notifications
       if params[:commit].start_with? "No"
         redirect_to admin_root_path, notice: "No letters were sent."
-      elsif Building.send_bulk_notifications(params[:buildings], params[:notification_type])
+      else
+        Building.send_bulk_notifications(params[:buildings], params[:notification_type])
+
         redirect_to admin_root_path, notice: "Letter requests sent."
       end
     end
