@@ -8,19 +8,14 @@
   <div class="govuk-grid-column-one-half">
     <% if params[:building] %>
       <h4 class="govuk-heading-l"><%= pluralize(@buildings.count, 'building') %> selected</h4>
-      <p class="govuk-body">Do you want to send external wall systems <%= @notification_type %>s to these building owners?</p>
+      <p class="govuk-body">This will send <%= pluralize(@buildings.count, 'letter') %>. Are you sure?
 
-      <%= form_with url: confirm_bulk_notifications_admin_buildings_path do |form| %>
-        <%= form.hidden_field :notification_type, value: @notification_type %>
+        <%= form_with url: confirm_bulk_notifications_admin_buildings_path do |form| %>
+          <%= form.hidden_field :notification_type, value: @notification_type %>
         <div class="govuk-form-group">
-          <%= form.radio_button :buildings, @buildings %>
-          <%= form.label :buildings, "Yes", value: @buildings, class: "govuk-label govuk-radios__label" %>
-          <%= form.radio_button :cancel, "No" %>
-          <%= form.label :cancel, "No", class: "govuk-label govuk-radios__label" %>
-        </div>
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-one-half">
-            <%= form.submit "Continue", class: "govuk-button", data: { module: "govuk-button" } %>
+          <div class="govuk-button-group">
+            <%= form.submit "No, go back", class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" } %>
+            <%= form.submit "Yes, send the letters", class: "govuk-button", data: { module: "govuk-button" } %>
           </div>
         </div>
       <% end %>

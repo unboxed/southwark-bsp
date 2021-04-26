@@ -43,13 +43,17 @@ module Admin
 
     def bulk_notifications_form
       @buildings = params[:building][:building_id] if params[:building]
-      @notification_type = params[:commit] == "Send email" ? "email" : "letter"
+      @notification_type = "letter" # we might reintroduce email in the future but for now it's just letters
 
       render "admin/notifications/notifications_form"
     end
 
     def confirm_bulk_notifications
-      redirect_to admin_root_path if Building.send_bulk_notifications(params[:buildings], params[:notification_type])
+      if params[:commit].start_with? "No"
+        redirect_to admin_root_path, notice: "No letters were sent."
+      elsif Building.send_bulk_notifications(params[:buildings], params[:notification_type])
+        redirect_to admin_root_path, notice: "Letter requests sent."
+      end
     end
 
     private
