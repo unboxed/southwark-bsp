@@ -12,15 +12,16 @@
 
         <%= form_with url: confirm_bulk_notifications_admin_buildings_path do |form| %>
           <%= form.hidden_field :notification_type, value: @notification_type %>
-        <div class="govuk-form-group">
-          <div class="govuk-button-group">
-            <%= form.submit "No, go back", class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" } %>
-            <%= form.submit "Yes, send the letters", class: "govuk-button", data: { module: "govuk-button" } %>
+          <%= form.hidden_field :buildings, value: @buildings %>
+          <div class="govuk-form-group">
+            <div class="govuk-button-group">
+              <%= form.submit "No, go back", class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" } %>
+              <%= form.submit "Yes, send the letters", class: "govuk-button", data: { module: "govuk-button" } %>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
     <% else %>
-      <p class="govuk-body"><strong>No buildings selected</strong></p>
+        <p class="govuk-body"><strong>No buildings selected</strong></p>
     <% end %>
   </div>
 </div>

@@ -42,4 +42,4 @@ rspec_failures.txt
 .DS_Store
 
 #ignore .env files
-.env
+.env*.local
