@@ -7,6 +7,6 @@ FactoryBot.define do
     uprn { Faker::Number.number(digits: 12) }
     proprietor_email { "fake@example.com" }
     land_registry_proprietor_address { "4 Union Street, London SE1 4QX" }
-    land_registry_proprietor_name  { Faker::Name.name }
+    land_registry_proprietor_name { Faker::Name.name }
   end
 end

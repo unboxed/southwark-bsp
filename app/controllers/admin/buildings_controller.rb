@@ -45,7 +45,7 @@ module Admin
       @buildings = params[:building][:building_id] if params[:building]
       @notification_type = params[:commit] == "Send email" ? "email" : "letter"
 
-          render "admin/notifications/notifications_form"
+      render "admin/notifications/notifications_form"
     end
 
     def confirm_bulk_notifications
