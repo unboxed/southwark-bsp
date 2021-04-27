@@ -3,6 +3,12 @@ FROM ruby:2.7.2
 # Match our Bundler version
 RUN gem install bundler -v 2.2.13
 
+# Update the system
+RUN apt-get update -y
+
+# Install Chromium for the Cucumber JS tests
+RUN apt-get install -y chromium
+
 ## Install gems in a separate Docker fs layer
 WORKDIR /gems
 COPY Gemfile Gemfile.lock ./
