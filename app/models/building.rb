@@ -36,8 +36,20 @@ class Building < ApplicationRecord
     proprietor_address.parsed
   end
 
-  def self.update_building_collection(commit_params, ids)
-    Building.where(id: [ids]).update_all(on_delta: true) if commit_params == "Mark as 'on Delta'" # rubocop:disable Rails/SkipsModelValidations
+  def self.update_building_collection(ids)
+    Building.where(id: [ids]).update_all(on_delta: true) # rubocop:disable Rails/SkipsModelValidations
+  end
+
+  def self.send_bulk_notifications(ids, notification_mean)
+    Building.where(id: [ids]).find_each do |building|
+      notification = building.notifications.create(
+        notification_mean: notification_mean,
+        state: :enqueued,
+        enqueued_at: DateTime.current
+      )
+
+      DeliverNotificationJob.perform_now notification
+    end
   end
 
   def latest_survey
