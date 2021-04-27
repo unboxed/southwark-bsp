@@ -44,12 +44,6 @@ Then('I should not see the dashboard content') do
   expect(page).not_to have_content("Dashboard")
 end
 
-Then('the on Delta column contains {string}') do |string|
-  within(".delta") do
-    expect(page).to have_content(string)
-  end
-end
-
 Then("the row for UPRN {int} contains {string} in the {string} column") do |uprn, value, column|
   # find the relevant column in the table eader
   col = page.find("thead tr th", text: column)
