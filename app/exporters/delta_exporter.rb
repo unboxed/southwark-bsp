@@ -1,3 +1,4 @@
+# rubocop:disable all
 require "csv"
 
 class DeltaExporter
@@ -56,6 +57,23 @@ class DeltaExporter
     STRUCTURE_FIELDS
   ).freeze
 
+  def self.generate_materials
+    attrs = (1..10).flat_map do |index|
+      prefix = "material-#{index}"
+      material_prop = proc { |building, prop| building&.survey&.materials[index]&.fetch(prop) }
+
+      [
+        ["material-#{index}", -> { material_prop.call self, "type" }],
+        ["material-details-#{index}", -> { material_prop.call self, "details" }],
+        ["coverage-#{index}", -> { material_prop.call self, "coverage" }],
+        ["insulation-#{index}", -> { material_prop.call self, "insulation" }],
+        ["insulation-details-#{index}", -> { material_prop.call self, "insulation_details" }]
+      ]
+    end
+
+    attrs.to_h
+  end
+
   VALUES = {
     "name" => -> { building_name.presence || street.to_s.split("\n").first.presence },
     "street" => -> { street.to_s.split("\n").first.presence },
@@ -67,13 +85,14 @@ class DeltaExporter
     "status-details" => -> { nil },
     "tenure" => -> { nil },
     "local-authority" => -> { "Southwark" },
-    "freeholder" => -> { nil },
-    "developer" => -> { nil },
-    "agent" => -> { nil },
+    "freeholder" => -> { survey.building_owner },
+    "developer" => -> { survey.building_developer },
+    "agent" => -> { survey.managing_agent },
     "over18" => -> { "yes" },
     "height-storeys" => -> { survey ? survey.number_of_storeys : nil },
     "height-metres" => -> { survey ? survey.height_in_metres : nil },
-    "number-of-materials" => -> { survey ? survey.materials.size : nil }
+    "number-of-materials" => -> { survey ? survey.materials.size : nil },
+    **generate_materials
   }
 
   class << self
