@@ -17,6 +17,7 @@ gem 'notifications-ruby-client'
 gem 'textacular'
 gem 'webpacker'
 gem 'will_paginate'
+gem 'statesman'
 
 group :development, :test do
   gem 'dotenv-rails'
