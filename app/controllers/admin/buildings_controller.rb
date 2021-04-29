@@ -1,5 +1,16 @@
 module Admin
   class BuildingsController < AdminController
+    def index
+      respond_to do |format|
+        format.csv do
+          set_file_headers
+          set_streaming_headers
+
+          self.response_body = DeltaExporter.render
+        end
+      end
+    end
+
     def new
       @building = Building.new
     end
@@ -78,6 +89,18 @@ module Admin
 
     def building
       Building.find params[:id]
+    end
+
+    def set_file_headers(time = Time.current)
+      headers["Content-Type"] = "text/csv"
+      headers["Content-Disposition"] = "attachment; filename=delta-export-#{time.to_s(:number)}"
+    end
+
+    def set_streaming_headers(time = Time.current)
+      headers["X-Accel-Buffering"] = "no"
+      headers["Cache-Control"] ||= "no-cache"
+      headers["Last-Modified"] = time.httpdate
+      headers.delete("Content-Length")
     end
   end
 end

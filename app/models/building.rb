@@ -2,14 +2,18 @@ class Building < ApplicationRecord
   has_many :surveys, class_name: "Survey::Record"
   has_many :notifications
 
+  has_one :survey, -> { latest_completed }, class_name: "Survey::Record"
+
   validates :uprn, presence: true, uniqueness: true
 
   scope :ordered_by_uprn, -> { order uprn: :asc }
 
   include Browseable
+  include DeltaCsvMapper
 
   filter :delta_state, ->(name) { get_delta_state(name) }
 
+  scope :export, -> { preload(:survey) }
   scope :completed, -> { joins(:surveys).where.not('survey_records.completed_at' => nil) }
   scope :not_received, -> { left_outer_joins(:surveys).where('survey_records.completed_at' => nil) }
   scope :on_delta, -> { where(on_delta: true) }
