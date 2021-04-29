@@ -10,11 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_07_160347) do
+ActiveRecord::Schema.define(version: 2021_04_29_135900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
+
+  create_table "building_survey_transitions", force: :cascade do |t|
+    t.string "to_state", null: false
+    t.text "metadata", default: "{}"
+    t.integer "sort_key", null: false
+    t.integer "building_id", null: false
+    t.boolean "most_recent", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["building_id", "most_recent"], name: "index_building_survey_transitions_parent_most_recent", unique: true, where: "most_recent"
+    t.index ["building_id", "sort_key"], name: "index_building_survey_transitions_parent_sort", unique: true
+  end
 
   create_table "buildings", force: :cascade do |t|
     t.string "building_name"
@@ -90,6 +102,7 @@ ActiveRecord::Schema.define(version: 2021_04_07_160347) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "building_survey_transitions", "buildings"
   add_foreign_key "notifications", "buildings"
   add_foreign_key "survey_records", "buildings"
 end
