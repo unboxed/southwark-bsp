@@ -338,6 +338,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    statesman (8.0.2)
     sys-uname (1.2.2)
       ffi (~> 1.1)
     textacular (5.4.0)
@@ -412,6 +413,7 @@ DEPENDENCIES
   spring-commands-rspec
   spring-commands-rubocop
   spring-watcher-listen
+  statesman
   textacular
   web-console
   webdrivers
