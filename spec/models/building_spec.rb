@@ -22,11 +22,17 @@ RSpec.describe Building do
     it "has a latest survey" do
       old_survey = create(:survey, building: subject, completed_at: 3.days.ago)
 
-      expect(subject.latest_survey).to eq old_survey
+      expect(subject.survey).to eq old_survey
 
       new_survey = create(:survey, building: subject, completed_at: Time.zone.now)
 
-      expect(subject.latest_survey).to eq new_survey
+      expect(subject.reload.survey).to eq new_survey
+    end
+
+    it "destroys its surveys" do
+      create_list(:survey, 3, building: subject)
+
+      expect { subject.destroy! }.to change { Survey::Record.count }.by(-3)
     end
   end
 end
