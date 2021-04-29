@@ -1,5 +1,5 @@
 class Building < ApplicationRecord
-  has_many :surveys, class_name: "Survey::Record"
+  has_many :surveys, class_name: "Survey::Record", dependent: :destroy
   has_many :notifications
 
   has_one :survey, -> { latest_completed }, class_name: "Survey::Record"
