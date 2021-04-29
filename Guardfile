@@ -5,7 +5,7 @@ end
 
 # This group allows to skip running RuboCop when RSpec or Capybara failed.
 group :bsp_tests, halt_on_fail: true do
-  guard :rspec, cmd: "bin/rspec" do
+  guard :rspec, cmd: "bin/rspec --order defined" do
     require "guard/rspec/dsl"
     dsl = Guard::RSpec::Dsl.new(self)
 
