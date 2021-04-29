@@ -74,6 +74,17 @@ class Building < ApplicationRecord
     DeliverNotificationJob.perform_later(notification)
   end
 
+  has_many :survey_transitions, dependent: :destroy, autosave: false
+
+  include Statesman::Adapters::ActiveRecordQueries[
+            transition_class: Building::SurveyTransition,
+            initial_state: :not_contacted
+          ]
+
+  def survey_state
+    @survey_state ||= SurveyStateMachine.new(self, transition_class: Building::SurveyTransition, association_name: :survey_transitions)
+  end
+
   def address
     [
       building_name,
