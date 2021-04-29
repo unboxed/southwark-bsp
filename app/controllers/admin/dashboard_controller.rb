@@ -1,5 +1,5 @@
 module Admin
-  class DashboardsController < AdminController
+  class DashboardController < AdminController
     before_action :fetch_buildings
 
     def show; end
