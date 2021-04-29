@@ -3,6 +3,10 @@ class SurveyStateMachine
 
   state :not_contacted, initial: true
   state :contacted
+  state :received
+  state :rejected
+  state :accepted
+  state :exported
 
   transition from: :not_contacted, to: [:contacted]
 end
