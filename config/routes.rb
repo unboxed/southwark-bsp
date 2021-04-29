@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   devise_for :admin, only: :sessions, class_name: "User", module: "admin"
 
   namespace :admin do
-    root to: "dashboards#show"
+    root to: "dashboard#show"
 
     resources :bulk_imports, only: [:new, :create]
 
