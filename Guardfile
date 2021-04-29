@@ -50,6 +50,10 @@ group :bsp_tests, halt_on_fail: true do
     end
 
     watch(%r{^app/(models/concerns/.+)\.rb$}) { |m| "spec/#{m[1]}_spec.rb" }
+
+    watch("app/models/concerns/delta_csv_mapper.rb") do
+      "spec/exporters/delta_exporter_spec.rb"
+    end
   end
 
   cucumber_options = {

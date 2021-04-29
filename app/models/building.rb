@@ -9,6 +9,7 @@ class Building < ApplicationRecord
   scope :ordered_by_uprn, -> { order uprn: :asc }
 
   include Browseable
+  include DeltaCsvMapper
 
   filter :delta_state, ->(name) { get_delta_state(name) }
 
