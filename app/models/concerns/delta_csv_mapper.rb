@@ -1,4 +1,4 @@
-# rubocop:disable Metrics/ModuleLength, Metrics/BlockLength
+# rubocop:disable Metrics/ModuleLength, Metrics/BlockLength, Lint/SafeNavigationChain
 
 module DeltaCsvMapper
   extend ActiveSupport::Concern
@@ -130,7 +130,7 @@ module DeltaCsvMapper
 
     def csv_balconies_material_floor
       with_survey do |s|
-        s.balcony_floor_materials.map { |m| with_unknown_as(m, "do-not-know") }.join(" ")
+        s.balcony_floor_materials&.map { |m| with_unknown_as(m, "do-not-know") }.join(" ")
       end
     end
 
@@ -140,7 +140,7 @@ module DeltaCsvMapper
 
     def csv_balconies_material_balustrade
       with_survey do |s|
-        s.balcony_railing_materials.map { |m| with_unknown_as(m, "do-not-know") }.join(" ")
+        s.balcony_railing_materials&.map { |m| with_unknown_as(m, "do-not-know") }.join(" ")
       end
     end
 
@@ -150,7 +150,7 @@ module DeltaCsvMapper
 
     def csv_solarshading_materials
       with_survey do |s|
-        s.solar_shading_materials.map { |m| with_unknown_as(m, "do-not-know") }.join(" ")
+        s.solar_shading_materials&.map { |m| with_unknown_as(m, "do-not-know") }.join(" ")
       end
     end
 
