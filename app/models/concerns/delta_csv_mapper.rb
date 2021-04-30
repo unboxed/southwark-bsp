@@ -170,4 +170,4 @@ module DeltaCsvMapper
   end
 end
 
-# rubocop:enable Metrics/ModuleLength, Metrics/BlockLength
+# rubocop:enable Metrics/ModuleLength, Metrics/BlockLength, Lint/SafeNavigationChain
