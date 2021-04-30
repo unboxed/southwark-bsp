@@ -148,7 +148,7 @@ en:
       - ["metal", "Metal"]
       - ["concrete", "Concrete"]
       - ["other", "Other"]
-      - ["uknown", "Do not know"]
+      - ["unknown", "Do not know"]
 
     balcony_railing_materials:
       - ["timber_or_wood", "Timber or wood"]

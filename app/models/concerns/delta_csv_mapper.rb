@@ -1,3 +1,5 @@
+# rubocop:disable Metrics/ModuleLength, Metrics/BlockLength
+
 module DeltaCsvMapper
   extend ActiveSupport::Concern
 
@@ -92,7 +94,7 @@ module DeltaCsvMapper
 
     (1..10).each do |index|
       define_method "csv_material_#{index}" do
-        with_survey_material(index - 1) { |m| m['type'] }
+        with_survey_material(index - 1) { |m| with_unknown_as(m["type"], "donotknow") }
       end
 
       define_method "csv_material_details_#{index}" do
@@ -106,7 +108,7 @@ module DeltaCsvMapper
       end
 
       define_method "csv_insulation_#{index}" do
-        with_survey_material(index - 1) { |m| m['insulation'] }
+        with_survey_material(index - 1) { |m| with_unknown_as(m['insulation'], "do not know") }
       end
 
       define_method "csv_insulation_details_#{index}" do
@@ -123,11 +125,13 @@ module DeltaCsvMapper
     end
 
     def csv_balconies_material_structure
-      with_survey(&:balcony_main_material)
+      with_survey { |s| with_unknown_as(s.balcony_main_material, "do-not-know") }
     end
 
     def csv_balconies_material_floor
-      with_survey { |s| s.balcony_floor_materials.join(" ") }
+      with_survey do |s|
+        s.balcony_floor_materials.map { |m| with_unknown_as(m, "do-not-know") }.join(" ")
+      end
     end
 
     def csv_balconies_material_floor_other
@@ -135,7 +139,9 @@ module DeltaCsvMapper
     end
 
     def csv_balconies_material_balustrade
-      with_survey { |s| s.balcony_railing_materials.join(" ") }
+      with_survey do |s|
+        s.balcony_railing_materials.map { |m| with_unknown_as(m, "do-not-know") }.join(" ")
+      end
     end
 
     def csv_balconies_material_balustrade_other
@@ -143,11 +149,25 @@ module DeltaCsvMapper
     end
 
     def csv_solarshading_materials
-      with_survey { |s| s.solar_shading_materials.join(" ") }
+      with_survey do |s|
+        s.solar_shading_materials.map { |m| with_unknown_as(m, "do-not-know") }.join(" ")
+      end
     end
 
     def csv_solarshading_materials_other
       with_survey(&:solar_shading_materials_details)
     end
+
+    private
+
+    def with_unknown_as(value, replacement)
+      if value == "unknown"
+        replacement
+      else
+        value
+      end
+    end
   end
 end
+
+# rubocop:enable Metrics/ModuleLength, Metrics/BlockLength

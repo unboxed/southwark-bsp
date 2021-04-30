@@ -24,7 +24,7 @@
 
           <div class="govuk-checkboxes" data-module="govuk-checkboxes">
             <%= form.collection_check_boxes :solar_shading_materials, t(:solar_shading_materials, scope: :survey), :first, :last do |builder| %>
-              <% if builder.value == "do_not_know" %>
+              <% if builder.value == "unknown" %>
                 <div class="govuk-body govuk-!-margin-left-2 govuk-!-margin-top-5 govuk-!-margin-bottom-5">Or</div>
               <% end %>
               <div class="govuk-checkboxes__item">
