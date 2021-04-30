@@ -18,7 +18,7 @@
 
           <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
             <%= form.collection_radio_buttons :balcony_main_material, t(:balcony_main_materials, scope: :survey), :first, :last do |builder| %>
-              <% if builder.value == "do_not_know" %>
+              <% if builder.value == "unknown" %>
                 <div class="govuk-body govuk-!-margin-left-2 govuk-!-margin-top-5 govuk-!-margin-bottom-5">Or</div>
               <% end %>
               <div class="govuk-radios__item">
@@ -57,7 +57,7 @@
 
           <div class="govuk-checkboxes" data-module="govuk-checkboxes">
             <%= form.collection_check_boxes :balcony_floor_materials, t(:balcony_floor_materials, scope: :survey), :first, :last do |builder| %>
-              <% if builder.value == "do_not_know" %>
+              <% if builder.value == "unknown" %>
                 <div class="govuk-body govuk-!-margin-left-2 govuk-!-margin-top-5 govuk-!-margin-bottom-5">Or</div>
               <% end %>
               <div class="govuk-checkboxes__item">
@@ -96,7 +96,7 @@
 
           <div class="govuk-checkboxes" data-module="govuk-checkboxes">
             <%= form.collection_check_boxes :balcony_railing_materials, t(:balcony_railing_materials, scope: :survey), :first, :last do |builder| %>
-              <% if builder.value == "do_not_know" %>
+              <% if builder.value == "unknown" %>
                 <div class="govuk-body govuk-!-margin-left-2 govuk-!-margin-top-5 govuk-!-margin-bottom-5">Or</div>
               <% end %>
               <div class="govuk-checkboxes__item">
