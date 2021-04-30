@@ -28,6 +28,7 @@ gem 'jbuilder'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
+gem 'appsignal'
 gem 'devise'
 gem 'delayed_job_active_record'
 gem 'notifications-ruby-client'
