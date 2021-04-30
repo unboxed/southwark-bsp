@@ -46,6 +46,8 @@ module DeltaCsvMapper
     end
 
     def csv_tenure
+      nil unless survey.has_residential_use
+
       with_survey do |survey|
         usage = case survey.usage
                 when 'private_housing'
