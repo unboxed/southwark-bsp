@@ -47,12 +47,13 @@ module DeltaCsvMapper
 
     def csv_tenure
       with_survey do |survey|
-        case survey.usage
-        when 'private_housing'
-          'private_residential'
-        else
-          survey.usage
-        end.humanize.downcase
+        usage = case survey.usage
+                when 'private_housing'
+                  'private_residential'
+                else
+                  survey.usage
+                end
+        usage.humanize.downcase
       end
     end
 
