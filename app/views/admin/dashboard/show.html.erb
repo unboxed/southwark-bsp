@@ -66,6 +66,11 @@
                   <% end %>
                 </td>
                 <td class="govuk-table__cell letter">
+                  <% if letter = building.letter %>
+                    <span><%= t(letter.state, scope: :"dashboard.letter", enqueued_at: date_time_format(letter.enqueued_at), sent_at: date_time_format(letter.sent_at)) %></span>
+                  <% else %>
+                    –
+                  <% end %>
                 </td>
                 <td class="govuk-table__cell">
                   <% if building.survey.present? %>

@@ -24,6 +24,9 @@ en:
       - ["all", "All"]
       - ["on_delta", "On Delta"]
       - ["not_on_delta", "Not on Delta"]
+    letter:
+      enqueued: "Enqueued at %{enqueued_at}"
+      sent: "Sent at %{sent_at}"
 
     headers:
       buildings:
