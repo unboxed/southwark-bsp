@@ -18,7 +18,7 @@ And('I log in') do
 end
 
 Then('the dashboard contains all expected columns') do
-  column_headers = ["UPRN", "Building", "Owner", "Last emailed", "Letter sent", "EWS survey", "On Delta?"]
+  column_headers = ["UPRN", "Building", "Owner", "Letter sent", "EWS survey", "On Delta?"]
   column_headers.each do |header|
     expect(page).to have_content(header)
   end
