@@ -93,7 +93,7 @@ module Admin
 
     def set_file_headers(time = Time.current)
       headers["Content-Type"] = "text/csv"
-      headers["Content-Disposition"] = "attachment; filename=delta-export-#{time.to_s(:number)}"
+      headers["Content-Disposition"] = "attachment; filename=delta-export-#{time.to_s(:number)}.csv"
     end
 
     def set_streaming_headers(time = Time.current)
