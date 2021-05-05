@@ -57,7 +57,7 @@ class Building < ApplicationRecord
   end
 
   def latest_survey
-    surveys.order(completed_at: :desc).first
+    survey
   end
 
   def self.get_delta_state(name)
