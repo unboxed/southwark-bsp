@@ -3,6 +3,7 @@ class Building < ApplicationRecord
   has_many :notifications
 
   has_one :survey, -> { latest_completed }, class_name: "Survey::Record"
+  has_one :letter, -> { letter_notifications.ordered_by_most_recent }, class_name: "Notification"
 
   validates :uprn, presence: true, uniqueness: true
 
