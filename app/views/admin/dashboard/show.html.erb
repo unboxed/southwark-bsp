@@ -23,8 +23,8 @@
 
               <span class="results">
                 <% if filtered? %>
-                  <%= t(:"dashboard.headers.buildings.filtered", count: @buildings.count) %>
-                  (<%= t(:"dashboard.headers.buildings.total", count: @buildings.total_entries) %>)
+                  <%= t(:"dashboard.headers.buildings.filtered", count: @buildings.total_entries) %>
+                  (<%= t(:"dashboard.headers.buildings.total", count: @buildings.facets[:all]) %>)
                 <% else %>
                   <%= t(:"dashboard.headers.buildings.total", count: @buildings.total_entries) %>
                 <% end %>
