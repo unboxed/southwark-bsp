@@ -11,7 +11,7 @@ module Admin
     end
 
     def search_params
-      params.permit(:state, :delta_state)
+      params.permit(:state, :delta_state, :page)
     end
   end
 end
