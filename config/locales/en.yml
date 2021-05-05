@@ -17,13 +17,13 @@ en:
 
   dashboard:
     facets:
-      - all
-      - completed
-      - not_received
+      - ["all", "All"]
+      - ["completed", "Completed"]
+      - ["not_received", "Not received"]
     delta_facets:
-      - all
-      - on_delta
-      - not_on_delta
+      - ["all", "All"]
+      - ["on_delta", "On Delta"]
+      - ["not_on_delta", "Not on Delta"]
 
     headers:
       buildings:
