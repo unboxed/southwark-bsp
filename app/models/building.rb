@@ -14,15 +14,16 @@ class Building < ApplicationRecord
 
   filter :delta_state, ->(name) { get_delta_state(name) }
 
+  scope :show, -> { preload(:survey, :letter) }
   scope :export, -> { preload(:survey) }
   scope :completed, -> { joins(:surveys).where.not('survey_records.completed_at' => nil) }
   scope :not_received, -> { left_outer_joins(:surveys).where('survey_records.completed_at' => nil) }
   scope :on_delta, -> { where(on_delta: true) }
   scope :not_on_delta, -> { where.not(on_delta: true) }
 
-  facet :all, -> { all }
-  facet :completed, -> { completed }
-  facet :not_received, -> { not_received }
+  facet :all, -> { show.all }
+  facet :completed, -> { show.completed }
+  facet :not_received, -> { show.not_received }
 
   def address
     [
