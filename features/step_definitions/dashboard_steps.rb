@@ -31,11 +31,6 @@ Then('the dashboard contains the expected building information') do
   end
 end
 
-When('I mark building as on Delta') do
-  page.find("#building_building_id_").check
-  click_button("Mark as 'on Delta'")
-end
-
 Given('I am on the login page') do
   visit "/admin"
 end
