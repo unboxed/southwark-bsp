@@ -1,3 +1,5 @@
+require 'textacular/searchable'
+
 class Building < ApplicationRecord
   has_many :surveys, class_name: "Survey::Record", dependent: :destroy
   has_many :notifications
@@ -8,6 +10,8 @@ class Building < ApplicationRecord
   validates :uprn, presence: true, uniqueness: true
 
   scope :ordered_by_uprn, -> { order uprn: :asc }
+
+  extend Searchable(:uprn, :building_name, :land_registry_proprietor_name)
 
   include Browseable
   include DeltaCsvMapper

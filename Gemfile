@@ -14,6 +14,7 @@ gem 'jbuilder'
 gem 'pg'
 gem 'puma'
 gem 'notifications-ruby-client'
+gem 'textacular'
 gem 'webpacker'
 gem 'will_paginate'
 

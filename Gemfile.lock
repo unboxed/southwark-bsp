@@ -340,6 +340,8 @@ GEM
       sprockets (>= 3.0.0)
     sys-uname (1.2.2)
       ffi (~> 1.1)
+    textacular (5.4.0)
+      activerecord (>= 5.0, < 6.2)
     thor (1.1.0)
     thread_safe (0.3.6)
     tzinfo (2.0.4)
@@ -410,6 +412,7 @@ DEPENDENCIES
   spring-commands-rspec
   spring-commands-rubocop
   spring-watcher-listen
+  textacular
   web-console
   webdrivers
   webmock
