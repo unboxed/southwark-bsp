@@ -441,3 +441,22 @@ en:
 
             solar_shading_materials_details:
               blank: "Please describe the other solar shading materials"
+
+  activerecord:
+    attributes:
+      building:
+        uprn: "UPRN"
+        building_name: "Name"
+        street: "Street"
+        city_town: "City/Town"
+        postcode: "Postcode"
+        land_registry_proprietor_name: "Name"
+        proprietor_email: "Email"
+        land_registry_proprietor_address: "Address"
+
+    errors:
+      models:
+        building:
+          attributes:
+            uprn:
+              blank: "Please enter the UPRN of the building"

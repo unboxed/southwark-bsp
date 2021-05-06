@@ -1,0 +1,14 @@
+<%
+  label_class ||= nil
+  label_classes = %w[govuk-label]
+  label_classes << label_class if label_class
+
+  input_class ||= nil
+  input_classes = %w[govuk-input]
+  input_classes << input_class if input_class
+%>
+<%= form_group for: [model, attribute] do %>
+  <%= form.label attribute, class: label_classes %>
+  <%= error_message_for model, attribute %>
+  <%= form.text_field attribute, class: input_classes %>
+<% end %>

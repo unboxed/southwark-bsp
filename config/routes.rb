@@ -15,17 +15,16 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "dashboard#show"
 
-    resources :bulk_imports, only: [:new, :create]
+    scope "/buildings", as: "building" do
+      resource :delta, only: [:update]
 
-    resources :buildings, except: [:show, :destroy] do
-      collection do
-        put :bulk_update
-        get :bulk_notifications_form
-        post :confirm_bulk_notifications
+      resource :letters, only: [:create] do
+        post :confirm, on: :member
       end
-
-      resources :notifications, only: [:create]
     end
+
+    resources :bulk_imports, only: [:new, :create]
+    resources :buildings, except: [:show]
   end
 
   namespace :callbacks do

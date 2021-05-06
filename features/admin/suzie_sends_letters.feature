@@ -1,8 +1,9 @@
-Feature: Suzie the admin can send bulk emails and letters to building owners
+Feature: Suzie the admin can send letters to building owners
   Background:
     Given a building exists with UPRN 123
     Given a building exists with UPRN 456
 
+  @javascript
   Scenario: Suzie can see a summary of the letters she's about to send
     Given I am on the dashboard
     And I select UPRN 123
@@ -11,6 +12,7 @@ Feature: Suzie the admin can send bulk emails and letters to building owners
     Then the page contains "2 buildings selected"
     And the page contains "This will send 2 letters. Are you sure?"
 
+  @javascript
   Scenario: Suzie can send letters
     Given I am on the dashboard
     And I select UPRN 123

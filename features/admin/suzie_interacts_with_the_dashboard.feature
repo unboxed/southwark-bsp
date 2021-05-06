@@ -27,6 +27,7 @@ Feature: Suzie the admin views and edits buildings on dashboard
     Then the page contains an error about "There was a problem signing in"
     And I should not see the dashboard content
 
+  @javascript
   Scenario: Suzie can mark buildings as 'on Delta'
     Given a building exists with UPRN 111
     And a building exists with UPRN 222

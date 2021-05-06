@@ -90,5 +90,5 @@ Then("the page contains the building's {}") do |property|
 end
 
 When("I select UPRN {int}") do |uprn|
-  page.find("tr", text: uprn).find("input[type=checkbox]").check
+  check "Select building with the UPRN #{uprn}"
 end

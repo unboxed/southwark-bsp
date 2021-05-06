@@ -29,6 +29,49 @@ class Building < ApplicationRecord
   facet :completed, -> { show.completed }
   facet :not_received, -> { show.not_received }
 
+  class << self
+    def get_delta_state(name)
+      case name
+      when "on_delta"
+        on_delta
+      when "not_on_delta"
+        not_on_delta
+      else
+        all
+      end
+    end
+
+    def get_state(name)
+      case name
+      when "completed"
+        completed
+      when "not_received"
+        not_received
+      else
+        all
+      end
+    end
+
+    def mark_on_delta!(ids)
+      transaction do
+        where(id: ids).find_each(&:mark_on_delta!)
+      end
+    end
+
+    def send_letters!(ids)
+      where(id: ids).find_each(&:send_letter!)
+    end
+  end
+
+  def mark_on_delta!
+    update!(on_delta: true)
+  end
+
+  def send_letter!
+    notification = notifications.create_letter!
+    DeliverNotificationJob.perform_later(notification)
+  end
+
   def address
     [
       building_name,
@@ -44,48 +87,6 @@ class Building < ApplicationRecord
 
   def parsed_proprietor_address
     proprietor_address.parsed
-  end
-
-  def self.update_building_collection(ids)
-    Building.where(id: [ids]).update_all(on_delta: true) # rubocop:disable Rails/SkipsModelValidations
-  end
-
-  def self.send_bulk_notifications(ids, notification_mean)
-    Building.where(id: [ids]).find_each do |building|
-      notification = building.notifications.create(
-        notification_mean: notification_mean,
-        state: :enqueued,
-        enqueued_at: DateTime.current
-      )
-
-      DeliverNotificationJob.perform_now notification
-    end
-  end
-
-  def latest_survey
-    survey
-  end
-
-  def self.get_delta_state(name)
-    case name
-    when "on_delta"
-      on_delta
-    when "not_on_delta"
-      not_on_delta
-    else
-      all
-    end
-  end
-
-  def self.get_state(name)
-    case name
-    when "completed"
-      completed
-    when "not_received"
-      not_received
-    else
-      all
-    end
   end
 
   private
