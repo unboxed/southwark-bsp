@@ -68,6 +68,8 @@ class Building < ApplicationRecord
   end
 
   def send_letter!
+    return unless land_registry_proprietor_address?
+
     notification = notifications.create_letter!
     DeliverNotificationJob.perform_later(notification)
   end
