@@ -70,6 +70,7 @@ module Browseable
   class Filters
     attr_reader :klass, :params
     delegate :filter_definitions, to: :klass
+    delegate :empty?, to: :to_hash
 
     def initialize(klass, params)
       @klass = klass
@@ -96,6 +97,7 @@ module Browseable
     def to_hash
       params.slice(*filter_keys)
     end
+    alias to_h to_hash
 
     private
 
