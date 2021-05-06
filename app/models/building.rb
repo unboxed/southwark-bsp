@@ -14,7 +14,7 @@ class Building < ApplicationRecord
 
   filter :delta_state, ->(name) { get_delta_state(name) }
 
-  scope :show, -> { preload(:survey, :letter) }
+  scope :show, -> { preload(:survey, :letter).order(uprn: :asc) }
   scope :export, -> { preload(:survey) }
   scope :completed, -> { joins(:surveys).where.not('survey_records.completed_at' => nil) }
   scope :not_received, -> { left_outer_joins(:surveys).where('survey_records.completed_at' => nil) }
