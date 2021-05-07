@@ -3,35 +3,19 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails'
-# Use postgresql as the database for Active Record
-gem 'pg'
-# Use Puma as the app server
-gem 'puma'
-# Use SCSS for stylesheets
-gem 'sass-rails'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-# gem 'turbolinks'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
 
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
-
-# Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
 gem 'appsignal'
 gem 'devise'
 gem 'delayed_job_active_record'
+gem 'jbuilder'
+gem 'pg'
+gem 'puma'
 gem 'notifications-ruby-client'
+gem 'textacular'
+gem 'webpacker'
 gem 'will_paginate'
 
 group :development, :test do
@@ -73,6 +57,3 @@ group :test do
   gem 'webdrivers'
   gem 'webmock'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

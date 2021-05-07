@@ -1,0 +1,15 @@
+<%= render "application/back_link", chosen_path: admin_root_path %>
+
+<h4 class="govuk-heading-l"><%= pluralize(@buildings.size, 'building') %> selected</h4>
+<p class="govuk-body">This will send <%= pluralize(@buildings.size, 'letter') %>. Are you sure?
+
+<%= form_tag admin_building_letters_path do %>
+  <% @buildings.each do |building| %>
+    <%= hidden_field_tag "ids[]", building.id, id: nil %>
+  <% end %>
+
+  <div class="govuk-button-group">
+    <%= link_to "No, go back", admin_root_path, class: "govuk-button govuk-button--secondary", data: { module: "govuk-button" } %>
+    <%= button_tag "Yes, send the letters", class: "govuk-button", data: { module: "govuk-button" } %>
+  </div>
+<% end %>

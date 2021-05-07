@@ -19,6 +19,10 @@ class Notification < ApplicationRecord
     ].compact
   end
 
+  def self.create_letter!(now = Time.current)
+    create!(notification_mean: "letter", state: :enqueued, enqueued_at: now)
+  end
+
   def summary
     notification_state_summary
   end

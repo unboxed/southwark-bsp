@@ -18,7 +18,7 @@ And('I log in') do
 end
 
 Then('the dashboard contains all expected columns') do
-  column_headers = ["UPRN", "Building", "Owner", "Last emailed", "Letter sent", "EWS survey", "On Delta?"]
+  column_headers = ["UPRN", "Building", "Owner", "Letter sent", "EWS survey", "On Delta?"]
   column_headers.each do |header|
     expect(page).to have_content(header)
   end
@@ -29,11 +29,6 @@ Then('the dashboard contains the expected building information') do
   building_info.each do |field|
     expect(page).to have_content(field)
   end
-end
-
-When('I mark building as on Delta') do
-  page.find("#building_building_id_").check
-  click_button("Mark as 'on Delta'")
 end
 
 Given('I am on the login page') do
@@ -95,5 +90,5 @@ Then("the page contains the building's {}") do |property|
 end
 
 When("I select UPRN {int}") do |uprn|
-  page.find("tr", text: uprn).find("input[type=checkbox]").check
+  check "Select building with the UPRN #{uprn}"
 end

@@ -1,5 +1,8 @@
 module Admin
   class BuildingsController < AdminController
+    before_action :build_building, only: %i[new create]
+    before_action :find_building, only: %i[edit update destroy]
+
     def index
       respond_to do |format|
         format.csv do
@@ -12,61 +15,41 @@ module Admin
     end
 
     def new
-      @building = Building.new
+      respond_to do |format|
+        format.html
+      end
     end
 
     def create
-      @building = Building.new building_params
-
-      if @building.save
-        redirect_to admin_root_path
+      if @building.update(building_params)
+        redirect_to admin_root_path, notice: "Building record successfully created"
       else
-        render :new
+        respond_to do |format|
+          format.html { render :new }
+        end
       end
     end
 
     def edit
-      @building = building
+      respond_to do |format|
+        format.html
+      end
     end
 
     def update
-      @building = building
-
-      if @building.update building_params
-        redirect_to admin_root_path
+      if @building.update(building_params)
+        redirect_to admin_root_path, notice: "Building record successfully updated"
       else
-        render :edit
-      end
-    end
-
-    def bulk_update
-      if params[:commit] == "Mark as 'on Delta'"
-        if Building.update_building_collection(params[:building][:building_id].map(&:to_i))
-          flash[:notice] = "Building records were updated successfully"
-        else
-          flash[:error] = "Building records were not updated"
+        respond_to do |format|
+          format.html { render :update }
         end
-        redirect_to admin_root_path
-      else
-        redirect_to bulk_notifications_form_admin_buildings_path(request.parameters)
       end
     end
 
-    def bulk_notifications_form
-      @buildings = params[:building][:building_id] if params[:building]
-      @notification_type = "letter" # we might reintroduce email in the future but for now it's just letters
+    def destroy
+      @building.destroy
 
-      render "admin/notifications/notifications_form"
-    end
-
-    def confirm_bulk_notifications
-      if params[:commit].start_with? "No"
-        redirect_to admin_root_path, notice: "No letters were sent."
-      else
-        Building.send_bulk_notifications(params[:buildings], params[:notification_type])
-
-        redirect_to admin_root_path, notice: "Letter requests sent."
-      end
+      redirect_to admin_root_path, notice: "Building record successfully deleted"
     end
 
     private
@@ -75,25 +58,32 @@ module Admin
       params.require(:building).permit(
         :uprn,
         :building_name,
-        :building_id,
         :street,
+        :city_town,
         :postcode,
         :land_registry_proprietor_address,
         :land_registry_proprietor_name,
-        :proprietor_email,
-        :on_delta,
-        :letter,
-        :email
+        :proprietor_email
       )
     end
 
-    def building
-      Building.find params[:id]
+    def building_id
+      Integer(params[:id])
+    rescue ArgumentError
+      raise ActionController::BadRequest, "Invalid building id: #{params[:id]}"
+    end
+
+    def find_building
+      @building = Building.find(building_id)
+    end
+
+    def build_building
+      @building = Building.new
     end
 
     def set_file_headers(time = Time.current)
       headers["Content-Type"] = "text/csv"
-      headers["Content-Disposition"] = "attachment; filename=delta-export-#{time.to_s(:number)}"
+      headers["Content-Disposition"] = "attachment; filename=delta-export-#{time.to_s(:number)}.csv"
     end
 
     def set_streaming_headers(time = Time.current)

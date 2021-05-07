@@ -9,84 +9,118 @@
     </div>
   </div>
 
-  <%= render "admin/filters" %>
+  <%= render "filters" %>
+
+  <h2 class="govuk-body-l govuk-!-margin-top-5 govuk-!-margin-bottom-4">
+    <strong>
+      <%= t(:"dashboard.headers.buildings.prefix") %>
+    </strong>
+
+    <span class="results">
+      <% if filtered? %>
+        <%= t(:"dashboard.headers.buildings.filtered", count: @buildings.total_entries) %>
+        (<%= t(:"dashboard.headers.buildings.total", count: @buildings.facets[:all]) %>)
+      <% else %>
+        <%= t(:"dashboard.headers.buildings.total", count: @buildings.total_entries) %>
+      <% end %>
+    </span>
+  </h2>
+
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column-full" data-controller="bulk-actions">
+      <div class="govuk-button-group">
+        <%= button_tag "Send letter", type: "button", disabled: true, class: "govuk-button govuk-button--secondary", data: { target: "bulk-actions.sendLetter", action: "click->bulk-actions#sendLetter" } %>
+        <%= button_tag "Mark as 'on Delta'", type: "button", disabled: true, class: "govuk-button govuk-button--secondary", data: { target: "bulk-actions.markOnDelta", action: "click->bulk-actions#markOnDelta" } %>
+      </div>
+
+      <%= form_tag(confirm_admin_building_letters_path, method: :post, class: "govuk-visually-hidden", data: { target: "bulk-actions.sendLetterForm" }) {} %>
+      <%= form_tag(admin_building_delta_path, method: :put, class: "govuk-visually-hidden", data: { target: "bulk-actions.markOnDeltaForm" }) {} %>
+
       <table class="govuk-table">
-        <%= form_tag bulk_update_admin_buildings_path(@buildings), method: :put do %>
-          <caption class="govuk-table__caption govuk-table__caption--l">
-            <h2 class="table-header govuk-heading-m">
-              <strong>
-                <%= t(:"dashboard.headers.buildings.prefix") %>
-              </strong>
-
-              <span class="results">
-                <% if filtered? %>
-                  <%= t(:"dashboard.headers.buildings.filtered", count: @buildings.count) %>
-                  (<%= t(:"dashboard.headers.buildings.total", count: @buildings.total_entries) %>)
-                <% else %>
-                  <%= t(:"dashboard.headers.buildings.total", count: @buildings.total_entries) %>
-                <% end %>
-              </span>
-            </h2>
-
-            <div class="bulk-actions">
-              <%= submit_tag "Send letter", class: "govuk-button govuk-button--secondary" %>
-              <%= submit_tag "Mark as 'on Delta'", class: "govuk-button govuk-button--secondary", data: { disable_with: "Processing update" } %>
-            </div>
-          </caption>
-          <thead class="govuk-table__head">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">
+              <div class="govuk-checkboxes govuk-checkboxes--small">
+                <div class="govuk-checkboxes__item">
+                  <%= check_box_tag 'select_all', '1', false, class: "govuk-checkboxes__input", data: { target: "bulk-actions.selectAll", action: "click->bulk-actions#selectAll" } %>
+                  <label class="govuk-label govuk-checkboxes__label" for="select_all">
+                    <span class="govuk-visually-hidden">Select all buildings</span>
+                  </label>
+                </div>
+              </div>
+            </th>
+            <th scope="col" class="govuk-table__header">UPRN</th>
+            <th scope="col" class="govuk-table__header">Building</th>
+            <th scope="col" class="govuk-table__header">Owner</th>
+            <th scope="col" class="govuk-table__header">Letter sent</th>
+            <th scope="col" class="govuk-table__header">EWS survey</th>
+            <th scope="col" class="govuk-table__header">On Delta?</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <% @buildings.each do |building| %>
             <tr class="govuk-table__row">
-              <th scope="col" class="govuk-table__header"><%= check_box_tag 'building[id]', @buildings.map(&:id) %></th>
-              <th scope="col" class="govuk-table__header">UPRN</th>
-              <th scope="col" class="govuk-table__header">Building</th>
-              <th scope="col" class="govuk-table__header">Owner</th>
-              <th scope="col" class="govuk-table__header">Last emailed</th>
-              <th scope="col" class="govuk-table__header">Letter sent</th>
-              <th scope="col" class="govuk-table__header">EWS survey</th>
-              <th scope="col" class="govuk-table__header">On Delta?</th>
-            </tr>
-          </thead>
-          <tbody class="govuk-table__body">
-            <% @buildings.each do |building| %>
-              <tr class="govuk-table__row">
-                <td class="govuk-table__cell">
-                  <%= check_box_tag 'building[building_id][]', building.id %>
-                  <%= label_tag 'building[building_id][]', building.id, class: 'govuk-visually-hidden' %>
-                </td>
-                <td class="govuk-table__cell"><%= link_to building.uprn, edit_admin_building_path(building), class: "govuk-link" %></td>
-                <td class="govuk-table__cell">
-                  <%= simple_format(building.address, {}, wrapper_tag: "div") %>
-                </td>
-                <td class="govuk-table__cell">
-                  <%= building.land_registry_proprietor_name %>
-                  <% if building.land_registry_proprietor_category %>
-                    <br />
-                    (<%= building.land_registry_proprietor_category %>)
-                  <% end %>
-                </td>
-                <td class="govuk-table__cell email">
-                </td>
-                <td class="govuk-table__cell letter">
-                </td>
-                <td class="govuk-table__cell">
-                  <% if building.latest_survey.present? %>
-                    <% if building.latest_survey.completed %>
-                      <%= t(:"helpers.label.building.ews_survey.completed", date: short_date_format(building.latest_survey.completed_at))%>
+              <td class="govuk-table__cell">
+                <div class="govuk-checkboxes govuk-checkboxes--small">
+                  <div class="govuk-checkboxes__item">
+                    <%= check_box_tag 'id', building.id, false, id: dom_id(building), class: "govuk-checkboxes__input", data: { target: "bulk-actions.building", action: "click->bulk-actions#selectBuilding" } %>
+                    <%= label_tag :id, for: dom_id(building), class: "govuk-label govuk-checkboxes__label" do %>
+                      <span class="govuk-visually-hidden">Select building with the UPRN <%= building.uprn %></span>
                     <% end %>
-                  <% else %>
-                    <%= t(:"helpers.label.building.ews_survey.missing") %>
+                  </div>
+                </div>
+              </td>
+              <td class="govuk-table__cell"><%= link_to building.uprn, edit_admin_building_path(building), class: "govuk-link" %></td>
+              <td class="govuk-table__cell">
+                <%= simple_format(building.address, {}, wrapper_tag: "div") %>
+              </td>
+              <td class="govuk-table__cell">
+                <%= building.land_registry_proprietor_name %>
+                <% if building.land_registry_proprietor_category %>
+                  <br />
+                  (<%= building.land_registry_proprietor_category %>)
+                <% end %>
+              </td>
+              <td class="govuk-table__cell letter">
+                <% if letter = building.letter %>
+                  <span><%= t(letter.state, scope: :"dashboard.letter", enqueued_at: date_time_format(letter.enqueued_at), sent_at: date_time_format(letter.sent_at)) %></span>
+                <% else %>
+                  –
+                <% end %>
+              </td>
+              <td class="govuk-table__cell">
+                <% if building.survey.present? %>
+                  <% if building.survey.completed %>
+                    <%= t(:"helpers.label.building.ews_survey.completed", date: short_date_format(building.survey.completed_at))%>
                   <% end %>
-                </td>
-                <td class="govuk-table__cell delta">
-                  <%= I18n.t building.on_delta, scope: :"helpers.label.building.on_delta" %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        <% end %>
+                <% else %>
+                  <%= t(:"helpers.label.building.ews_survey.missing") %>
+                <% end %>
+              </td>
+              <td class="govuk-table__cell delta">
+                <%= t building.on_delta, scope: :"helpers.label.building.on_delta" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
       </table>
     </div>
   </div>
+
+  <% if @buildings.total_pages > 1 %>
+    <div class="govuk-button-group">
+      <% if @buildings.first_page? %>
+        <span class="govuk-button govuk-button--secondary govuk-button--disabled">Previous page</span>
+      <% else %>
+        <%= link_to "Previous page", admin_root_path(@buildings.previous_params), class: "govuk-button govuk-button--secondary" %>
+      <% end %>
+
+      <% if @buildings.last_page? %>
+        <span class="govuk-button govuk-button--secondary govuk-button--disabled">Next page</span>
+      <% else %>
+        <%= link_to "Next page", admin_root_path(@buildings.next_params), class: "govuk-button govuk-button--secondary" %>
+      <% end %>
+    </div>
+  <% end %>
 </div>

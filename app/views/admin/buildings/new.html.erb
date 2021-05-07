@@ -1,10 +1,10 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">Add a building record</h1>
-    <%= form_with model: [:admin, @building], local: true do |form_builder| %>
-      <%= render "errors" if @building.errors.any? %>
-      <%= render "form", form_builder: form_builder %>
-      <%= form_builder.submit "Add building", class: "govuk-button", data: { module: "govuk-button" } %>
+
+    <%= form_with model: [:admin, @building] do |form| %>
+      <%= render "form", form: form %>
+      <%= form.submit "Add building", class: "govuk-button", data: { module: "govuk-button" } %>
     <% end %>
   </div>
 </div>

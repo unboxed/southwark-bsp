@@ -1,0 +1,51 @@
+<%= form_with method: :get do |form| %>
+  <div class="filters">
+    <h2 class="govuk-heading-m">Filters</h2>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-third-from-desktop">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend">
+            <span class="govuk-heading-s">Survey status</span>
+          </legend>
+
+          <div class="govuk-form-group">
+            <div class="govuk-radios govuk-radios--small">
+              <%= form.collection_radio_buttons :state, t(:"dashboard.facets"), :first, :last, include_hidden: false do |builder| %>
+                <div class="govuk-radios__item">
+                  <%= builder.radio_button checked: builder.value == selected_facet, class: "govuk-radios__input" %>
+                  <%= builder.label class: "govuk-label govuk-radios__label" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="govuk-grid-column-one-third-from-desktop">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend">
+            <span class="govuk-heading-s">Delta status</span>
+          </legend>
+
+          <div class="govuk-form-group">
+            <div class="govuk-radios govuk-radios--small">
+              <%= form.collection_radio_buttons :delta_state, t(:"dashboard.delta_facets"), :first, :last, include_hidden: false do |builder| %>
+                <div class="govuk-radios__item">
+                  <%= builder.radio_button checked: builder.value == selected_delta_facet, class: "govuk-radios__input" %>
+                  <%= builder.label class: "govuk-label govuk-radios__label" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <%= form.submit "Filter", name: nil, class: "govuk-button govuk-!-margin-bottom-0" %>
+      </div>
+    </div>
+  </div>
+<% end %>

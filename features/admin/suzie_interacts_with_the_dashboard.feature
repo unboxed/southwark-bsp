@@ -27,6 +27,7 @@ Feature: Suzie the admin views and edits buildings on dashboard
     Then the page contains an error about "There was a problem signing in"
     And I should not see the dashboard content
 
+  @javascript
   Scenario: Suzie can mark buildings as 'on Delta'
     Given a building exists with UPRN 111
     And a building exists with UPRN 222
@@ -47,7 +48,7 @@ Feature: Suzie the admin views and edits buildings on dashboard
     And I am on the dashboard
     When I filter the buildings with "Survey status" as "Completed"
     Then I should see 1 building record
-    And the page contains "Building records: 1 filtered result (1 total)"
+    And the page contains "Building records: 1 filtered result (4 total)"
 
   Scenario: Suzie filters out buildings with completed surveys
     Given a survey has been completed for UPRN 1234567890
@@ -57,7 +58,7 @@ Feature: Suzie the admin views and edits buildings on dashboard
     And I am on the dashboard
     When I filter the buildings with "Survey status" as "Not received"
     Then I should see 3 building records
-    And the page contains "Building records: 3 filtered results (3 total)"
+    And the page contains "Building records: 3 filtered results (4 total)"
 
   Scenario: Suzie filters out buildings that have been synced to DELTA
     Given a building exists with UPRN 123

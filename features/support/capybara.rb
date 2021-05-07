@@ -1,3 +1,5 @@
+Capybara.server = :puma, { Silent: true }
+
 Capybara.register_driver :chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: { args: %w[window-size=1280,960], w3c: false }
