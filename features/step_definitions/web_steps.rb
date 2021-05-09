@@ -71,3 +71,7 @@ When('I check {string} for {string}') do |option, legend|
     check option
   end
 end
+
+Then('the input for {string} contains {string}') do |label, value|
+  expect(page.find_field(label).value).to eq value
+end

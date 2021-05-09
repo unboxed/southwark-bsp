@@ -50,3 +50,9 @@ Feature: Alex fills in a report about a building
     Then the page contains "Building height"
     When I press "Back"
     Then the page contains "Building management details"
+
+  Scenario: Alex opens a survey link
+    Given a building exists with UPRN 777
+    When I open a survey link for UPRN 777
+    Then the page contains "What is the building’s UPRN?"
+    And the input for "UPRN" contains "777"

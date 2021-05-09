@@ -1,5 +1,6 @@
 class SurveysController < ApplicationController
   before_action :find_survey
+  before_action :preset_uprn, only: :edit
 
   rescue_from Survey::RecordNotFound do
     redirect_to new_survey_url
@@ -43,5 +44,9 @@ class SurveysController < ApplicationController
 
     def section_param
       params[:section].to_s
+    end
+
+    def preset_uprn
+      @survey.uprn = params[:uprn] if params[:uprn]
     end
 end
