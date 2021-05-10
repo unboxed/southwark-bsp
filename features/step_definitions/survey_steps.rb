@@ -142,7 +142,11 @@ When('I press {string} for the material {string}') do |button, material|
   end
 end
 
-Given('I see the summary {string} with') do |summary, table|
+When('I open a survey link for UPRN {int}') do |uprn|
+  visit "/?uprn=#{uprn}"
+end
+
+Then('I see the summary {string} with') do |summary, table|
   within(:summary, summary) do
     table.rows.each_with_index do |(name, value, url), index|
       within(:xpath, "./div[#{index + 1}]") do

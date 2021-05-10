@@ -60,7 +60,7 @@ group :bsp_tests, halt_on_fail: true do
     # Below are examples overriding defaults
 
     cmd: 'bin/cucumber',
-    cmd_additional_args: '--profile rerun',
+    cmd_additional_args: '--profile rerun --fail-fast',
 
     # all_after_pass: false,
     # all_on_start: false,
