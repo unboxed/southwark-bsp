@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     end
 
     resources :bulk_imports, only: [:new, :create]
-    resources :buildings, except: [:show]
+    resources :buildings
   end
 
   namespace :callbacks do

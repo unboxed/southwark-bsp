@@ -1,7 +1,7 @@
 module Admin
   class BuildingsController < AdminController
     before_action :build_building, only: %i[new create]
-    before_action :find_building, only: %i[edit update destroy]
+    before_action :find_building, only: %i[show edit update destroy]
 
     def index
       respond_to do |format|
@@ -31,6 +31,12 @@ module Admin
     end
 
     def edit
+      respond_to do |format|
+        format.html
+      end
+    end
+
+    def show
       respond_to do |format|
         format.html
       end
