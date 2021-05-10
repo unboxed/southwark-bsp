@@ -29,7 +29,7 @@ RSpec.describe NotificationClient, "#deliver" do
           address_line_1: "1 Infinite Loop",
           postal_code: "ACME B12",
           uprn: "01234567890",
-          survey_link: "http://#{ENV.fetch("APPLICATION_HOST")}/?uprn=01234567890"
+          survey_link: "http://#{ENV.fetch("APPLICATION_HOST")}/"
         }
       )
     end
@@ -62,7 +62,7 @@ RSpec.describe NotificationClient, "#deliver" do
           building_address_line_1: "1 Infinite Loop",
           building_postal_code: "ACME B12",
           uprn: "01234567890",
-          survey_link: "http://#{ENV.fetch("APPLICATION_HOST")}/?uprn=01234567890",
+          survey_link: "http://#{ENV.fetch("APPLICATION_HOST")}/",
           address_line_1: "Berkeley House",
           address_line_2: "304 Regents Park Road",
           address_line_3: "London",
