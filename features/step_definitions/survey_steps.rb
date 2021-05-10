@@ -143,7 +143,7 @@ When('I press {string} for the material {string}') do |button, material|
 end
 
 When('I open a survey link for UPRN {int}') do |uprn|
-  visit root_path + "?uprn=#{uprn}"
+  visit "/?uprn=#{uprn}"
 end
 
 Then('I see the summary {string} with') do |summary, table|
