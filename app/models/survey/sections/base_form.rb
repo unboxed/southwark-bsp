@@ -11,6 +11,7 @@ module Survey
 
       delegate :completed, :completed=, to: :record
       delegate :stage, :stage=, :stage_was, to: :record
+      delegate :summaries, to: :record
 
       define_model_callbacks :transition
 
