@@ -34,7 +34,7 @@ module Survey
       end
 
       def value_for_materials
-        render "materials_list", materials: materials_list
+        render "surveys/materials_list", materials: materials_list
       end
 
       def value_for_structures

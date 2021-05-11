@@ -8,3 +8,4 @@ Feature: Suzie the admin interacts with a building
   Scenario: Suzie sees details about a building
     Then the page contains "Building details"
     And the page contains "Edit building details"
+    And the page contains "Survey details"

@@ -24,4 +24,16 @@
       <% end %>
     </dl>
   </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h2 class="govuk-heading-m">Survey details</h2>
+    </div>
+  </div>
+
+  <% if @building.survey.present? %>
+  <div class="govuk-grid-column-two-thirds">
+    <%= render @building.survey.summaries(self) %>
+  </div>
+  <% end %>
 </div>
