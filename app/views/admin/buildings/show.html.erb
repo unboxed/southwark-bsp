@@ -12,8 +12,8 @@
   </div>
 
   <% if @building.survey.present? %>
-  <div class="govuk-grid-column-two-thirds">
-    <%= render @building.survey.summaries(self) %>
-  </div>
+    <div class="govuk-grid-column-full-width">
+      <%= render @building.survey.summaries(self) %>
+    </div>
   <% end %>
 </div>
