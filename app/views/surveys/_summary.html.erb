@@ -9,7 +9,7 @@
       <dd class="govuk-summary-list__value">
         <%= value %>
       </dd>
-      <% unless readonly %>
+      <% unless local_assigns[:readonly] %>
         <dd class="govuk-summary-list__actions">
           <% if url %>
             <%= link_to url, class: "govuk-link" do %>
