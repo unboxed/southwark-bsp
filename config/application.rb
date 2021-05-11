@@ -26,6 +26,7 @@ module SouthwarkBsp
 
     config.action_view.form_with_generates_remote_forms = false
     config.action_view.field_error_proc = ->(html_tag, instance) { html_tag }
+    config.action_view.prefix_partial_path_with_controller_namespace = false
     config.active_job.queue_adapter = :delayed_job
   end
 end

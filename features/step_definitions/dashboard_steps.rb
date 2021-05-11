@@ -92,3 +92,8 @@ end
 When("I select UPRN {int}") do |uprn|
   check "Select building with the UPRN #{uprn}"
 end
+
+When('I look at the details page for UPRN {int}') do |uprn|
+  building = Building.find_by(uprn: uprn)
+  visit admin_building_path(building)
+end

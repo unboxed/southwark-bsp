@@ -71,7 +71,7 @@
                   </div>
                 </div>
               </td>
-              <td class="govuk-table__cell"><%= link_to building.uprn, edit_admin_building_path(building), class: "govuk-link" %></td>
+              <td class="govuk-table__cell"><%= link_to building.uprn, admin_building_path(building), class: "govuk-link" %></td>
               <td class="govuk-table__cell">
                 <%= simple_format(building.address, {}, wrapper_tag: "div") %>
               </td>

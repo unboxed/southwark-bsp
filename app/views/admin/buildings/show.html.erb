@@ -1,0 +1,36 @@
+<%= render "application/back_link", chosen_path: admin_root_path %>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l"><%= @building.address %></h1>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-three-quarters">
+        <h2 class="govuk-heading-m">Building details</h2>
+      </div>
+      <div class="govuk-grid-column-one-quarter">
+        <%= link_to "Edit building details", edit_admin_building_path(@building), class: "govuk-button govuk-button--secondary" %>
+      </div>
+    </div>
+
+    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+      <%= summary_row :uprn, @building.uprn %>
+      <%= summary_row :land_registry_proprietor_name, @building.land_registry_proprietor_name %>
+      <%= summary_row :proprietor_email, @building.proprietor_email %>
+      <%= summary_row :land_registry_proprietor_address, @building.land_registry_proprietor_address %>
+    </dl>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <hr class="govuk-section-break govuk-section-break--m">
+
+  <div class="govuk-grid-column-two-thirds">
+    <h2 class="govuk-heading-m">Survey details</h2>
+  </div>
+
+  <% if @building.survey.present? %>
+    <div class="govuk-grid-column-full">
+      <%= render @building.survey.summaries(self), readonly: true %>
+    </div>
+  <% end %>
+</div>

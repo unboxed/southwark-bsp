@@ -2,6 +2,7 @@ module Survey
   class Record < ApplicationRecord
     include Survey::Staging
     include Survey::Stages
+    include Survey::Summaries
 
     belongs_to :building, optional: true
 

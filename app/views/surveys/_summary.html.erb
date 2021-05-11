@@ -9,13 +9,15 @@
       <dd class="govuk-summary-list__value">
         <%= value %>
       </dd>
-      <dd class="govuk-summary-list__actions">
-        <% if url %>
-          <%= link_to url, class: "govuk-link" do %>
-            Change<span class="govuk-visually-hidden"> <%= name %></span>
+      <% unless local_assigns[:readonly] %>
+        <dd class="govuk-summary-list__actions">
+          <% if url %>
+            <%= link_to url, class: "govuk-link" do %>
+              Change<span class="govuk-visually-hidden"> <%= name %></span>
+            <% end %>
           <% end %>
-        <% end %>
-      </dd>
+        </dd>
+      <% end %>
     </div>
   <% end %>
 </dl>

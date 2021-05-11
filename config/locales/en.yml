@@ -40,7 +40,13 @@ en:
           zero: No matching results
           one: 1 filtered result
           other: "%{count} filtered results"
-
+    buildings:
+      show:
+        labels:
+          uprn: "UPRN"
+          proprietor_email: "Proprietor email"
+          land_registry_proprietor_name: "Proprietor name"
+          land_registry_proprietor_address: "Proprietor address"
   survey:
     wall_material:
       types:
