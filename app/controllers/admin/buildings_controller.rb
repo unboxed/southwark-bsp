@@ -44,7 +44,7 @@ module Admin
 
     def update
       if @building.update(building_params)
-        redirect_to admin_root_path, notice: "Building record successfully updated"
+        redirect_to admin_building_path(@building), notice: "Building record successfully updated"
       else
         respond_to do |format|
           format.html { render :update }
