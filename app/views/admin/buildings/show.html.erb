@@ -21,16 +21,15 @@
   </div>
 </div>
 
+<hr class="govuk-section-break govuk-section-break--xl">
+
 <div class="govuk-grid-row">
-  <hr class="govuk-section-break govuk-section-break--m">
-
-  <div class="govuk-grid-column-two-thirds">
-    <h2 class="govuk-heading-m">Survey details</h2>
-  </div>
-
-  <% if @building.survey.present? %>
-    <div class="govuk-grid-column-full">
+  <div class="govuk-grid-column-full">
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-7">Survey details</h2>
+    <% if @building.survey.present? %>
       <%= render @building.survey.summaries(self), readonly: true %>
-    </div>
-  <% end %>
+    <% else %>
+      <p class="govuk-body">No survey has been submitted yet.</p>
+    <% end %>
+  </div>
 </div>
