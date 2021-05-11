@@ -1,13 +1,13 @@
 <%= render "application/back_link", chosen_path: admin_root_path %>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-l"><%= @building.address %></h1>
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-grid-column-three-quarters">
         <h2 class="govuk-heading-m">Building details</h2>
       </div>
-      <div class="govuk-grid-column-one-third">
+      <div class="govuk-grid-column-one-quarter">
         <%= link_to "Edit building details", edit_admin_building_path(@building), class: "govuk-button govuk-button--secondary" %>
       </div>
     </div>
@@ -19,8 +19,10 @@
       <%= summary_row :uprn, @building.uprn %>
     </dl>
   </div>
+</div>
 
-  <hr class="govuk-section-break govuk-section-break">
+<div class="govuk-grid-row">
+  <hr class="govuk-section-break govuk-section-break--m">
 
   <div class="govuk-grid-column-two-thirds">
     <h2 class="govuk-heading-m">Survey details</h2>
