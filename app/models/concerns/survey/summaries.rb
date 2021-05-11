@@ -3,11 +3,11 @@ module Survey
     extend ActiveSupport::Concern
 
     SUMMARIES = %w[
-        ownership
-        building
-        management
-        features
-      ].freeze
+      ownership
+      building
+      management
+      features
+    ].freeze
 
     included do
       def summaries(template)
@@ -18,9 +18,8 @@ module Survey
 
       def summary(template, name)
         summary_class(name).constantize.new(name, template, self)
-      rescue => e
-        n = "Survey::Summaries::#{name.camelize}Summary".to_sym
-        raise SummaryNotFound, "Couldn't find summary class for '#{name}' (#{e.inspect})"
+      rescue NameError
+        raise SummaryNotFound, "Couldn't find summary class for '#{name}'"
       end
 
       def summary_class(name)
@@ -29,7 +28,7 @@ module Survey
 
       def filtered_summaries
         SUMMARIES.select do |name|
-          unless self.has_residential_use
+          unless has_residential_use
             next false unless name.in?(%w[ownership building])
           end
 
