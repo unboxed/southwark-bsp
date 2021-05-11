@@ -2,10 +2,10 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-l"><%= @building.address %></h1>
-    <div class="govuk-grid-row">
+    <h1 class="govuk-heading-m"><%= @building.address %></h1>
+    <div class="govuk-grid-row govuk-!-margin-top-9">
       <div class="govuk-grid-column-three-quarters">
-        <h2 class="govuk-heading-m">Building details</h2>
+        <h2 class="govuk-heading-l">Building details</h2>
       </div>
       <div class="govuk-grid-column-one-quarter">
         <%= link_to "Edit building details", edit_admin_building_path(@building), class: "govuk-button govuk-button--secondary" %>
@@ -21,16 +21,15 @@
   </div>
 </div>
 
+<hr class="govuk-section-break govuk-section-break--m">
+
 <div class="govuk-grid-row">
-  <hr class="govuk-section-break govuk-section-break--m">
-
-  <div class="govuk-grid-column-two-thirds">
-    <h2 class="govuk-heading-m">Survey details</h2>
-  </div>
-
-  <% if @building.survey.present? %>
-    <div class="govuk-grid-column-full">
+  <div class="govuk-grid-column-full">
+    <h2 class="govuk-heading-l govuk-!-margin-bottom-9">Survey details</h2>
+    <% if @building.survey.present? %>
       <%= render @building.survey.summaries(self), readonly: true %>
-    </div>
-  <% end %>
+    <% else %>
+      <p class="govuk-body">No survey has been submitted yet.</p>
+    <% end %>
+  </div>
 </div>
