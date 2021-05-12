@@ -63,5 +63,11 @@ module Survey
     def form_attributes
       @form_attributes ||= self.class.stored_attributes[:data].map(&:to_s)
     end
+
+    def completed=(value)
+      super(value)
+
+      building.survey_state.transition_to! :received if value == true
+    end
   end
 end
