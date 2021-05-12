@@ -102,6 +102,14 @@ class Building < ApplicationRecord
     proprietor_address.parsed
   end
 
+  def survey_protected?
+    survey_state.in_state?(:received, :accepted, :exported)
+  end
+
+  def other_survey_allowed?
+    !survey_protected?
+  end
+
   private
 
     def proprietor_address

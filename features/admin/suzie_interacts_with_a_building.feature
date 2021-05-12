@@ -14,13 +14,11 @@ Feature: Suzie the admin interacts with a building
 
   Scenario: Suzie can review a survey and mark it as accepted
     Given I press "Accept survey data"
-    And I look at the list of buildings
-    Then the building's row contains "Accepted" in the "Status" column
+    Then the building survey status is "accepted"
 
   Scenario: Suzie can review a survey and mark it as rejected
     Given I press "Reject survey data"
-    And I look at the list of buildings
-    Then the building's row contains "Rejected" in the "Status" column
+    Then the building survey status is "rejected"
 
   Scenario Outline: Suzie only sees relevant survey actions
     Given I press "<button>"
