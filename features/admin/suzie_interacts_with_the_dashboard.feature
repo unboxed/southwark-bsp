@@ -26,7 +26,7 @@ Feature: Suzie the admin views and edits buildings on dashboard
     Then the page contains an error about "There was a problem signing in"
     And I should not see the dashboard content
 
-    @javascript
+  @javascript
   Scenario: Suzie can't interact with the bulk actions if she hasn't selected any records
     Given I am on the dashboard
     Then I can't press the "Send letter" button

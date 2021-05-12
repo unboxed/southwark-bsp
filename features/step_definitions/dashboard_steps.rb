@@ -21,13 +21,6 @@ And('I log in') do
   click_button "Sign in"
 end
 
-Then('the dashboard contains all expected columns') do
-  column_headers = ["UPRN", "Building", "Owner", "Letter sent", "EWS survey", "On Delta?"]
-  column_headers.each do |header|
-    expect(page).to have_content(header)
-  end
-end
-
 Then('the dashboard contains the expected building information') do
   building_info = [@building.uprn, @building.street, @building.postcode]
   building_info.each do |field|

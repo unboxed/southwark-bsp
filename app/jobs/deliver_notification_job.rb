@@ -11,6 +11,8 @@ class DeliverNotificationJob < ApplicationJob
         state: :sent,
         sent_at: DateTime.current,
       )
+
+      notification.building.survey_state.transition_to! :contacted
     end
   end
 end

@@ -20,3 +20,8 @@ Feature: Suzie the admin can send letters to building owners
     And I press "Send letter"
     When I press "Yes, send the letters"
     Then the page contains "Letter requests sent."
+    # Because this is a @javascript test, the CSS is rendered and the
+    # survey status is upcased (it's a govuk-tag), hence why we need
+    # "CONTACTED" here rather than the regular string.
+    And the row for UPRN 123 contains "CONTACTED" in the "Status" column
+    And the row for UPRN 456 contains "CONTACTED" in the "Status" column
