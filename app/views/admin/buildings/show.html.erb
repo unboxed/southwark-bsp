@@ -36,7 +36,13 @@
 
       <%= form_with url: admin_building_survey_state_path(@building), method: :put do |form| %>
         <div class="govuk-button-group">
-          <%= form.submit "Accept survey data", class: "govuk-button", data: { module: "govuk-button" } %>
+          <% if @building.survey_state.can_transition_to? :accepted %>
+            <%= form.submit "Accept survey data", class: "govuk-button", data: { module: "govuk-button" } %>
+          <% end %>
+
+          <% if @building.survey_state.can_transition_to? :rejected %>
+            <%= form.submit "Reject survey data", class: "govuk-button govuk-button--warning", data: { module: "govuk-button" } %>
+          <% end %>
         </div>
       <% end %>
     <% else %>
