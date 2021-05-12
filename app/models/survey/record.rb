@@ -64,10 +64,11 @@ module Survey
       @form_attributes ||= self.class.stored_attributes[:data].map(&:to_s)
     end
 
-    def completed=(value)
-      super(value)
+    def completed_at=(value)
+      super
 
-      building.survey_state.transition_to! :received if value == true
+      building.survey_state.transition_to! :received
+    end
     end
   end
 end

@@ -7,7 +7,7 @@ RSpec.describe SurveyStateMachine do
   subject { building.survey_state }
 
   it "is initially in not_contacted state" do
-    expect(subject.current_state).to eq "not_contacted"
+    expect(subject).to be_in_state "not_contacted"
   end
 
   it "has the correct transition records setup" do
@@ -18,11 +18,23 @@ RSpec.describe SurveyStateMachine do
 
   context "when the survey is completed" do
     before do
-      survey.update!(completed: true)
+      survey.update!(completed_at: Time.zone.now)
     end
 
     it "moves to received" do
-      expect(subject.current_state).to eq "received"
+      expect(subject).to be_in_state "received"
+    end
+
+    context "when the survey is rejected" do
+      before do
+        building.survey_state.transition_to! :rejected
+      end
+
+      it "can receive a new survey to move back to received" do
+        create(:survey, :completed, building: building)
+
+        expect(subject).to be_in_state "received"
+      end
     end
   end
 end
