@@ -9,3 +9,8 @@ Feature: Suzie the admin interacts with a building
     Then the page contains "Building details"
     And the page contains "Edit building details"
     And the page contains "Survey details"
+
+  Scenario: Suzie can review a survey and mark it as accepted
+    Given I press "Accept survey data"
+    And I look at the list of buildings
+    Then the building's row contains "Accepted" in the "Status" column

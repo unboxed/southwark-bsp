@@ -1,7 +1,7 @@
 module Admin
   class BuildingsController < AdminController
     before_action :build_building, only: %i[new create]
-    before_action :find_building, only: %i[show edit update destroy]
+    before_action :find_building, only: %i[show edit update destroy survey_state]
 
     def index
       respond_to do |format|
@@ -58,6 +58,12 @@ module Admin
       redirect_to admin_root_path, notice: "Building record successfully deleted"
     end
 
+    def survey_state
+      if params[:commit] == "Accept survey data"
+        @building.survey_state.transition_to! :accepted
+      end
+    end
+
     private
 
     def building_params
@@ -74,7 +80,9 @@ module Admin
     end
 
     def building_id
-      Integer(params[:id])
+      id = params[:id] || params[:building_id]
+
+      Integer(id)
     rescue ArgumentError
       raise ActionController::BadRequest, "Invalid building id: #{params[:id]}"
     end

@@ -24,7 +24,10 @@ Rails.application.routes.draw do
     end
 
     resources :bulk_imports, only: [:new, :create]
-    resources :buildings
+
+    resources :buildings do
+      put "survey_state"
+    end
   end
 
   namespace :callbacks do
