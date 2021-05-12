@@ -54,3 +54,25 @@ $button-shadow-size: $govuk-border-width-form-element;
     }
   }
 }
+
+.govuk-tag {
+  &.not_contacted {
+    @extend .govuk-tag--grey;
+  }
+
+  &.contacted {
+    @extend .govuk-tag--blue;
+  }
+
+  &.received {
+    @extend .govuk-tag--green;
+  }
+
+  &.accepted {
+    @extend .govuk-tag--turquoise;
+  }
+
+  &.rejected {
+    @extend .govuk-tag--red;
+  }
+}
