@@ -9,4 +9,5 @@ class SurveyStateMachine
   state :exported
 
   transition from: :not_contacted, to: [:contacted, :received]
+  transition from: :received, to: [:accepted]
 end

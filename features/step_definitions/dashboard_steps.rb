@@ -9,6 +9,10 @@ Given('I am on the sign in page') do
   visit "/admin"
 end
 
+Given('I look at the list of buildings') do
+  visit "/admin"
+end
+
 And('I log in') do
   @admin = FactoryBot.create(:user)
 
@@ -96,4 +100,8 @@ end
 When('I look at the details page for UPRN {int}') do |uprn|
   building = Building.find_by(uprn: uprn)
   visit admin_building_path(building)
+end
+
+Then("the building's state is {string}") do |state|
+  expect(@building.survey_state.current_state).to eq state
 end
