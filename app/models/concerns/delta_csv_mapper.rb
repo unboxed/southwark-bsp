@@ -19,7 +19,8 @@ module DeltaCsvMapper
 
     def with_survey_material(index)
       with_survey do |survey|
-        yield survey.materials[index] if survey.materials[index].present?
+        materials = Array(survey.materials)
+        yield materials[index] if materials[index].present?
       end
     end
 
@@ -89,7 +90,7 @@ module DeltaCsvMapper
     end
 
     def csv_number_of_materials
-      with_survey { |s| s.materials.size }
+      with_survey { |s| Array(s.materials).size }
     end
 
     (1..10).each do |index|
@@ -117,7 +118,7 @@ module DeltaCsvMapper
     end
 
     def csv_wall_attachments
-      with_survey { |s| s.structures.join(" ") }
+      with_survey { |s| Array(s.structures).join(" ") }
     end
 
     def csv_wall_attachments_other
