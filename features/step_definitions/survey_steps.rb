@@ -23,6 +23,14 @@ Given('a survey has been completed for UPRN {int}') do |uprn|
   @survey = FactoryBot.create(:survey, :completed, building: building, uprn: uprn)
 end
 
+Given('a survey has been rejected for UPRN {int}') do |uprn|
+  building = Building.find_by(uprn: uprn)
+
+  @survey = FactoryBot.create(:survey, :completed, building: building, uprn: uprn)
+
+  building.survey_state.transition_to! :rejected
+end
+
 Given('a material {string} that covers {string} of the building and is insulated with {string}') do |material, coverage, insulation|
   steps %(
     When I press "Add material"
@@ -37,6 +45,15 @@ Given('a material {string} that covers {string} of the building and is insulated
     And I should see the following within "External wall materials"
       | Material    | Insulation    | Percentage  |
       | #{material} | #{insulation} | #{coverage} |
+  )
+end
+
+When('I start filling a survey for UPRN {int}') do |uprn|
+  steps %(
+    Given I am on the home page
+    And I press "Start now"
+    And I fill in "What is the building’s UPRN?" with "#{uprn}"
+    And I press "Continue"
   )
 end
 
@@ -126,6 +143,27 @@ When('I fill in the wall structure information') do
   )
 end
 
+Given('I complete a survey for UPRN {int}') do |uprn|
+  steps %(
+    When I start filling a survey for UPRN #{uprn}
+    And I fill in the user details
+    And I press "Continue"
+    And I say the building is used for residential purpose
+    And I press "Continue"
+    And I choose the building residential use
+    And I press "Continue"
+    And I say who manages the building
+    And I press "Continue"
+    And I fill in the height information
+    And I press "Continue"
+    And I fill in the wall material information
+    And I press "Save and continue"
+    And I fill in the wall structure information
+    And I press "Continue"
+    And I press "Submit survey"
+  )
+end
+
 When('I amend {string}') do |attribute|
   within('div', class: "govuk-summary-list__row", text: attribute) do
     click_on "Change"
@@ -161,4 +199,14 @@ Then('I see the summary {string} with') do |summary, table|
       end
     end
   end
+end
+
+Then('the building survey status is {string}') do |status|
+  expect(@building.survey_state.current_state).to eq status
+end
+
+Then('the building with UPRN {int} has a {string} survey state') do |uprn, status|
+  building = Building.find_by(uprn: uprn)
+
+  expect(building.survey_state.current_state).to eq status
 end

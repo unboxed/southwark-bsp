@@ -56,3 +56,21 @@ Feature: Alex fills in a report about a building
     When I open a survey link for UPRN 777
     Then the page contains "What is the building’s UPRN?"
     And the input for "UPRN" contains "777"
+
+  Scenario: Alex tries to fill over a completed survey
+    Given a building exists with UPRN 1234567890
+    And a survey has been completed for UPRN 1234567890
+    When I start filling a survey for UPRN 1234567890
+    Then the page contains "Sorry, another survey is already under review"
+
+  Scenario: Alex tries to fill over a rejected survey
+    Given a building exists with UPRN 1234567890
+    And a survey has been rejected for UPRN 1234567890
+    When I start filling a survey for UPRN 1234567890
+    Then the page contains "Your details"
+
+  Scenario: Alex replaces a rejected survey
+    Given a building exists with UPRN 1234567890
+    And a survey has been rejected for UPRN 1234567890
+    When I complete a survey for UPRN 1234567890
+    Then the page contains "successfully submitted a survey"

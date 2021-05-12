@@ -11,12 +11,12 @@ Feature: Suzie the admin views and edits buildings on dashboard
 
   Scenario: Suzie can see buildings without surveys
     Given I am on the dashboard
-    Then the building's row contains "Not contacted" in the "Status" column
+    Then the building survey status is "not_contacted"
 
   Scenario: Suzie can see buildings with submitted surveys
     Given a survey has been completed for UPRN 1234567890
     And I am on the dashboard
-    Then the building's row contains "Received" in the "Status" column
+    Then the building survey status is "received"
 
   Scenario: Suzie cannot see dashboard when not signed in
     Given I am on the login page
