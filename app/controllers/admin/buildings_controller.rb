@@ -63,9 +63,9 @@ module Admin
 
     def survey_state
       if params[:commit] == "Accept survey data"
-        @building.survey_state.transition_to! :accepted
+        @building.survey.accept!
       else
-        @building.survey_state.transition_to! :rejected
+        @building.survey.reject!
       end
 
       redirect_to admin_building_path(@building), notice: "Survey state has been updated."
