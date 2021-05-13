@@ -74,7 +74,7 @@ MOCK_SURVEY_ATTRIBUTES = {
 
 RSpec.describe DeltaExporter do
   let!(:building) { FactoryBot.create(:building, MOCK_BUILDING_ATTRIBUTES) }
-  let!(:survey) { FactoryBot.create(:survey, building: building, **MOCK_SURVEY_ATTRIBUTES) }
+  let!(:survey) { FactoryBot.create(:accepted_survey, building: building, **MOCK_SURVEY_ATTRIBUTES) }
 
   path = File.expand_path("#{File.dirname(__FILE__)}/delta_csv_mock.csv")
   expected = CSV.parse(File.read(path), headers: true).first
@@ -82,7 +82,7 @@ RSpec.describe DeltaExporter do
   describe "mapping" do
     expected.each do |attr, value|
       it "correctly maps the `#{attr}' field" do
-        raw = DeltaExporter.render(Building.search(uprn: building.uprn)).take(2).join("\n")
+        raw = DeltaExporter.render(Building.search(uprn: building.uprn)).to_a.join("\n")
         result = CSV.parse(raw, headers: true)[1]
 
         expect(result[attr]).to eq value
@@ -93,8 +93,26 @@ RSpec.describe DeltaExporter do
   it "does not include incomplete surveys" do
     incomplete_survey = FactoryBot.create(:survey, :completed)
 
-    raw = DeltaExporter.render(Building.search(uprn: building.uprn)).take(2).join("\n")
+    raw = DeltaExporter.render.to_a.join("\n")
 
     expect(raw).to_not include incomplete_survey.uprn
+  end
+
+  it "orders the surveys by completion date" do
+    one = FactoryBot.create(:survey, :completed, completed_at: 3.days.ago)
+    two = FactoryBot.create(:survey, :completed, completed_at: 10.days.ago)
+    three = FactoryBot.create(:survey, :completed, completed_at: 2.hours.ago)
+
+    [one, two, three].each do |survey|
+      survey.building.survey_state.transition_to! :accepted
+    end
+
+    expected_order = [three, one, two, survey].map { |r| r.building.uprn }
+
+    raw = DeltaExporter.render.to_a.join
+
+    result = CSV.parse(raw, headers: true)
+
+    expect(result.map { |r| r["UPRN"] }).to eq expected_order
   end
 end
