@@ -20,5 +20,7 @@ Feature: Suzie the admin can send letters to building owners
     And I press "Send letter"
     When I press "Yes, send the letters"
     Then the page contains "Letter requests sent."
-    And the building with UPRN 123 has a "contacted" survey state
-    And the building with UPRN 456 has a "contacted" survey state
+    And the building with UPRN 123 is visible in the "Contacted" tab
+    And the row for UPRN 123 contains a date in the "Last contacted on" column
+    And the building with UPRN 456 is visible in the "Contacted" tab
+    And the row for UPRN 456 contains a date in the "Last contacted on" column

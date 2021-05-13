@@ -43,8 +43,18 @@ Then("the row for UPRN {int} contains {string} in the {string} column") do |uprn
   # find the row with a corresponding UPRN and assert on the table
   # division (column) for that index
   within(page.find("tr", text: uprn)) do
-    expect(page.find("td:nth-child(#{index})")).to have_content(value)
+    matcher = value.start_with?("/") ? eval(value) : value # rubocop:disable Security/Eval
+
+    expect(page.find("td:nth-child(#{index})")).to have_content(matcher)
   end
+end
+
+Then('the row for UPRN {int} contains a date in the {string} column') do |uprn, column|
+  datelike = "/\\d{2} \\w+ \\d{4}/"
+
+  steps %(
+    Then the row for UPRN #{uprn} contains "#{datelike}" in the "#{column}" column
+  )
 end
 
 Then("the building's row contains {string} in the {string} column") do |value, column|
@@ -88,6 +98,10 @@ When('I look at the details page for UPRN {int}') do |uprn|
   visit admin_building_path(building)
 end
 
-Then("the building's state is {string}") do |state|
-  expect(@building.survey_state.current_state).to eq state
+Then('the building with UPRN {int} is visible in the {string} tab') do |uprn, status|
+  steps %(
+    When I look at the list of buildings
+    And I press "#{status}"
+    Then I should see a table row for UPRN #{uprn}
+  )
 end

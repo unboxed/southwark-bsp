@@ -1,0 +1,27 @@
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">UPRN</th>
+      <th scope="col" class="govuk-table__header">Building</th>
+      <th scope="col" class="govuk-table__header">Owner</th>
+      <th scope="col" class="govuk-table__header">Imported</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    <% buildings.each do |building| %>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell">
+          <%= link_to building.uprn, admin_building_path(building), class: "govuk-link" %>
+        </td>
+        <td class="govuk-table__cell">
+          <%= building.building_name %></td>
+        <td class="govuk-table__cell">
+          <%= building.land_registry_proprietor_name %>
+        </td>
+        <td class="govuk-table__cell">
+          <%= short_date_format(building.created_at) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

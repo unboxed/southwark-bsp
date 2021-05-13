@@ -9,54 +9,17 @@
     </div>
   </div>
 
-  <h2 class="govuk-body-l govuk-!-margin-top-5 govuk-!-margin-bottom-4">
-    <strong>
-      <%= t(:"admin.headers.buildings.prefix") %>
-    </strong>
+  <ul class="govuk-tabs__list" role="tablist">
+    <% SurveyStateMachine.states.each do |state| %>
+      <li class="govuk-tabs__list-item <%= @current_state == state ? "govuk-tabs__list-item--selected"  : "" %>" role="presentation">
+        <%= link_to state.humanize, admin_buildings_path(state: state), class: "govuk-tabs__tab", role: "tab" %>
+      </li>
+    <% end %>
+  </ul>
 
-    <%= t(:"admin.headers.buildings.total", count: @buildings.facets[:all]) %>
-  </h2>
+  <div class="govuk-tabs__panel listing" id="<%= @current_state %>">
+    <h2 class="govuk-heading-m"><%= @current_state.humanize %></h2>
 
-
-
-  <div>
-    <ul class="govuk-tabs__list" role="tablist">
-      <% SurveyStateMachine.states.each do |state| %>
-        <li class="govuk-tabs__list-item <%= @current_state == state ? "govuk-tabs__list-item--selected"  : "" %>" role="presentation">
-          <%= link_to state.humanize, admin_buildings_path(state: state), class: "govuk-tabs__tab", role: "tab" %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-
-  <div class="govuk-tabs__panel" id="<%= @current_state %>">
-    <h2 class="govuk-heading-l"><%= @current_state.humanize %></h2>
-    <table class="govuk-table">
-      <thead class="govuk-table__head">
-        <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">UPRN</th>
-          <th scope="col" class="govuk-table__header">Building</th>
-          <th scope="col" class="govuk-table__header">Owner</th>
-          <th scope="col" class="govuk-table__header">Imported</th>
-        </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-        <% @buildings.each do |building| %>
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell">
-              <%= link_to building.uprn, admin_building_path(building), class: "govuk-link" %>
-            </td>
-            <td class="govuk-table__cell">
-              <%= building.building_name %></td>
-            <td class="govuk-table__cell">
-              <%= building.land_registry_proprietor_name %>
-            </td>
-            <td class="govuk-table__cell">
-              <%= short_date_format(building.created_at) %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <%= render "admin/buildings/tables/#{@current_state}", buildings: @buildings %>
   </div>
 </div>

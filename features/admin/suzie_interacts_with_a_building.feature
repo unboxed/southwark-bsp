@@ -14,11 +14,13 @@ Feature: Suzie the admin interacts with a building
 
   Scenario: Suzie can review a survey and mark it as accepted
     Given I press "Accept survey data"
-    Then the building survey status is "accepted"
+    Then the building with UPRN 1234567890 is visible in the "Accepted" tab
+    And the row for UPRN 1234567890 contains a date in the "Accepted on" column
 
   Scenario: Suzie can review a survey and mark it as rejected
     Given I press "Reject survey data"
-    Then the building survey status is "rejected"
+    Then the building with UPRN 1234567890 is visible in the "Rejected" tab
+    And the row for UPRN 1234567890 contains a date in the "Rejected on" column
 
   Scenario Outline: Suzie only sees relevant survey actions
     Given I press "<button>"

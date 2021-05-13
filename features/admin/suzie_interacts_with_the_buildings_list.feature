@@ -2,21 +2,16 @@ Feature: Suzie the admin views and edits buildings on the admin
   Background:
     Given a building exists with UPRN 1234567890
 
-  Scenario: Suzie can see relevant content
+  Scenario: Suzie can browse buildings per status
     Given I am logged into the admin
-    And the page contains the building's building name
-    And the page contains the building's street
-    And the page contains the building's postcode
-    And the page contains "Building records: 1 total"
-
-  Scenario: Suzie can see buildings without surveys
-    Given I am logged into the admin
-    Then the building survey status is "not_contacted"
+    And I press "Not contacted"
+    Then the page contains the building's building name
 
   Scenario: Suzie can see buildings with submitted surveys
     Given a survey has been completed for UPRN 1234567890
     And I am logged into the admin
-    Then the building survey status is "received"
+    Then the building with UPRN 1234567890 is visible in the "Received" tab
+    And the row for UPRN 1234567890 contains a date in the "Received on" column
 
   Scenario: Suzie cannot see the admin if she isn't logged in
     Given I am on the login page
