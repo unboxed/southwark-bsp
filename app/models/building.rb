@@ -21,6 +21,10 @@ class Building < ApplicationRecord
 
   facet :all, -> { show.all }
 
+  SurveyStateMachine.states.each do |state|
+    facet state.to_sym, -> { in_state(state) }
+  end
+
   class << self
     def mark_on_delta!(ids)
       transaction do
