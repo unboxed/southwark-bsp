@@ -73,5 +73,13 @@ module Survey
     def can_overwrite?
       building.nil? || building.other_survey_allowed? || building.survey == self
     end
+
+    def accept!
+      building.survey_state.transition_to! :accepted
+    end
+
+    def reject!
+      building.survey_state.transition_to! :rejected
+    end
   end
 end
