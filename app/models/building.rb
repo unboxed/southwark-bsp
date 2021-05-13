@@ -17,7 +17,7 @@ class Building < ApplicationRecord
   include DeltaCsvMapper
 
   scope :show, -> { preload(:survey, :letter).order(uprn: :asc) }
-  scope :export, -> { preload(:survey) }
+  scope :export, -> { in_state(:accepted).preload(:survey) }
 
   facet :all, -> { show.all }
 

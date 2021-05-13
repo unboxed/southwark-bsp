@@ -89,4 +89,12 @@ RSpec.describe DeltaExporter do
       end
     end
   end
+
+  it "does not include incomplete surveys" do
+    incomplete_survey = FactoryBot.create(:survey, :completed)
+
+    raw = DeltaExporter.render(Building.search(uprn: building.uprn)).take(2).join("\n")
+
+    expect(raw).to_not include incomplete_survey.uprn
+  end
 end
