@@ -71,9 +71,7 @@ module Survey
     end
 
     def can_overwrite?
-      return true if building.nil?
-
-      building.survey == self || building.other_survey_allowed?
+      building.nil? || building.other_survey_allowed? || building.survey == self
     end
   end
 end
