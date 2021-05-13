@@ -14,14 +14,7 @@
       <%= t(:"admin.headers.buildings.prefix") %>
     </strong>
 
-    <span class="results">
-      <% if filtered? %>
-        <%= t(:"admin.headers.buildings.filtered", count: @buildings.total_entries) %>
-        (<%= t(:"admin.headers.buildings.total", count: @buildings.facets[:all]) %>)
-      <% else %>
-        <%= t(:"admin.headers.buildings.total", count: @buildings.total_entries) %>
-      <% end %>
-    </span>
+    <%= t(:"admin.headers.buildings.total", count: @buildings.facets[:all]) %>
   </h2>
 
 

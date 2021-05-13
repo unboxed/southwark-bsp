@@ -107,7 +107,7 @@ module Admin
     end
 
     def search_params
-      params.permit(:state, :delta_state, :page, :q)
+      params.permit(:state, :page, :q)
     end
 
     def set_file_headers(time = Time.current)

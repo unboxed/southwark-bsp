@@ -16,42 +16,12 @@ class Building < ApplicationRecord
   include Browseable
   include DeltaCsvMapper
 
-  filter :delta_state, ->(name) { get_delta_state(name) }
-
   scope :show, -> { preload(:survey, :letter).order(uprn: :asc) }
   scope :export, -> { preload(:survey) }
-  scope :completed, -> { joins(:surveys).where.not('survey_records.completed_at' => nil) }
-  scope :not_received, -> { left_outer_joins(:surveys).where('survey_records.completed_at' => nil) }
-  scope :on_delta, -> { where(on_delta: true) }
-  scope :not_on_delta, -> { where.not(on_delta: true) }
 
   facet :all, -> { show.all }
-  facet :completed, -> { show.completed }
-  facet :not_received, -> { show.not_received }
 
   class << self
-    def get_delta_state(name)
-      case name
-      when "on_delta"
-        on_delta
-      when "not_on_delta"
-        not_on_delta
-      else
-        all
-      end
-    end
-
-    def get_state(name)
-      case name
-      when "completed"
-        completed
-      when "not_received"
-        not_received
-      else
-        all
-      end
-    end
-
     def mark_on_delta!(ids)
       transaction do
         where(id: ids).find_each(&:mark_on_delta!)
