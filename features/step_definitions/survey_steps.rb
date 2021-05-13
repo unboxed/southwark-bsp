@@ -202,7 +202,7 @@ Then('I see the summary {string} with') do |summary, table|
 end
 
 Then('the building survey status is {string}') do |status|
-  expect(@building.survey_state.current_state).to eq status
+  steps %(Then the building with UPRN #{@building.uprn} has a "#{status}" survey state)
 end
 
 Then('the building with UPRN {int} has a {string} survey state') do |uprn, status|
