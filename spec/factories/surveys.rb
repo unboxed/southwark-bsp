@@ -16,4 +16,8 @@ FactoryBot.define do
       completed_at { Time.zone.now }
     end
   end
+
+  factory :accepted_survey, parent: :survey do
+    after(:create, &:accept!)
+  end
 end
