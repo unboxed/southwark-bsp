@@ -1,13 +1,21 @@
-.admin {
-  .filters {
-    padding: govuk-spacing(6);
-    margin: govuk-spacing(3) 0;
-    background: govuk-colour("light-grey");
-  }
+body {
+  overflow: scroll;
+}
 
-  .table-header {
-    .results {
-      font-weight: normal;
+.one-quarter {
+  width: 25%;
+}
+
+.admin {
+  .listing {
+    thead {
+      th {
+        @extend .one-quarter;
+
+        &.uprn {
+          width: auto;
+        }
+      }
     }
   }
 }
