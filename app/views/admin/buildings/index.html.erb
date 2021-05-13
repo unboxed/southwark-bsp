@@ -1,27 +1,25 @@
-<div class="dashboard">
+<div class="admin">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
       <h1 class="govuk-heading-l">All buildings</h1>
     </div>
 
-    <div class="govuk-grid-column-one-half dashboard-actions">
+    <div class="govuk-grid-column-one-half admin-actions">
       <%= link_to "Export data for Delta", admin_buildings_path(:csv), class: "govuk-button govuk-button--download" %>
     </div>
   </div>
 
-  <%= render "filters" %>
-
   <h2 class="govuk-body-l govuk-!-margin-top-5 govuk-!-margin-bottom-4">
     <strong>
-      <%= t(:"dashboard.headers.buildings.prefix") %>
+      <%= t(:"admin.headers.buildings.prefix") %>
     </strong>
 
     <span class="results">
       <% if filtered? %>
-        <%= t(:"dashboard.headers.buildings.filtered", count: @buildings.total_entries) %>
-        (<%= t(:"dashboard.headers.buildings.total", count: @buildings.facets[:all]) %>)
+        <%= t(:"admin.headers.buildings.filtered", count: @buildings.total_entries) %>
+        (<%= t(:"admin.headers.buildings.total", count: @buildings.facets[:all]) %>)
       <% else %>
-        <%= t(:"dashboard.headers.buildings.total", count: @buildings.total_entries) %>
+        <%= t(:"admin.headers.buildings.total", count: @buildings.total_entries) %>
       <% end %>
     </span>
   </h2>
@@ -84,7 +82,7 @@
               </td>
               <td class="govuk-table__cell letter">
                 <% if letter = building.letter %>
-                  <span><%= t(letter.state, scope: :"dashboard.letter", enqueued_at: date_time_format(letter.enqueued_at), sent_at: date_time_format(letter.sent_at)) %></span>
+                  <span><%= t(letter.state, scope: :"admin.letter", enqueued_at: date_time_format(letter.enqueued_at), sent_at: date_time_format(letter.sent_at)) %></span>
                 <% else %>
                   –
                 <% end %>

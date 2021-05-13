@@ -15,7 +15,7 @@ en:
         </div>
       </div>
 
-  dashboard:
+  admin:
     facets:
       - ["all", "All"]
       - ["completed", "Completed"]
