@@ -1,4 +1,4 @@
-Given('I am on the dashboard') do
+Given('I am logged into the admin') do
   steps %(
     Given I am on the sign in page
     And I log in
@@ -21,19 +21,12 @@ And('I log in') do
   click_button "Sign in"
 end
 
-Then('the dashboard contains the expected building information') do
-  building_info = [@building.uprn, @building.street, @building.postcode]
-  building_info.each do |field|
-    expect(page).to have_content(field)
-  end
-end
-
 Given('I am on the login page') do
   visit "/admin"
 end
 
-Then('I should not see the dashboard content') do
-  expect(page).not_to have_content("Dashboard")
+Then('I should not see the admin page') do
+  expect(page).not_to have_content("All buildings")
 end
 
 Then("the row for UPRN {int} contains {string} in the {string} column") do |uprn, value, column|

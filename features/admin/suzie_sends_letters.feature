@@ -5,7 +5,7 @@ Feature: Suzie the admin can send letters to building owners
 
   @javascript
   Scenario: Suzie can see a summary of the letters she's about to send
-    Given I am on the dashboard
+    Given I am logged into the admin
     And I select UPRN 123
     And I select UPRN 456
     When I press "Send letter"
@@ -14,7 +14,7 @@ Feature: Suzie the admin can send letters to building owners
 
   @javascript
   Scenario: Suzie can send letters
-    Given I am on the dashboard
+    Given I am logged into the admin
     And I select UPRN 123
     And I select UPRN 456
     And I press "Send letter"

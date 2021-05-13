@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   devise_for :admin, only: :sessions, class_name: "User", module: "admin"
 
   namespace :admin do
-    root to: "dashboard#show"
+    root to: "buildings#index"
 
     scope "/buildings", as: "building" do
       resource :delta, only: [:update]

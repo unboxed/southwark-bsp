@@ -1,7 +1,8 @@
 module Admin
   class BuildingsController < AdminController
     before_action :build_building, only: %i[new create]
-    before_action :find_building, only: %i[show edit update destroy survey_state]
+    before_action :find_building, except: :index
+    before_action :find_buildings, only: :index
 
     def index
       respond_to do |format|
@@ -11,6 +12,8 @@ module Admin
 
           self.response_body = DeltaExporter.render
         end
+
+        format.html
       end
     end
 
@@ -97,6 +100,14 @@ module Admin
 
     def build_building
       @building = Building.new
+    end
+
+    def find_buildings
+      @buildings = Building.search(search_params)
+    end
+
+    def search_params
+      params.permit(:state, :delta_state, :page, :q)
     end
 
     def set_file_headers(time = Time.current)
