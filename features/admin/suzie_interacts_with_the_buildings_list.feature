@@ -2,6 +2,13 @@ Feature: Suzie the admin views and edits buildings on the admin
   Background:
     Given a building exists with UPRN 1234567890
 
+  Scenario: Suzie sees the not contacted buildings by default
+    Given a building exists with UPRN 777
+    And a survey has been completed for UPRN 777
+    And I am logged into the admin
+    When I look at the list of buildings
+    Then the page does not contain "777"
+
   Scenario: Suzie can browse buildings per status
     Given I am logged into the admin
     And I press "Not contacted"
