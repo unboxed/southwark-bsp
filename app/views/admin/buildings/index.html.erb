@@ -1,7 +1,7 @@
 <div class="admin">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
-      <h1 class="govuk-heading-l">All buildings</h1>
+      <h1 class="govuk-heading-l">All buildings (<%= @total_count %>)</h1>
     </div>
   </div>
 
@@ -14,7 +14,10 @@
   </ul>
 
   <div class="govuk-tabs__panel listing" id="<%= @current_state %>">
-    <h2 class="govuk-heading-m"><%= @current_state.humanize %> (<%= @buildings.total_entries %>)</h2>
+    <h2 class="govuk-heading-m">
+      <%= @current_state.humanize %> (<%= @buildings.total_entries %>)
+      <span class="percentage"><%= tab_percentage %></span>
+    </h2>
 
     <% if @buildings.total_pages > 1 %>
       <p class="govuk-body">Page <%= @buildings.current_page %>/<%= @buildings.total_pages %></p>

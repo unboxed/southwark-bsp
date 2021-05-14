@@ -18,6 +18,10 @@ body {
       }
     }
   }
+
+  span.percentage {
+    color: $govuk-secondary-text-colour;
+  }
 }
 
 // Download button variables
