@@ -6,7 +6,7 @@ RSpec.describe "Admin manages building records" do
 
   it "importing records via CSV upload" do
     building_list_fixture = file_fixture("building_record_list.csv")
-    parsed_building_list_fixture = CSV.parse(building_list_fixture.read, headers: true)
+    CSV.parse(building_list_fixture.read, headers: true)
 
     visit "/admin"
 
@@ -20,6 +20,6 @@ RSpec.describe "Admin manages building records" do
 
     click_on "Upload"
 
-    expect(page).to have_text %r(Page \d / \d{2,})
+    expect(page).to have_text %r(Page 1/\d{2,})
   end
 end
