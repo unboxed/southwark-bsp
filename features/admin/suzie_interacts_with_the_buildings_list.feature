@@ -14,6 +14,19 @@ Feature: Suzie the admin views and edits buildings on the admin
     And I press "Not contacted"
     Then the page contains the building's building name
 
+  Scenario: Suzie can see statistics about each status
+    Given a survey has been completed for UPRN 123
+    Given a survey has been completed for UPRN 456
+    And a survey has been rejected for UPRN 789
+    And I am logged into the admin
+    And I look at the list of buildings
+    When I go to the "Not contacted" tab
+    Then the page contains "Not contacted (1)"
+    When I go to the "Received" tab
+    Then the page contains "Received (2)"
+    When I go to the "Rejected" tab
+    Then the page contains "Rejected (1)"
+
   Scenario: Suzie can see buildings with submitted surveys
     Given a survey has been completed for UPRN 1234567890
     And I am logged into the admin

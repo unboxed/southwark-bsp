@@ -22,13 +22,13 @@ Given('a building survey at stage {string}') do |stage|
 end
 
 Given('a survey has been completed for UPRN {int}') do |uprn|
-  building = Building.find_by(uprn: uprn)
+  building = Building.find_by(uprn: uprn) || FactoryBot.create(:building, uprn: uprn)
 
   @survey = FactoryBot.create(:survey, :completed, building: building, uprn: uprn)
 end
 
 Given('a survey has been rejected for UPRN {int}') do |uprn|
-  building = Building.find_by(uprn: uprn)
+  building = Building.find_by(uprn: uprn) || FactoryBot.create(:building, uprn: uprn)
 
   @survey = FactoryBot.create(:survey, :completed, building: building, uprn: uprn)
 

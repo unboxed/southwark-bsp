@@ -104,6 +104,7 @@ module Admin
 
     def find_buildings
       @current_state = params[:state] || "not_contacted"
+      @total_count = Building.count
 
       @buildings = Building.search(search_params.merge(state: @current_state))
     end
