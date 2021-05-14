@@ -1,27 +1,57 @@
-<table class="govuk-table">
-  <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header">UPRN</th>
-      <th scope="col" class="govuk-table__header">Building</th>
-      <th scope="col" class="govuk-table__header">Owner</th>
-      <th scope="col" class="govuk-table__header">Last contacted on</th>
-    </tr>
-  </thead>
-  <tbody class="govuk-table__body">
-    <% buildings.each do |building| %>
-      <tr class="govuk-table__row">
-        <td class="govuk-table__cell">
-          <%= link_to building.uprn, admin_building_path(building), class: "govuk-link" %>
-        </td>
-        <td class="govuk-table__cell">
-          <%= building.building_name %></td>
-        <td class="govuk-table__cell">
-          <%= building.land_registry_proprietor_name %>
-        </td>
-        <td class="govuk-table__cell">
-          <%= short_date_format(building.letter.created_at) %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full" data-controller="bulk-actions">
+    <div class="govuk-button-group">
+      <%= button_tag "Resend letter", type: "button", disabled: true, class: "govuk-button govuk-button", data: { target: "bulk-actions.sendLetter", action: "click->bulk-actions#sendLetter" } %>
+    </div>
+
+    <%= form_tag(confirm_admin_building_letters_path, method: :post, class: "govuk-visually-hidden", data: { target: "bulk-actions.sendLetterForm" }) {} %>
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header uprn">
+            <div class="govuk-checkboxes govuk-checkboxes--small">
+              <div class="govuk-checkboxes__item">
+                <%= check_box_tag 'select_all', '1', false, class: "govuk-checkboxes__input", data: { target: "bulk-actions.selectAll", action: "click->bulk-actions#selectAll" } %>
+                <label class="govuk-label govuk-checkboxes__label" for="select_all">
+                  <span class="govuk-visually-hidden">Select all buildings</span>
+                </label>
+              </div>
+            </div>
+          </th>
+          <th scope="col" class="govuk-table__header">UPRN</th>
+          <th scope="col" class="govuk-table__header">Building</th>
+          <th scope="col" class="govuk-table__header">Owner</th>
+          <th scope="col" class="govuk-table__header">Last contacted on</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        <% buildings.each do |building| %>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">
+              <div class="govuk-checkboxes govuk-checkboxes--small">
+                <div class="govuk-checkboxes__item">
+                  <%= check_box_tag 'id', building.id, false, id: dom_id(building), class: "govuk-checkboxes__input", data: { target: "bulk-actions.building", action: "click->bulk-actions#selectBuilding" } %>
+                  <%= label_tag :id, for: dom_id(building), class: "govuk-label govuk-checkboxes__label" do %>
+                    <span class="govuk-visually-hidden">Select building with the UPRN <%= building.uprn %></span>
+                  <% end %>
+                </div>
+              </div>
+            </td>
+            <td class="govuk-table__cell">
+              <%= link_to building.uprn, admin_building_path(building), class: "govuk-link" %>
+            </td>
+            <td class="govuk-table__cell">
+              <%= building.building_name %></td>
+            <td class="govuk-table__cell">
+              <%= building.land_registry_proprietor_name %>
+            </td>
+            <td class="govuk-table__cell">
+              <%= short_date_format(building.letter.created_at) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
