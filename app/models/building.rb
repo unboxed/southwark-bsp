@@ -17,7 +17,7 @@ class Building < ApplicationRecord
   include DeltaCsvMapper
 
   scope :show, -> { preload(:survey, :letter).order(uprn: :asc) }
-  scope :export, -> { in_state(:accepted).preload(:survey).order(survey: { completed_at: :desc }) }
+  scope :export, -> { in_state(:accepted).includes(:survey).by_latest_survey }
 
   facet :all, -> { show.all }
 
@@ -34,6 +34,16 @@ class Building < ApplicationRecord
 
     def send_letters!(ids)
       where(id: ids).find_each(&:send_letter!)
+    end
+
+    def by_latest_survey
+      references(:survey).order(survey_completed_at.desc)
+    end
+
+    private
+
+    def survey_completed_at
+      Survey::Record.arel_table[:completed_at]
     end
   end
 
