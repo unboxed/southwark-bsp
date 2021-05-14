@@ -14,7 +14,25 @@
   </ul>
 
   <div class="govuk-tabs__panel listing" id="<%= @current_state %>">
-    <h2 class="govuk-heading-m"><%= @current_state.humanize %></h2>
+    <h2 class="govuk-heading-m"><%= @current_state.humanize %> (<%= @buildings.total_entries %>)</h2>
+
+    <% if @buildings.total_pages > 1 %>
+      <p class="govuk-body">Page <%= @buildings.current_page %>/<%= @buildings.total_pages %></p>
+
+      <div class="govuk-button-group">
+        <% if @buildings.first_page? %>
+          <span class="govuk-button govuk-button--secondary govuk-button--disabled">Previous page</span>
+        <% else %>
+          <%= link_to "Previous page", admin_root_path(@buildings.previous_params), class: "govuk-button govuk-button--secondary" %>
+        <% end %>
+
+        <% if @buildings.last_page? %>
+          <span class="govuk-button govuk-button--secondary govuk-button--disabled">Next page</span>
+        <% else %>
+          <%= link_to "Next page", admin_root_path(@buildings.next_params), class: "govuk-button govuk-button--secondary" %>
+        <% end %>
+      </div>
+    <% end %>
 
     <%= render "admin/buildings/tables/#{@current_state}", buildings: @buildings %>
   </div>
