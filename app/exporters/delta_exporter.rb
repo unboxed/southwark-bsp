@@ -71,7 +71,7 @@ class DeltaExporter
     Enumerator.new do |stream|
       stream << header_row
 
-      relation.find_each do |building|
+      relation.each do |building|
         stream << building_row(building)
       end
     end

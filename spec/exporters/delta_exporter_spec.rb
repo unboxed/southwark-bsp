@@ -105,7 +105,7 @@ RSpec.describe DeltaExporter do
 
     [one, two, three].each(&:accept!)
 
-    expected_order = [two, one, three, survey].map { |r| r.building.uprn }
+    expected_order = [three, one, two, survey].map { |r| r.building.uprn }
 
     raw = DeltaExporter.render.to_a.join
 
