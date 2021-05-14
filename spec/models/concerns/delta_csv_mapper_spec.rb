@@ -6,7 +6,7 @@ RSpec.describe DeltaCsvMapper do
 
   subject { building }
 
-  describe "unknown values", focus: true do
+  describe "unknown values" do
     describe "for material" do
       before do
         building.survey.materials = [{ "type" => "unknown" }]

@@ -103,11 +103,9 @@ RSpec.describe DeltaExporter do
     two = FactoryBot.create(:survey, :completed, completed_at: 10.days.ago)
     three = FactoryBot.create(:survey, :completed, completed_at: 2.hours.ago)
 
-    [one, two, three].each do |survey|
-      survey.building.survey_state.transition_to! :accepted
-    end
+    [one, two, three].each(&:accept!)
 
-    expected_order = [three, one, two, survey].map { |r| r.building.uprn }
+    expected_order = [two, one, three, survey].map { |r| r.building.uprn }
 
     raw = DeltaExporter.render.to_a.join
 
