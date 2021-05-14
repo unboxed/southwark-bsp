@@ -6,7 +6,7 @@ RSpec.describe "Admin manages building records" do
 
   it "importing records via CSV upload" do
     building_list_fixture = file_fixture("building_record_list.csv")
-    parsed_building_list_fixture = CSV.parse(building_list_fixture.read, headers: true).sort_by { |row| row["uprn"] }
+    parsed_building_list_fixture = CSV.parse(building_list_fixture.read, headers: true)
 
     visit "/admin"
 
@@ -20,7 +20,6 @@ RSpec.describe "Admin manages building records" do
 
     click_on "Upload"
 
-    expect(page).to have_content parsed_building_list_fixture.first["uprn"]
-    expect(page).to have_content parsed_building_list_fixture.first["pao"]
+    expect(page).to have_text %r(Page \d / \d{2,})
   end
 end
