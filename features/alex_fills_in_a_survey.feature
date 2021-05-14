@@ -61,7 +61,7 @@ Feature: Alex fills in a report about a building
     Given a building exists with UPRN 1234567890
     And a survey has been completed for UPRN 1234567890
     When I start filling a survey for UPRN 1234567890
-    Then the page contains "Sorry, another survey is already under review"
+    Then the page contains "Sorry, a survey has already been submitted for the building with this UPRN"
 
   Scenario: Alex tries to fill over a rejected survey
     Given a building exists with UPRN 1234567890

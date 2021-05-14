@@ -54,6 +54,8 @@ class SurveysController < ApplicationController
       return true if @survey.can_overwrite?
 
       @survey.record.destroy
-      redirect_to root_path, notice: "Sorry, another survey is already under review" and return
+      flash[:notification] = "Sorry, a survey has already been submitted for the building with this UPRN"
+
+      redirect_to root_path and return
     end
 end
