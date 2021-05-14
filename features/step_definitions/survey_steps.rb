@@ -2,6 +2,10 @@ Given('I am on the home page') do
   visit root_path
 end
 
+Given('{int} buildings exist') do |count|
+  FactoryBot.create_list(:building, count)
+end
+
 Given('a building exists with UPRN {int}') do |uprn|
   @building = FactoryBot.create(:building, uprn: uprn)
 end

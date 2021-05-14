@@ -27,3 +27,12 @@ Feature: Suzie the admin views and edits buildings on the admin
     Then I can't press the "Send letter" button
     When I select UPRN 1234567890
     Then the page has button "Send letter"
+
+  Scenario: Suzie can use pagination to browse the buildings
+    Given 99 buildings exist
+    # + the 1 building at the top of this file = 100 records = 2 pages
+    And I am logged into the admin
+    When I press "Next page"
+    Then the page contains "Page 2/2"
+    When I press "Previous page"
+    Then the page contains "Page 1/2"
