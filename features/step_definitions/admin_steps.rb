@@ -100,8 +100,14 @@ end
 
 Then('the building with UPRN {int} is visible in the {string} tab') do |uprn, status|
   steps %(
-    When I look at the list of buildings
-    And I press "#{status}"
+    Given I go to the "#{status}" tab
     Then I should see a table row for UPRN #{uprn}
+  )
+end
+
+When('I go to the {string} tab') do |tab|
+  steps %(
+    When I look at the list of buildings
+    And I press "#{tab}"
   )
 end
