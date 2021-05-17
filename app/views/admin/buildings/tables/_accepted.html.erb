@@ -1,7 +1,7 @@
 
 <%= link_to "Generate CSV for DELTA", admin_buildings_path(:csv), class: "govuk-button govuk-button--download" %>
 
-<p class="govuk-body-s">The CSV file will contain all accepted building surveys to date.</p>
+<p class="govuk-body-s">The CSV file will contain all accepted building surveys to date, with the most recently accepted surveys last.</p>
 
 <table class="govuk-table">
   <thead class="govuk-table__head">
@@ -9,6 +9,7 @@
       <th scope="col" class="govuk-table__header">UPRN</th>
       <th scope="col" class="govuk-table__header">Building</th>
       <th scope="col" class="govuk-table__header">Owner</th>
+      <th scope="col" class="govuk-table__header">Received on</th>
       <th scope="col" class="govuk-table__header">Accepted on</th>
     </tr>
   </thead>
@@ -25,6 +26,9 @@
         </td>
         <td class="govuk-table__cell">
           <%= short_date_format(building.survey.completed_at) %>
+        </td>
+        <td class="govuk-table__cell">
+          <%= short_date_format(building.survey_state.last_transition.created_at) %>
         </td>
       </tr>
     <% end %>

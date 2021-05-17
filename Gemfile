@@ -55,6 +55,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'pry'
+  gem 'timecop'
   gem 'webdrivers'
   gem 'webmock'
 end

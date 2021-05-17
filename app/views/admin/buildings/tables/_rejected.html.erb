@@ -4,6 +4,7 @@
       <th scope="col" class="govuk-table__header">UPRN</th>
       <th scope="col" class="govuk-table__header">Building</th>
       <th scope="col" class="govuk-table__header">Owner</th>
+      <th scope="col" class="govuk-table__header">Received on</th>
       <th scope="col" class="govuk-table__header">Rejected on</th>
     </tr>
   </thead>
@@ -17,6 +18,9 @@
           <%= building.building_name %></td>
         <td class="govuk-table__cell">
           <%= building.land_registry_proprietor_name %>
+        </td>
+        <td class="govuk-table__cell">
+          <%= short_date_format(building.survey.completed_at) %>
         </td>
         <td class="govuk-table__cell">
           <%= short_date_format(building.survey_state.last_transition.created_at) %>

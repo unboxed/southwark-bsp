@@ -2,19 +2,11 @@ body {
   overflow: scroll;
 }
 
-.one-quarter {
-  width: 25%;
-}
-
 .admin {
   .listing {
     thead {
       th {
-        @extend .one-quarter;
-
-        &.uprn {
-          width: auto;
-        }
+        white-space: nowrap;
       }
     }
   }

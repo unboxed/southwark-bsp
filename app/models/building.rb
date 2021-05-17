@@ -2,7 +2,7 @@ require 'textacular/searchable'
 
 class Building < ApplicationRecord
   has_many :surveys, class_name: "Survey::Record", dependent: :destroy
-  has_many :notifications
+  has_many :notifications, dependent: :destroy
 
   has_one :survey, -> { latest_completed }, class_name: "Survey::Record"
   has_one :letter, -> { letter_notifications.ordered_by_most_recent }, class_name: "Notification"
@@ -18,11 +18,12 @@ class Building < ApplicationRecord
 
   scope :show, -> { preload(:survey, :letter).order(uprn: :asc) }
   scope :export, -> { in_state(:accepted).includes(:survey).by_latest_survey }
+  scope :by_most_recent_transition_update, -> { order('most_recent_building_survey_transition.updated_at DESC') }
 
   facet :all, -> { show.all }
 
   SurveyStateMachine.states.each do |state|
-    facet state.to_sym, -> { in_state(state) }
+    facet state.to_sym, -> { in_state(state).by_most_recent_transition_update }
   end
 
   class << self
