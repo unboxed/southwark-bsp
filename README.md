@@ -19,3 +19,11 @@ docker-compose run --rm web bundle exec rails db:setup
 ```sh
 docker-compose up
 ```
+
+## Deploying
+
+The project is hosted on Heroku.
+
+The `main` branch is automatically deployed to the staging environments.
+
+**production is deployed manually**.
