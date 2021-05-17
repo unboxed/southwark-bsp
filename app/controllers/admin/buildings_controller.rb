@@ -2,7 +2,7 @@ module Admin
   class BuildingsController < AdminController
     before_action :build_building, only: %i[new create]
     before_action :find_building, except: :index
-    before_action :find_buildings, only: :index
+    before_action :find_buildings, :set_current_search, only: :index
 
     def index
       respond_to do |format|
@@ -123,6 +123,10 @@ module Admin
       headers["Cache-Control"] ||= "no-cache"
       headers["Last-Modified"] = time.httpdate
       headers.delete("Content-Length")
+    end
+
+    def set_current_search
+      session["current_search"] = @buildings.current_params
     end
   end
 end
