@@ -5,6 +5,7 @@
       <th scope="col" class="govuk-table__header">Building</th>
       <th scope="col" class="govuk-table__header">Owner</th>
       <th scope="col" class="govuk-table__header">Received on</th>
+      <th scope="col" class="govuk-table__header">Updated on</th>
     </tr>
   </thead>
   <tbody class="govuk-table__body">
@@ -20,6 +21,9 @@
         </td>
         <td class="govuk-table__cell">
           <%= short_date_format(building.survey.completed_at) %>
+        </td>
+        <td class="govuk-table__cell">
+          <%= short_date_format(building.survey_state.last_transition.created_at) %>
         </td>
       </tr>
     <% end %>

@@ -65,7 +65,6 @@ MOCK_SURVEY_ATTRIBUTES = {
     "balcony_floor_materials_details" => "Other balcony floor materials",
     "solar_shading_materials_details" => "Other solar shading materials",
     "balcony_railing_materials_details" => "Other balustrade materials" },
-  "completed_at" => "Wed, 28 Apr 2021 18:16:36.160125000 UTC +00:00",
   "submitted_at" => nil,
   "created_at" => "Wed, 28 Apr 2021 18:02:45.232569000 UTC +00:00",
   "updated_at" => "Wed, 28 Apr 2021 18:16:36.174965000 UTC +00:00",
@@ -98,19 +97,11 @@ RSpec.describe DeltaExporter do
     expect(raw).to_not include incomplete_survey.uprn
   end
 
-  it "orders the surveys by completion date" do
-    one = FactoryBot.create(:survey, :completed, completed_at: 3.days.ago)
-    two = FactoryBot.create(:survey, :completed, completed_at: 10.days.ago)
-    three = FactoryBot.create(:survey, :completed, completed_at: 2.hours.ago)
+  it "does not include rejected surveys" do
+    rejected_survey = FactoryBot.create(:rejected_survey)
 
-    [one, two, three].each(&:accept!)
+    raw = DeltaExporter.render.to_a.join("\n")
 
-    expected_order = [three, one, two, survey].map { |r| r.building.uprn }
-
-    raw = DeltaExporter.render.to_a.join
-
-    result = CSV.parse(raw, headers: true)
-
-    expect(result.map { |r| r["UPRN"] }).to eq expected_order
+    expect(raw).to_not include rejected_survey.uprn
   end
 end

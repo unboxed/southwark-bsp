@@ -345,6 +345,7 @@ GEM
       activerecord (>= 5.0, < 6.2)
     thor (1.1.0)
     thread_safe (0.3.6)
+    timecop (0.9.4)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
@@ -415,6 +416,7 @@ DEPENDENCIES
   spring-watcher-listen
   statesman
   textacular
+  timecop
   web-console
   webdrivers
   webmock
