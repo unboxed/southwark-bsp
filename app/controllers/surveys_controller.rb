@@ -1,5 +1,5 @@
 class SurveysController < ApplicationController
-  before_action :find_survey
+  before_action :find_survey, except: :recover
   before_action :preset_uprn, :check_existing_survey, only: :edit
 
   rescue_from Survey::RecordNotFound do
@@ -32,6 +32,24 @@ class SurveysController < ApplicationController
     redirect_to survey_path
   end
 
+  def recover
+    record = Survey::Record.find_by(token: params[:token])
+
+    if record.nil?
+      flash[:notification] = t(:survey_not_found, scope: "errors")
+      redirect_to root_path and return
+    elsif !record.can_overwrite?
+      flash[:notification] = t(:survey_cannot_change, scope: "errors")
+      redirect_to root_path and return
+    end
+
+    session.clear unless session.exists?
+
+    record.reset!(session.id)
+
+    redirect_to survey_path
+  end
+
   private
 
     def find_survey
@@ -51,10 +69,10 @@ class SurveysController < ApplicationController
     end
 
     def check_existing_survey
-      return true if @survey.can_overwrite?
+      return true if @survey.can_overwrite? || @survey.stage == "complete"
 
       @survey.record.destroy
-      flash[:notification] = "Sorry, a survey has already been submitted for the building with this UPRN"
+      flash[:notification] = t(:survey_protected, scope: "errors")
 
       redirect_to root_path and return
     end

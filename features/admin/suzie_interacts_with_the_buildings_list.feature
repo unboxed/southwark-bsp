@@ -4,7 +4,7 @@ Feature: Suzie the admin views and edits buildings on the admin
 
   Scenario: Suzie sees the not contacted buildings by default
     Given a building exists with UPRN 777
-    And a survey has been completed for UPRN 777
+    And a survey has been "received" for UPRN 777
     And I am logged into the admin
     When I look at the list of buildings
     Then the page does not contain "777"
@@ -15,8 +15,8 @@ Feature: Suzie the admin views and edits buildings on the admin
     Then the page contains the building's building name
 
   Scenario: Suzie can see statistics about each status
-    Given a survey has been completed for UPRN 123
-    Given a survey has been completed for UPRN 456
+    Given a survey has been "received" for UPRN 123
+    Given a survey has been "received" for UPRN 456
     And a survey has been rejected for UPRN 789
     And I am logged into the admin
     And I look at the list of buildings
@@ -28,7 +28,7 @@ Feature: Suzie the admin views and edits buildings on the admin
     Then the page contains "Rejected (1)"
 
   Scenario: Suzie can see buildings with submitted surveys
-    Given a survey has been completed for UPRN 1234567890
+    Given a survey has been "received" for UPRN 1234567890
     And I am logged into the admin
     Then the building with UPRN 1234567890 is visible in the "Received" tab
     And the row for UPRN 1234567890 contains a date in the "Received on" column

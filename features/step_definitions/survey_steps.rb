@@ -21,10 +21,10 @@ Given('a building survey at stage {string}') do |stage|
   visit "/survey"
 end
 
-Given('a survey has been completed for UPRN {int}') do |uprn|
+Given('a survey has been {string} for UPRN {int}') do |state, uprn|
   building = Building.find_by(uprn: uprn) || FactoryBot.create(:building, uprn: uprn)
 
-  @survey = FactoryBot.create(:survey, :completed, building: building, uprn: uprn)
+  @survey = FactoryBot.create("#{state}_survey", building: building)
 end
 
 Given('a survey has been rejected for UPRN {int}') do |uprn|
@@ -203,4 +203,14 @@ Then('I see the summary {string} with') do |summary, table|
       end
     end
   end
+end
+
+When('I visit the edit link for UPRN {int}') do |uprn|
+  token = Building.find_by(uprn: uprn).survey.token
+
+  visit survey_recover_path({ token: token })
+end
+
+Then('the building with UPRN {int} has the {string} survey status') do |uprn, status|
+  expect(Building.find_by(uprn: uprn).survey_state).to be_in_state status
 end

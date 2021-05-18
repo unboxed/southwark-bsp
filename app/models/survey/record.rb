@@ -1,5 +1,7 @@
 module Survey
   class Record < ApplicationRecord
+    has_secure_token
+
     include Survey::Staging
     include Survey::Stages
     include Survey::Summaries
@@ -71,7 +73,7 @@ module Survey
     end
 
     def can_overwrite?
-      building.nil? || building.other_survey_allowed? || building.survey == self
+      building.nil? || building.other_survey_allowed?
     end
 
     def accept!
@@ -80,6 +82,10 @@ module Survey
 
     def reject!
       building.survey_state.transition_to! :rejected
+    end
+
+    def reset!(session_id)
+      update!(session_id: session_id, stage: "check_your_answers")
     end
   end
 end

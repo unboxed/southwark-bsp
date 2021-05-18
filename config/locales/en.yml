@@ -14,6 +14,11 @@ en:
           </ul>
         </div>
       </div>
+    survey_cannot_change: |-
+      This survey cannot be edited at this time. Please contact <a href="mailto:buildingsafety@southwark.gov.uk" class="govuk-link">buildingsafety@southwark.gov.uk</a> if you think this is a mistake.
+    survey_protected: "Sorry, a survey has already been submitted for the building with this UPRN"
+    survey_not_found: |-
+      The survey you've requested can't be found. Please contact <a href="mailto:buildingsafety@southwark.gov.uk" class="govuk-link">buildingsafety@southwark.gov.uk</a> if you think this is a mistake.
 
   admin:
     facets:
@@ -269,21 +274,6 @@ en:
 
   helpers:
     label:
-      delta_state:
-        all: "All"
-        on_delta: "On Delta"
-        not_on_delta: "Not on Delta"
-      state:
-        all: "All"
-        completed: "Completed"
-        not_received: "Not received"
-      building:
-        ews_survey:
-          completed: "Completed on %{date}"
-          missing: "Not received"
-        on_delta:
-          true: "Yes"
-          false: "No"
       survey:
         full_name: "Full name"
         email: "Email address"

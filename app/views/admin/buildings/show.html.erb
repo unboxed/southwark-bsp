@@ -34,6 +34,19 @@
 
       <%= render @building.survey.summaries(self), readonly: true %>
 
+
+      <h3 class="govuk-heading-l">Actions</h3>
+
+      <% if @building.survey_state.in_state? :rejected %>
+        <p class="govuk-body">Survey authors can be sent the link below to edit their survey:</p>
+
+        <p class="govuk-body-s edit-survey">
+          <span class="code">
+            <%= link_to survey_recover_url(token: @building.survey.token), survey_recover_url(token: @building.survey.token), class: "govuk-link" %>
+          </span>
+        </p>
+      <% end %>
+
       <%= form_with url: admin_building_survey_state_path(@building), method: :put do |form| %>
         <div class="govuk-button-group">
           <% if @building.survey_state.can_transition_to? :accepted %>

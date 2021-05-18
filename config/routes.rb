@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "/help", to: "pages#help"
 
   controller "surveys" do
+    get    "/survey/recover",  action: "recover"
     get    "/survey/:section", action: "goto",    as: :goto
     get    "/survey",          action: "edit",    as: :survey
     post   "/survey",          action: "update",  as: nil

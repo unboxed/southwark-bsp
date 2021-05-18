@@ -50,7 +50,7 @@ Then("the row for UPRN {int} contains {string} in the {string} column") do |uprn
 end
 
 Then('the row for UPRN {int} contains a date in the {string} column') do |uprn, column|
-  datelike = "/\\d{2} \\w+ \\d{4}/"
+  datelike = "/\\d{1,2} \\w+ \\d{4}/"
 
   steps %(
     Then the row for UPRN #{uprn} contains "#{datelike}" in the "#{column}" column
