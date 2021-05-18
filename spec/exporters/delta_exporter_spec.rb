@@ -104,4 +104,24 @@ RSpec.describe DeltaExporter do
 
     expect(raw).to_not include rejected_survey.uprn
   end
+
+  it "orders the surveys by ascending accepted date" do
+    one = FactoryBot.create(:survey, completed_at: 3.days.ago)
+    two = FactoryBot.create(:survey, completed_at: 10.days.ago)
+    three = FactoryBot.create(:survey, completed_at: 2.hours.ago)
+
+    [one, two, three].each do |survey|
+      Timecop.freeze(survey.completed_at) do
+        survey.accept!
+      end
+    end
+
+    expected_order = [two, one, three, survey].map { |r| r.building.uprn }
+
+    raw = DeltaExporter.render.to_a.join
+
+    result = CSV.parse(raw, headers: true)
+
+    expect(result.map { |r| r["UPRN"] }).to eq expected_order
+  end
 end
