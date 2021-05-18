@@ -58,19 +58,34 @@ Feature: Alex fills in a report about a building
     And the input for "UPRN" contains "777"
 
   Scenario: Alex tries to fill over a completed survey
-    Given a building exists with UPRN 1234567890
-    And a survey has been completed for UPRN 1234567890
+    Given a survey has been "received" for UPRN 1234567890
     When I start filling a survey for UPRN 1234567890
     Then the page contains "Sorry, a survey has already been submitted for the building with this UPRN"
 
   Scenario: Alex tries to fill over a rejected survey
-    Given a building exists with UPRN 1234567890
-    And a survey has been rejected for UPRN 1234567890
+    Given a survey has been "rejected" for UPRN 1234567890
     When I start filling a survey for UPRN 1234567890
     Then the page contains "Your details"
 
   Scenario: Alex replaces a rejected survey
-    Given a building exists with UPRN 1234567890
-    And a survey has been rejected for UPRN 1234567890
+    Given a survey has been "rejected" for UPRN 1234567890
     When I complete a survey for UPRN 1234567890
     Then the page contains "successfully submitted a survey"
+
+  Scenario: Alex uses the survey edit link to amend his survey
+    Given a survey has been "rejected" for UPRN 1234567890
+    When I visit the edit link for UPRN 1234567890
+    Then the page contains "Check your answers"
+    When I press "Submit survey"
+    Then the page contains "successfully submitted a survey"
+    And the building with UPRN 1234567890 has the "received" survey status
+
+  Scenario: Alex tries to use the edit link for an accepted survey
+    Given a survey has been "accepted" for UPRN 1234567890
+    When I visit the edit link for UPRN 1234567890
+    Then the page contains "survey cannot be edited at this time"
+
+  Scenario: Alex tries to use the edit link for a received survey
+    Given a survey has been "received" for UPRN 1234567890
+    When I visit the edit link for UPRN 1234567890
+    Then the page contains "survey cannot be edited at this time"

@@ -7,7 +7,7 @@
     </div>
     <div class="govuk-notification-banner__content">
       <p class="govuk-notification-banner__heading">
-        <%= flash[:notification] %>
+        <%= flash[:notification].html_safe %>
       </p>
     </div>
   </div>

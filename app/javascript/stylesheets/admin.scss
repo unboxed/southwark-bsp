@@ -16,6 +16,18 @@ body {
   }
 }
 
+.edit-survey {
+  overflow: auto;
+
+  span {
+    white-space: nowrap;
+    display: block;
+    background-color: #EEE;
+    padding: govuk-spacing(2);
+  }
+}
+
+
 // Download button variables
 $govuk-download-button-colour: govuk-colour("blue");
 $govuk-download-button-hover-colour: govuk-shade($govuk-download-button-colour, 20%);

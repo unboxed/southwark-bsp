@@ -48,10 +48,6 @@ class Building < ApplicationRecord
     end
   end
 
-  def mark_on_delta!
-    update!(on_delta: true)
-  end
-
   def send_letter!
     return unless land_registry_proprietor_address?
 
@@ -88,7 +84,7 @@ class Building < ApplicationRecord
   end
 
   def survey_protected?
-    survey_state.in_state?(:received, :accepted, :exported)
+    survey_state.in_state?(:received, :accepted)
   end
 
   def other_survey_allowed?

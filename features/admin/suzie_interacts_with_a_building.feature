@@ -1,7 +1,7 @@
 Feature: Suzie the admin interacts with a building
   Background:
     Given a building exists with UPRN 1234567890
-    And a survey has been completed for UPRN 1234567890
+    And a survey has been "received" for UPRN 1234567890
     And I am logged into the admin
     And I look at the details page for UPRN 1234567890
 
@@ -32,3 +32,7 @@ Feature: Suzie the admin interacts with a building
       | button             | opposite           |
       | Accept survey data | Reject survey data |
       | Reject survey data | Accept survey data |
+
+  Scenario: Suzie can see an edit link for rejected surveys
+    Given I press "Reject survey data"
+    Then the page contains "the link below to edit their survey"

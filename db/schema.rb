@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_29_135900) do
+ActiveRecord::Schema.define(version: 2021_05_18_172908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2021_04_29_135900) do
     t.datetime "submitted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "token"
     t.index ["building_id"], name: "index_survey_records_on_building_id"
     t.index ["session_id"], name: "index_survey_records_on_session_id", unique: true
   end
