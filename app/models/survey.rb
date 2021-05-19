@@ -13,6 +13,10 @@ module Survey
       build(find_or_initialize(session_id))
     end
 
+    def clear_previous_surveys(session_id)
+      Survey::Record.where(session_id: session_id).update(session_id: nil)
+    end
+
     private
 
     def build(record)
