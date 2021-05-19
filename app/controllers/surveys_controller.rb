@@ -45,6 +45,8 @@ class SurveysController < ApplicationController
 
     session.clear unless session.exists?
 
+    Survey.clear_previous_surveys(session.id.to_s)
+
     record.reset!(session.id)
 
     redirect_to survey_path

@@ -36,3 +36,14 @@ Feature: Suzie the admin interacts with a building
   Scenario: Suzie can see an edit link for rejected surveys
     Given I press "Reject survey data"
     Then the page contains "the link below to edit their survey"
+
+  Scenario: Suzie can edit multiple surveys
+    Given a survey has been "rejected" for UPRN 1111111111
+    And a survey has been "rejected" for UPRN 2222222222
+    When I visit the edit link for UPRN 1111111111
+    And I press "Submit survey"
+    And I visit the edit link for UPRN 2222222222
+    And I press "Submit survey"
+    Then the page contains "successfully submitted a survey"
+    And the building with UPRN 1111111111 has the "received" survey status
+    And the building with UPRN 2222222222 has the "received" survey status
