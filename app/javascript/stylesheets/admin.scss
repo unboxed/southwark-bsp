@@ -92,3 +92,9 @@ $button-shadow-size: $govuk-border-width-form-element;
     @extend .govuk-tag--red;
   }
 }
+
+.govuk-header__logo {
+  img {
+    max-width: 250px;
+  }
+}
