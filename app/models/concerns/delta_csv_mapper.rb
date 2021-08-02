@@ -95,7 +95,11 @@ module DeltaCsvMapper
 
     (1..10).each do |index|
       define_method "csv_material_#{index}" do
-        with_survey_material(index - 1) { |m| with_unknown_as(m["type"], "donotknow") }
+        with_survey_material(index - 1) do |material|
+          value = material["type"] == "other" ? material["other_type"] : material["type"]
+
+          with_unknown_as(value, "donotknow")
+        end
       end
 
       define_method "csv_material_details_#{index}" do
@@ -109,7 +113,11 @@ module DeltaCsvMapper
       end
 
       define_method "csv_insulation_#{index}" do
-        with_survey_material(index - 1) { |m| with_unknown_as(m['insulation'], "do not know") }
+        with_survey_material(index - 1) do |material|
+          value = material["insulation"] == "other" ? material["other_insulation"] : material["insulation"]
+
+          with_unknown_as(value, "do not know")
+        end
       end
 
       define_method "csv_insulation_details_#{index}" do
