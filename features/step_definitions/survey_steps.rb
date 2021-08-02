@@ -24,7 +24,7 @@ end
 Given('a survey has been {string} for UPRN {int}') do |state, uprn|
   building = Building.find_by(uprn: uprn) || FactoryBot.create(:building, uprn: uprn)
 
-  @survey = FactoryBot.create("#{state}_survey", building: building)
+  @survey = FactoryBot.create(:survey, state.to_sym, building: building)
 end
 
 Given('a survey has been rejected for UPRN {int}') do |uprn|

@@ -11,29 +11,40 @@ FactoryBot.define do
 
     completed { stage == "check_your_answers" }
 
+    trait :residential_use do
+      has_residential_use { true }
+      usage { Survey::Sections::ResidentialUseForm::USES.sample }
+    end
+
     trait :completed do
       completed { true }
       completed_at { Faker::Time.between(from: 1.year.ago, to: Time.zone.now) }
     end
-  end
 
-  factory :contacted_survey, parent: :survey do
-    after(:create) do |survey|
-      survey.building.send_letter!
+    trait :not_contacted
+
+    trait :contacted do
+      after(:create) do |survey|
+        survey.building.send_letter!
+      end
     end
-  end
 
-  factory :received_survey, parent: :contacted_survey do
-    after(:create) do |survey|
-      survey.update!(completed_at: Faker::Time.between(from: 1.year.ago, to: Time.zone.now))
+    trait :received do
+      after(:create) do |survey|
+        survey.update!(completed_at: Faker::Time.between(from: 1.year.ago, to: Time.zone.now))
+      end
     end
-  end
 
-  factory :accepted_survey, parent: :received_survey do
-    after(:create, &:accept!)
-  end
+    trait :rejected do
+      received
 
-  factory :rejected_survey, parent: :received_survey do
-    after(:create, &:reject!)
+      after(:create, &:reject!)
+    end
+
+    trait :accepted do
+      received
+
+      after(:create, &:accept!)
+    end
   end
 end

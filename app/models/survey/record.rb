@@ -11,6 +11,9 @@ module Survey
     scope :completed, -> { where.not(completed_at: nil) }
     scope :latest_completed, -> { completed.order(completed_at: :desc) }
 
+    # FIXME: this might benefit from a GIN index on that query
+    scope :residential_use, -> { completed.where("data->>'has_residential_use' = ?", "true") }
+
     # stage: uprn
     store_accessor :data, :uprn
 
