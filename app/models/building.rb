@@ -17,7 +17,7 @@ class Building < ApplicationRecord
   include DeltaCsvMapper
 
   scope :show, -> { preload(:survey, :letter).order(uprn: :asc) }
-  scope :export, -> { in_state(:accepted).includes(:survey).by_most_recent_transition_update.reverse }
+  scope :export, -> { in_state(:accepted).joins(:survey).merge(Survey::Record.residential_use).by_most_recent_transition_update.reverse }
   scope :by_most_recent_transition_update, -> { order('most_recent_building_survey_transition.updated_at DESC') }
 
   facet :all, -> { show.all }

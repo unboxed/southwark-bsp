@@ -73,7 +73,7 @@ MOCK_SURVEY_ATTRIBUTES = {
 
 RSpec.describe DeltaExporter do
   let!(:building) { FactoryBot.create(:building, MOCK_BUILDING_ATTRIBUTES) }
-  let!(:survey) { FactoryBot.create(:accepted_survey, building: building, **MOCK_SURVEY_ATTRIBUTES) }
+  let!(:survey) { FactoryBot.create(:survey, :accepted, building: building, **MOCK_SURVEY_ATTRIBUTES) }
 
   path = File.expand_path("#{File.dirname(__FILE__)}/delta_csv_mock.csv")
   expected = CSV.parse(File.read(path), headers: true).first
@@ -98,7 +98,7 @@ RSpec.describe DeltaExporter do
   end
 
   it "does not include rejected surveys" do
-    rejected_survey = FactoryBot.create(:rejected_survey)
+    rejected_survey = FactoryBot.create(:survey, :rejected)
 
     raw = DeltaExporter.render.to_a.join("\n")
 
@@ -106,9 +106,9 @@ RSpec.describe DeltaExporter do
   end
 
   it "orders the surveys by ascending accepted date" do
-    one = FactoryBot.create(:survey, completed_at: 3.days.ago)
-    two = FactoryBot.create(:survey, completed_at: 10.days.ago)
-    three = FactoryBot.create(:survey, completed_at: 2.hours.ago)
+    one = FactoryBot.create(:survey, :residential_use, completed_at: 3.days.ago)
+    two = FactoryBot.create(:survey, :residential_use, completed_at: 10.days.ago)
+    three = FactoryBot.create(:survey, :residential_use, completed_at: 2.hours.ago)
 
     [one, two, three].each do |survey|
       Timecop.freeze(survey.completed_at) do

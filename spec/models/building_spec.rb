@@ -51,4 +51,24 @@ RSpec.describe Building do
       end
     end
   end
+
+  describe "scopes" do
+    describe ".export" do
+      it "only includes accepted buildings" do
+        buildings = SurveyStateMachine.states.index_with do |state|
+          FactoryBot.create(:survey, :residential_use, state.to_sym).building
+        end
+
+        expect(Building.export).to contain_exactly buildings["accepted"]
+      end
+
+      it "only includes residential buildings" do
+        buildings = [true, false]
+                    .map { |res| create(:survey, :accepted, has_residential_use: res) }
+                    .map(&:building)
+
+        expect(Building.export).to contain_exactly buildings.first
+      end
+    end
+  end
 end
