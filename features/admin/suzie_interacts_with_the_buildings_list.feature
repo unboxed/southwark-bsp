@@ -56,3 +56,9 @@ Feature: Suzie the admin views and edits buildings on the admin
     Then the page contains "Page 2/2"
     When I press "Previous page"
     Then the page contains "Page 1/2"
+
+  Scenario: Suzie can find a building by UPRN
+    Given I am logged into the admin
+    And I fill in "UPRN" with "1234567890"
+    When I press "Find by UPRN"
+    Then the page contains "Edit building details"

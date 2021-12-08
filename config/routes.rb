@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
     resources :buildings, param: :uprn do
       put "survey_state"
+      get "uprn_search", on: :collection
     end
   end
 
