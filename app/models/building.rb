@@ -4,8 +4,15 @@ class Building < ApplicationRecord
   has_many :surveys, class_name: "Survey::Record", dependent: :destroy
   has_many :notifications, dependent: :destroy
 
-  has_one :survey, -> { latest_completed }, class_name: "Survey::Record"
-  has_one :letter, -> { letter_notifications.ordered_by_most_recent }, class_name: "Notification"
+  has_one :survey,
+          -> { latest_completed },
+          class_name: "Survey::Record",
+          dependent: :destroy
+
+  has_one :letter,
+          -> { letter_notifications.ordered_by_most_recent },
+          class_name: "Notification",
+          dependent: :destroy
 
   validates :uprn, presence: true, uniqueness: true
 
