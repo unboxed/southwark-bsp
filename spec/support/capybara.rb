@@ -9,31 +9,15 @@ Capybara.default_normalize_ws = true
 Capybara.server = :puma, { Silent: true }
 
 Capybara.register_driver :chrome do |app|
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: {
-      args: [
-        "allow-insecure-localhost",
-      ],
-      w3c: false
-    }
-  )
+  options = Selenium::WebDriver::Chrome::Options.new(args: %w[allow-insecure-localhost])
 
-  Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: options)
 end
 
 Capybara.register_driver :chrome_headless do |app|
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: {
-      args: [
-        "headless",
-        "disable-gpu",
-        "allow-insecure-localhost",
-      ],
-      w3c: false
-    }
-  )
+  options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless disable-gpu allow-insecure-localhost])
 
-  Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: options)
 end
 
 RSpec.configure do |config|
