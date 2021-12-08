@@ -3,7 +3,7 @@ require "ostruct"
 class CollectionType < ActiveModel::Type::Value
   attr_reader :collection_class, :item_class
 
-  def initialize(item: OpenStruct, collection: Array)
+  def initialize(item: Struct, collection: Array)
     @collection_class = collection
     @item_class = item
   end
