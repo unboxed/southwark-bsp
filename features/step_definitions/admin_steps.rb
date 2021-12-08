@@ -94,8 +94,7 @@ When("I select UPRN {int}") do |uprn|
 end
 
 When('I look at the details page for UPRN {int}') do |uprn|
-  building = Building.find_by(uprn: uprn)
-  visit admin_building_path(building)
+  visit admin_building_path(uprn: uprn)
 end
 
 Then('the building with UPRN {int} is visible in the {string} tab') do |uprn, status|

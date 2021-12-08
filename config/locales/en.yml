@@ -14,6 +14,7 @@ en:
           </ul>
         </div>
       </div>
+    no_building_found: "No building found with UPRN %{uprn}"
     survey_cannot_change: |-
       This survey cannot be edited at this time. Please contact <a href="mailto:buildingsafety@southwark.gov.uk" class="govuk-link">buildingsafety@southwark.gov.uk</a> if you think this is a mistake.
     survey_protected: "Sorry, a survey has already been submitted for the building with this UPRN"
