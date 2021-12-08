@@ -15,10 +15,12 @@ module Survey
       end
 
       before_transition do
-        record.material = case next_stage
-                          when "delete_material", "edit_material"
-                            materials.find(material_id)
-                          end
+        case next_stage
+        when "delete_material", "edit_material"
+          record.material = materials.find(material_id)
+        else
+          record.material = nil
+        end
       end
 
       def next_stage

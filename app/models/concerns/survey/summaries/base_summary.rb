@@ -18,7 +18,7 @@ module Survey
       end
 
       def heading
-        t(name, scope: :'survey.summary.heading', default: name.humanize)
+        t(name, scope: :"survey.summary.heading", default: name.humanize)
       end
 
       def attributes(&block)
