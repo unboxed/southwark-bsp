@@ -86,16 +86,14 @@ module Admin
       )
     end
 
-    def building_id
-      id = params[:id] || params[:building_id]
-
-      Integer(id)
-    rescue ArgumentError
-      raise ActionController::BadRequest, "Invalid building id: #{params[:id]}"
+    def building_uprn
+      params[:uprn] || params[:building_uprn]
     end
 
     def find_building
-      @building = Building.find(building_id)
+      @building = Building.find_by(uprn: building_uprn)
+
+      raise if @building.nil?
     end
 
     def build_building
