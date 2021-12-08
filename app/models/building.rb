@@ -98,6 +98,10 @@ class Building < ApplicationRecord
     !survey_protected?
   end
 
+  def to_param
+    uprn
+  end
+
   private
 
     def proprietor_address

@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 
     resources :bulk_imports, only: [:new, :create]
 
-    resources :buildings do
+    resources :buildings, param: :uprn do
       put "survey_state"
     end
   end
