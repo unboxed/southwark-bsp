@@ -4,40 +4,18 @@ Feature: Suzie the admin searches for buildings on the admin
     And a building exists with UPRN: 1234567891, name: "Southwark House", postcode: "SE1 2QH", street: "Tooley Street", city: "Manchester"
     And I am logged into the admin
 
-  Scenario: Suzie can find a building by UPRN
-    Given I fill in "Search" with "1234567891"
+  Scenario Outline: Suzie can search on multiple criteria
+    Given I fill in "Search" with "<term>"
     When I press "Search"
-    Then the page contains "Building search results (1)"
-    When I press "1234567891"
-    Then the page contains "Edit building details"
+    Then there is a search result for UPRN 1234567891
 
-  Scenario: Suzie can find a building by building name
-    Given I fill in "Search" with "Southwark House"
-    When I press "Search"
-    Then the page contains "Building search results (1)"
-    When I press "1234567891"
-    Then the page contains "Edit building details"
-
-  Scenario: Suzie can find a building by postcode
-    Given I fill in "Search" with "SE1 2QH"
-    When I press "Search"
-    Then the page contains "Building search results (1)"
-    When I press "1234567891"
-    Then the page contains "Edit building details"
-
-  Scenario: Suzie can find a building by street
-    Given I fill in "Search" with "Tooley Street"
-    When I press "Search"
-    Then the page contains "Building search results (1)"
-    When I press "1234567891"
-    Then the page contains "Edit building details"
-
-  Scenario: Suzie can find a building by city
-    Given I fill in "Search" with "Manchester"
-    When I press "Search"
-    Then the page contains "Building search results (1)"
-    When I press "1234567891"
-    Then the page contains "Edit building details"
+    Scenarios:
+      | criteria | term            |
+      | uprn     | 1234567891      |
+      | address  | Southwark House |
+      | postcode | SE1 2QH         |
+      | street   | Tooley Street   |
+      | city     | Manchester      |
 
   Scenario: Suzie searches for a non-existent building
     Given I fill in "Search" with "160 doesn't exist"
@@ -47,8 +25,6 @@ Feature: Suzie the admin searches for buildings on the admin
   Scenario: Suzie can navigate back to the search results page
     Given I fill in "Search" with "Tooley Street"
     When I press "Search"
-    Then the page contains "Building search results (1)"
-    When I press "1234567891"
-    Then the page contains "Edit building details"
-    When I press "Back to search results"
+    And I press "1234567891"
+    And I press "Back to search results"
     Then the page contains "Building search results (1)"
