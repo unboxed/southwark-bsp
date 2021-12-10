@@ -5,7 +5,10 @@
     </div>
   </div>
 
-  <%= render partial: "admin/shared/search_bar" %>
+  <%= render(
+    partial: "admin/shared/search_bar",
+    locals: { search_term: @search_term }
+  ) %>
 
   <% if @buildings.total_pages > 1 %>
     <p class="govuk-body">Page <%= @buildings.current_page %>/<%= @buildings.total_pages %></p>

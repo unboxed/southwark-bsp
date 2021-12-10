@@ -5,7 +5,10 @@
     </div>
   </div>
 
-  <%= render partial: "admin/shared/search_bar" %>
+  <%= render(
+    partial: "admin/shared/search_bar",
+    locals: { search_term: nil }
+  ) %>
 
   <ul class="govuk-tabs__list" role="tablist">
     <% SurveyStateMachine.states.each do |state| %>
