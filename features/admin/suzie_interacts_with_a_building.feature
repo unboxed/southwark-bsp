@@ -47,7 +47,3 @@ Feature: Suzie the admin interacts with a building
     Then the page contains "successfully submitted a survey"
     And the building with UPRN 1111111111 has the "received" survey status
     And the building with UPRN 2222222222 has the "received" survey status
-
-  Scenario: Suzie tries to visit a non-existent building
-    Given I look at the details page for UPRN 123
-    Then the page contains "No building found with UPRN 123"

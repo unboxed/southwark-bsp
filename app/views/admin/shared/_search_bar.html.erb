@@ -1,0 +1,18 @@
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-form-group">
+      <%= form_with(url: admin_search_path, method: :get) do |f| %>
+        <%= f.label :q, "Search", class: "govuk-label" %>
+        <%= f.text_field(
+           :q,
+           {
+             class: "govuk-input govuk-!-width-three-quarters",
+             required: true,
+             value: search_term
+           }
+        ) %>
+        <%= f.submit "Search", class: "govuk-button" %>
+      <% end %>
+    </div>
+  </div>
+</div>
