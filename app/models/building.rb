@@ -18,7 +18,7 @@ class Building < ApplicationRecord
 
   scope :ordered_by_uprn, -> { order uprn: :asc }
 
-  extend Searchable(:uprn, :building_name, :land_registry_proprietor_name)
+  extend Searchable(:uprn, :building_name, :land_registry_proprietor_address)
 
   include Browseable
   include DeltaCsvMapper

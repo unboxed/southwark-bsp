@@ -71,10 +71,6 @@ module Admin
       redirect_to admin_building_path(@building), notice: "Survey state has been updated."
     end
 
-    def uprn_search
-      redirect_to action: 'show', uprn: params[:uprn]
-    end
-
     private
 
     def building_params
@@ -96,13 +92,6 @@ module Admin
 
     def find_building
       @building = Building.find_by(uprn: building_uprn)
-
-      # rubocop:disable Style/GuardClause
-      if @building.nil?
-        flash[:notification] = t(:no_building_found, scope: "errors", uprn: building_uprn)
-        redirect_to action: 'index' and return
-      end
-      # rubocop:enable Style/GuardClause
     end
 
     def build_building

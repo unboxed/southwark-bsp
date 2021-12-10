@@ -1,0 +1,29 @@
+<div class="admin">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+      <h1 class="govuk-heading-l">Building search results (<%= @buildings.count %>)</h1>
+    </div>
+  </div>
+
+  <%= render partial: "admin/shared/search_bar" %>
+
+  <% if @buildings.total_pages > 1 %>
+    <p class="govuk-body">Page <%= @buildings.current_page %>/<%= @buildings.total_pages %></p>
+
+    <div class="govuk-button-group">
+      <% if @buildings.first_page? %>
+        <span class="govuk-button govuk-button--secondary govuk-button--disabled">Previous page</span>
+      <% else %>
+        <%= link_to "Previous page", admin_search_path(@buildings.previous_params), class: "govuk-button govuk-button--secondary" %>
+      <% end %>
+
+      <% if @buildings.last_page? %>
+        <span class="govuk-button govuk-button--secondary govuk-button--disabled">Next page</span>
+      <% else %>
+        <%= link_to "Next page", admin_search_path(@buildings.next_params), class: "govuk-button govuk-button--secondary" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= render "admin/buildings/tables/search_results", buildings: @buildings %>
+</div>
