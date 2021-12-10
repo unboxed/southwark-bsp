@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "buildings#index"
 
+    resource :search, only: [:show]
+
     scope "/buildings", as: "building" do
       resource :delta, only: [:update]
 

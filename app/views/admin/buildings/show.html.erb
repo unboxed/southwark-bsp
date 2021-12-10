@@ -1,4 +1,4 @@
-<%= render "application/back_link", chosen_path: admin_buildings_path(session["current_search"]), custom_label: "Back to search results" %>
+<%= render "application/back_link", chosen_path: request.referrer, custom_label: "Back to search results" %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">

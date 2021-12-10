@@ -10,6 +10,10 @@ Given('a building exists with UPRN {int}') do |uprn|
   @building = FactoryBot.create(:building, uprn: uprn)
 end
 
+Given('a building exists with UPRN: {int}, name: {string}, postcode: {string}, street: {string}, city: {string}') do |uprn, name, postcode, street, city|
+  @building = FactoryBot.create(:building, uprn: uprn, building_name: name, postcode: postcode, street: street, city_town: city)
+end
+
 Given('the building with UPRN {int} is on DELTA') do |uprn|
   Building.find_by(uprn: uprn).update!(on_delta: true)
 end

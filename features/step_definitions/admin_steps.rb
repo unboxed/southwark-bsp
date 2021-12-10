@@ -110,3 +110,9 @@ When('I go to the {string} tab') do |tab|
     And I press "#{tab}"
   )
 end
+
+Then('there is a search result for UPRN {int}') do |uprn|
+  table = page.find(:table, "Search results")
+
+  expect(table).to have_selector(:table_row, "UPRN" => uprn.to_s)
+end

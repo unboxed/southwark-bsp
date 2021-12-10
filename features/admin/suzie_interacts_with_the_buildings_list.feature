@@ -57,8 +57,12 @@ Feature: Suzie the admin views and edits buildings on the admin
     When I press "Previous page"
     Then the page contains "Page 1/2"
 
-  Scenario: Suzie can find a building by UPRN
-    Given I am logged into the admin
-    And I fill in "UPRN" with "1234567890"
-    When I press "Find by UPRN"
+  Scenario: Suzie can navigate back to the right page
+    Given a survey has been "not_contacted" for UPRN 123
+    And I am logged into the admin
+    And I look at the list of buildings
+    When I go to the "Not contacted" tab
+    And I press "123"
     Then the page contains "Edit building details"
+    When I press "Back to search results"
+    Then the page contains "Not contacted"
