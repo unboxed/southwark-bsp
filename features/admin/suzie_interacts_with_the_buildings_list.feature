@@ -64,5 +64,5 @@ Feature: Suzie the admin views and edits buildings on the admin
     When I go to the "Not contacted" tab
     And I press "123"
     Then the page contains "Edit building details"
-    When I press "Back to search results"
+    When I press "Back"
     Then the page contains "Not contacted"

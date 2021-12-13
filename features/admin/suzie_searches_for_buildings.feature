@@ -26,5 +26,5 @@ Feature: Suzie the admin searches for buildings on the admin
     Given I fill in "Search" with "Tooley Street"
     When I press "Search"
     And I press "1234567891"
-    And I press "Back to search results"
+    And I press "Back"
     Then the page contains "Building search results (1)"
