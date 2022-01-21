@@ -37,6 +37,6 @@ class ProprietorAddress
     end
 
     def segmented_address
-      normalised_address.split(",").reject { |segment| segment.blank? }
+      normalised_address.split(",").compact_blank
     end
 end

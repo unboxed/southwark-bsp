@@ -22,6 +22,7 @@ class Building < ApplicationRecord
 
   include Browseable
   include DeltaCsvMapper
+  include BuildingCsvMapper
 
   scope :show, -> { preload(:survey, :letter).order(uprn: :asc) }
   scope :export, -> { in_state(:accepted).joins(:survey).merge(Survey::Record.residential_use).by_most_recent_transition_update.reverse }
@@ -79,7 +80,7 @@ class Building < ApplicationRecord
       street,
       city_town,
       postcode
-    ].reject(&:blank?).join("\n")
+    ].compact_blank.join("\n")
   end
 
   def most_recent_notifications
