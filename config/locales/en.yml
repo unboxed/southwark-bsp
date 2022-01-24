@@ -300,8 +300,8 @@ en:
         building_owner: "Building owner (optional)"
         building_developer: "Building developer (optional)"
         managing_agent: "Managing agent (optional)"
-        height_in_metres: "Height in metres (optional)"
-        number_of_storeys: "Number of storeys (optional)"
+        height_in_metres: "Height in metres"
+        number_of_storeys: "Number of storeys"
         confirm_deletion:
           "yes": "Delete this material"
           "no": "Go back to the summary"
@@ -364,11 +364,13 @@ en:
             height_in_metres:
               greater_than: "The building height must be more than %{count} metres"
               not_a_number: "The building height must be a number"
+              blank: "You must fill in at least one box. If you don't know the building's height in metres, please tell us the number of storeys."
 
             number_of_storeys:
               greater_than: "The number of storeys must be more than %{count}"
               not_a_number: "The number of storeys must be a number"
               not_an_integer: "The number of storeys must be a whole number"
+              blank: "You must fill in at least one box. If you don't know the number of storeys, please tell us the building's height in metres."
 
             materials:
               blank: "Please add at least one material"
