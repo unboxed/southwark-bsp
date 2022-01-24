@@ -25,7 +25,7 @@ module BuildingCsvMapper
     end
 
     def csv_current_state
-      survey_state.current_state.humanize
+      survey_state&.current_state&.humanize
     end
 
     def csv_height_storeys
@@ -94,7 +94,7 @@ module BuildingCsvMapper
 
     def csv_usage
       with_survey do |survey|
-        survey.usage.humanize.downcase
+        survey&.usage&.humanize&.downcase
       end
     end
 
