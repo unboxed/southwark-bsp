@@ -7,10 +7,14 @@ module Admin
     def index
       respond_to do |format|
         format.csv do
-          set_file_headers
           set_streaming_headers
-
-          self.response_body = DeltaExporter.render
+          if params[:all_buildings] == "true"
+            set_building_file_headers
+            self.response_body = BuildingExporter.render
+          else
+            set_delta_file_headers
+            self.response_body = DeltaExporter.render
+          end
         end
 
         format.html
@@ -109,7 +113,12 @@ module Admin
       params.permit(:state, :page, :q)
     end
 
-    def set_file_headers(time = Time.current)
+    def set_building_file_headers(time = Time.current)
+      headers["Content-Type"] = "text/csv"
+      headers["Content-Disposition"] = "attachment; filename=buildings-export-#{time.to_s(:number)}.csv"
+    end
+
+    def set_delta_file_headers(time = Time.current)
       headers["Content-Type"] = "text/csv"
       headers["Content-Disposition"] = "attachment; filename=delta-export-#{time.to_s(:number)}.csv"
     end
