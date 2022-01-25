@@ -28,6 +28,7 @@ class BuildingExporter
 
   BUILDING_FIELDS = %w[
     usage
+    has_residential_use
     building_owner
     building_developer
     managing_agent
