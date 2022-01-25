@@ -24,6 +24,10 @@ module BuildingCsvMapper
       end
     end
 
+    def csv_has_residential_use
+      with_survey(&:has_residential_use)
+    end
+
     def csv_current_state
       survey_state&.current_state&.humanize
     end
