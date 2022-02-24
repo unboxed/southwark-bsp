@@ -24,6 +24,4 @@ docker-compose up
 
 The project is hosted on Heroku.
 
-The `main` branch is automatically deployed to the staging environments.
-
-**production is deployed manually**.
+**staging and production are deployed manually**.
