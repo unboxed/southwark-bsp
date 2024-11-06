@@ -38,8 +38,5 @@ yarn-debug.log*
 # Ignore rspec failures log
 rspec_failures.txt
 
-#ignore mac ds files
-.DS_Store
-
 #ignore .env files
 .env*.local

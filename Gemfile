@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.5'
+ruby '3.2.6'
 
 gem 'rails', '< 7.0'
 
@@ -11,7 +11,7 @@ gem 'appsignal'
 gem 'devise'
 gem 'delayed_job_active_record'
 gem 'jbuilder'
-gem 'pg'
+gem 'pg', '< 1.5'
 gem 'puma'
 gem 'notifications-ruby-client'
 gem 'textacular'
@@ -29,18 +29,13 @@ group :development, :test do
   gem 'rubocop'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
 end
 
 group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console'
   gem 'listen'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen'
-  gem 'spring-commands-rspec'
-  gem 'spring-commands-cucumber'
-  gem 'spring-commands-rubocop'
 end
 
 group :test do
@@ -48,14 +43,9 @@ group :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'faker'
-  gem 'guard-rails'
-  gem 'guard-rspec'
-  gem 'guard-cucumber'
-  gem 'guard-rubocop'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'pry'
   gem 'timecop'
-  gem 'webdrivers'
   gem 'webmock'
 end

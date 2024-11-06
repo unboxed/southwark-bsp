@@ -5,19 +5,19 @@
 ### Building the services
 
 ```sh
-docker-compose build
+docker compose build
 ```
 
 ### Setting up the database
 
 ```sh
-docker-compose run --rm web bundle exec rails db:setup
+docker compose run --rm web bundle exec rails db:setup
 ```
 
 ### Run the services
 
 ```sh
-docker-compose up
+docker compose up
 ```
 
 ## Deploying

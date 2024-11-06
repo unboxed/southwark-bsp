@@ -7,7 +7,7 @@ module ErrorsHelper
     classes.push "govuk-form-group--error" if object && object.errors[field].any?
 
     options[:class] = classes.join(" ")
-    tag.div(capture(&block), options)
+    tag.div(capture(&block), **options)
   end
 
   def error_message_for(object, field, options = {})

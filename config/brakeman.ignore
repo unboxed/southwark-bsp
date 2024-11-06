@@ -1,0 +1,59 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "43b5aa2673d2a9f4195c32e125a0667f5f177c452550725b2d1d9685daea1b40",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/admin/buildings/index.html.erb",
+      "line": 47,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => \"admin/buildings/tables/#{(params[:state] or \"not_contacted\")}\", { :buildings => Building.search(search_params.merge(:state => ((params[:state] or \"not_contacted\")))) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::BuildingsController",
+          "method": "index",
+          "line": 20,
+          "file": "app/controllers/admin/buildings_controller.rb",
+          "rendered": {
+            "name": "admin/buildings/index",
+            "file": "app/views/admin/buildings/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/buildings/index"
+      },
+      "user_input": "params[:state]",
+      "confidence": "Medium",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Unmaintained Dependency",
+      "warning_code": 120,
+      "fingerprint": "d84924377155b41e094acae7404ec2e521629d86f97b0ff628e3d1b263f8101c",
+      "check_name": "EOLRails",
+      "message": "Support for Rails 6.1.7.10 ended on 2024-10-01",
+      "file": "Gemfile.lock",
+      "line": 229,
+      "link": "https://brakemanscanner.org/docs/warning_types/unmaintained_dependency/",
+      "code": null,
+      "render_path": null,
+      "location": null,
+      "user_input": null,
+      "confidence": "High",
+      "cwe_id": [
+        1104
+      ],
+      "note": ""
+    }
+  ],
+  "updated": "2024-11-06 07:06:49 +0000",
+  "brakeman_version": "6.2.2"
+}
