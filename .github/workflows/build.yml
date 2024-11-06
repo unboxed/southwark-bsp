@@ -124,8 +124,6 @@ jobs:
       - name: Run rspec specs
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
-          NOTIFY_API_KEY: ${{ secrets.NOTIFY_API_KEY }}
-          NOTIFY_CALLBACK_TOKEN: ${{ secrets.NOTIFY_CALLBACK_TOKEN }}
           RAILS_ENV: test
         run: |
           bundle exec rspec
@@ -179,7 +177,5 @@ jobs:
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test
           RAILS_ENV: test
-          NOTIFY_API_KEY: ${{ secrets.NOTIFY_API_KEY }}
-          NOTIFY_CALLBACK_TOKEN: ${{ secrets.NOTIFY_CALLBACK_TOKEN }}
         run: |
           bundle exec cucumber
