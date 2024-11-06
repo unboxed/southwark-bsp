@@ -1,3 +1,4 @@
-app: bin/rails server
-assets: bin/webpack-dev-server
-worker: rake jobs:work
+web: bin/rails server -b 0.0.0.0 -p 3000
+worker: bin/rake jobs:work
+css: bin/rails dartsass:watch
+js: npm run esbuild -- --sourcemap --watch

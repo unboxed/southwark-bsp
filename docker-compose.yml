@@ -16,15 +16,12 @@ services:
     build: .
     stdin_open: true
     tty: true
+    init: true
     environment:
       DATABASE_URL: postgres://postgres:Ee56KRC39xzcVUiA@db:5432
       DATABASE_CLEANER_ALLOW_REMOTE_DATABASE_URL: "true"
       PIDFILE: "/tmp/pids/server.pid"
-    command: [
-      "rails", "server",
-      "-b", "0.0.0.0",
-      "-p", "3000"
-    ]
+    command: ["foreman", "start", "-f", "Procfile.dev"]
     ports:
       - "127.0.0.1:3000:3000"
     volumes:

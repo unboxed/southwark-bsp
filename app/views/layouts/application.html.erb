@@ -4,8 +4,8 @@
     <title>Building Safety Platform</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_pack_tag 'application' %>
-    <%= javascript_pack_tag 'application' %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body class="govuk-template__body">
@@ -15,8 +15,9 @@
         <%= render "messages" %>
         <%= yield %>
       </main>
-      <%= javascript_pack_tag 'govuk' %>
+
     </div>
     <%= render "application/footer"%>
+    <%= javascript_include_tag "govuk" %>
   </body>
 </html>

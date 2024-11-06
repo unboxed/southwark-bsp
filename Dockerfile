@@ -1,4 +1,4 @@
-FROM ruby:3.2-bullseye
+FROM ruby:3.2-bookworm
 
 ENV BUNDLE_PATH=/bundle
 
@@ -9,9 +9,9 @@ RUN wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key 
     gpg --dearmor -o /usr/share/keyrings/pgdg.gpg
 
 # Add apt repositories
-RUN echo 'deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x nodistro main' \
+RUN echo 'deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_22.x nodistro main' \
     > /etc/apt/sources.list.d/nodesource.list && \
-    echo 'deb [signed-by=/usr/share/keyrings/pgdg.gpg] http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' \
+    echo 'deb [signed-by=/usr/share/keyrings/pgdg.gpg] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main' \
     > /etc/apt/sources.list.d/pgdg.list && \
     apt-get update
 
@@ -23,10 +23,7 @@ RUN apt-get install -y --no-install-recommends \
 RUN mkdir -p "/root/.config/chromium/Crash Reports/pending/"
 
 # Install NPM
-RUN npm install -g npm@9
-
-# Install Yarn
-RUN npm install -g yarn@1
+RUN npm install -g npm@10
 
 # Install Bundler
 RUN gem install bundler -v 2.5.23

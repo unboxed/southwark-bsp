@@ -7,5 +7,5 @@
       "url": "heroku/ruby"
     }
   ],
-  "stack": "heroku-20"
+  "stack": "heroku-24"
 }

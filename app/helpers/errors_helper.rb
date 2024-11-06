@@ -18,7 +18,7 @@ module ErrorsHelper
       class: "govuk-error-message"
     }
 
-    tag.span(defaults.merge(options)) do
+    tag.span(**defaults, **options) do
       concat(t(:prefix_html, scope: :errors))
       concat(errors.first)
     end
@@ -31,7 +31,7 @@ module ErrorsHelper
       class: "govuk-list govuk-error-summary__list"
     }
 
-    summary = tag.ul(defaults.merge(options)) do
+    summary = tag.ul(**defaults, **options) do
       object.errors.each do |error|
         id = error.attribute.to_s.dasherize
         link = link_to(error.full_message, "##{id}-error")

@@ -1,18 +1,17 @@
 {
   "name": "southwark_bsp",
   "engines": {
-    "node": "16.x"
+    "node": "22.x"
   },
   "private": true,
   "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
     "@rails/ujs": "^6.1.710",
-    "@rails/webpacker": "^5.4.4",
-    "govuk-frontend": "^3.15.0",
-    "stimulus": "^1.1.1",
-    "yarn": "^1.22.22"
+    "esbuild": "^0.24.0",
+    "govuk-frontend": "^3.15.0"
   },
-  "version": "0.1.0",
-  "devDependencies": {
-    "webpack-dev-server": "4.15.2"
+  "scripts": {
+    "esbuild": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds",
+    "build": "npm run esbuild -- --minify --public-path=assets"
   }
 }

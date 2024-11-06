@@ -8,14 +8,17 @@ gem 'rails', '< 7.0'
 gem 'bootsnap', require: false
 
 gem 'appsignal'
+gem 'dartsass-rails'
 gem 'devise'
 gem 'delayed_job_active_record'
 gem 'jbuilder'
+gem 'jsbundling-rails'
 gem 'pg', '< 1.5'
 gem 'puma'
 gem 'notifications-ruby-client'
+gem 'sprockets-rails'
+gem 'stimulus-rails'
 gem 'textacular'
-gem 'webpacker'
 gem 'will_paginate'
 gem 'statesman'
 
@@ -37,8 +40,9 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console'
+  gem 'foreman'
   gem 'listen'
+  gem 'web-console'
 end
 
 group :test do
