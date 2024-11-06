@@ -7,7 +7,7 @@
   "dependencies": {
     "@rails/ujs": "^6.1.710",
     "@rails/webpacker": "^5.4.4",
-    "govuk-frontend": "^3.15.0",
+    "govuk-frontend": "^5.7.1",
     "stimulus": "^1.1.1",
     "yarn": "^1.22.22"
   },
