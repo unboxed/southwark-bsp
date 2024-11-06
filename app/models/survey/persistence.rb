@@ -95,7 +95,7 @@ module Survey
         record.transaction do
           run_callbacks :save do
             record.assign_attributes(stored_attributes)
-            record.save!(options)
+            record.save!(**options)
           end
         end
       rescue Exception => e

@@ -1,35 +1,40 @@
-FROM ruby:2.7.2
+FROM ruby:3.2-bullseye
 
-# Match our Bundler version
-RUN gem install bundler -v 2.2.13
+ENV BUNDLE_PATH=/bundle
 
-# Update the system
-RUN apt-get update -y
+# Install apt signing keys
+RUN wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | \
+    gpg --dearmor -o /usr/share/keyrings/nodesource.gpg && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+    gpg --dearmor -o /usr/share/keyrings/pgdg.gpg
 
-# Install Chromium for the Cucumber JS tests
-RUN apt-get install -y chromium
+# Add apt repositories
+RUN echo 'deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x nodistro main' \
+    > /etc/apt/sources.list.d/nodesource.list && \
+    echo 'deb [signed-by=/usr/share/keyrings/pgdg.gpg] http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' \
+    > /etc/apt/sources.list.d/pgdg.list && \
+    apt-get update
 
-## Install gems in a separate Docker fs layer
-WORKDIR /gems
-COPY Gemfile Gemfile.lock ./
-RUN bundle
+# Install packages
+RUN apt-get install -y --no-install-recommends \
+    chromium chromium-driver nodejs postgresql-client-16
 
-## Node
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get install -y nodejs
+# Create the crash reports directory - without it Chromium complains on startup
+RUN mkdir -p "/root/.config/chromium/Crash Reports/pending/"
 
-## Yarn
-RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update && apt-get install yarn
+# Install NPM
+RUN npm install -g npm@9
 
-## Install yarn dependencies in a separate Docker fs layer
-WORKDIR /js
-COPY package.json yarn.lock ./
-RUN yarn
+# Install Yarn
+RUN npm install -g yarn@1
+
+# Install Bundler
+RUN gem install bundler -v 2.5.23
 
 WORKDIR /app
 
-COPY . .
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 
-CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+CMD ["/bin/bash"]

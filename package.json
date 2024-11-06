@@ -1,21 +1,18 @@
 {
   "name": "southwark_bsp",
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "private": true,
   "dependencies": {
-    "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "^5.2.2",
-    "govuk-frontend": "^3.8.1",
-    "stimulus": "^1.1.1"
-  },
-  "resolutions": {
-    "glob-parent": "^5.1.2",
-    "nth-check": "^2.0.1"
+    "@rails/ujs": "^6.1.710",
+    "@rails/webpacker": "^5.4.4",
+    "govuk-frontend": "^3.15.0",
+    "stimulus": "^1.1.1",
+    "yarn": "^1.22.22"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-dev-server": "4.9.0"
+    "webpack-dev-server": "4.15.2"
   }
 }

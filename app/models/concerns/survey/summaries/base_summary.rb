@@ -51,7 +51,7 @@ module Survey
           default: key.to_s.humanize
         }.merge(extra)
 
-        t(key, options)
+        t(key, **options)
       end
     end
   end

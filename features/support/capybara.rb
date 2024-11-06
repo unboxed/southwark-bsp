@@ -1,15 +1,34 @@
 Capybara.server = :puma, { Silent: true }
 
 Capybara.register_driver :chrome do |app|
-  options = Selenium::WebDriver::Chrome::Options.new(args: %w[window-size=1280,960])
+  options = Selenium::WebDriver::Chrome::Options.new.tap do |opts|
+    opts.add_argument('--window-size=1280,960')
+    opts.add_argument('--disable-dev-shm-usage')
 
-  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: options)
+    # Workaround https://bugs.chromium.org/p/chromedriver/issues/detail?id=2650&q=load&sort=-id&colspec=ID%20Status%20Pri%20Owner%20Summary
+    opts.add_argument('--disable-site-isolation-trials')
+  end
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
 
 Capybara.register_driver :chrome_headless do |app|
-  options = Selenium::WebDriver::Chrome::Options.new(args: %w[headless no-sandbox window-size=1280,960])
+  options = Selenium::WebDriver::Chrome::Options.new.tap do |opts|
+    opts.add_argument('--headless')
+    opts.add_argument('--window-size=1280,960')
+    opts.add_argument('--disable-dev-shm-usage')
 
-  Capybara::Selenium::Driver.new(app, browser: :chrome, capabilities: options)
+    if File.exist?("/.dockerenv")
+      # Running as root inside Docker
+      opts.add_argument('--no-sandbox')
+      opts.add_argument('--disable-gpu')
+    end
+
+    # Workaround https://bugs.chromium.org/p/chromedriver/issues/detail?id=2650&q=load&sort=-id&colspec=ID%20Status%20Pri%20Owner%20Summary
+    opts.add_argument('--disable-site-isolation-trials')
+  end
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
 
 Capybara.javascript_driver = ENV.fetch("JS_DRIVER", "chrome_headless").to_sym
