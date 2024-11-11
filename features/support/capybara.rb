@@ -1,4 +1,7 @@
 Capybara.server = :puma, { Silent: true }
+Capybara.server_port = 3443
+Capybara.app_host = "http://southwark-bsp.localhost:3443"
+Capybara.default_host = "http://southwark-bsp.localhost"
 
 Capybara.register_driver :chrome do |app|
   options = Selenium::WebDriver::Chrome::Options.new.tap do |opts|

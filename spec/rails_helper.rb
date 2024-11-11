@@ -23,4 +23,8 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
 
   Faker::Config.locale = 'en-GB'
+
+  config.before type: :request do
+    host!("southwark-bsp.localhost:3443")
+  end
 end
