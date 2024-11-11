@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     delete "/survey",          action: "destroy", as: nil
   end
 
-  devise_for :admin, only: :sessions, class_name: "User", module: "admin"
+  devise_for :admin, only: %i[sessions passwords], class_name: "User", module: "admin"
 
   namespace :admin do
     root to: "buildings#index"

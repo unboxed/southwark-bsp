@@ -1,0 +1,31 @@
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), method: :put) do |f| %>
+  <%= error_summary resource %>
+
+  <%= f.hidden_field :reset_password_token %>
+
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h1 class="govuk-fieldset__heading">Change your password</h1>
+      </legend>
+
+      <div class="govuk-form-group">
+        <%= f.label :password, "New password", class: "govuk-label" %>
+        <%= f.password_field :password, class: "govuk-input govuk-input--width-30", autofocus: true, autocomplete: "new-password" %>
+      </div>
+
+      <div class="govuk-form-group">
+        <%= f.label :password_confirmation, "Confirm new password", class: "govuk-label" %>
+        <%= f.password_field :password_confirmation, class: "govuk-input govuk-input--width-30", autofocus: true, autocomplete: "new-password" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Change my password", class: "govuk-button", data: { module: "govuk-button" } %>
+      </div>
+
+      <p class="govuk-body">
+        <%= link_to "Sign in", new_session_path(resource_name), class: "govuk-link" %>
+      </p>
+    </fieldset>
+  </div>
+<% end %>
