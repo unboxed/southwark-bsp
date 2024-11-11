@@ -189,6 +189,13 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mail-notify (1.2.0)
+      actionmailer (>= 5.2.4.6)
+      actionpack (>= 5.2.7.1)
+      actionview (>= 5.2.7.1)
+      activesupport (>= 5.2.4.6)
+      notifications-ruby-client (~> 5.1)
+      rack (>= 2.1.4.1)
     marcel (1.0.4)
     matrix (0.4.2)
     method_source (1.1.0)
@@ -389,6 +396,7 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   listen
+  mail-notify
   notifications-ruby-client
   pg (< 1.5)
   pry

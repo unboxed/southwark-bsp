@@ -1,7 +1,7 @@
 <% if flash[:alert] %>
   <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
     <h2 class="govuk-error-summary__title" id="error-summary-title">
-      There was a problem signing in
+      There was a problem recovering your password
     </h2>
     <div class="govuk-error-summary__body">
       <ul class="govuk-list govuk-error-summary__list">
@@ -13,25 +13,26 @@
   </div>
 <% end %>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: password_path(resource_name)) do |f| %>
+  <%= error_summary resource %>
+
   <div class="govuk-form-group">
     <fieldset class="govuk-fieldset">
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-        <h1 class="govuk-fieldset__heading">Sign in to access Admin area</h1>
+        <h1 class="govuk-fieldset__heading">Forgot your password?</h1>
       </legend>
+
       <div class="govuk-form-group">
         <%= f.label :email, "Email address", class: "govuk-label" %>
         <%= f.text_field :email, class: "govuk-input govuk-input--width-30", spellcheck: false, autofocus: true, inputmode: "email", autocomplete: "email" %>
       </div>
-      <div class="govuk-form-group">
-        <%= f.label :password, class: "govuk-label" %>
-        <%= f.password_field :password, class: "govuk-input govuk-input--width-30", autocomplete: "current-password" %>
-      </div>
+
       <div class="actions">
-        <%= f.submit "Sign in", class: "govuk-button", data: { module: "govuk-button" } %>
+        <%= f.submit "Send me password reset instructions", class: "govuk-button", data: { module: "govuk-button" } %>
       </div>
+
       <p class="govuk-body">
-        <%= link_to "Forgot your password?", new_password_path(resource_name), class: "govuk-link" %>
+        <%= link_to "Sign in", new_session_path(resource_name), class: "govuk-link" %>
       </p>
     </fieldset>
   </div>

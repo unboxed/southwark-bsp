@@ -25,6 +25,8 @@ module SouthwarkBsp
 
     config.time_zone = "Europe/London"
 
+    config.action_mailer.delivery_method = :notify
+    config.action_mailer.notify_settings = { api_key: ENV.fetch("NOTIFY_API_KEY") }
     config.action_view.form_with_generates_remote_forms = false
     config.action_view.field_error_proc = ->(html_tag, instance) { html_tag }
     config.action_view.prefix_partial_path_with_controller_namespace = false

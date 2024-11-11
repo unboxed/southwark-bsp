@@ -459,3 +459,15 @@ en:
           attributes:
             uprn:
               blank: "Please enter the UPRN of the building"
+
+        user:
+          attributes:
+            email:
+              blank: "Please enter your email address"
+              not_found: "Sorry, we couldn't find that email address"
+            password:
+              blank: "Please enter a new password"
+            password_confirmation:
+              confirmation: "The password confirmation does not match the password"
+            reset_password_token:
+              blank: "Missing password reset token"
