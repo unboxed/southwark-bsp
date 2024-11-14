@@ -1,5 +1,5 @@
 en:
-  email: "buildingsafety@southwark.gov.uk"
+  email: "privatebuildingsafety@southwark.gov.uk"
   errors:
     format: "%{message}"
     prefix_html: "<span class=\"govuk-visually-hidden\">Error:</span> "
@@ -16,10 +16,10 @@ en:
       </div>
     no_building_found: "No building found with UPRN %{uprn}"
     survey_cannot_change: |-
-      This survey cannot be edited at this time. Please contact <a href="mailto:buildingsafety@southwark.gov.uk" class="govuk-link">buildingsafety@southwark.gov.uk</a> if you think this is a mistake.
+      This survey cannot be edited at this time. Please contact <a href="mailto:privatebuildingsafety@southwark.gov.uk" class="govuk-link">privatebuildingsafety@southwark.gov.uk</a> if you think this is a mistake.
     survey_protected: "Sorry, a survey has already been submitted for the building with this UPRN"
     survey_not_found: |-
-      The survey you've requested can't be found. Please contact <a href="mailto:buildingsafety@southwark.gov.uk" class="govuk-link">buildingsafety@southwark.gov.uk</a> if you think this is a mistake.
+      The survey you've requested can't be found. Please contact <a href="mailto:privatebuildingsafety@southwark.gov.uk" class="govuk-link">privatebuildingsafety@southwark.gov.uk</a> if you think this is a mistake.
 
   admin:
     facets:
