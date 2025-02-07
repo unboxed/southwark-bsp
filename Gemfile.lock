@@ -94,6 +94,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
+    csv (3.2.8)
     cucumber (8.0.0)
       builder (~> 3.2, >= 3.2.4)
       cucumber-ci-environment (~> 9.0, >= 9.0.4)
@@ -148,10 +149,12 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.5.1)
-    dotenv (2.8.1)
-    dotenv-rails (2.8.1)
-      dotenv (= 2.8.1)
-      railties (>= 3.2)
+    dotenv (3.1.7)
+    dotenv-rails (3.1.7)
+      dotenv (= 3.1.7)
+      railties (>= 6.1)
+    drb (2.2.0)
+      ruby2_keywords
     erubi (1.13.0)
     factory_bot (6.5.0)
       activesupport (>= 5.0.0)
@@ -210,6 +213,7 @@ GEM
     minitest (5.25.4)
     msgpack (1.7.3)
     multi_test (1.1.0)
+    mutex_m (0.3.0)
     net-imap (0.5.0)
       date
       net-protocol
@@ -323,6 +327,7 @@ GEM
       rubocop (~> 1.61)
       rubocop-rspec (~> 3, >= 3.0.1)
     ruby-progressbar (1.13.0)
+    ruby2_keywords (0.0.5)
     rubyzip (2.4.1)
     sass-embedded (1.80.6)
       google-protobuf (~> 4.28)
@@ -388,12 +393,14 @@ DEPENDENCIES
   bundler-audit
   byebug
   capybara
+  csv
   cucumber-rails
   dartsass-rails
   database_cleaner
   delayed_job_active_record
   devise
   dotenv-rails
+  drb
   factory_bot_rails
   faker
   foreman
@@ -401,6 +408,7 @@ DEPENDENCIES
   jsbundling-rails
   listen
   mail-notify
+  mutex_m
   notifications-ruby-client
   pg (< 1.5)
   pry
@@ -425,7 +433,7 @@ DEPENDENCIES
   will_paginate
 
 RUBY VERSION
-   ruby 3.2.7p253
+   ruby 3.3.7p123
 
 BUNDLED WITH
    2.5.23
