@@ -1,18 +1,21 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.2.7'
+ruby '3.3.7'
 
 gem 'rails', '< 7.0'
 
 gem 'bootsnap', require: false
 
 gem 'appsignal'
+gem 'csv'
 gem 'dartsass-rails'
 gem 'devise'
 gem 'delayed_job_active_record'
+gem 'drb'
 gem 'jbuilder'
 gem 'jsbundling-rails'
+gem 'mutex_m'
 gem 'pg', '< 1.5'
 gem 'puma'
 gem 'mail-notify'
