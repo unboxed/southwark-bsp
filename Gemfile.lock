@@ -153,8 +153,7 @@ GEM
     dotenv-rails (3.1.7)
       dotenv (= 3.1.7)
       railties (>= 6.1)
-    drb (2.2.0)
-      ruby2_keywords
+    drb (2.2.1)
     erubi (1.13.0)
     factory_bot (6.5.0)
       activesupport (>= 5.0.0)
@@ -327,7 +326,6 @@ GEM
       rubocop (~> 1.61)
       rubocop-rspec (~> 3, >= 3.0.1)
     ruby-progressbar (1.13.0)
-    ruby2_keywords (0.0.5)
     rubyzip (2.4.1)
     sass-embedded (1.80.6)
       google-protobuf (~> 4.28)
