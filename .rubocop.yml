@@ -3,10 +3,25 @@ inherit_from: .rubocop_todo.yml
 require:
   - rubocop-capybara
   - rubocop-factory_bot
+  - rubocop-rspec_rails
+
+plugins:
   - rubocop-rails
   - rubocop-rspec
-  - rubocop-rspec_rails
 
 AllCops:
   TargetRubyVersion: 3.2
   NewCops: enable
+  Exclude:
+    - "bin/*"
+    - "vendor/bundle/**/*"
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: true
+  Exclude:
+    - "db/schema.rb"
+
+Style/NumericLiterals:
+  Enabled: true
+  Exclude:
+    - "db/schema.rb"

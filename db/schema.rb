@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_19_164701) do
+ActiveRecord::Schema.define(version: 2025_02_17_061719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_05_19_164701) do
     t.text "metadata", default: "{}"
     t.integer "sort_key", null: false
     t.integer "building_id", null: false
-    t.boolean "most_recent", null: false
+    t.boolean "most_recent", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["building_id", "most_recent"], name: "index_building_survey_transitions_parent_most_recent", unique: true, where: "most_recent"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2021_05_19_164701) do
     t.string "land_registry_proprietor_address"
     t.string "land_registry_proprietor_category"
     t.string "land_registry_proprietor_company_registration_number"
-    t.boolean "on_delta", default: false
+    t.boolean "on_delta", default: false, null: false
     t.index ["uprn"], name: "index_buildings_on_uprn", unique: true
   end
 
