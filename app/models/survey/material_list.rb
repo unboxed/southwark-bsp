@@ -4,6 +4,7 @@ module Survey
 
     delegate :each, to: :@materials
     delegate :size, :empty?, to: :@materials
+    delegate :append, to: :@materials
 
     def initialize(materials = [])
       @materials = materials
@@ -23,10 +24,6 @@ module Survey
 
     def delete(id)
       @materials.delete(find(id))
-    end
-
-    def append(material)
-      @materials.append(material)
     end
 
     def update(material)
