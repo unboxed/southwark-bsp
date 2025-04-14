@@ -1,6 +1,13 @@
-FROM ruby:3.3-bookworm
+FROM ruby:3.3.7-bookworm
 
 ENV BUNDLE_PATH=/bundle
+
+# Run security updates and install apt-utils curl and locales
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update -qq && \
+    echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
+    apt-get install -y apt-utils curl locales && \
+    apt-get upgrade -y && apt-get clean
 
 # Install apt signing keys
 RUN wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | \
