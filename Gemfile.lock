@@ -70,7 +70,7 @@ GEM
     bcrypt (3.1.20)
     bigdecimal (3.1.9)
     bindex (0.8.1)
-    bootsnap (1.18.4)
+    bootsnap (1.18.5)
       msgpack (~> 1.2)
     brakeman (6.2.2)
       racc
@@ -211,7 +211,7 @@ GEM
     mini_mime (1.1.5)
     mini_portile2 (2.8.8)
     minitest (5.25.5)
-    msgpack (1.7.3)
+    msgpack (1.8.0)
     multi_test (1.1.0)
     mutex_m (0.3.0)
     net-imap (0.5.7)
