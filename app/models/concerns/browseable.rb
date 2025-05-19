@@ -119,7 +119,7 @@ module Browseable
     delegate :offset, :out_of_bounds?, to: :results
     delegate :next_page, :previous_page, to: :results
     delegate :total_entries, :total_pages, to: :results
-    delegate :each, :empty?, :map, :to_a, to: :results
+    delegate :each, :map, :to_a, to: :results
     delegate :count, to: :execute_search
 
     def initialize(klass, params = {})
@@ -144,6 +144,10 @@ module Browseable
 
     def filters
       @filters ||= Filters.new(klass, params)
+    end
+
+    def empty?
+      total_entries.zero?
     end
 
     def first_page?
