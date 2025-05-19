@@ -1,13 +1,11 @@
 inherit_from: .rubocop_todo.yml
 
-require:
+plugins:
   - rubocop-capybara
   - rubocop-factory_bot
-  - rubocop-rspec_rails
-
-plugins:
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-rspec_rails
 
 AllCops:
   TargetRubyVersion: 3.2
@@ -15,6 +13,8 @@ AllCops:
   Exclude:
     - "bin/*"
     - "vendor/bundle/**/*"
+    - "storage/**/*"
+    - "tmp/**/*"
 
 Layout/EmptyLinesAroundBlockBody:
   Enabled: true
@@ -28,3 +28,22 @@ Style/NumericLiterals:
 
 Style/SafeNavigation:
   Enabled: false
+
+RSpec/ContextWording:
+  Prefixes:
+    - when
+    - with
+    - and
+
+RSpec/MultipleExpectations:
+  Max: 20
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 20
+
+RSpec/NestedGroups:
+  Max: 8
+
+RSpec/VerifiedDoubles:
+  IgnoreNameless: true
+  IgnoreSymbolicNames: true
