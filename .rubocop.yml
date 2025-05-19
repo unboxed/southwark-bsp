@@ -13,6 +13,8 @@ AllCops:
   Exclude:
     - "bin/*"
     - "vendor/bundle/**/*"
+    - "storage/**/*"
+    - "tmp/**/*"
 
 Layout/EmptyLinesAroundBlockBody:
   Enabled: true
