@@ -51,7 +51,7 @@ module Survey
       end
 
       def url_for_address
-        false
+        nil
       end
 
       def url_for_residential_use

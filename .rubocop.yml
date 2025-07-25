@@ -21,6 +21,11 @@ Layout/EmptyLinesAroundBlockBody:
   Exclude:
     - "db/schema.rb"
 
+Naming/PredicateMethod:
+  AllowedMethods:
+    - call
+    - save
+
 Style/NumericLiterals:
   Enabled: true
   Exclude:
