@@ -234,7 +234,7 @@ GEM
     parser (3.3.9.0)
       ast (~> 2.4.1)
       racc
-    pg (1.4.6)
+    pg (1.6.0)
     prism (1.4.0)
     pry (0.15.2)
       coderay (~> 1.1)
@@ -419,7 +419,7 @@ DEPENDENCIES
   mail-notify
   mutex_m
   notifications-ruby-client
-  pg (< 1.5)
+  pg (< 1.7)
   pry
   puma
   rails (< 7.0)
