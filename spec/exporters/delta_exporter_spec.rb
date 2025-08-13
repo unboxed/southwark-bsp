@@ -122,6 +122,6 @@ RSpec.describe DeltaExporter do
 
     result = CSV.parse(raw, headers: true)
 
-    expect(result.map { |r| r["UPRN"] }).to eq expected_order
+    expect(result.pluck("UPRN")).to eq expected_order
   end
 end
