@@ -16,6 +16,6 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_canonical_url
-    redirect_to canonical_url
+    redirect_to canonical_url, allow_other_host: true
   end
 end
