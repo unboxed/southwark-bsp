@@ -115,12 +115,12 @@ module Admin
 
     def set_building_file_headers(time = Time.current)
       headers["Content-Type"] = "text/csv"
-      headers["Content-Disposition"] = "attachment; filename=buildings-export-#{time.to_s(:number)}.csv"
+      headers["Content-Disposition"] = "attachment; filename=buildings-export-#{time.to_fs(:number)}.csv"
     end
 
     def set_delta_file_headers(time = Time.current)
       headers["Content-Type"] = "text/csv"
-      headers["Content-Disposition"] = "attachment; filename=delta-export-#{time.to_s(:number)}.csv"
+      headers["Content-Disposition"] = "attachment; filename=delta-export-#{time.to_fs(:number)}.csv"
     end
 
     def set_streaming_headers(time = Time.current)
