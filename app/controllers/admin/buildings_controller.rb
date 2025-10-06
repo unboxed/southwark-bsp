@@ -78,16 +78,20 @@ module Admin
     private
 
     def building_params
-      params.require(:building).permit(
-        :uprn,
-        :building_name,
-        :street,
-        :city_town,
-        :postcode,
-        :land_registry_proprietor_address,
-        :land_registry_proprietor_name,
-        :proprietor_email
-      )
+      params.expect(building: building_attributes)
+    end
+
+    def building_attributes
+      %i[
+        uprn
+        building_name
+        street
+        city_town
+        postcode
+        land_registry_proprietor_address
+        land_registry_proprietor_name
+        proprietor_email
+      ]
     end
 
     def building_uprn
