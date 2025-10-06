@@ -9,6 +9,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |file| require file }
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
+  Rails.application.reload_routes_unless_loaded
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end

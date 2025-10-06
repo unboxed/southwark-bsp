@@ -17,7 +17,7 @@ module Admin
     private
 
       def bulk_upload_params
-        params.require(:bulk_import).permit(:file)
+        params.expect(bulk_import: [:file])
       end
   end
 end

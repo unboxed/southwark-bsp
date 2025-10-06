@@ -22,15 +22,18 @@ Rails.application.routes.draw do
       resource :delta, only: [:update]
 
       resource :letters, only: [:create] do
-        post :confirm, on: :member
+        member do
+          post :confirm
+        end
       end
     end
 
     resources :bulk_imports, only: [:new, :create]
 
     resources :buildings, param: :uprn do
-      put "survey_state"
-      get "uprn_search", on: :collection
+      nested do
+        put :survey_state
+      end
     end
   end
 

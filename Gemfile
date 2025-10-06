@@ -3,7 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby file: '.ruby-version'
 
-gem 'rails', '7.2.2.2'
+gem 'rails', '8.0.3'
 
 gem 'bootsnap', require: false
 
@@ -16,7 +16,7 @@ gem 'drb'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'mutex_m'
-gem 'pg', '< 1.7'
+gem 'pg'
 gem 'puma'
 gem 'mail-notify'
 gem 'notifications-ruby-client'
