@@ -33,7 +33,7 @@ RUN mkdir -p "/root/.config/chromium/Crash Reports/pending/"
 RUN npm install -g npm@11
 
 # Install Bundler
-RUN gem install bundler -v 2.5.23
+RUN gem install bundler -v 2.7.2
 
 WORKDIR /app
 
