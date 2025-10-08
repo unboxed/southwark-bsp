@@ -1,4 +1,4 @@
-FROM ruby:3.3.7-bookworm
+FROM ruby:3.3.9-bookworm
 
 ENV BUNDLE_PATH=/bundle
 
