@@ -52,6 +52,24 @@ When('I fill in {string} with {string}') do |label, value|
   fill_in label, with: value
 end
 
+When('I fill in the address information') do
+  within_fieldset "Address information" do
+    fill_in "UPRN", with: "9999999999"
+    fill_in "Name", with: "Test Tower"
+    fill_in "Street", with: "123 Test Street"
+    fill_in "City/Town", with: "London"
+    fill_in "Postcode", with: "SE1 1AA"
+  end
+end
+
+When('I fill in the proprietor information') do
+  within_fieldset "Proprietor information" do
+    fill_in "Name", with: "Jane Smith"
+    fill_in "Email", with: "jane@example.com"
+    fill_in "Address", with: "456 Owner Lane, London"
+  end
+end
+
 When('I choose {string}') do |option|
   choose option
 end

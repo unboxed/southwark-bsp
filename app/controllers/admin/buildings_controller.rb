@@ -1,7 +1,7 @@
 module Admin
   class BuildingsController < AdminController
     before_action :build_building, only: %i[new create]
-    before_action :find_building, except: :index
+    before_action :find_building, except: %i[index new create]
     before_action :find_buildings, :set_current_search, only: :index
 
     def index

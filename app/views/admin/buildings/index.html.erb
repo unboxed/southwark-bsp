@@ -5,7 +5,10 @@
     </div>
   </div>
 
-  <%= link_to "Download CSV of ALL building data", admin_buildings_path(format: :csv, all_buildings: true), class: "govuk-button govuk-button--download" %>
+  <div class="govuk-button-group">
+    <%= link_to "Download CSV of ALL building data", admin_buildings_path(format: :csv, all_buildings: true), class: "govuk-button govuk-button--download" %>
+    <%= link_to "Add building", new_admin_building_path, class: "govuk-button govuk-button--secondary" %>
+  </div>
 
   <%= render(
     partial: "admin/shared/search_bar",

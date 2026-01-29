@@ -1,10 +1,15 @@
+<%= render "application/back_link", chosen_path: admin_buildings_path, custom_label: "Back" %>
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
     <h1 class="govuk-heading-xl">Add a building record</h1>
 
     <%= form_with model: [:admin, @building] do |form| %>
       <%= render "form", form: form %>
-      <%= form.submit "Add building", class: "govuk-button", data: { module: "govuk-button" } %>
+
+      <div class="govuk-button-group">
+        <%= form.submit "Add building", class: "govuk-button", data: { module: "govuk-button" } %>
+      </div>
     <% end %>
   </div>
 </div>
