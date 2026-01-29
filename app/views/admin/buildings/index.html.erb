@@ -18,7 +18,7 @@
   <ul class="govuk-tabs__list" role="tablist">
     <% SurveyStateMachine.states.each do |state| %>
       <li class="govuk-tabs__list-item <%= @current_state == state ? "govuk-tabs__list-item--selected"  : "" %>" role="presentation">
-        <%= link_to state.humanize, admin_buildings_path(state: state), class: "govuk-tabs__tab", role: "tab" %>
+        <%= link_to state.humanize, admin_root_path(state: state), class: "govuk-tabs__tab", role: "tab" %>
       </li>
     <% end %>
   </ul>
