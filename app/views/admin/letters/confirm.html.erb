@@ -1,7 +1,7 @@
 <%= render "application/back_link", chosen_path: admin_root_path %>
 
 <h4 class="govuk-heading-l"><%= pluralize(@buildings.size, 'building') %> selected</h4>
-<p class="govuk-body">This will send <%= pluralize(@buildings.size, 'letter') %>. Are you sure?
+<p class="govuk-body">This will send <%= pluralize(@buildings.size, 'letter') %>. Are you sure?</p>
 
 <%= form_tag admin_building_letters_path do %>
   <% @buildings.each do |building| %>

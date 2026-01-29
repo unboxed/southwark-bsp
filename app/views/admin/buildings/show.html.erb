@@ -1,4 +1,4 @@
-<%= render "application/back_link", chosen_path: request.referrer, custom_label: "Back" %>
+<%= render "application/back_link", chosen_path: return_path, custom_label: "Back" %>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
@@ -28,7 +28,7 @@
     <h2 class="govuk-heading-l govuk-!-margin-bottom-9">Survey details</h2>
     <% if @building.survey.present? %>
 
-      <strong class="govuk-tag govuk-!-margin-bottom-4 <%= @building.survey_state.current_state  %>">
+      <strong class="govuk-tag govuk-!-margin-bottom-4 <%= @building.survey_state.current_state %>">
         <%= @building.survey_state.current_state.humanize %>
       </strong>
 

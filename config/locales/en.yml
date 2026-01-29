@@ -459,6 +459,7 @@ en:
           attributes:
             uprn:
               blank: "Please enter the UPRN of the building"
+              taken: "A building with that UPRN already exists"
 
         user:
           attributes:

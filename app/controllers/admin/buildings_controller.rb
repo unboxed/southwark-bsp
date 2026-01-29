@@ -1,8 +1,12 @@
 module Admin
   class BuildingsController < AdminController
     before_action :build_building, only: %i[new create]
-    before_action :find_building, except: :index
-    before_action :find_buildings, :set_current_search, only: :index
+    before_action :find_building, except: %i[index new create]
+
+    with_options only: :index do
+      before_action :clear_current_search
+      before_action :find_buildings
+    end
 
     def index
       respond_to do |format|
@@ -134,8 +138,8 @@ module Admin
       headers.delete("Content-Length")
     end
 
-    def set_current_search
-      session["current_search"] = @buildings.current_params
+    def clear_current_search
+      session["current_search"] = nil
     end
   end
 end

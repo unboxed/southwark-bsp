@@ -7,7 +7,7 @@
 
   <%= render(
     partial: "admin/shared/search_bar",
-    locals: { search_term: @search_term }
+    locals: { search_term: params[:q] }
   ) %>
 
   <% if @buildings.total_pages > 1 %>
