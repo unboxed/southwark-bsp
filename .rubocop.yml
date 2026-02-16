@@ -26,6 +26,9 @@ Naming/PredicateMethod:
     - call
     - save
 
+Style/HashAsLastArrayItem:
+  Enabled: false
+
 Style/NumericLiterals:
   Enabled: true
   Exclude:
