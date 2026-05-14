@@ -63,7 +63,7 @@ class SurveysController < ApplicationController
     end
 
     def section_param
-      params[:section].to_s
+      params.expect(:section)
     end
 
     def preset_uprn
