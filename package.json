@@ -13,5 +13,8 @@
   "scripts": {
     "esbuild": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds",
     "build": "npm run esbuild -- --minify --public-path=assets"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true
   }
 }
