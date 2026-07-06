@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Southwark Building Safety Platform (BSP) — a Rails 8.0 application for managing building safety survey collection and administration. Public users complete multi-step building surveys; admins manage building records, review/approve surveys, and send notifications via GOV.UK Notify. Uses the GOV.UK Design System (govuk-frontend) for the UI.
 
-**Stack:** Ruby 3.3.9, Rails 8.0.4, PostgreSQL 16, Node 22, esbuild, Dart Sass, Stimulus. Dockerized development environment.
+**Stack:** Ruby 3.3.11, Rails 8.0.5, PostgreSQL 16, Node 22, esbuild, Dart Sass, Stimulus. Dockerized development environment.
 
 ## Common Commands
 
