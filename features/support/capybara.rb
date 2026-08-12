@@ -10,6 +10,9 @@ Capybara.register_driver :chrome do |app|
 
     # Workaround https://bugs.chromium.org/p/chromedriver/issues/detail?id=2650&q=load&sort=-id&colspec=ID%20Status%20Pri%20Owner%20Summary
     opts.add_argument('--disable-site-isolation-trials')
+
+    # Workaround https://issues.chromium.org/issues/402796660#comment18
+    opts.add_argument('--disable-features=DeferRendererTasksAfterInput')
   end
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
@@ -29,6 +32,9 @@ Capybara.register_driver :chrome_headless do |app|
 
     # Workaround https://bugs.chromium.org/p/chromedriver/issues/detail?id=2650&q=load&sort=-id&colspec=ID%20Status%20Pri%20Owner%20Summary
     opts.add_argument('--disable-site-isolation-trials')
+
+    # Workaround https://issues.chromium.org/issues/402796660#comment18
+    opts.add_argument('--disable-features=DeferRendererTasksAfterInput')
   end
 
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
