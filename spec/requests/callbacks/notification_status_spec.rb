@@ -32,13 +32,13 @@ RSpec.describe "Callbacks - Notification Status" do
     it "enqueues the notification for retrying the send" do
       notification = create :email_notification, building: create(:building)
 
-      expect(DeliverNotificationJob).to receive(:perform_later).with notification
-
-      post(
-        callbacks_notification_statuses_path(format: :json),
-        params: notification_body_for(notification, "temporary-failure"),
-        headers: notification_headers
-      )
+      expect do
+        post(
+          callbacks_notification_statuses_path(format: :json),
+          params: notification_body_for(notification, "temporary-failure"),
+          headers: notification_headers
+        )
+      end.to have_enqueued_job(DeliverNotificationJob).with(notification)
 
       notification.reload
       expect(response.status).to eq 201
