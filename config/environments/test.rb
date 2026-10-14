@@ -38,6 +38,10 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Use the test adapter for Active Job so that jobs are enqueued in memory.
+  # Cucumber switches back to Delayed Job in features/support/jobs.rb.
+  config.active_job.queue_adapter = :test
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
